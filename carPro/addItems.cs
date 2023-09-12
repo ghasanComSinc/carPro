@@ -20,9 +20,8 @@ namespace carPro
         {
             InitializeComponent();
         }
-<<<<<<< HEAD
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, MouseEventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "Image File(*.jpg; *.jpeg;*.gif;*.bmp;*.png;)|*.jpg; *.jpeg;*.gif;*.bmp;*.png;";
@@ -32,7 +31,7 @@ namespace carPro
             }
         }
 
-        private void addItemBu_Click(object sender, EventArgs e)
+        private void addItemBu_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -46,7 +45,7 @@ namespace carPro
                 MySqlConnection con = new MySqlConnection("server=localhost;user=root;database=pro1;password=");
                 MySqlCommand MyCommand2 = new MySqlCommand(strFun, con);
                 con.Open();
-                
+
                 MyCommand2.Parameters.AddWithValue("@nameIt", nameIt);
                 MyCommand2.Parameters.AddWithValue("@typeC", typeC);
                 MyCommand2.Parameters.AddWithValue("@parCod", parCod);
@@ -55,7 +54,7 @@ namespace carPro
                 MyCommand2.Parameters.AddWithValue("@imageLocation", imageLocation);
                 MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.
                 MessageBox.Show("Save Data");
-                
+
                 con.Close();
             }
 
@@ -64,7 +63,6 @@ namespace carPro
             {
                 MessageBox.Show(ex.Message);
             }
-}
-
+        }
     }
 }
