@@ -71,7 +71,6 @@ namespace carPro
                     MySqlConnection con = new MySqlConnection("server=localhost;user=root;database=pro1;password=");
                     MySqlCommand MyCommand2 = new MySqlCommand(strFun, con);
                     con.Open();
-
                     MyCommand2.Parameters.AddWithValue("@nameIt", nameIt);
                     MyCommand2.Parameters.AddWithValue("@typeC", typeC);
                     MyCommand2.Parameters.AddWithValue("@parCod", parCod);
@@ -80,7 +79,6 @@ namespace carPro
                     MyCommand2.Parameters.AddWithValue("@imageLocation", imageLocation);
                     MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.
                     MessageBox.Show("הוספת מוצר הצליחה");
-
                     con.Close();
                 }
                 catch (Exception ex)
