@@ -20,17 +20,6 @@ namespace carPro
         {
             InitializeComponent();
         }
-
-        private void button1_Click(object sender, MouseEventArgs e)
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "Image File(*.jpg; *.jpeg;*.gif;*.bmp;*.png;)|*.jpg; *.jpeg;*.gif;*.bmp;*.png;";
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                image.Text = ofd.FileName;
-            }
-        }
-
         private void addItemBu_Click_1(object sender, EventArgs e)
         {
             string nameIt = nameItem.Text;
@@ -38,7 +27,9 @@ namespace carPro
             string parCod = parCode.Text;
             string placeSho = placeInShop.Text;
             string amount = Amount.Text;
-            string imageLocation = image.Text;
+            MemoryStream ms=new MemoryStream();
+            picPath.Image.Save(ms, picPath.Image.RawFormat);
+            byte[]img = ms.ToArray();
             if (nameIt == "")
             {
                 MessageBox.Show("שם מוצר ריק");
@@ -59,10 +50,6 @@ namespace carPro
             {
                 MessageBox.Show("כמות ריק");
             }
-            else if (imageLocation == "")
-            {
-                MessageBox.Show("תמונה ריק");
-            }
             else
             {
                 try
@@ -76,7 +63,7 @@ namespace carPro
                     MyCommand2.Parameters.AddWithValue("@parCod", parCod);
                     MyCommand2.Parameters.AddWithValue("@placeSho", placeSho);
                     MyCommand2.Parameters.AddWithValue("@amount", amount);
-                    MyCommand2.Parameters.AddWithValue("@imageLocation", imageLocation);
+                    MyCommand2.Parameters.AddWithValue("@imageLocation", img);
                     MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.
                     MessageBox.Show("הוספת מוצר הצליחה");
                     con.Close();
@@ -93,6 +80,17 @@ namespace carPro
             manger mange = new manger();
             this.Dispose();
             mange.ShowDialog();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Image File(*.jpg; *.jpeg;*.gif;*.bmp;*.png;)|*.jpg; *.jpeg;*.gif;*.bmp;*.png;";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                picPath.Image = Image.FromFile(ofd.FileName);
+
+            }
         }
     }
 }

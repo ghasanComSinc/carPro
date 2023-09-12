@@ -30,9 +30,9 @@
         {
             addItemBu = new Button();
             panel1 = new Panel();
+            picPath = new PictureBox();
             button1 = new Button();
             label6 = new Label();
-            image = new TextBox();
             label5 = new Label();
             Amount = new TextBox();
             label4 = new Label();
@@ -44,6 +44,7 @@
             nameItem = new TextBox();
             typeCar = new TextBox();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picPath).BeginInit();
             SuspendLayout();
             // 
             // addItemBu
@@ -60,9 +61,9 @@
             // panel1
             // 
             panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel1.Controls.Add(picPath);
             panel1.Controls.Add(button1);
             panel1.Controls.Add(label6);
-            panel1.Controls.Add(image);
             panel1.Controls.Add(label5);
             panel1.Controls.Add(addItemBu);
             panel1.Controls.Add(Amount);
@@ -79,35 +80,36 @@
             panel1.Size = new Size(543, 440);
             panel1.TabIndex = 1;
             // 
+            // picPath
+            // 
+            picPath.Location = new Point(224, 274);
+            picPath.Name = "picPath";
+            picPath.Size = new Size(173, 153);
+            picPath.SizeMode = PictureBoxSizeMode.Zoom;
+            picPath.TabIndex = 14;
+            picPath.TabStop = false;
+            // 
             // button1
             // 
             button1.Anchor = AnchorStyles.None;
-            button1.Location = new Point(51, 287);
+            button1.Location = new Point(51, 311);
             button1.Name = "button1";
             button1.Size = new Size(155, 30);
             button1.TabIndex = 7;
             button1.Text = "הוספה תמונה";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             button1.MouseClick += button1_Click;
             // 
             // label6
             // 
             label6.Anchor = AnchorStyles.None;
             label6.AutoSize = true;
-            label6.Location = new Point(466, 292);
+            label6.Location = new Point(457, 347);
             label6.Name = "label6";
             label6.Size = new Size(61, 25);
             label6.TabIndex = 13;
             label6.Text = "תמונה";
-            // 
-            // image
-            // 
-            image.Anchor = AnchorStyles.None;
-            image.Location = new Point(224, 292);
-            image.Name = "image";
-            image.ReadOnly = true;
-            image.Size = new Size(150, 31);
-            image.TabIndex = 6;
             // 
             // label5
             // 
@@ -210,6 +212,7 @@
             FormClosing += addItems_FormClosing;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)picPath).EndInit();
             ResumeLayout(false);
         }
 
@@ -229,6 +232,6 @@
         private Label label5;
         private Button button1;
         private Label label6;
-        private TextBox image;
+        private PictureBox picPath;
     }
 }
