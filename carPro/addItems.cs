@@ -16,12 +16,5 @@ namespace carPro
         {
             InitializeComponent();
         }
-
-        private void addItems_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            manger mangerForm = new manger();
-            this.Dispose();
-            mangerForm.ShowDialog();
-        }
     }
 }
