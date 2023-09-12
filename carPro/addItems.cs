@@ -33,12 +33,12 @@ namespace carPro
 
         private void addItemBu_Click_1(object sender, EventArgs e)
         {
-                string nameIt = nameItem.Text;
-                string typeC = typeCar.Text;
-                string parCod = parCode.Text;
-                string placeSho = placeInShop.Text;
-                string amount = Amount.Text;
-                string imageLocation = image.Text;
+            string nameIt = nameItem.Text;
+            string typeC = typeCar.Text;
+            string parCod = parCode.Text;
+            string placeSho = placeInShop.Text;
+            string amount = Amount.Text;
+            string imageLocation = image.Text;
             if (nameIt == "")
             {
                 MessageBox.Show("שם מוצר ריק");
@@ -83,13 +83,18 @@ namespace carPro
 
                     con.Close();
                 }
-
-
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
             }
+        }
+
+        private void addItems_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            manger mange = new manger();
+            this.Dispose();
+            mange.ShowDialog();
         }
     }
 }

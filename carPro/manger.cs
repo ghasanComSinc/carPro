@@ -30,5 +30,12 @@ namespace carPro
             this.Dispose();
             logIn.ShowDialog();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            addUser addUs = new addUser();
+            this.Dispose();
+            addUs.ShowDialog();
+        }
     }
 }

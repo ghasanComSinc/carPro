@@ -52,7 +52,7 @@
             addItemBu.Location = new Point(31, 372);
             addItemBu.Name = "addItemBu";
             addItemBu.Size = new Size(112, 34);
-            addItemBu.TabIndex = 0;
+            addItemBu.TabIndex = 8;
             addItemBu.Text = "הוספה";
             addItemBu.UseVisualStyleBackColor = true;
             addItemBu.Click += addItemBu_Click_1;
@@ -85,7 +85,7 @@
             button1.Location = new Point(51, 287);
             button1.Name = "button1";
             button1.Size = new Size(155, 30);
-            button1.TabIndex = 14;
+            button1.TabIndex = 7;
             button1.Text = "הוספה תמונה";
             button1.UseVisualStyleBackColor = true;
             button1.MouseClick += button1_Click;
@@ -107,7 +107,7 @@
             image.Name = "image";
             image.ReadOnly = true;
             image.Size = new Size(150, 31);
-            image.TabIndex = 12;
+            image.TabIndex = 6;
             // 
             // label5
             // 
@@ -125,7 +125,7 @@
             Amount.Location = new Point(224, 233);
             Amount.Name = "Amount";
             Amount.Size = new Size(150, 31);
-            Amount.TabIndex = 4;
+            Amount.TabIndex = 5;
             // 
             // label4
             // 
@@ -143,7 +143,7 @@
             placeInShop.Location = new Point(224, 178);
             placeInShop.Name = "placeInShop";
             placeInShop.Size = new Size(150, 31);
-            placeInShop.TabIndex = 5;
+            placeInShop.TabIndex = 4;
             // 
             // label3
             // 
@@ -181,7 +181,7 @@
             parCode.Location = new Point(224, 116);
             parCode.Name = "parCode";
             parCode.Size = new Size(150, 31);
-            parCode.TabIndex = 2;
+            parCode.TabIndex = 3;
             // 
             // nameItem
             // 
@@ -189,7 +189,7 @@
             nameItem.Location = new Point(224, 18);
             nameItem.Name = "nameItem";
             nameItem.Size = new Size(150, 31);
-            nameItem.TabIndex = 6;
+            nameItem.TabIndex = 1;
             // 
             // typeCar
             // 
@@ -197,7 +197,7 @@
             typeCar.Location = new Point(224, 65);
             typeCar.Name = "typeCar";
             typeCar.Size = new Size(150, 31);
-            typeCar.TabIndex = 3;
+            typeCar.TabIndex = 2;
             // 
             // addItems
             // 
@@ -206,7 +206,8 @@
             ClientSize = new Size(800, 539);
             Controls.Add(panel1);
             Name = "addItems";
-            Text = "addItems";
+            Text = "הוספת מוצר";
+            FormClosing += addItems_FormClosing;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);

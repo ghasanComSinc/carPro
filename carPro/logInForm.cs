@@ -3,6 +3,7 @@ using System.Data;
 using System.Windows.Forms;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
 using static System.Net.Mime.MediaTypeNames;
+using Application = System.Windows.Forms.Application;
 
 namespace carPro
 {
@@ -83,7 +84,7 @@ namespace carPro
 
         private void logInForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            this.Dispose();
+            System.Windows.Forms.Application.ExitThread();
         }
     }
 }
