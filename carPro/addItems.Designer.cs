@@ -30,19 +30,19 @@
         {
             addItemBu = new Button();
             panel1 = new Panel();
+            button1 = new Button();
             label6 = new Label();
-            textBox6 = new TextBox();
+            image = new TextBox();
             label5 = new Label();
-            textBox3 = new TextBox();
+            Amount = new TextBox();
             label4 = new Label();
-            textBox4 = new TextBox();
+            placeInShop = new TextBox();
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
-            textBox1 = new TextBox();
-            textBox5 = new TextBox();
-            textBox2 = new TextBox();
-            button1 = new Button();
+            parCode = new TextBox();
+            nameItem = new TextBox();
+            typeCar = new TextBox();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -55,28 +55,40 @@
             addItemBu.TabIndex = 0;
             addItemBu.Text = "הוספה";
             addItemBu.UseVisualStyleBackColor = true;
+            addItemBu.Click += addItemBu_Click;
             // 
             // panel1
             // 
             panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel1.Controls.Add(button1);
             panel1.Controls.Add(label6);
-            panel1.Controls.Add(textBox6);
+            panel1.Controls.Add(image);
             panel1.Controls.Add(label5);
             panel1.Controls.Add(addItemBu);
-            panel1.Controls.Add(textBox3);
+            panel1.Controls.Add(Amount);
             panel1.Controls.Add(label4);
-            panel1.Controls.Add(textBox4);
+            panel1.Controls.Add(placeInShop);
             panel1.Controls.Add(label3);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(label1);
-            panel1.Controls.Add(textBox1);
-            panel1.Controls.Add(textBox5);
-            panel1.Controls.Add(textBox2);
+            panel1.Controls.Add(parCode);
+            panel1.Controls.Add(nameItem);
+            panel1.Controls.Add(typeCar);
             panel1.Location = new Point(111, 66);
             panel1.Name = "panel1";
             panel1.Size = new Size(587, 510);
             panel1.TabIndex = 1;
+            // 
+            // button1
+            // 
+            button1.Anchor = AnchorStyles.None;
+            button1.Location = new Point(115, 297);
+            button1.Name = "button1";
+            button1.Size = new Size(135, 36);
+            button1.TabIndex = 14;
+            button1.Text = "הוספה תמונה";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // label6
             // 
@@ -88,14 +100,14 @@
             label6.TabIndex = 13;
             label6.Text = "תמונה";
             // 
-            // textBox6
+            // image
             // 
-            textBox6.Anchor = AnchorStyles.None;
-            textBox6.Location = new Point(269, 297);
-            textBox6.Name = "textBox6";
-            textBox6.ReadOnly = true;
-            textBox6.Size = new Size(150, 31);
-            textBox6.TabIndex = 12;
+            image.Anchor = AnchorStyles.None;
+            image.Location = new Point(269, 297);
+            image.Name = "image";
+            image.ReadOnly = true;
+            image.Size = new Size(150, 31);
+            image.TabIndex = 12;
             // 
             // label5
             // 
@@ -103,17 +115,17 @@
             label5.AutoSize = true;
             label5.Location = new Point(511, 238);
             label5.Name = "label5";
-            label5.Size = new Size(54, 25);
+            label5.Size = new Size(52, 25);
             label5.TabIndex = 11;
-            label5.Text = "קמות";
+            label5.Text = "כמות";
             // 
-            // textBox3
+            // Amount
             // 
-            textBox3.Anchor = AnchorStyles.None;
-            textBox3.Location = new Point(269, 238);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(150, 31);
-            textBox3.TabIndex = 4;
+            Amount.Anchor = AnchorStyles.None;
+            Amount.Location = new Point(269, 238);
+            Amount.Name = "Amount";
+            Amount.Size = new Size(150, 31);
+            Amount.TabIndex = 4;
             // 
             // label4
             // 
@@ -125,13 +137,13 @@
             label4.TabIndex = 10;
             label4.Text = "מקום בחנות";
             // 
-            // textBox4
+            // placeInShop
             // 
-            textBox4.Anchor = AnchorStyles.None;
-            textBox4.Location = new Point(269, 183);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(150, 31);
-            textBox4.TabIndex = 5;
+            placeInShop.Anchor = AnchorStyles.None;
+            placeInShop.Location = new Point(269, 183);
+            placeInShop.Name = "placeInShop";
+            placeInShop.Size = new Size(150, 31);
+            placeInShop.TabIndex = 5;
             // 
             // label3
             // 
@@ -163,40 +175,29 @@
             label1.TabIndex = 7;
             label1.Text = "שם מוצר";
             // 
-            // textBox1
+            // parCode
             // 
-            textBox1.Anchor = AnchorStyles.None;
-            textBox1.Location = new Point(269, 121);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(150, 31);
-            textBox1.TabIndex = 2;
+            parCode.Anchor = AnchorStyles.None;
+            parCode.Location = new Point(269, 121);
+            parCode.Name = "parCode";
+            parCode.Size = new Size(150, 31);
+            parCode.TabIndex = 2;
             // 
-            // textBox5
+            // nameItem
             // 
-            textBox5.Anchor = AnchorStyles.None;
-            textBox5.Location = new Point(269, 23);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(150, 31);
-            textBox5.TabIndex = 6;
+            nameItem.Anchor = AnchorStyles.None;
+            nameItem.Location = new Point(269, 23);
+            nameItem.Name = "nameItem";
+            nameItem.Size = new Size(150, 31);
+            nameItem.TabIndex = 6;
             // 
-            // textBox2
+            // typeCar
             // 
-            textBox2.Anchor = AnchorStyles.None;
-            textBox2.Location = new Point(269, 70);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(150, 31);
-            textBox2.TabIndex = 3;
-            // 
-            // button1
-            // 
-            button1.Anchor = AnchorStyles.None;
-            button1.Location = new Point(115, 297);
-            button1.Name = "button1";
-            button1.Size = new Size(135, 36);
-            button1.TabIndex = 14;
-            button1.Text = "הוספה תמונה";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            typeCar.Anchor = AnchorStyles.None;
+            typeCar.Location = new Point(269, 70);
+            typeCar.Name = "typeCar";
+            typeCar.Size = new Size(150, 31);
+            typeCar.TabIndex = 3;
             // 
             // addItems
             // 
@@ -216,17 +217,17 @@
         private Button addItemBu;
         private Panel panel1;
         private Label label4;
-        private TextBox textBox4;
+        private TextBox placeInShop;
         private Label label3;
         private Label label2;
         private Label label1;
-        private TextBox textBox1;
-        private TextBox textBox5;
-        private TextBox textBox2;
-        private TextBox textBox3;
+        private TextBox parCode;
+        private TextBox nameItem;
+        private TextBox typeCar;
+        private TextBox Amount;
         private Label label5;
         private Label label6;
-        private TextBox textBox6;
+        private TextBox image;
         private Button button1;
     }
 }
