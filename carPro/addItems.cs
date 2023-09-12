@@ -79,7 +79,7 @@ namespace carPro
                     MyCommand2.Parameters.AddWithValue("@amount", amount);
                     MyCommand2.Parameters.AddWithValue("@imageLocation", imageLocation);
                     MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.
-                    MessageBox.Show("Save Data");
+                    MessageBox.Show("הוספת מוצר הצליחה");
 
                     con.Close();
                 }
