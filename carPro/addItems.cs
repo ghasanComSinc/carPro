@@ -17,11 +17,14 @@ namespace carPro
             InitializeComponent();
         }
 
-        private void addItems_FormClosed(object sender, FormClosedEventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            manger mangerForm = new manger();
-            this.Dispose();
-            mangerForm.ShowDialog();
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Image File(*.jpg; *.jpeg;*.gif;*.bmp;*.png;)|*.jpg; *.jpeg;*.gif;*.bmp;*.png;";
+            if(ofd.ShowDialog() == DialogResult.OK)
+            {
+                textBox6.Text = ofd.FileName;
+            }
         }
     }
 }
