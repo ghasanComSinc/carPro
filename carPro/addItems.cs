@@ -20,6 +20,7 @@ namespace carPro
         {
             InitializeComponent();
         }
+<<<<<<< HEAD
 
         private void button1_Click(object sender, EventArgs e)
         {
