@@ -32,7 +32,6 @@ namespace carPro
             string userNa=userName.Text;
             string password = pass.Text;
             string stat = status.Text;
-            MessageBox.Show(stat);
             if (uName == "")
             {
                 MessageBox.Show("שם עובד ריק");
@@ -45,8 +44,11 @@ namespace carPro
             {
                 MessageBox.Show("סיסמה ריק");
             }
-            else
+            else if (stat == "")
             {
+                MessageBox.Show("תפקיד ריק");
+            }
+            else { 
                 try
                 {
                     string strFun;
