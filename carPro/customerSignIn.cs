@@ -79,6 +79,9 @@ namespace carPro
                     }
 
                 }
+            }else
+            {
+                picItems.Image = null;
             }
         }
     }
