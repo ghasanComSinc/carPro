@@ -30,6 +30,10 @@
         {
             addItemBu = new Button();
             panel1 = new Panel();
+            label8 = new Label();
+            carModel = new TextBox();
+            label7 = new Label();
+            price = new TextBox();
             picPath = new PictureBox();
             button1 = new Button();
             label6 = new Label();
@@ -50,7 +54,7 @@
             // addItemBu
             // 
             addItemBu.Anchor = AnchorStyles.None;
-            addItemBu.Location = new Point(31, 372);
+            addItemBu.Location = new Point(23, 474);
             addItemBu.Name = "addItemBu";
             addItemBu.Size = new Size(112, 34);
             addItemBu.TabIndex = 8;
@@ -61,6 +65,10 @@
             // panel1
             // 
             panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel1.Controls.Add(label8);
+            panel1.Controls.Add(carModel);
+            panel1.Controls.Add(label7);
+            panel1.Controls.Add(price);
             panel1.Controls.Add(picPath);
             panel1.Controls.Add(button1);
             panel1.Controls.Add(label6);
@@ -75,14 +83,52 @@
             panel1.Controls.Add(parCode);
             panel1.Controls.Add(nameItem);
             panel1.Controls.Add(typeCar);
-            panel1.Location = new Point(162, 51);
+            panel1.Location = new Point(162, 12);
             panel1.Name = "panel1";
-            panel1.Size = new Size(543, 440);
+            panel1.Size = new Size(647, 544);
             panel1.TabIndex = 1;
+            // 
+            // label8
+            // 
+            label8.Anchor = AnchorStyles.None;
+            label8.AutoSize = true;
+            label8.Location = new Point(489, 100);
+            label8.Name = "label8";
+            label8.Size = new Size(76, 25);
+            label8.TabIndex = 18;
+            label8.Text = "דגם רכב";
+            // 
+            // carModel
+            // 
+            carModel.Anchor = AnchorStyles.None;
+            carModel.Location = new Point(310, 94);
+            carModel.Name = "carModel";
+            carModel.RightToLeft = RightToLeft.Yes;
+            carModel.Size = new Size(150, 31);
+            carModel.TabIndex = 3;
+            // 
+            // label7
+            // 
+            label7.Anchor = AnchorStyles.Right;
+            label7.AutoSize = true;
+            label7.Location = new Point(516, 313);
+            label7.Name = "label7";
+            label7.Size = new Size(51, 25);
+            label7.TabIndex = 16;
+            label7.Text = "מחיר";
+            // 
+            // price
+            // 
+            price.Anchor = AnchorStyles.Right;
+            price.Location = new Point(309, 307);
+            price.Name = "price";
+            price.RightToLeft = RightToLeft.Yes;
+            price.Size = new Size(150, 31);
+            price.TabIndex = 7;
             // 
             // picPath
             // 
-            picPath.Location = new Point(224, 274);
+            picPath.Location = new Point(310, 344);
             picPath.Name = "picPath";
             picPath.Size = new Size(173, 153);
             picPath.SizeMode = PictureBoxSizeMode.Zoom;
@@ -92,20 +138,19 @@
             // button1
             // 
             button1.Anchor = AnchorStyles.None;
-            button1.Location = new Point(51, 311);
+            button1.Location = new Point(150, 402);
             button1.Name = "button1";
-            button1.Size = new Size(155, 30);
-            button1.TabIndex = 7;
+            button1.Size = new Size(130, 30);
+            button1.TabIndex = 8;
             button1.Text = "הוספה תמונה";
             button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
             button1.MouseClick += button1_Click;
             // 
             // label6
             // 
             label6.Anchor = AnchorStyles.None;
             label6.AutoSize = true;
-            label6.Location = new Point(457, 347);
+            label6.Location = new Point(509, 419);
             label6.Name = "label6";
             label6.Size = new Size(61, 25);
             label6.TabIndex = 13;
@@ -115,7 +160,7 @@
             // 
             label5.Anchor = AnchorStyles.None;
             label5.AutoSize = true;
-            label5.Location = new Point(466, 233);
+            label5.Location = new Point(516, 261);
             label5.Name = "label5";
             label5.Size = new Size(52, 25);
             label5.TabIndex = 11;
@@ -124,16 +169,17 @@
             // Amount
             // 
             Amount.Anchor = AnchorStyles.None;
-            Amount.Location = new Point(224, 233);
+            Amount.Location = new Point(309, 255);
             Amount.Name = "Amount";
+            Amount.RightToLeft = RightToLeft.Yes;
             Amount.Size = new Size(150, 31);
-            Amount.TabIndex = 5;
+            Amount.TabIndex = 6;
             // 
             // label4
             // 
             label4.Anchor = AnchorStyles.None;
             label4.AutoSize = true;
-            label4.Location = new Point(415, 178);
+            label4.Location = new Point(465, 206);
             label4.Name = "label4";
             label4.Size = new Size(105, 25);
             label4.TabIndex = 10;
@@ -142,16 +188,17 @@
             // placeInShop
             // 
             placeInShop.Anchor = AnchorStyles.None;
-            placeInShop.Location = new Point(224, 178);
+            placeInShop.Location = new Point(309, 200);
             placeInShop.Name = "placeInShop";
+            placeInShop.RightToLeft = RightToLeft.Yes;
             placeInShop.Size = new Size(150, 31);
-            placeInShop.TabIndex = 4;
+            placeInShop.TabIndex = 5;
             // 
             // label3
             // 
             label3.Anchor = AnchorStyles.None;
             label3.AutoSize = true;
-            label3.Location = new Point(449, 122);
+            label3.Location = new Point(499, 150);
             label3.Name = "label3";
             label3.Size = new Size(71, 25);
             label3.TabIndex = 9;
@@ -161,7 +208,7 @@
             // 
             label2.Anchor = AnchorStyles.None;
             label2.AutoSize = true;
-            label2.Location = new Point(448, 65);
+            label2.Location = new Point(495, 55);
             label2.Name = "label2";
             label2.Size = new Size(72, 25);
             label2.TabIndex = 8;
@@ -171,7 +218,7 @@
             // 
             label1.Anchor = AnchorStyles.None;
             label1.AutoSize = true;
-            label1.Location = new Point(439, 21);
+            label1.Location = new Point(489, 11);
             label1.Name = "label1";
             label1.Size = new Size(81, 25);
             label1.TabIndex = 7;
@@ -180,24 +227,27 @@
             // parCode
             // 
             parCode.Anchor = AnchorStyles.None;
-            parCode.Location = new Point(224, 116);
+            parCode.Location = new Point(309, 138);
             parCode.Name = "parCode";
+            parCode.RightToLeft = RightToLeft.Yes;
             parCode.Size = new Size(150, 31);
-            parCode.TabIndex = 3;
+            parCode.TabIndex = 4;
             // 
             // nameItem
             // 
             nameItem.Anchor = AnchorStyles.None;
-            nameItem.Location = new Point(224, 18);
+            nameItem.Location = new Point(309, 2);
             nameItem.Name = "nameItem";
+            nameItem.RightToLeft = RightToLeft.Yes;
             nameItem.Size = new Size(150, 31);
             nameItem.TabIndex = 1;
             // 
             // typeCar
             // 
             typeCar.Anchor = AnchorStyles.None;
-            typeCar.Location = new Point(224, 65);
+            typeCar.Location = new Point(310, 50);
             typeCar.Name = "typeCar";
+            typeCar.RightToLeft = RightToLeft.Yes;
             typeCar.Size = new Size(150, 31);
             typeCar.TabIndex = 2;
             // 
@@ -205,7 +255,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 539);
+            ClientSize = new Size(904, 604);
             Controls.Add(panel1);
             Name = "addItems";
             Text = "הוספת מוצר";
@@ -233,5 +283,9 @@
         private Button button1;
         private Label label6;
         private PictureBox picPath;
+        private Label label8;
+        private TextBox carModel;
+        private Label label7;
+        private TextBox price;
     }
 }
