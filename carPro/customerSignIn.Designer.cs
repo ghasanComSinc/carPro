@@ -28,19 +28,60 @@
         /// </summary>
         private void InitializeComponent()
         {
+            itemToCustomer = new DataGridView();
+            picItems = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)itemToCustomer).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picItems).BeginInit();
             SuspendLayout();
+            // 
+            // itemToCustomer
+            // 
+            itemToCustomer.AllowUserToAddRows = false;
+            itemToCustomer.AllowUserToDeleteRows = false;
+            itemToCustomer.AllowUserToOrderColumns = true;
+            itemToCustomer.AllowUserToResizeColumns = false;
+            itemToCustomer.AllowUserToResizeRows = false;
+            itemToCustomer.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            itemToCustomer.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            itemToCustomer.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            itemToCustomer.Location = new Point(5, 163);
+            itemToCustomer.Name = "itemToCustomer";
+            itemToCustomer.ReadOnly = true;
+            itemToCustomer.RightToLeft = RightToLeft.Yes;
+            itemToCustomer.RowHeadersWidth = 62;
+            itemToCustomer.RowTemplate.Height = 33;
+            itemToCustomer.Size = new Size(949, 378);
+            itemToCustomer.TabIndex = 0;
+            itemToCustomer.MouseMove += itemToCustomer_MouseMove;
+            // 
+            // picItems
+            // 
+            picItems.Location = new Point(29, 4);
+            picItems.Name = "picItems";
+            picItems.Size = new Size(173, 153);
+            picItems.SizeMode = PictureBoxSizeMode.Zoom;
+            picItems.TabIndex = 15;
+            picItems.TabStop = false;
             // 
             // customerSignIn
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(966, 553);
+            Controls.Add(picItems);
+            Controls.Add(itemToCustomer);
             Name = "customerSignIn";
             Text = "ממשק לקוח";
             FormClosed += customerSignIn_FormClosed;
+            Load += customerSignIn_Load;
+            ((System.ComponentModel.ISupportInitialize)itemToCustomer).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picItems).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
+
+        private DataGridView itemToCustomer;
+        private PictureBox picItems;
     }
 }
