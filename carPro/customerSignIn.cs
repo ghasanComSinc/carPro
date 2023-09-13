@@ -67,7 +67,6 @@ namespace carPro
 
             if (hitTestInfo.RowIndex >= 0)
             {
-                // A valid row index was obtained
                 int rowIndex = hitTestInfo.RowIndex;
                 DataGridViewCell selectedCell = itemToCustomer.Rows[rowIndex].Cells[6];
                 if (selectedCell.Value != null && selectedCell.Value.GetType() == typeof(byte[]))
