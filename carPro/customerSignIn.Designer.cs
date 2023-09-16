@@ -65,6 +65,7 @@
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(953, 392);
             tabControl1.TabIndex = 17;
+            tabControl1.MouseClick += tabControl1_MouseClick;
             // 
             // tabPage1
             // 
@@ -123,7 +124,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(804, 349);
+            button1.Location = new Point(45, 223);
             button1.Name = "button1";
             button1.Size = new Size(137, 32);
             button1.TabIndex = 17;
@@ -155,12 +156,13 @@
             forSale.RightToLeft = RightToLeft.Yes;
             forSale.RowHeadersWidth = 62;
             forSale.RowTemplate.Height = 33;
-            forSale.Size = new Size(741, 337);
+            forSale.Size = new Size(739, 345);
             forSale.TabIndex = 1;
+            forSale.MouseMove += forSale_MouseMove;
             // 
             // amountSale
             // 
-            amountSale.Anchor = AnchorStyles.None;
+            amountSale.Anchor = AnchorStyles.Left;
             amountSale.Location = new Point(284, 7);
             amountSale.Name = "amountSale";
             amountSale.Size = new Size(150, 31);
@@ -170,7 +172,7 @@
             // 
             // sale
             // 
-            sale.Anchor = AnchorStyles.None;
+            sale.Anchor = AnchorStyles.Left;
             sale.Location = new Point(118, 7);
             sale.Name = "sale";
             sale.Size = new Size(94, 40);
@@ -178,10 +180,11 @@
             sale.Text = "הזמנה";
             sale.UseVisualStyleBackColor = true;
             sale.Visible = false;
-         
+            sale.Click += sale_Click;
             // 
             // plus
             // 
+            plus.Anchor = AnchorStyles.Left;
             plus.Image = (Image)resources.GetObject("plus.Image");
             plus.Location = new Point(218, 12);
             plus.Name = "plus";
@@ -194,6 +197,7 @@
             // 
             // minus
             // 
+            minus.Anchor = AnchorStyles.Left;
             minus.Image = (Image)resources.GetObject("minus.Image");
             minus.Location = new Point(251, 12);
             minus.Name = "minus";
@@ -206,6 +210,7 @@
             // 
             // saleItem
             // 
+            saleItem.Anchor = AnchorStyles.Left;
             saleItem.AutoSize = true;
             saleItem.Location = new Point(453, 9);
             saleItem.Name = "saleItem";
