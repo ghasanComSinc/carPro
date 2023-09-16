@@ -13,6 +13,7 @@ namespace carPro
 {
     public partial class customerSignIn : Form
     {
+
         public customerSignIn()
         {
             InitializeComponent();
@@ -78,10 +79,16 @@ namespace carPro
                     }
 
                 }
-            }else
+            }
+            else
             {
                 picItems.Image = null;
             }
+        }
+
+        private void itemToCustomer_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
