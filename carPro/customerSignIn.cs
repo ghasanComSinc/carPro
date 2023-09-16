@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -13,7 +14,9 @@ namespace carPro
 {
     public partial class customerSignIn : Form
     {
-
+        int amount=0;
+        int rowIndex;
+        int amountToSale=0;
         public customerSignIn()
         {
             InitializeComponent();
@@ -88,7 +91,45 @@ namespace carPro
 
         private void itemToCustomer_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            if (e.RowIndex >= 0)
+            {
+                saleItem.Visible = true;
+                saleItem.Text = itemToCustomer.Rows[e.RowIndex].Cells[0].Value.ToString();
+                amount = int.Parse(itemToCustomer.Rows[e.RowIndex].Cells[4].Value.ToString());
+                rowIndex = e.RowIndex;
+                sale.Visible = true;
+                amountSale.Visible = true;
+                plus.Visible = true;
+                minus.Visible = true;
+                amountSale.Text = "0";
+            }
         }
+
+        private void plus_Click(object sender, EventArgs e)
+        {
+            if (amountSale.Text != "" && Regex.IsMatch(amountSale.Text, @"^\d+$") && amount > int.Parse(amountSale.Text) + 1)
+                amountSale.Text = (int.Parse(amountSale.Text) + 1) + "";
+        }
+
+        private void minus_Click(object sender, EventArgs e)
+        {
+            if (amountSale.Text != "" && Regex.IsMatch(amountSale.Text, @"^\d+$") && int.Parse(amountSale.Text) > 0)
+                amountSale.Text = (int.Parse(amountSale.Text) - 1) + "";
+        }
+
+        private void amountSale_TextChanged(object sender, EventArgs e)
+        {
+            if (amountSale.Text != "" && Regex.IsMatch(amountSale.Text, @"^\d+$") && int.Parse(amountSale.Text) > amount)
+            {
+                MessageBox.Show("אין במלי הכמות הדרושה");
+                amountSale.Text = "0";
+            }
+            else if (!Regex.IsMatch(amountSale.Text, @"^\d+$"))
+            {
+                amountSale.Text = "0";
+            }
+        }
+
+       
     }
 }
