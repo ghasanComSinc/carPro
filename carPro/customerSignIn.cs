@@ -15,6 +15,7 @@ namespace carPro
     public partial class customerSignIn : Form
     {
         int amount = 0;
+        string parcod;
         int rowIndex;
         int amountToSale = 0;
         public customerSignIn()
@@ -105,6 +106,7 @@ namespace carPro
                 saleItem.Visible = true;
                 saleItem.Text = itemToCustomer.Rows[e.RowIndex].Cells[0].Value.ToString();
                 amount = int.Parse(itemToCustomer.Rows[e.RowIndex].Cells[4].Value.ToString());
+                parcod= itemToCustomer.Rows[e.RowIndex].Cells[3].Value.ToString();
                 rowIndex = e.RowIndex;
                 sale.Visible = true;
                 amountSale.Visible = true;
@@ -146,19 +148,37 @@ namespace carPro
                 amountSale.Text = "0";
             }
         }
-
+        private int chechDoplicatItems()
+        {
+            for(int i=0;i< forSale.Rows.Count; i++)
+            {
+                if (forSale.Rows[i].Cells[3].Value.ToString() == parcod)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
         private void sale_Click(object sender, EventArgs e)
         {
 
             // Create a new row in DataGridView2
-            int rowIndexNew = forSale.Rows.Add();
 
-            // Copy data from selected row in DataGridView1 to the new row in DataGridView2
-            for (int i = 0; i < itemToCustomer.Rows[rowIndex].Cells.Count; i++)
+            int rowOld = chechDoplicatItems();
+            if (rowOld==-1)
             {
-                forSale.Rows[rowIndexNew].Cells[i].Value = itemToCustomer.Rows[rowIndex].Cells[i].Value;
+                int rowIndexNew = forSale.Rows.Add();
+                // Copy data from selected row in DataGridView1 to the new row in DataGridView2
+                for (int i = 0; i < itemToCustomer.Rows[rowIndex].Cells.Count; i++)
+                {
+                    forSale.Rows[rowIndexNew].Cells[i].Value = itemToCustomer.Rows[rowIndex].Cells[i].Value;
+                }
+                forSale.Rows[rowIndexNew].Cells[7].Value = amountSale.Text;
             }
-            forSale.Rows[rowIndexNew].Cells[7].Value = amountSale.Text;
+            else
+            {
+                forSale.Rows[rowOld].Cells[7].Value= amountSale.Text;
+            }
 
         }
         private void tabControl1_MouseClick(object sender, MouseEventArgs e)
