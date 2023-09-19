@@ -34,14 +34,15 @@
             itemToCustomer = new DataGridView();
             picItems = new PictureBox();
             tabPage2 = new TabPage();
-            button1 = new Button();
+            saveSale = new Button();
             saleItmesIm = new PictureBox();
             forSale = new DataGridView();
-            amountSale = new TextBox();
+            panel1 = new Panel();
+            saleItem = new Label();
+            minus = new PictureBox();
             sale = new Button();
             plus = new PictureBox();
-            minus = new PictureBox();
-            saleItem = new Label();
+            amountSale = new TextBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)itemToCustomer).BeginInit();
@@ -49,8 +50,9 @@
             tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)saleItmesIm).BeginInit();
             ((System.ComponentModel.ISupportInitialize)forSale).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)plus).BeginInit();
+            panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)minus).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)plus).BeginInit();
             SuspendLayout();
             // 
             // tabControl1
@@ -111,7 +113,7 @@
             // 
             // tabPage2
             // 
-            tabPage2.Controls.Add(button1);
+            tabPage2.Controls.Add(saveSale);
             tabPage2.Controls.Add(saleItmesIm);
             tabPage2.Controls.Add(forSale);
             tabPage2.Location = new Point(4, 34);
@@ -122,14 +124,15 @@
             tabPage2.Text = "הזמנה";
             tabPage2.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // saveSale
             // 
-            button1.Location = new Point(45, 223);
-            button1.Name = "button1";
-            button1.Size = new Size(137, 32);
-            button1.TabIndex = 17;
-            button1.Text = "שמרת הזמנה";
-            button1.UseVisualStyleBackColor = true;
+            saveSale.Location = new Point(45, 223);
+            saveSale.Name = "saveSale";
+            saveSale.Size = new Size(137, 32);
+            saveSale.TabIndex = 17;
+            saveSale.Text = "שמרת הזמנה";
+            saveSale.UseVisualStyleBackColor = true;
+            saveSale.Click += saveSale_Click;
             // 
             // saleItmesIm
             // 
@@ -158,25 +161,52 @@
             forSale.RowTemplate.Height = 33;
             forSale.Size = new Size(739, 345);
             forSale.TabIndex = 1;
+            forSale.CellContentClick += forSale_CellContentClick;
             forSale.MouseMove += forSale_MouseMove;
             // 
-            // amountSale
+            // panel1
             // 
-            amountSale.Anchor = AnchorStyles.Left;
-            amountSale.Location = new Point(284, 7);
-            amountSale.Name = "amountSale";
-            amountSale.Size = new Size(150, 31);
-            amountSale.TabIndex = 16;
-            amountSale.Visible = false;
-            amountSale.TextChanged += amountSale_TextChanged;
+            panel1.Controls.Add(saleItem);
+            panel1.Controls.Add(minus);
+            panel1.Controls.Add(sale);
+            panel1.Controls.Add(plus);
+            panel1.Controls.Add(amountSale);
+            panel1.Location = new Point(27, 12);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(553, 65);
+            panel1.TabIndex = 16;
+            // 
+            // saleItem
+            // 
+            saleItem.Anchor = AnchorStyles.None;
+            saleItem.AutoSize = true;
+            saleItem.Location = new Point(419, 17);
+            saleItem.Name = "saleItem";
+            saleItem.Size = new Size(59, 25);
+            saleItem.TabIndex = 25;
+            saleItem.Text = "label1";
+            saleItem.Visible = false;
+            // 
+            // minus
+            // 
+            minus.Anchor = AnchorStyles.None;
+            minus.Image = (Image)resources.GetObject("minus.Image");
+            minus.Location = new Point(217, 20);
+            minus.Name = "minus";
+            minus.Size = new Size(27, 26);
+            minus.SizeMode = PictureBoxSizeMode.Zoom;
+            minus.TabIndex = 24;
+            minus.TabStop = false;
+            minus.Visible = false;
+            minus.Click += minus_Click;
             // 
             // sale
             // 
-            sale.Anchor = AnchorStyles.Left;
-            sale.Location = new Point(118, 7);
+            sale.Anchor = AnchorStyles.None;
+            sale.Location = new Point(84, 15);
             sale.Name = "sale";
             sale.Size = new Size(94, 40);
-            sale.TabIndex = 18;
+            sale.TabIndex = 23;
             sale.Text = "הזמנה";
             sale.UseVisualStyleBackColor = true;
             sale.Visible = false;
@@ -184,51 +214,33 @@
             // 
             // plus
             // 
-            plus.Anchor = AnchorStyles.Left;
+            plus.Anchor = AnchorStyles.None;
             plus.Image = (Image)resources.GetObject("plus.Image");
-            plus.Location = new Point(218, 12);
+            plus.Location = new Point(184, 20);
             plus.Name = "plus";
             plus.Size = new Size(27, 26);
             plus.SizeMode = PictureBoxSizeMode.Zoom;
-            plus.TabIndex = 16;
+            plus.TabIndex = 21;
             plus.TabStop = false;
             plus.Visible = false;
             plus.Click += plus_Click;
             // 
-            // minus
+            // amountSale
             // 
-            minus.Anchor = AnchorStyles.Left;
-            minus.Image = (Image)resources.GetObject("minus.Image");
-            minus.Location = new Point(251, 12);
-            minus.Name = "minus";
-            minus.Size = new Size(27, 26);
-            minus.SizeMode = PictureBoxSizeMode.Zoom;
-            minus.TabIndex = 19;
-            minus.TabStop = false;
-            minus.Visible = false;
-            minus.Click += minus_Click;
-            // 
-            // saleItem
-            // 
-            saleItem.Anchor = AnchorStyles.Left;
-            saleItem.AutoSize = true;
-            saleItem.Location = new Point(453, 9);
-            saleItem.Name = "saleItem";
-            saleItem.Size = new Size(59, 25);
-            saleItem.TabIndex = 20;
-            saleItem.Text = "label1";
-            saleItem.Visible = false;
+            amountSale.Anchor = AnchorStyles.None;
+            amountSale.Location = new Point(250, 15);
+            amountSale.Name = "amountSale";
+            amountSale.Size = new Size(150, 31);
+            amountSale.TabIndex = 22;
+            amountSale.Visible = false;
+            amountSale.TextChanged += amountSale_TextChanged;
             // 
             // customerSignIn
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(966, 443);
-            Controls.Add(saleItem);
-            Controls.Add(minus);
-            Controls.Add(sale);
-            Controls.Add(plus);
-            Controls.Add(amountSale);
+            Controls.Add(panel1);
             Controls.Add(tabControl1);
             Name = "customerSignIn";
             RightToLeftLayout = true;
@@ -242,10 +254,11 @@
             tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)saleItmesIm).EndInit();
             ((System.ComponentModel.ISupportInitialize)forSale).EndInit();
-            ((System.ComponentModel.ISupportInitialize)plus).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)minus).EndInit();
+            ((System.ComponentModel.ISupportInitialize)plus).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -257,11 +270,12 @@
         private TabPage tabPage2;
         private PictureBox saleItmesIm;
         private DataGridView forSale;
-        private Button button1;
-        private TextBox amountSale;
+        private Button saveSale;
+        private Panel panel1;
+        private Label saleItem;
+        private PictureBox minus;
         private Button sale;
         private PictureBox plus;
-        private PictureBox minus;
-        private Label saleItem;
+        private TextBox amountSale;
     }
 }
