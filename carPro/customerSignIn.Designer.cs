@@ -68,7 +68,7 @@
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(953, 392);
             tabControl1.TabIndex = 17;
-            tabControl1.MouseClick += tabControl1_MouseClick;
+            tabControl1.MouseClick += TabControl1_MouseClick;
             // 
             // tabPage1
             // 
@@ -101,8 +101,8 @@
             itemToCustomer.RowTemplate.Height = 33;
             itemToCustomer.Size = new Size(730, 342);
             itemToCustomer.TabIndex = 0;
-            itemToCustomer.CellContentClick += itemToCustomer_CellContentClick;
-            itemToCustomer.MouseMove += itemToCustomer_MouseMove;
+            itemToCustomer.CellContentClick += ItemToCustomer_CellContentClick;
+            itemToCustomer.MouseMove += ItemToCustomer_MouseMove;
             // 
             // picItems
             // 
@@ -134,7 +134,7 @@
             saveSale.TabIndex = 17;
             saveSale.Text = "שמרת הזמנה";
             saveSale.UseVisualStyleBackColor = true;
-            saveSale.Click += saveSale_Click;
+            saveSale.Click += SaveSale_Click;
             // 
             // saleItmesIm
             // 
@@ -163,8 +163,8 @@
             forSale.RowTemplate.Height = 33;
             forSale.Size = new Size(739, 345);
             forSale.TabIndex = 1;
-            forSale.CellContentClick += forSale_CellContentClick;
-            forSale.MouseMove += forSale_MouseMove;
+            forSale.CellContentClick += ForSale_CellContentClick;
+            forSale.MouseMove += ForSale_MouseMove;
             // 
             // panel1
             // 
@@ -200,7 +200,7 @@
             minus.TabIndex = 24;
             minus.TabStop = false;
             minus.Visible = false;
-            minus.Click += minus_Click;
+            minus.Click += Minus_Click;
             // 
             // sale
             // 
@@ -212,7 +212,7 @@
             sale.Text = "הזמנה";
             sale.UseVisualStyleBackColor = true;
             sale.Visible = false;
-            sale.Click += sale_Click;
+            sale.Click += Sale_Click;
             // 
             // plus
             // 
@@ -225,7 +225,7 @@
             plus.TabIndex = 21;
             plus.TabStop = false;
             plus.Visible = false;
-            plus.Click += plus_Click;
+            plus.Click += Plus_Click;
             // 
             // amountSale
             // 
@@ -235,7 +235,7 @@
             amountSale.Size = new Size(150, 31);
             amountSale.TabIndex = 22;
             amountSale.Visible = false;
-            amountSale.TextChanged += amountSale_TextChanged;
+            amountSale.TextChanged += AmountSale_TextChanged;
             // 
             // label3
             // 
@@ -260,8 +260,8 @@
             Name = "customerSignIn";
             RightToLeftLayout = true;
             Text = "ממשק לקוח";
-            FormClosed += customerSignIn_FormClosed;
-            Load += customerSignIn_Load;
+            FormClosed += CustomerSignIn_FormClosed;
+            Load += CustomerSignIn_Load;
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)itemToCustomer).EndInit();

@@ -9,7 +9,7 @@ namespace carPro
 {
     public partial class logInForm : System.Windows.Forms.Form
     {
-        MySqlConnection connection = new MySqlConnection("server=localhost;user=root;database=pro1;password=");
+        readonly MySqlConnection connection = new("server=localhost;user=root;database=pro1;password=");
         MySqlCommand command;
         MySqlDataReader mdr;
         public logInForm()
@@ -19,7 +19,7 @@ namespace carPro
             tabControl1.ItemSize = new Size(0, 1);
             tabControl1.Appearance = TabAppearance.FlatButtons;
         }
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             try
             {
@@ -37,23 +37,25 @@ namespace carPro
                     MySqlDataReader mdr1 = command.ExecuteReader();
                     if (mdr1.Read())
                     {
-                        string statusAc = new string(mdr1[2].ToString());
-                        string name = new string(mdr1[3].ToString());
+                        string statusAc = new(mdr1[2].ToString());
+                        string name = new(mdr1[3].ToString());
                         if (statusAc.Equals("manger"))
                         {
-                            manger mangerform = new manger();
-                            
-                            mangerform.Size = this.Size;
-                            mangerform.Location=this.Location;
+                            manger mangerform = new()
+                            {
+                                Size = this.Size,
+                                Location = this.Location
+                            };
                             this.Hide();
                             mangerform.ShowDialog();
                         }
                         else
                         {
-                            Employee emp = new Employee();
-                            
-                            emp.Size = this.Size;
-                            emp.Location = this.Location;
+                            Employee emp = new()
+                            {
+                                Size = this.Size,
+                                Location = this.Location
+                            };
                             this.Hide();
                             emp.ShowDialog();
                         }
@@ -70,20 +72,22 @@ namespace carPro
 
 
             }
-            catch (Exception ex)
+            catch 
             {
                 MessageBox.Show("no service connection");
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
             if (nameCustumer.Text != "")
             {
-                customerSignIn customerForm = new customerSignIn();
-                customerForm.nameCustumer = nameCustumer.Text;
-                customerForm.Size = this.Size;
-                customerForm.Location = this.Location;
+                customerSignIn customerForm = new()
+                {
+                    nameCustumer = nameCustumer.Text,
+                    Size = this.Size,
+                    Location = this.Location
+                };
                 this.Hide();
                 customerForm.ShowDialog();
             }
@@ -93,7 +97,7 @@ namespace carPro
             }
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void PictureBox1_Click(object sender, EventArgs e)
         {
             if (password.PasswordChar == '*')
                 password.PasswordChar = '\0';
@@ -101,23 +105,23 @@ namespace carPro
                 password.PasswordChar = '*';
         }
 
-        private void logInForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void LogInForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             System.Windows.Forms.Application.ExitThread();
         }
 
-        private void logInForm_Load(object sender, EventArgs e)
+        private void LogInForm_Load(object sender, EventArgs e)
         {
             tabControl1.TabPages.Remove(tabPage1);
         }
 
-        private void logInWorker_Click(object sender, EventArgs e)
+        private void LogInWorker_Click(object sender, EventArgs e)
         {
             tabControl1.TabPages.Remove(tabPage2);
             tabControl1.TabPages.Add(tabPage1);
         }
 
-        private void returnCustomer_Click(object sender, EventArgs e)
+        private void ReturnCustomer_Click(object sender, EventArgs e)
         {
             tabControl1.TabPages.Remove(tabPage1);
             tabControl1.TabPages.Add(tabPage2);

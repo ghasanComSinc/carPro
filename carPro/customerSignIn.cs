@@ -20,7 +20,9 @@ namespace carPro
         string parcod;
         int rowIndex;
         int amountToSale = 0;
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public customerSignIn()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
             InitializeComponent();
             forSale.Columns.Add("שם מוצר", "שם מוצר");
@@ -36,29 +38,31 @@ namespace carPro
 
         }
 
-        private void customerSignIn_FormClosed(object sender, FormClosedEventArgs e)
+        private void CustomerSignIn_FormClosed(object sender, FormClosedEventArgs e)
         {
-            logInForm logIn = new logInForm();
-            logIn.Size = this.Size;
-            logIn.Location = this.Location;
+            logInForm logIn = new()
+            {
+                Size = this.Size,
+                Location = this.Location
+            };
             this.Dispose();
             logIn.ShowDialog();
         }
 
-        private void customerSignIn_Load(object sender, EventArgs e)
+        private void CustomerSignIn_Load(object sender, EventArgs e)
         {
             label3.Text += nameCustumer;
             try
             {
                 string strFun;
-                MySqlConnection con = new MySqlConnection("server=localhost;user=root;database=pro1;password=");
+                MySqlConnection con = new("server=localhost;user=root;database=pro1;password=");
                 MySqlCommand MyCommand2;
                 strFun = "SELECT * FROM `items` ORDER BY BINARY `typeCar` ASC;";
                 con.Open();
                 MyCommand2 = new MySqlCommand(strFun, con);
 
-                MySqlDataAdapter adapter = new MySqlDataAdapter(MyCommand2);
-                DataTable dataTable = new DataTable();
+                MySqlDataAdapter adapter = new(MyCommand2);
+                DataTable dataTable = new();
 
                 // Fill the DataTable with the query results
                 adapter.Fill(dataTable);
@@ -84,7 +88,7 @@ namespace carPro
                 MessageBox.Show(ex.Message);
             }
         }
-        private void itemToCustomer_MouseMove(object sender, MouseEventArgs e)
+        private void ItemToCustomer_MouseMove(object sender, MouseEventArgs e)
         {
             DataGridView.HitTestInfo hitTestInfo = itemToCustomer.HitTest(e.X, e.Y);
 
@@ -95,10 +99,8 @@ namespace carPro
                 if (selectedCell.Value != null && selectedCell.Value.GetType() == typeof(byte[]))
                 {
                     byte[] imageData = (byte[])selectedCell.Value;
-                    using (MemoryStream ms = new MemoryStream(imageData))
-                    {
-                        picItems.Image = Image.FromStream(ms);
-                    }
+                    using MemoryStream ms = new(imageData);
+                    picItems.Image = Image.FromStream(ms);
 
                 }
             }
@@ -108,7 +110,7 @@ namespace carPro
             }
         }
 
-        private void itemToCustomer_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void ItemToCustomer_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
@@ -133,19 +135,19 @@ namespace carPro
             }
         }
 
-        private void plus_Click(object sender, EventArgs e)
+        private void Plus_Click(object sender, EventArgs e)
         {
             if (amountSale.Text != "" && Regex.IsMatch(amountSale.Text, @"^\d+$") && amount > int.Parse(amountSale.Text) + 1)
                 amountSale.Text = (int.Parse(amountSale.Text) + 1) + "";
         }
 
-        private void minus_Click(object sender, EventArgs e)
+        private void Minus_Click(object sender, EventArgs e)
         {
             if (amountSale.Text != "" && Regex.IsMatch(amountSale.Text, @"^\d+$") && int.Parse(amountSale.Text) > 0)
                 amountSale.Text = (int.Parse(amountSale.Text) - 1) + "";
         }
 
-        private void amountSale_TextChanged(object sender, EventArgs e)
+        private void AmountSale_TextChanged(object sender, EventArgs e)
         {
             if (amountSale.Text != "" && Regex.IsMatch(amountSale.Text, @"^\d+$") && int.Parse(amountSale.Text) > amount)
             {
@@ -157,7 +159,7 @@ namespace carPro
                 amountSale.Text = "0";
             }
         }
-        private int chechDoplicatItems()
+        private int ChechDoplicatItems()
         {
             for (int i = 0; i < forSale.Rows.Count; i++)
             {
@@ -168,12 +170,12 @@ namespace carPro
             }
             return -1;
         }
-        private void sale_Click(object sender, EventArgs e)
+        private void Sale_Click(object sender, EventArgs e)
         {
 
             // Create a new row in DataGridView2
 
-            int rowOld = chechDoplicatItems();
+            int rowOld = ChechDoplicatItems();
             if (rowOld == -1)
             {
                 if (amountSale.Text != "0")
@@ -194,13 +196,13 @@ namespace carPro
                 else if (amountSale.Text == "0" && tabControl1.SelectedIndex == 1)
                 {
                     forSale.Rows.RemoveAt(rowOld);
-                    hideItem();
+                    HideItem();
                     saleItmesIm.Image = null;
                 }
             }
 
         }
-        private void hideItem()
+        private void HideItem()
         {
             saleItem.Visible = false;
             sale.Visible = false;
@@ -208,12 +210,12 @@ namespace carPro
             plus.Visible = false;
             minus.Visible = false;
         }
-        private void tabControl1_MouseClick(object sender, MouseEventArgs e)
+        private void TabControl1_MouseClick(object sender, MouseEventArgs e)
         {
-            hideItem();
+            HideItem();
         }
 
-        private void forSale_MouseMove(object sender, MouseEventArgs e)
+        private void ForSale_MouseMove(object sender, MouseEventArgs e)
         {
             DataGridView.HitTestInfo hitTestInfo = forSale.HitTest(e.X, e.Y);
 
@@ -224,10 +226,8 @@ namespace carPro
                 if (selectedCell.Value != null && selectedCell.Value.GetType() == typeof(byte[]))
                 {
                     byte[] imageData = (byte[])selectedCell.Value;
-                    using (MemoryStream ms = new MemoryStream(imageData))
-                    {
-                        saleItmesIm.Image = Image.FromStream(ms);
-                    }
+                    using MemoryStream ms = new(imageData);
+                    saleItmesIm.Image = Image.FromStream(ms);
 
                 }
             }
@@ -237,14 +237,18 @@ namespace carPro
             }
         }
 
-        private void forSale_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void ForSale_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
                 saleItem.Visible = true;
                 saleItem.Text = forSale.Rows[e.RowIndex].Cells[0].Value.ToString();
+#pragma warning disable CS8604 // Possible null reference argument.
                 amount = int.Parse(itemToCustomer.Rows[e.RowIndex].Cells[5].Value.ToString());
+#pragma warning restore CS8604 // Possible null reference argument.
+#pragma warning disable CS8601 // Possible null reference assignment.
                 parcod = forSale.Rows[e.RowIndex].Cells[3].Value.ToString();
+#pragma warning restore CS8601 // Possible null reference assignment.
                 rowIndex = e.RowIndex;
                 sale.Visible = true;
                 amountSale.Visible = true;
@@ -262,7 +266,7 @@ namespace carPro
             }
         }
 
-        private void saveSale_Click(object sender, EventArgs e)
+        private void SaveSale_Click(object sender, EventArgs e)
         {
             try
             {
@@ -270,8 +274,8 @@ namespace carPro
                 {
                     string strFun = "INSERT INTO sale(name, idSale, nameItem, typeCar, modelC,parCode,placeInShop, amount,price, image,amountSale)" +
                                               " VALUES (@nameSa,@id,@nameIt,@typeC,@modelCar,@parC,@placeInSh,@amountItem,@priceItem,@imageItem,@amountSale)";
-                    MySqlConnection con = new MySqlConnection("server=localhost;user=root;database=pro1;password=");
-                    MySqlCommand MyCommand2 = new MySqlCommand(strFun, con);
+                    MySqlConnection con = new("server=localhost;user=root;database=pro1;password=");
+                    MySqlCommand MyCommand2 = new(strFun, con);
                     con.Open();
                     MyCommand2.Parameters.AddWithValue("@nameSa", nameCustumer);
                     MyCommand2.Parameters.AddWithValue("@id", amountToSale.ToString());

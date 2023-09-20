@@ -100,7 +100,7 @@
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 13;
             pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
+            pictureBox1.Click += PictureBox1_Click;
             // 
             // password
             // 
@@ -128,7 +128,7 @@
             button1.TabIndex = 9;
             button1.Text = "כניסה";
             button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            button1.Click += Button1_Click;
             // 
             // label2
             // 
@@ -194,7 +194,7 @@
             logInWorker.TabIndex = 14;
             logInWorker.Text = "כניסה לעובד";
             logInWorker.UseVisualStyleBackColor = true;
-            logInWorker.Click += logInWorker_Click;
+            logInWorker.Click += LogInWorker_Click;
             // 
             // button2
             // 
@@ -205,7 +205,7 @@
             button2.TabIndex = 13;
             button2.Text = "כניסה לקוח";
             button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
+            button2.Click += Button2_Click;
             // 
             // returnCustomer
             // 
@@ -216,7 +216,7 @@
             returnCustomer.TabIndex = 14;
             returnCustomer.Text = "החזרת לדף לקוח";
             returnCustomer.UseVisualStyleBackColor = true;
-            returnCustomer.Click += returnCustomer_Click;
+            returnCustomer.Click += ReturnCustomer_Click;
             // 
             // logInForm
             // 
@@ -226,8 +226,8 @@
             Controls.Add(tabControl1);
             Name = "logInForm";
             Text = "כניסה למערכת";
-            FormClosed += logInForm_FormClosed;
-            Load += logInForm_Load;
+            FormClosed += LogInForm_FormClosed;
+            Load += LogInForm_Load;
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             panel1.ResumeLayout(false);
