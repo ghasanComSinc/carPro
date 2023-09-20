@@ -133,7 +133,7 @@
             button1.TabIndex = 0;
             button1.Text = "הוספה משתמש";
             button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            button1.Click += Button1_Click;
             // 
             // addUser
             // 
@@ -143,7 +143,7 @@
             Controls.Add(panel1);
             Name = "addUser";
             Text = "הוספת משתמש";
-            FormClosing += addUser_FormClosing;
+            FormClosing += AddUser_FormClosing;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);

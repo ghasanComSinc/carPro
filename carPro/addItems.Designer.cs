@@ -1,6 +1,6 @@
 ﻿namespace carPro
 {
-    partial class addItems
+    partial class AddItems
     {
         /// <summary>
         /// Required designer variable.
@@ -60,7 +60,7 @@
             addItemBu.TabIndex = 8;
             addItemBu.Text = "הוספה";
             addItemBu.UseVisualStyleBackColor = true;
-            addItemBu.Click += addItemBu_Click_1;
+            addItemBu.Click += AddItemBu_Click_1;
             // 
             // panel1
             // 
@@ -144,7 +144,7 @@
             button1.TabIndex = 8;
             button1.Text = "הוספה תמונה";
             button1.UseVisualStyleBackColor = true;
-            button1.MouseClick += button1_Click;
+            button1.MouseClick += Button1_Click;
             // 
             // label6
             // 
@@ -259,7 +259,7 @@
             Controls.Add(panel1);
             Name = "addItems";
             Text = "הוספת מוצר";
-            FormClosing += addItems_FormClosing;
+            FormClosing += AddItems_FormClosing;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)picPath).EndInit();

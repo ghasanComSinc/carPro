@@ -14,13 +14,13 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace carPro
 {
-    public partial class addItems : Form
+    public partial class AddItems : Form
     {
-        public addItems()
+        public AddItems()
         {
             InitializeComponent();
         }
-        private void addItemBu_Click_1(object sender, EventArgs e)
+        private void AddItemBu_Click_1(object sender, EventArgs e)
         {
             string nameIt = nameItem.Text;
             string typeC = typeCar.Text;
@@ -29,7 +29,7 @@ namespace carPro
             string placeSho = placeInShop.Text;
             string amount = Amount.Text;
             float priceC = float.Parse(price.Text);
-            MemoryStream ms = new MemoryStream();
+            MemoryStream ms = new();
             picPath.Image.Save(ms, picPath.Image.RawFormat);
             byte[] img = ms.ToArray();
             if (nameIt == "")
@@ -65,8 +65,8 @@ namespace carPro
                 try
                 {
                     string strFun = "INSERT INTO items(nameItem,typeCar,modelC,parCode,placeInShop,amount,price,image)VALUES (@nameIt,@typeC,@modelC,@parCod,@placeSho,@amount,@price, @imageLocation)";
-                    MySqlConnection con = new MySqlConnection("server=localhost;user=root;database=pro1;password=");
-                    MySqlCommand MyCommand2 = new MySqlCommand(strFun, con);
+                    MySqlConnection con = new("server=localhost;user=root;database=pro1;password=");
+                    MySqlCommand MyCommand2 = new(strFun, con);
                     con.Open();
                     MyCommand2.Parameters.AddWithValue("@nameIt", nameIt);
                     MyCommand2.Parameters.AddWithValue("@typeC", typeC);
@@ -87,20 +87,23 @@ namespace carPro
             }
         }
 
-        private void addItems_FormClosing(object sender, FormClosingEventArgs e)
+        private void AddItems_FormClosing(object sender, FormClosingEventArgs e)
         {
-            manger mange = new manger();
-            
-            mange.Location = this.Location;
-            mange.Size = this.Size;
+            manger mange = new()
+            {
+                Location = this.Location,
+                Size = this.Size
+            };
             this.Dispose();
             mange.ShowDialog();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "Image File(*.jpg; *.jpeg;*.gif;*.bmp;*.png;)|*.jpg; *.jpeg;*.gif;*.bmp;*.png;";
+            OpenFileDialog ofd = new()
+            {
+                Filter = "Image File(*.jpg; *.jpeg;*.gif;*.bmp;*.png;)|*.jpg; *.jpeg;*.gif;*.bmp;*.png;"
+            };
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 picPath.Image = Image.FromFile(ofd.FileName);

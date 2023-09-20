@@ -19,7 +19,7 @@ namespace carPro
 
         private void button2_Click(object sender, EventArgs e)
         {
-            addItems addItem = new addItems();
+            AddItems addItem = new AddItems();
             this.Dispose();
             addItem.ShowDialog();
         }

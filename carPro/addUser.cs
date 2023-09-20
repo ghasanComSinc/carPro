@@ -19,17 +19,18 @@ namespace carPro
             InitializeComponent();
         }
 
-        private void addUser_FormClosing(object sender, FormClosingEventArgs e)
+        private void AddUser_FormClosing(object sender, FormClosingEventArgs e)
         {
-            manger mange = new manger();
-           
-            mange.Size=this.Size;
-            mange.Location=this.Location;
+            manger mange = new()
+            {
+                Size = this.Size,
+                Location = this.Location
+            };
             this.Dispose();
             mange.ShowDialog();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             string uName = name.Text;
             string userNa=userName.Text;
@@ -55,7 +56,7 @@ namespace carPro
                 try
                 {
                     string strFun;
-                    MySqlConnection con = new MySqlConnection("server=localhost;user=root;database=pro1;password=");
+                    MySqlConnection con = new("server=localhost;user=root;database=pro1;password=");
                     MySqlCommand MyCommand2 ;
                     strFun = "INSERT INTO testfirst(user_name,password) VALUES(@userNa,@password)";
                     MyCommand2 = new MySqlCommand(strFun, con);
