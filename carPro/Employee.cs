@@ -19,7 +19,7 @@ namespace carPro
 
         private void Employee_FormClosed(object sender, FormClosedEventArgs e)
         {
-            logInForm logIn = snew()
+            logInForm logIn = new()
             {
                 Location = this.Location,
                 Size = this.Size
