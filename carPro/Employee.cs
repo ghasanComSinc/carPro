@@ -20,6 +20,8 @@ namespace carPro
         private void Employee_FormClosed(object sender, FormClosedEventArgs e)
         {
             logInForm logIn = new logInForm();
+            logIn.Location = this.Location;
+            logIn.Size=this.Size;
             this.Dispose();
             logIn.ShowDialog();
         }

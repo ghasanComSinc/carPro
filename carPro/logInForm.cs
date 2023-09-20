@@ -15,8 +15,11 @@ namespace carPro
         public logInForm()
         {
             InitializeComponent();
+            tabControl1.SizeMode = TabSizeMode.Fixed;
+            tabControl1.ItemSize = new Size(0, 1);
+            tabControl1.Appearance = TabAppearance.FlatButtons;
         }
-        private void button1_Click_1(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
             try
             {
@@ -39,12 +42,18 @@ namespace carPro
                         if (statusAc.Equals("manger"))
                         {
                             manger mangerform = new manger();
+                            
+                            mangerform.Size = this.Size;
+                            mangerform.Location=this.Location;
                             this.Hide();
                             mangerform.ShowDialog();
                         }
                         else
                         {
                             Employee emp = new Employee();
+                            
+                            emp.Size = this.Size;
+                            emp.Location = this.Location;
                             this.Hide();
                             emp.ShowDialog();
                         }
@@ -67,14 +76,24 @@ namespace carPro
             }
         }
 
-        private void button2_Click_1(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
-            customerSignIn customerForm = new customerSignIn();
-            this.Hide();
-            customerForm.ShowDialog();
+            if (nameCustumer.Text != "")
+            {
+                customerSignIn customerForm = new customerSignIn();
+                customerForm.nameCustumer = nameCustumer.Text;
+                customerForm.Size = this.Size;
+                customerForm.Location = this.Location;
+                this.Hide();
+                customerForm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("צריך להוסף שם בכדי לכנס למערכת");
+            }
         }
 
-        private void pictureBox1_Click_1(object sender, EventArgs e)
+        private void pictureBox1_Click(object sender, EventArgs e)
         {
             if (password.PasswordChar == '*')
                 password.PasswordChar = '\0';
@@ -85,6 +104,23 @@ namespace carPro
         private void logInForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             System.Windows.Forms.Application.ExitThread();
+        }
+
+        private void logInForm_Load(object sender, EventArgs e)
+        {
+            tabControl1.TabPages.Remove(tabPage1);
+        }
+
+        private void logInWorker_Click(object sender, EventArgs e)
+        {
+            tabControl1.TabPages.Remove(tabPage2);
+            tabControl1.TabPages.Add(tabPage1);
+        }
+
+        private void returnCustomer_Click(object sender, EventArgs e)
+        {
+            tabControl1.TabPages.Remove(tabPage1);
+            tabControl1.TabPages.Add(tabPage2);
         }
     }
 }

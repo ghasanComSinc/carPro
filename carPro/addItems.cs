@@ -90,6 +90,9 @@ namespace carPro
         private void addItems_FormClosing(object sender, FormClosingEventArgs e)
         {
             manger mange = new manger();
+            
+            mange.Location = this.Location;
+            mange.Size = this.Size;
             this.Dispose();
             mange.ShowDialog();
         }

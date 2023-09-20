@@ -43,6 +43,7 @@
             sale = new Button();
             plus = new PictureBox();
             amountSale = new TextBox();
+            label3 = new Label();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)itemToCustomer).BeginInit();
@@ -90,6 +91,7 @@
             itemToCustomer.AllowUserToResizeRows = false;
             itemToCustomer.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             itemToCustomer.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            itemToCustomer.BackgroundColor = SystemColors.ButtonHighlight;
             itemToCustomer.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             itemToCustomer.Location = new Point(212, 6);
             itemToCustomer.Name = "itemToCustomer";
@@ -235,11 +237,24 @@
             amountSale.Visible = false;
             amountSale.TextChanged += amountSale_TextChanged;
             // 
+            // label3
+            // 
+            label3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label3.Location = new Point(731, 4);
+            label3.Name = "label3";
+            label3.RightToLeft = RightToLeft.Yes;
+            label3.Size = new Size(217, 50);
+            label3.TabIndex = 18;
+            label3.Text = "ברוכים הבאים לחנות שלנו\r\nלקוח יקר ";
+            // 
             // customerSignIn
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(966, 443);
+            Controls.Add(label3);
             Controls.Add(panel1);
             Controls.Add(tabControl1);
             Name = "customerSignIn";
@@ -259,6 +274,7 @@
             ((System.ComponentModel.ISupportInitialize)minus).EndInit();
             ((System.ComponentModel.ISupportInitialize)plus).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -277,5 +293,6 @@
         private Button sale;
         private PictureBox plus;
         private TextBox amountSale;
+        private Label label3;
     }
 }

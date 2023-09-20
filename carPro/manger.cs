@@ -27,6 +27,8 @@ namespace carPro
         private void manger_FormClosing(object sender, FormClosingEventArgs e)
         {
             logInForm logIn = new logInForm();
+            logIn.Size= this.Size;
+            logIn.Location=this.Location;
             this.Dispose();
             logIn.ShowDialog();
         }

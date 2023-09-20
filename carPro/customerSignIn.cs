@@ -15,11 +15,11 @@ namespace carPro
 {
     public partial class customerSignIn : Form
     {
+        public string nameCustumer;
         int amount = 0;
         string parcod;
         int rowIndex;
         int amountToSale = 0;
-        int countSale = 0;
         public customerSignIn()
         {
             InitializeComponent();
@@ -30,22 +30,24 @@ namespace carPro
             forSale.Columns.Add("מקום בחנות", "מקום בחנות");
             forSale.Columns.Add("כמות", "כמות");
             forSale.Columns.Add("מחיר", "מחיר");
-            forSale.Columns.Add("תמונה", "תמונה");     
+            forSale.Columns.Add("תמונה", "תמונה");
             forSale.Columns.Add("הזמנה", "הזמנה");
-           
             forSale.Columns[7].Visible = false;
-            
+
         }
 
         private void customerSignIn_FormClosed(object sender, FormClosedEventArgs e)
         {
             logInForm logIn = new logInForm();
+            logIn.Size = this.Size;
+            logIn.Location = this.Location;
             this.Dispose();
             logIn.ShowDialog();
         }
 
         private void customerSignIn_Load(object sender, EventArgs e)
         {
+            label3.Text += nameCustumer;
             try
             {
                 string strFun;
@@ -69,7 +71,7 @@ namespace carPro
                 itemToCustomer.Columns[2].HeaderText = "תת- רכב";
                 itemToCustomer.Columns[3].HeaderText = "פר";
                 itemToCustomer.Columns[4].HeaderText = "מקום בחנות";
-                //itemToCustomer.Columns[4].Visible = false;
+                itemToCustomer.Columns[4].Visible = false;
                 itemToCustomer.Columns[5].HeaderText = "כמות";
                 itemToCustomer.Columns[6].HeaderText = "מחיר";
                 itemToCustomer.Columns[7].Visible = false;
@@ -188,8 +190,8 @@ namespace carPro
             else
             {
                 if (amountSale.Text != "0")
-                    forSale.Rows[rowOld].Cells[7].Value = amountSale.Text;
-                else
+                    forSale.Rows[rowOld].Cells[8].Value = amountSale.Text;
+                else if (amountSale.Text == "0" && tabControl1.SelectedIndex == 1)
                 {
                     forSale.Rows.RemoveAt(rowOld);
                     hideItem();
@@ -241,7 +243,7 @@ namespace carPro
             {
                 saleItem.Visible = true;
                 saleItem.Text = forSale.Rows[e.RowIndex].Cells[0].Value.ToString();
-                amount = int.Parse(itemToCustomer.Rows[e.RowIndex].Cells[4].Value.ToString());
+                amount = int.Parse(itemToCustomer.Rows[e.RowIndex].Cells[5].Value.ToString());
                 parcod = forSale.Rows[e.RowIndex].Cells[3].Value.ToString();
                 rowIndex = e.RowIndex;
                 sale.Visible = true;
@@ -271,7 +273,7 @@ namespace carPro
                     MySqlConnection con = new MySqlConnection("server=localhost;user=root;database=pro1;password=");
                     MySqlCommand MyCommand2 = new MySqlCommand(strFun, con);
                     con.Open();
-                    MyCommand2.Parameters.AddWithValue("@nameSa", "");
+                    MyCommand2.Parameters.AddWithValue("@nameSa", nameCustumer);
                     MyCommand2.Parameters.AddWithValue("@id", amountToSale.ToString());
                     MyCommand2.Parameters.AddWithValue("@nameIt", forSale.Rows[i].Cells[0].Value.ToString());
                     MyCommand2.Parameters.AddWithValue("@typeC", forSale.Rows[i].Cells[1].Value.ToString());
