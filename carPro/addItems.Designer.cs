@@ -218,7 +218,7 @@
             // 
             label1.Anchor = AnchorStyles.None;
             label1.AutoSize = true;
-            label1.Location = new Point(495, 8);
+            label1.Location = new Point(489, 11);
             label1.Name = "label1";
             label1.Size = new Size(81, 25);
             label1.TabIndex = 7;
