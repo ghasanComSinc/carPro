@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Math;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,6 +11,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace carPro
 {
@@ -20,7 +22,7 @@ namespace carPro
         int amount = 0;
         string parcod;
         int rowIndex;
-        int amountToSale = 0;
+        
 
         public customerSignIn()
         {
@@ -40,11 +42,7 @@ namespace carPro
 
         private void CustomerSignIn_FormClosed(object sender, FormClosedEventArgs e)
         {
-            logInForm logIn = new()
-            {
-                Size = this.Size,
-                Location = this.Location
-            };
+            logInForm logIn = new();
             this.Dispose();
             logIn.ShowDialog();
         }
@@ -52,6 +50,10 @@ namespace carPro
         private void CustomerSignIn_Load(object sender, EventArgs e)
         {
             label3.Text += nameCustumer;
+            int w = Screen.PrimaryScreen.Bounds.Width;
+            int h = Screen.PrimaryScreen.Bounds.Height;
+            this.Location = new Point(0, 0);
+            this.Size = new Size(w, h);
             try
             {
                 string strFun;
@@ -87,6 +89,14 @@ namespace carPro
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+        private void HideItem()
+        {
+            saleItem.Visible = false;
+            sale.Visible = false;
+            amountSale.Visible = false;
+            plus.Visible = false;
+            minus.Visible = false;
         }
         private void ItemToCustomer_MouseMove(object sender, MouseEventArgs e)
         {
@@ -127,11 +137,7 @@ namespace carPro
             }
             else
             {
-                saleItem.Visible = false;
-                sale.Visible = false;
-                amountSale.Visible = false;
-                plus.Visible = false;
-                minus.Visible = false;
+                HideItem();
             }
         }
 
@@ -208,10 +214,10 @@ namespace carPro
                 }
                 else if (amountSale.Text == "0" && tabControl1.SelectedIndex == 1)
                 {
-                    if ((forSale.Rows.Count-1) == 0)
+                    if ((forSale.Rows.Count - 1) == 0)
                         tabPage2.Text = "הזמנה";
                     else
-                        tabPage2.Text = "הזמנה" + "(" + (forSale.Rows.Count-1 )+ ")";
+                        tabPage2.Text = "הזמנה" + "(" + (forSale.Rows.Count - 1) + ")";
                     HideItem();
                     saleItmesIm.Image = null;
                     int num1 = int.Parse(forSale.Rows[rowOld].Cells[6].Value.ToString());
@@ -223,14 +229,7 @@ namespace carPro
             }
 
         }
-        private void HideItem()
-        {
-            saleItem.Visible = false;
-            sale.Visible = false;
-            amountSale.Visible = false;
-            plus.Visible = false;
-            minus.Visible = false;
-        }
+
         private void TabControl1_MouseClick(object sender, MouseEventArgs e)
         {
             HideItem();
@@ -279,11 +278,7 @@ namespace carPro
             }
             else
             {
-                saleItem.Visible = false;
-                sale.Visible = false;
-                amountSale.Visible = false;
-                plus.Visible = false;
-                minus.Visible = false;
+                HideItem();
             }
         }
 
@@ -291,15 +286,28 @@ namespace carPro
         {
             try
             {
+                string strFun = "SELECT COUNT(*) FROM paytable";
+                MySqlConnection con = new("server=localhost;user=root;database=pro1;password=");
+                MySqlCommand MyCommand2 = new(strFun, con);
+                con.Open();
+                int count = int.Parse(MyCommand2.ExecuteScalar().ToString());
+                con.Close();
+                strFun = "INSERT INTO paytable(name, id, priceToPay) VALUES (@name,@idSale,@price)";
+                 MyCommand2 = new(strFun, con);
+                con.Open();
+                MyCommand2.Parameters.AddWithValue("@name", nameCustumer);
+                MyCommand2.Parameters.AddWithValue("@idSale", count);
+                MyCommand2.Parameters.AddWithValue("@price", sum);
+                MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.     
+                con.Close();
                 for (int i = 0; i < forSale.Rows.Count; i++)
                 {
-                    string strFun = "INSERT INTO sale(name, idSale, nameItem, typeCar, modelC,parCode,placeInShop, amount,price, image,amountSale)" +
-                                              " VALUES (@nameSa,@id,@nameIt,@typeC,@modelCar,@parC,@placeInSh,@amountItem,@priceItem,@imageItem,@amountSale)";
-                    MySqlConnection con = new("server=localhost;user=root;database=pro1;password=");
-                    MySqlCommand MyCommand2 = new(strFun, con);
+                     strFun = "INSERT INTO sale(name, id, nameItem, typeCar, modelC,parCode,placeInShop, amount,price, image,amountSale,status)" +
+                                              " VALUES (@nameSa,@idSale,@nameIt,@typeC,@modelCar,@parC,@placeInSh,@amountItem,@priceItem,@imageItem,@amountSale,@statusOrder)";  
+                     MyCommand2 = new(strFun, con);
                     con.Open();
                     MyCommand2.Parameters.AddWithValue("@nameSa", nameCustumer);
-                    MyCommand2.Parameters.AddWithValue("@id", amountToSale.ToString());
+                    MyCommand2.Parameters.AddWithValue("@idSale", count);
                     MyCommand2.Parameters.AddWithValue("@nameIt", forSale.Rows[i].Cells[0].Value.ToString());
                     MyCommand2.Parameters.AddWithValue("@typeC", forSale.Rows[i].Cells[1].Value.ToString());
                     MyCommand2.Parameters.AddWithValue("@modelCar", forSale.Rows[i].Cells[2].Value.ToString());
@@ -309,11 +317,13 @@ namespace carPro
                     MyCommand2.Parameters.AddWithValue("@priceItem", forSale.Rows[i].Cells[6].Value.ToString());
                     MyCommand2.Parameters.AddWithValue("@imageItem", forSale.Rows[i].Cells[7].Value.ToString());
                     MyCommand2.Parameters.AddWithValue("@amountSale", forSale.Rows[i].Cells[8].Value.ToString());
+                    MyCommand2.Parameters.AddWithValue("@statusOrder", "process");
                     MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.     
                     con.Close();
                 }
-                amountToSale++;
+                
                 MessageBox.Show("שמרת הזמנה התבצעה בהצלחה");
+                CustomerSignIn_FormClosed(null,null);
             }
             catch (Exception ex)
             {

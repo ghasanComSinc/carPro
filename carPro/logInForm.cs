@@ -15,7 +15,7 @@ namespace carPro
         public logInForm()
         {
             InitializeComponent();
-            tabControl1.SizeMode = TabSizeMode.Fixed;
+           tabControl1.SizeMode = TabSizeMode.Fixed;
             tabControl1.ItemSize = new Size(0, 1);
             tabControl1.Appearance = TabAppearance.FlatButtons;
         }
@@ -85,8 +85,7 @@ namespace carPro
                 customerSignIn customerForm = new()
                 {
                     nameCustumer = nameCustumer.Text,
-                    Size = this.Size,
-                    Location = this.Location
+                    
                 };
                 this.Hide();
                 customerForm.ShowDialog();

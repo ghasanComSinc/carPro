@@ -130,7 +130,7 @@
             // 
             // priceToPay
             // 
-            priceToPay.Anchor = AnchorStyles.None;
+            priceToPay.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             priceToPay.AutoSize = true;
             priceToPay.Location = new Point(76, 202);
             priceToPay.Name = "priceToPay";
@@ -258,7 +258,7 @@
             label3.Location = new Point(731, 4);
             label3.Name = "label3";
             label3.RightToLeft = RightToLeft.Yes;
-            label3.Size = new Size(217, 50);
+            label3.Size = new Size(179, 40);
             label3.TabIndex = 18;
             label3.Text = "ברוכים הבאים לחנות שלנו\r\nלקוח יקר, ";
             // 
