@@ -218,7 +218,7 @@
             // 
             label1.Anchor = AnchorStyles.None;
             label1.AutoSize = true;
-            label1.Location = new Point(489, 11);
+            label1.Location = new Point(495, 8);
             label1.Name = "label1";
             label1.Size = new Size(81, 25);
             label1.TabIndex = 7;
@@ -251,13 +251,13 @@
             typeCar.Size = new Size(150, 31);
             typeCar.TabIndex = 2;
             // 
-            // addItems
+            // AddItems
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(904, 604);
             Controls.Add(panel1);
-            Name = "addItems";
+            Name = "AddItems";
             Text = "הוספת מוצר";
             FormClosing += AddItems_FormClosing;
             panel1.ResumeLayout(false);
