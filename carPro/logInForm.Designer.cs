@@ -32,6 +32,7 @@
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             panel1 = new Panel();
+            returnCustomer = new Button();
             pictureBox1 = new PictureBox();
             password = new TextBox();
             userName = new TextBox();
@@ -39,11 +40,11 @@
             label2 = new Label();
             label1 = new Label();
             tabPage2 = new TabPage();
+            label4 = new Label();
             nameCustumer = new TextBox();
             label3 = new Label();
             logInWorker = new Button();
             button2 = new Button();
-            returnCustomer = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             panel1.SuspendLayout();
@@ -89,6 +90,17 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(441, 187);
             panel1.TabIndex = 8;
+            // 
+            // returnCustomer
+            // 
+            returnCustomer.Anchor = AnchorStyles.None;
+            returnCustomer.Location = new Point(3, 144);
+            returnCustomer.Name = "returnCustomer";
+            returnCustomer.Size = new Size(159, 40);
+            returnCustomer.TabIndex = 14;
+            returnCustomer.Text = "החזרת לדף כניסה";
+            returnCustomer.UseVisualStyleBackColor = true;
+            returnCustomer.Click += ReturnCustomer_Click;
             // 
             // pictureBox1
             // 
@@ -154,6 +166,7 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(label4);
             tabPage2.Controls.Add(nameCustumer);
             tabPage2.Controls.Add(label3);
             tabPage2.Controls.Add(logInWorker);
@@ -165,6 +178,18 @@
             tabPage2.TabIndex = 1;
             tabPage2.Text = " ";
             tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            label4.Anchor = AnchorStyles.None;
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label4.Location = new Point(275, 44);
+            label4.Name = "label4";
+            label4.RightToLeft = RightToLeft.Yes;
+            label4.Size = new Size(258, 25);
+            label4.TabIndex = 17;
+            label4.Text = " ברוכים הבאים למערכת שלנו .";
             // 
             // nameCustumer
             // 
@@ -207,17 +232,6 @@
             button2.UseVisualStyleBackColor = true;
             button2.Click += Button2_Click;
             // 
-            // returnCustomer
-            // 
-            returnCustomer.Anchor = AnchorStyles.None;
-            returnCustomer.Location = new Point(3, 144);
-            returnCustomer.Name = "returnCustomer";
-            returnCustomer.Size = new Size(159, 40);
-            returnCustomer.TabIndex = 14;
-            returnCustomer.Text = "החזרת לדף לקוח";
-            returnCustomer.UseVisualStyleBackColor = true;
-            returnCustomer.Click += ReturnCustomer_Click;
-            // 
             // logInForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -255,5 +269,6 @@
         private TextBox nameCustumer;
         private Label label3;
         private Button returnCustomer;
+        private Label label4;
     }
 }

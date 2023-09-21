@@ -34,6 +34,7 @@
             itemToCustomer = new DataGridView();
             picItems = new PictureBox();
             tabPage2 = new TabPage();
+            priceToPay = new Label();
             saveSale = new Button();
             saleItmesIm = new PictureBox();
             forSale = new DataGridView();
@@ -115,6 +116,7 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(priceToPay);
             tabPage2.Controls.Add(saveSale);
             tabPage2.Controls.Add(saleItmesIm);
             tabPage2.Controls.Add(forSale);
@@ -126,9 +128,20 @@
             tabPage2.Text = "הזמנה";
             tabPage2.UseVisualStyleBackColor = true;
             // 
+            // priceToPay
+            // 
+            priceToPay.Anchor = AnchorStyles.None;
+            priceToPay.AutoSize = true;
+            priceToPay.Location = new Point(76, 202);
+            priceToPay.Name = "priceToPay";
+            priceToPay.RightToLeft = RightToLeft.Yes;
+            priceToPay.Size = new Size(124, 50);
+            priceToPay.TabIndex = 26;
+            priceToPay.Text = "מחיר לתשלום:\r\n0";
+            // 
             // saveSale
             // 
-            saveSale.Location = new Point(45, 223);
+            saveSale.Location = new Point(45, 284);
             saveSale.Name = "saveSale";
             saveSale.Size = new Size(137, 32);
             saveSale.TabIndex = 17;
@@ -247,7 +260,7 @@
             label3.RightToLeft = RightToLeft.Yes;
             label3.Size = new Size(217, 50);
             label3.TabIndex = 18;
-            label3.Text = "ברוכים הבאים לחנות שלנו\r\nלקוח יקר ";
+            label3.Text = "ברוכים הבאים לחנות שלנו\r\nלקוח יקר, ";
             // 
             // customerSignIn
             // 
@@ -267,6 +280,7 @@
             ((System.ComponentModel.ISupportInitialize)itemToCustomer).EndInit();
             ((System.ComponentModel.ISupportInitialize)picItems).EndInit();
             tabPage2.ResumeLayout(false);
+            tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)saleItmesIm).EndInit();
             ((System.ComponentModel.ISupportInitialize)forSale).EndInit();
             panel1.ResumeLayout(false);
@@ -294,5 +308,6 @@
         private PictureBox plus;
         private TextBox amountSale;
         private Label label3;
+        private Label priceToPay;
     }
 }

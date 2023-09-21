@@ -15,25 +15,25 @@ namespace carPro
 {
     public partial class customerSignIn : Form
     {
+        int sum = 0;
         public string nameCustumer;
         int amount = 0;
         string parcod;
         int rowIndex;
         int amountToSale = 0;
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+
         public customerSignIn()
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
             InitializeComponent();
-            forSale.Columns.Add("שם מוצר", "שם מוצר");
-            forSale.Columns.Add("סוג רכב", "סוג רכב");
-            forSale.Columns.Add("תת- רכב", "תת- רכב");
-            forSale.Columns.Add("פר", "פר");
-            forSale.Columns.Add("מקום בחנות", "מקום בחנות");
-            forSale.Columns.Add("כמות", "כמות");
-            forSale.Columns.Add("מחיר", "מחיר");
-            forSale.Columns.Add("תמונה", "תמונה");
-            forSale.Columns.Add("הזמנה", "הזמנה");
+            forSale.Columns.Add("שם מוצר", "שם מוצר");//0
+            forSale.Columns.Add("סוג רכב", "סוג רכב");//1
+            forSale.Columns.Add("תת- רכב", "תת- רכב");//2
+            forSale.Columns.Add("פר", "פר");//3
+            forSale.Columns.Add("מקום בחנות", "מקום בחנות");//4
+            forSale.Columns.Add("כמות", "כמות");//5
+            forSale.Columns.Add("מחיר", "מחיר");//6
+            forSale.Columns.Add("תמונה", "תמונה");//7
+            forSale.Columns.Add("הזמנה", "הזמנה");//8
             forSale.Columns[7].Visible = false;
 
         }
@@ -174,7 +174,6 @@ namespace carPro
         {
 
             // Create a new row in DataGridView2
-
             int rowOld = ChechDoplicatItems();
             if (rowOld == -1)
             {
@@ -187,17 +186,39 @@ namespace carPro
                         forSale.Rows[rowIndexNew].Cells[i].Value = itemToCustomer.Rows[rowIndex].Cells[i].Value;
                     }
                     forSale.Rows[rowIndexNew].Cells[8].Value = amountSale.Text;
+                    tabPage2.Text = "הזמנה" + "(" + forSale.Rows.Count + ")";
+                    int num1 = int.Parse(forSale.Rows[rowIndexNew].Cells[6].Value.ToString());
+                    int num2 = int.Parse(forSale.Rows[rowIndexNew].Cells[8].Value.ToString());
+                    sum += num1 * num2;
+                    priceToPay.Text = "מחיר לתשלום:" + "\n" + sum + "";
                 }
             }
             else
             {
                 if (amountSale.Text != "0")
+                {
+                    int num1 = int.Parse(forSale.Rows[rowOld].Cells[6].Value.ToString());
+                    int num2 = int.Parse(forSale.Rows[rowOld].Cells[8].Value.ToString());
+                    sum -= num1 * num2;
                     forSale.Rows[rowOld].Cells[8].Value = amountSale.Text;
+                    num1 = int.Parse(forSale.Rows[rowOld].Cells[6].Value.ToString());
+                    num2 = int.Parse(forSale.Rows[rowOld].Cells[8].Value.ToString());
+                    sum += num1 * num2;
+                    priceToPay.Text = "מחיר לתשלום:" + "\n" + sum + "";
+                }
                 else if (amountSale.Text == "0" && tabControl1.SelectedIndex == 1)
                 {
-                    forSale.Rows.RemoveAt(rowOld);
+                    if ((forSale.Rows.Count-1) == 0)
+                        tabPage2.Text = "הזמנה";
+                    else
+                        tabPage2.Text = "הזמנה" + "(" + (forSale.Rows.Count-1 )+ ")";
                     HideItem();
                     saleItmesIm.Image = null;
+                    int num1 = int.Parse(forSale.Rows[rowOld].Cells[6].Value.ToString());
+                    int num2 = int.Parse(forSale.Rows[rowOld].Cells[8].Value.ToString());
+                    sum -= num1 * num2;
+                    priceToPay.Text = "מחיר לתשלום:" + "\n" + sum + "";
+                    forSale.Rows.RemoveAt(rowOld);
                 }
             }
 
@@ -292,6 +313,7 @@ namespace carPro
                     con.Close();
                 }
                 amountToSale++;
+                MessageBox.Show("שמרת הזמנה התבצעה בהצלחה");
             }
             catch (Exception ex)
             {
