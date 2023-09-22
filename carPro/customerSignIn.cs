@@ -126,7 +126,7 @@ namespace carPro
             {
                 saleItem.Visible = true;
                 saleItem.Text = itemToCustomer.Rows[e.RowIndex].Cells[0].Value.ToString();
-                amount = int.Parse(itemToCustomer.Rows[e.RowIndex].Cells[5].Value.ToString());
+                _ = int.TryParse(itemToCustomer.Rows[e.RowIndex].Cells[5].Value.ToString(), out amount);
                 parcod = itemToCustomer.Rows[e.RowIndex].Cells[3].Value.ToString();
                 rowIndex = e.RowIndex;
                 sale.Visible = true;
@@ -193,8 +193,8 @@ namespace carPro
                     }
                     forSale.Rows[rowIndexNew].Cells[8].Value = amountSale.Text;
                     tabPage2.Text = "הזמנה" + "(" + forSale.Rows.Count + ")";
-                    int num1 = int.Parse(forSale.Rows[rowIndexNew].Cells[6].Value.ToString());
-                    int num2 = int.Parse(forSale.Rows[rowIndexNew].Cells[8].Value.ToString());
+                     _ = int.TryParse(forSale.Rows[rowIndexNew].Cells[6].Value.ToString(), out int num1);
+                    _ = int.TryParse(forSale.Rows[rowIndexNew].Cells[8].Value.ToString(), out int num2);
                     sum += num1 * num2;
                     priceToPay.Text = "מחיר לתשלום:" + "\n" + sum + "";
                 }
@@ -203,12 +203,12 @@ namespace carPro
             {
                 if (amountSale.Text != "0")
                 {
-                    int num1 = int.Parse(forSale.Rows[rowOld].Cells[6].Value.ToString());
-                    int num2 = int.Parse(forSale.Rows[rowOld].Cells[8].Value.ToString());
+                    _ = int.TryParse(forSale.Rows[rowOld].Cells[6].Value.ToString(), out int num1);
+                    _ = int.TryParse(forSale.Rows[rowOld].Cells[8].Value.ToString(), out int num2);
                     sum -= num1 * num2;
                     forSale.Rows[rowOld].Cells[8].Value = amountSale.Text;
-                    num1 = int.Parse(forSale.Rows[rowOld].Cells[6].Value.ToString());
-                    num2 = int.Parse(forSale.Rows[rowOld].Cells[8].Value.ToString());
+                    _ = int.TryParse(forSale.Rows[rowOld].Cells[6].Value.ToString(), out num1);
+                    _ =int.TryParse(forSale.Rows[rowOld].Cells[8].Value.ToString(), out num2);
                     sum += num1 * num2;
                     priceToPay.Text = "מחיר לתשלום:" + "\n" + sum + "";
                 }
@@ -220,8 +220,8 @@ namespace carPro
                         tabPage2.Text = "הזמנה" + "(" + (forSale.Rows.Count - 1) + ")";
                     HideItem();
                     saleItmesIm.Image = null;
-                    int num1 = int.Parse(forSale.Rows[rowOld].Cells[6].Value.ToString());
-                    int num2 = int.Parse(forSale.Rows[rowOld].Cells[8].Value.ToString());
+                    _ = int.TryParse(forSale.Rows[rowOld].Cells[6].Value.ToString(), out int num1);
+                    _ = int.TryParse(forSale.Rows[rowOld].Cells[8].Value.ToString(), out int num2);
                     sum -= num1 * num2;
                     priceToPay.Text = "מחיר לתשלום:" + "\n" + sum + "";
                     forSale.Rows.RemoveAt(rowOld);
@@ -263,12 +263,11 @@ namespace carPro
             {
                 saleItem.Visible = true;
                 saleItem.Text = forSale.Rows[e.RowIndex].Cells[0].Value.ToString();
-#pragma warning disable CS8604 // Possible null reference argument.
-                amount = int.Parse(itemToCustomer.Rows[e.RowIndex].Cells[5].Value.ToString());
-#pragma warning restore CS8604 // Possible null reference argument.
-#pragma warning disable CS8601 // Possible null reference assignment.
+
+                _ = int.TryParse(itemToCustomer.Rows[e.RowIndex].Cells[5].Value.ToString(), out amount);
+
                 parcod = forSale.Rows[e.RowIndex].Cells[3].Value.ToString();
-#pragma warning restore CS8601 // Possible null reference assignment.
+
                 rowIndex = e.RowIndex;
                 sale.Visible = true;
                 amountSale.Visible = true;
@@ -290,7 +289,7 @@ namespace carPro
                 MySqlConnection con = new("server=localhost;user=root;database=pro1;password=");
                 MySqlCommand MyCommand2 = new(strFun, con);
                 con.Open();
-                int count = int.Parse(MyCommand2.ExecuteScalar().ToString());
+                _ = int.TryParse(MyCommand2.ExecuteScalar().ToString(), out int count);
                 con.Close();
                 strFun = "INSERT INTO paytable(name, id, priceToPay) VALUES (@name,@idSale,@price)";
                  MyCommand2 = new(strFun, con);
