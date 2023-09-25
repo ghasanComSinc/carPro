@@ -90,27 +90,27 @@
             itemToCustomer.AllowUserToOrderColumns = true;
             itemToCustomer.AllowUserToResizeColumns = false;
             itemToCustomer.AllowUserToResizeRows = false;
-            itemToCustomer.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            itemToCustomer.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            itemToCustomer.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            itemToCustomer.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
             itemToCustomer.BackgroundColor = SystemColors.ButtonHighlight;
             itemToCustomer.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            itemToCustomer.Location = new Point(212, 6);
+            itemToCustomer.Location = new Point(314, 6);
             itemToCustomer.Name = "itemToCustomer";
             itemToCustomer.ReadOnly = true;
             itemToCustomer.RightToLeft = RightToLeft.Yes;
             itemToCustomer.RowHeadersWidth = 62;
             itemToCustomer.RowTemplate.Height = 33;
-            itemToCustomer.Size = new Size(730, 342);
+            itemToCustomer.Size = new Size(628, 342);
             itemToCustomer.TabIndex = 0;
             itemToCustomer.CellContentClick += ItemToCustomer_CellContentClick;
             itemToCustomer.MouseMove += ItemToCustomer_MouseMove;
             // 
             // picItems
             // 
-            picItems.Location = new Point(9, 23);
+            picItems.Location = new Point(7, 6);
             picItems.Name = "picItems";
-            picItems.Size = new Size(173, 153);
-            picItems.SizeMode = PictureBoxSizeMode.Zoom;
+            picItems.Size = new Size(301, 266);
+            picItems.SizeMode = PictureBoxSizeMode.StretchImage;
             picItems.TabIndex = 15;
             picItems.TabStop = false;
             // 
@@ -153,7 +153,7 @@
             // 
             saleItmesIm.Location = new Point(9, 21);
             saleItmesIm.Name = "saleItmesIm";
-            saleItmesIm.Size = new Size(173, 153);
+            saleItmesIm.Size = new Size(268, 163);
             saleItmesIm.SizeMode = PictureBoxSizeMode.Zoom;
             saleItmesIm.TabIndex = 16;
             saleItmesIm.TabStop = false;
@@ -168,13 +168,13 @@
             forSale.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             forSale.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             forSale.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            forSale.Location = new Point(200, 6);
+            forSale.Location = new Point(283, 6);
             forSale.Name = "forSale";
             forSale.ReadOnly = true;
             forSale.RightToLeft = RightToLeft.Yes;
             forSale.RowHeadersWidth = 62;
             forSale.RowTemplate.Height = 33;
-            forSale.Size = new Size(739, 345);
+            forSale.Size = new Size(656, 345);
             forSale.TabIndex = 1;
             forSale.CellContentClick += ForSale_CellContentClick;
             forSale.MouseMove += ForSale_MouseMove;
@@ -258,7 +258,7 @@
             label3.Location = new Point(731, 4);
             label3.Name = "label3";
             label3.RightToLeft = RightToLeft.Yes;
-            label3.Size = new Size(179, 40);
+            label3.Size = new Size(217, 50);
             label3.TabIndex = 18;
             label3.Text = "ברוכים הבאים לחנות שלנו\r\nלקוח יקר, ";
             // 

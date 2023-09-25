@@ -17,12 +17,14 @@ namespace carPro
 {
     public partial class customerSignIn : Form
     {
+        MySqlConnection con = new("server=localhost;user=root;database=pro1;password=");
+        MySqlCommand MyCommand2;
         int sum = 0;
         public string nameCustumer;
         int amount = 0;
         string parcod;
         int rowIndex;
-        
+
 
         public customerSignIn()
         {
@@ -46,7 +48,15 @@ namespace carPro
             this.Dispose();
             logIn.ShowDialog();
         }
-
+        private void emtpyItems()
+        {
+            for (int i=0;i<itemToCustomer.Rows.Count;i++) {
+                if (itemToCustomer.Rows[i].Cells[5].Value.ToString() == "0")
+                {
+                    itemToCustomer.Rows[i].DefaultCellStyle.BackColor = Color.Red;
+                }
+            }
+        }
         private void CustomerSignIn_Load(object sender, EventArgs e)
         {
             label3.Text += nameCustumer;
@@ -57,8 +67,7 @@ namespace carPro
             try
             {
                 string strFun;
-                MySqlConnection con = new("server=localhost;user=root;database=pro1;password=");
-                MySqlCommand MyCommand2;
+
                 strFun = "SELECT * FROM `items` ORDER BY BINARY `typeCar` ASC;";
                 con.Open();
                 MyCommand2 = new MySqlCommand(strFun, con);
@@ -82,7 +91,7 @@ namespace carPro
                 itemToCustomer.Columns[6].HeaderText = "מחיר";
                 itemToCustomer.Columns[7].Visible = false;
                 itemToCustomer.Columns[7].HeaderText = "תמונה";
-
+                emtpyItems();
                 con.Close();
             }
             catch (Exception ex)
@@ -143,7 +152,7 @@ namespace carPro
 
         private void Plus_Click(object sender, EventArgs e)
         {
-            if (amountSale.Text != "" && Regex.IsMatch(amountSale.Text, @"^\d+$") && amount > int.Parse(amountSale.Text) + 1)
+            if (amountSale.Text != "" && Regex.IsMatch(amountSale.Text, @"^\d+$") && amount >= int.Parse(amountSale.Text) + 1)
                 amountSale.Text = (int.Parse(amountSale.Text) + 1) + "";
         }
 
@@ -193,7 +202,7 @@ namespace carPro
                     }
                     forSale.Rows[rowIndexNew].Cells[8].Value = amountSale.Text;
                     tabPage2.Text = "הזמנה" + "(" + forSale.Rows.Count + ")";
-                     _ = int.TryParse(forSale.Rows[rowIndexNew].Cells[6].Value.ToString(), out int num1);
+                    _ = int.TryParse(forSale.Rows[rowIndexNew].Cells[6].Value.ToString(), out int num1);
                     _ = int.TryParse(forSale.Rows[rowIndexNew].Cells[8].Value.ToString(), out int num2);
                     sum += num1 * num2;
                     priceToPay.Text = "מחיר לתשלום:" + "\n" + sum + "";
@@ -208,7 +217,7 @@ namespace carPro
                     sum -= num1 * num2;
                     forSale.Rows[rowOld].Cells[8].Value = amountSale.Text;
                     _ = int.TryParse(forSale.Rows[rowOld].Cells[6].Value.ToString(), out num1);
-                    _ =int.TryParse(forSale.Rows[rowOld].Cells[8].Value.ToString(), out num2);
+                    _ = int.TryParse(forSale.Rows[rowOld].Cells[8].Value.ToString(), out num2);
                     sum += num1 * num2;
                     priceToPay.Text = "מחיר לתשלום:" + "\n" + sum + "";
                 }
@@ -283,50 +292,59 @@ namespace carPro
 
         private void SaveSale_Click(object sender, EventArgs e)
         {
-            try
+            if (forSale.Rows.Count > 0)
             {
-                string strFun = "SELECT COUNT(*) FROM paytable";
-                MySqlConnection con = new("server=localhost;user=root;database=pro1;password=");
-                MySqlCommand MyCommand2 = new(strFun, con);
-                con.Open();
-                _ = int.TryParse(MyCommand2.ExecuteScalar().ToString(), out int count);
-                con.Close();
-                strFun = "INSERT INTO paytable(name, id, priceToPay) VALUES (@name,@idSale,@price)";
-                 MyCommand2 = new(strFun, con);
-                con.Open();
-                MyCommand2.Parameters.AddWithValue("@name", nameCustumer);
-                MyCommand2.Parameters.AddWithValue("@idSale", count);
-                MyCommand2.Parameters.AddWithValue("@price", sum);
-                MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.     
-                con.Close();
-                for (int i = 0; i < forSale.Rows.Count; i++)
+                try
                 {
-                     strFun = "INSERT INTO sale(name, id, nameItem, typeCar, modelC,parCode,placeInShop, amount,price, image,amountSale,status)" +
-                                              " VALUES (@nameSa,@idSale,@nameIt,@typeC,@modelCar,@parC,@placeInSh,@amountItem,@priceItem,@imageItem,@amountSale,@statusOrder)";  
-                     MyCommand2 = new(strFun, con);
+                    string strFun = "SELECT COUNT(*) FROM paytable";
+                    MySqlConnection con = new("server=localhost;user=root;database=pro1;password=");
+                    MySqlCommand MyCommand2 = new(strFun, con);
                     con.Open();
-                    MyCommand2.Parameters.AddWithValue("@nameSa", nameCustumer);
+                    _ = int.TryParse(MyCommand2.ExecuteScalar().ToString(), out int count);
+                    con.Close();
+                    strFun = "INSERT INTO paytable(name, id, priceToPay,status) VALUES (@name,@idSale,@price,@status)";
+                    MyCommand2 = new(strFun, con);
+                    con.Open();
+                    MyCommand2.Parameters.AddWithValue("@name", nameCustumer);
                     MyCommand2.Parameters.AddWithValue("@idSale", count);
-                    MyCommand2.Parameters.AddWithValue("@nameIt", forSale.Rows[i].Cells[0].Value.ToString());
-                    MyCommand2.Parameters.AddWithValue("@typeC", forSale.Rows[i].Cells[1].Value.ToString());
-                    MyCommand2.Parameters.AddWithValue("@modelCar", forSale.Rows[i].Cells[2].Value.ToString());
-                    MyCommand2.Parameters.AddWithValue("@parC", forSale.Rows[i].Cells[3].Value.ToString());
-                    MyCommand2.Parameters.AddWithValue("@placeInSh", forSale.Rows[i].Cells[4].Value.ToString());
-                    MyCommand2.Parameters.AddWithValue("@amountItem", forSale.Rows[i].Cells[5].Value.ToString());
-                    MyCommand2.Parameters.AddWithValue("@priceItem", forSale.Rows[i].Cells[6].Value.ToString());
-                    MyCommand2.Parameters.AddWithValue("@imageItem", forSale.Rows[i].Cells[7].Value.ToString());
-                    MyCommand2.Parameters.AddWithValue("@amountSale", forSale.Rows[i].Cells[8].Value.ToString());
-                    MyCommand2.Parameters.AddWithValue("@statusOrder", "process");
+                    MyCommand2.Parameters.AddWithValue("@price", sum);
+                    MyCommand2.Parameters.AddWithValue("@status", "process");
                     MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.     
                     con.Close();
+                    for (int i = 0; i < forSale.Rows.Count; i++)
+                    {
+                       
+                        strFun = "INSERT INTO sale(name, id, nameItem, typeCar, modelC,parCode,placeInShop, amount,price, image,amountSale,status)" +
+                                                 " VALUES (@nameSa,@idSale,@nameIt,@typeC,@modelCar,@parC,@placeInSh,@amountItem,@priceItem,@imageItem,@amountSale,@statusOrder)";
+                        MyCommand2 = new(strFun, con);
+                        con.Open();
+                        MyCommand2.Parameters.AddWithValue("@nameSa", nameCustumer);
+                        MyCommand2.Parameters.AddWithValue("@idSale", count);
+                        MyCommand2.Parameters.AddWithValue("@nameIt", forSale.Rows[i].Cells[0].Value.ToString());
+                        MyCommand2.Parameters.AddWithValue("@typeC", forSale.Rows[i].Cells[1].Value.ToString());
+                        MyCommand2.Parameters.AddWithValue("@modelCar", forSale.Rows[i].Cells[2].Value.ToString());
+                        MyCommand2.Parameters.AddWithValue("@parC", forSale.Rows[i].Cells[3].Value.ToString());
+                        MyCommand2.Parameters.AddWithValue("@placeInSh", forSale.Rows[i].Cells[4].Value.ToString());
+                        MyCommand2.Parameters.AddWithValue("@amountItem", forSale.Rows[i].Cells[5].Value.ToString());
+                        MyCommand2.Parameters.AddWithValue("@priceItem", forSale.Rows[i].Cells[6].Value.ToString());
+                        MyCommand2.Parameters.AddWithValue("@imageItem", forSale.Rows[i].Cells[7].Value);
+                        MyCommand2.Parameters.AddWithValue("@amountSale", forSale.Rows[i].Cells[8].Value.ToString());
+                        MyCommand2.Parameters.AddWithValue("@statusOrder", "process");
+                        MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.     
+                        con.Close();
+                    }
+
+                    MessageBox.Show("שמרת הזמנה התבצעה בהצלחה ,מספר זיהוי שלכה הוא " + count);
+                    CustomerSignIn_FormClosed(null, null);
                 }
-                
-                MessageBox.Show("שמרת הזמנה התבצעה בהצלחה");
-                CustomerSignIn_FormClosed(null,null);
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("הזמנה ריקה");
             }
         }
 

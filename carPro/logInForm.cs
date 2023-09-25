@@ -24,41 +24,35 @@ namespace carPro
             try
             {
                 connection.Open();
-                string selectQuery = "SELECT * FROM testfirst WHERE user_name = '" + userName.Text + "' AND password = '" + password.Text + "';";
+                string selectQuery = "SELECT * FROM test2 WHERE user_name = '" + userName.Text + "' AND password = '" + password.Text + "';";
                 command = new MySqlCommand(selectQuery, connection);
                 mdr = command.ExecuteReader();
 
                 if (mdr.Read())
                 {
-                    connection.Close();
-                    connection.Open();
-                    string status = "SELECT *  FROM  test2 WHERE user_name = '" + userName.Text + "' AND password = '" + password.Text + "';";
-                    command = new MySqlCommand(status, connection);
-                    MySqlDataReader mdr1 = command.ExecuteReader();
-                    if (mdr1.Read())
+                        string statusAc = new(mdr[2].ToString());
+                        string name = new(mdr[3].ToString());
+                    if (statusAc.Equals("manger"))
                     {
-                        string statusAc = new(mdr1[2].ToString());
-                        string name = new(mdr1[3].ToString());
-                        if (statusAc.Equals("manger"))
+                        manger mangerform = new()
                         {
-                            manger mangerform = new()
-                            {
-                                Size = this.Size,
-                                Location = this.Location
-                            };
-                            this.Hide();
-                            mangerform.ShowDialog();
-                        }
-                        else
+                            Size = this.Size,
+                            Location = this.Location
+                        };
+                        this.Hide();
+                        mangerform.ShowDialog();
+                    }
+                    else
+                    {
+                        Employee emp = new()
                         {
-                            Employee emp = new()
-                            {
-                                Size = this.Size,
-                                Location = this.Location
-                            };
-                            this.Hide();
-                            emp.ShowDialog();
-                        }
+                            employName = name
+                        };
+                        
+                        this.Hide();
+                        emp.ShowDialog();
+
+
                     }
                     connection.Close();
 

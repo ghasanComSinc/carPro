@@ -14,6 +14,8 @@ namespace carPro
 {
     public partial class addUser : Form
     {
+        MySqlConnection con = new("server=localhost;user=root;database=pro1;password=");
+        MySqlCommand MyCommand2;
         public addUser()
         {
             InitializeComponent();
@@ -56,15 +58,7 @@ namespace carPro
                 try
                 {
                     string strFun;
-                    MySqlConnection con = new("server=localhost;user=root;database=pro1;password=");
-                    MySqlCommand MyCommand2 ;
-                    strFun = "INSERT INTO testfirst(user_name,password) VALUES(@userNa,@password)";
-                    MyCommand2 = new MySqlCommand(strFun, con);
-                    con.Open();
-                    MyCommand2.Parameters.AddWithValue("@userNa", userNa);
-                    MyCommand2.Parameters.AddWithValue("@password", password);
-                    MyCommand2.ExecuteNonQuery(); 
-                    con.Close();
+                
                     strFun = "INSERT INTO test2(user_name,password,status,name) VALUES (@userNa,@password,@status,@name)";
                     MyCommand2 = new MySqlCommand(strFun, con);
                     con.Open();
