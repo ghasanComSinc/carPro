@@ -17,7 +17,7 @@ namespace carPro
 {
     public partial class customerSignIn : Form
     {
-        MySqlConnection con = new("server=localhost;user=root;database=pro1;password=");
+        readonly MySqlConnection con = new("server=localhost;user=root;database=pro1;password=");
         MySqlCommand MyCommand2;
         int sum = 0;
         public string nameCustumer;
@@ -48,7 +48,7 @@ namespace carPro
             this.Dispose();
             logIn.ShowDialog();
         }
-        private void emtpyItems()
+        private void EmtpyItems()
         {
             for (int i=0;i<itemToCustomer.Rows.Count;i++) {
                 if (itemToCustomer.Rows[i].Cells[5].Value.ToString() == "0")
@@ -91,7 +91,7 @@ namespace carPro
                 itemToCustomer.Columns[6].HeaderText = "מחיר";
                 itemToCustomer.Columns[7].Visible = false;
                 itemToCustomer.Columns[7].HeaderText = "תמונה";
-                emtpyItems();
+                EmtpyItems();
                 con.Close();
             }
             catch (Exception ex)

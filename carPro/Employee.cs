@@ -74,7 +74,7 @@ namespace carPro
 
 
 
-        private void searchOr_TextChanged(object sender, EventArgs e)
+        private void SearchOr_TextChanged(object sender, EventArgs e)
         {
             DataView dataView = dataTable.DefaultView;
             if (search.Text != "")
@@ -86,7 +86,7 @@ namespace carPro
             }
             orders.Refresh();
         }
-        private void toPay()
+        private void ToPay()
         {
             //7 10
             int sum = 0;
@@ -109,7 +109,7 @@ namespace carPro
             pay.Text = "לתשלום :\r\n" + sum;
         }
 
-        private void orders_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void Orders_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             tabControl1.TabPages.Remove(allOrder);
             tabControl1.TabPages.Add(tabPage2);
@@ -141,7 +141,7 @@ namespace carPro
                 itemsInOrder.Columns[10].HeaderText = "קמות רצויה";
                 itemsInOrder.Columns[11].HeaderText = "מצב של הזמנה";
                 connection.Close();
-                toPay();
+                ToPay();
             }
             catch (Exception ex)
             {
@@ -151,7 +151,7 @@ namespace carPro
 
 
 
-        private void label2_Click(object sender, EventArgs e)
+        private void Label2_Click(object sender, EventArgs e)
         {
             label2.Visible = false;
             panel1.Visible = true;
@@ -159,7 +159,7 @@ namespace carPro
             tabControl1.TabPages.Add(allOrder);
             Employee_Load(sender, e);
         }
-        private void itemsInOrder_MouseMove(object sender, MouseEventArgs e)
+        private void ItemsInOrder_MouseMove(object sender, MouseEventArgs e)
         {
             DataGridView.HitTestInfo hitTestInfo = itemsInOrder.HitTest(e.X, e.Y);
 
@@ -180,7 +180,7 @@ namespace carPro
                 picItems.Image = null;
             }
         }
-        private void updateItems()
+        private void UpdateItems()
         {
             for (int i = 0; i < itemsInOrder.Rows.Count; i++)
             {
@@ -245,7 +245,7 @@ namespace carPro
             }
         }
         
-        private void payBu_Click(object sender, EventArgs e)
+        private void PayBu_Click(object sender, EventArgs e)
         {
             try
             {
@@ -259,8 +259,8 @@ namespace carPro
 
                 MessageBox.Show("הזמנה בוצעתה בהצלחה");
                 Employee_Load(sender, e);
-                label2_Click(sender, e);
-                updateItems();
+                Label2_Click(sender, e);
+                UpdateItems();
             }
             catch (Exception ex)
             {
@@ -269,7 +269,7 @@ namespace carPro
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < itemsInOrder.Rows.Count; i++)
             {
@@ -278,8 +278,6 @@ namespace carPro
                     string strFun = "UPDATE `sale` SET `amountSale`=@amountS WHERE `id`=@id";
                     connection.Open();
                     command = new MySqlCommand(strFun, connection);
-                    MySqlDataAdapter adapter = new(command);
-                
                     command.Parameters.AddWithValue("@amountS", itemsInOrder.Rows[i].Cells[7].Value.ToString());
                     command.Parameters.AddWithValue("@id", itemsInOrder.Rows[i].Cells[1].Value.ToString());
                     command.ExecuteNonQuery();
@@ -290,7 +288,7 @@ namespace carPro
                     strFun = "SELECT * FROM `sale` WHERE `id`=" + itemsInOrder.Rows[i].Cells[1].Value.ToString();
                     connection.Open();
                     command = new MySqlCommand(strFun, connection);
-                    adapter = new(command);
+                    MySqlDataAdapter adapter = new(command);
                     dataTable = new();
                     // Fill the DataTable with the query results
                     adapter.Fill(dataTable);
@@ -310,7 +308,7 @@ namespace carPro
                     itemsInOrder.Columns[10].HeaderText = "קמות רצויה";
                     itemsInOrder.Columns[11].HeaderText = "מצב של הזמנה";
                     connection.Close();
-                    toPay();
+                    ToPay();
                     /// //////////////////////////////////////////////////////////////
                 }
             }
@@ -318,7 +316,7 @@ namespace carPro
 
             connection.Open();
             command = new MySqlCommand(strFun1, connection);
-            MySqlDataAdapter adapter1 = new(command);
+            //MySqlDataAdapter adapter1 = new(command);
             ///Regex.Match(subjectString, @"\d+").Value;
             command.Parameters.AddWithValue("@price", Regex.Match(pay.Text.ToString(), @"\d+").Value );
             command.Parameters.AddWithValue("@id", itemsInOrder.Rows[0].Cells[1].Value.ToString());

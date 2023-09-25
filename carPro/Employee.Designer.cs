@@ -99,7 +99,7 @@
             orders.RowTemplate.Height = 33;
             orders.Size = new Size(851, 395);
             orders.TabIndex = 1;
-            orders.CellContentClick += orders_CellContentClick;
+            orders.CellContentClick += Orders_CellContentClick;
             // 
             // tabPage2
             // 
@@ -125,7 +125,7 @@
             button2.Text = "עדכון כמות של מוצרים ";
             button2.UseVisualStyleBackColor = true;
             button2.Visible = false;
-            button2.Click += button2_Click;
+            button2.Click += Button2_Click;
             // 
             // payBu
             // 
@@ -135,7 +135,7 @@
             payBu.TabIndex = 31;
             payBu.Text = "לתשלום";
             payBu.UseVisualStyleBackColor = true;
-            payBu.Click += payBu_Click;
+            payBu.Click += PayBu_Click;
             // 
             // pay
             // 
@@ -176,7 +176,7 @@
             itemsInOrder.RowTemplate.Height = 33;
             itemsInOrder.Size = new Size(552, 393);
             itemsInOrder.TabIndex = 2;
-            itemsInOrder.MouseMove += itemsInOrder_MouseMove;
+            itemsInOrder.MouseMove += ItemsInOrder_MouseMove;
             // 
             // employeName
             // 
@@ -223,7 +223,7 @@
             searchOr.Name = "searchOr";
             searchOr.Size = new Size(120, 31);
             searchOr.TabIndex = 27;
-            searchOr.TextChanged += searchOr_TextChanged;
+            searchOr.TextChanged += SearchOr_TextChanged;
             // 
             // label1
             // 
@@ -286,7 +286,7 @@
             label2.TabIndex = 29;
             label2.Text = "חזרה לדף הזמנות";
             label2.Visible = false;
-            label2.Click += label2_Click;
+            label2.Click += Label2_Click;
             // 
             // Employee
             // 
