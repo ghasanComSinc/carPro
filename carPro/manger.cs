@@ -23,30 +23,11 @@ namespace carPro
         {
             InitializeComponent();
         }
-
-        private void Button2_Click(object sender, EventArgs e)
-        {
-            AddItems addItem = new ();
-            this.Dispose();
-            addItem.ShowDialog();
-        }
-
         private void Manger_FormClosing(object sender, FormClosingEventArgs e)
         {
-            LogInForm logIn = new()
-            {
-                Size = this.Size,
-                Location = this.Location
-            };
+            LogInForm logIn = new();
             this.Dispose();
             logIn.ShowDialog();
-        }
-
-        private void Button1_Click(object sender, EventArgs e)
-        {
-            AddUser addUs = new();
-            this.Dispose();
-            addUs.ShowDialog();
         }
         private void CheckUser()
         {
@@ -109,14 +90,42 @@ namespace carPro
                 }
             }
         }
-
         private void TabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedIndex == 0)
+            if (tab.SelectedIndex == 0)
             {
-                MessageBox.Show("hi select");
+                try
+                {
+                    string strFun;
+                    strFun = "SELECT * FROM `items`";
+                    MyCommand2 = new MySqlCommand(strFun, con);
+                    con.Open();
+                    MySqlDataAdapter adapter = new(MyCommand2);
+                    dataTable = new();
+                    // Fill the DataTable with the query results
+                    adapter.Fill(dataTable);
+
+                    // Bind the DataTable to the DataGridView
+                    items.DataSource = dataTable;
+
+                    items.Columns[0].HeaderText = "שם מוצר";
+                    items.Columns[1].HeaderText = "סוג רכב";
+                    items.Columns[2].HeaderText = "תת- רכב";
+                    items.Columns[3].HeaderText = "פר";
+                    items.Columns[4].HeaderText = "מקום בחנות";
+                    items.Columns[5].HeaderText = "כמות";
+                    items.Columns[6].HeaderText = "מחיר";
+                    items.Columns[7].HeaderText = "תמונה";
+                    items.Columns[7].Visible = false;
+                    con.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    con.Close();
+                }
             }
-            else if (tabControl1.SelectedIndex == 1)
+            else if (tab.SelectedIndex == 1)
             {
                 try
                 {
@@ -147,12 +156,14 @@ namespace carPro
                 }
             }
         }
-
         private void Manger_Load(object sender, EventArgs e)
         {
             TabControl1_SelectedIndexChanged(sender, e);
+            int w = Screen.PrimaryScreen.Bounds.Width;
+            int h = Screen.PrimaryScreen.Bounds.Height;
+            this.Location = new Point(0, 0);
+            this.Size = new Size(w, h);
         }
-
         private void Users_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             updateU.Visible = true;
@@ -169,22 +180,10 @@ namespace carPro
                 status.SetItemChecked(1, true);
 
         }
-
         private void Users_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             Users_CellContentClick(sender, e);
         }
-
-        private void CheckedListBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            for (int i = 0; i < status.Items.Count; i++)
-            {
-                if (status.SelectedIndex != i)
-                    status.SetItemChecked(i, false);
-
-            }
-        }
-
         private void UpdateU_Click(object sender, EventArgs e)
         {
             try
@@ -228,7 +227,6 @@ namespace carPro
             }
             TabControl1_SelectedIndexChanged(sender, e);
         }
-
         private void Button1_Click_1(object sender, EventArgs e)
         {
             updateU.Visible = false;
@@ -240,32 +238,31 @@ namespace carPro
             userName.ReadOnly = false;
             TabControl1_SelectedIndexChanged(sender, e);
         }
-
         private void DeletU_Click(object sender, EventArgs e)
         {
             try
-            {       
-                string userNa = userName.Text;  
+            {
+                string userNa = userName.Text;
                 string stat = status.Text;
-               
-                    string strFun;
-                    if (stat=="manger")
-                    {
-                        strFun = "SELECT COUNT(*) FROM `test2` WHERE `status`=@manger";
-                        con.Open();
-                        MyCommand2 = new MySqlCommand(strFun, con);
-                        MyCommand2.Parameters.AddWithValue("@manger", stat);
-                        int count = Convert.ToInt32(MyCommand2.ExecuteScalar());
+
+                string strFun;
+                if (stat == "manger")
+                {
+                    strFun = "SELECT COUNT(*) FROM `test2` WHERE `status`=@manger";
+                    con.Open();
+                    MyCommand2 = new MySqlCommand(strFun, con);
+                    MyCommand2.Parameters.AddWithValue("@manger", stat);
+                    int count = Convert.ToInt32(MyCommand2.ExecuteScalar());
                     con.Close();
                     if (count == 1)
                     {
                         MessageBox.Show("קיים רק מנהיל יחד אי אפשר למחוק"); return;
                     }
-                    }
-                    strFun = "DELETE FROM `test2` WHERE user_name=@userN";
-                    con.Open();
-                    MyCommand2 = new MySqlCommand(strFun, con);
-                    MyCommand2.Parameters.AddWithValue("@userN", userNa);
+                }
+                strFun = "DELETE FROM `test2` WHERE user_name=@userN";
+                con.Open();
+                MyCommand2 = new MySqlCommand(strFun, con);
+                MyCommand2.Parameters.AddWithValue("@userN", userNa);
                 MyCommand2.ExecuteNonQuery();
                 con.Close();
                 TabControl1_SelectedIndexChanged(sender, e);
@@ -273,6 +270,17 @@ namespace carPro
             }
             catch
             { }
-         }
+        }
+        private void status_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            for (int i = 0; i < status.Items.Count; i++)
+            {
+                if (status.SelectedIndex != i)
+                    status.SetItemChecked(i, false);
+
+            }
+        }
+
+
     }
 }

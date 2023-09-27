@@ -37,11 +37,8 @@ namespace carPro
                     string name = new(mdr[3].ToString());
                     if (statusAc.Equals("manger"))
                     {
-                        Manger mangerform = new()
-                        {
-                            Size = this.Size,
-                            Location = this.Location
-                        };
+                        Manger mangerform = new();
+                        
                         this.Hide();
                         mangerform.ShowDialog();
                     }

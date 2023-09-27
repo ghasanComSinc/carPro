@@ -90,17 +90,17 @@
             itemToCustomer.AllowUserToOrderColumns = true;
             itemToCustomer.AllowUserToResizeColumns = false;
             itemToCustomer.AllowUserToResizeRows = false;
-            itemToCustomer.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-            itemToCustomer.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            itemToCustomer.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            itemToCustomer.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             itemToCustomer.BackgroundColor = SystemColors.ButtonHighlight;
             itemToCustomer.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            itemToCustomer.Location = new Point(314, 6);
+            itemToCustomer.Location = new Point(272, 6);
             itemToCustomer.Name = "itemToCustomer";
             itemToCustomer.ReadOnly = true;
             itemToCustomer.RightToLeft = RightToLeft.Yes;
             itemToCustomer.RowHeadersWidth = 62;
             itemToCustomer.RowTemplate.Height = 33;
-            itemToCustomer.Size = new Size(628, 342);
+            itemToCustomer.Size = new Size(670, 342);
             itemToCustomer.TabIndex = 0;
             itemToCustomer.CellClick += ItemToCustomer_CellClick;
             itemToCustomer.CellContentClick += ItemToCustomer_CellContentClick;
@@ -110,7 +110,7 @@
             // 
             picItems.Location = new Point(7, 6);
             picItems.Name = "picItems";
-            picItems.Size = new Size(301, 266);
+            picItems.Size = new Size(259, 266);
             picItems.SizeMode = PictureBoxSizeMode.StretchImage;
             picItems.TabIndex = 15;
             picItems.TabStop = false;
@@ -264,7 +264,7 @@
             label3.TabIndex = 18;
             label3.Text = "ברוכים הבאים לחנות שלנו\r\nלקוח יקר, ";
             // 
-            // customerSignIn
+            // CustomerSignIn
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -272,7 +272,7 @@
             Controls.Add(label3);
             Controls.Add(panel1);
             Controls.Add(tabControl1);
-            Name = "customerSignIn";
+            Name = "CustomerSignIn";
             RightToLeftLayout = true;
             Text = "ממשק לקוח";
             FormClosed += CustomerSignIn_FormClosed;
