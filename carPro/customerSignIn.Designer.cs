@@ -1,6 +1,6 @@
 ﻿namespace carPro
 {
-    partial class customerSignIn
+    partial class CustomerSignIn
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(customerSignIn));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CustomerSignIn));
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             itemToCustomer = new DataGridView();
@@ -102,6 +102,7 @@
             itemToCustomer.RowTemplate.Height = 33;
             itemToCustomer.Size = new Size(628, 342);
             itemToCustomer.TabIndex = 0;
+            itemToCustomer.CellClick += ItemToCustomer_CellClick;
             itemToCustomer.CellContentClick += ItemToCustomer_CellContentClick;
             itemToCustomer.MouseMove += ItemToCustomer_MouseMove;
             // 
@@ -176,6 +177,7 @@
             forSale.RowTemplate.Height = 33;
             forSale.Size = new Size(656, 345);
             forSale.TabIndex = 1;
+            forSale.CellClick += ForSale_CellClick;
             forSale.CellContentClick += ForSale_CellContentClick;
             forSale.MouseMove += ForSale_MouseMove;
             // 

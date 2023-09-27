@@ -1,6 +1,6 @@
 ﻿namespace carPro
 {
-    partial class addUser
+    partial class AddUser
     {
         /// <summary>
         /// Required designer variable.
@@ -133,7 +133,7 @@
             button1.TabIndex = 0;
             button1.Text = "הוספה משתמש";
             button1.UseVisualStyleBackColor = true;
-            button1.Click += Button1_Click;
+           
             // 
             // addUser
             // 

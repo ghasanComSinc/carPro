@@ -89,7 +89,7 @@ namespace carPro
 
         private void AddItems_FormClosing(object sender, FormClosingEventArgs e)
         {
-            manger mange = new()
+            Manger mange = new()
             {
                 Location = this.Location,
                 Size = this.Size

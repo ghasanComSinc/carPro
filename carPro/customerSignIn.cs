@@ -15,7 +15,7 @@ using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace carPro
 {
-    public partial class customerSignIn : Form
+    public partial class CustomerSignIn : Form
     {
         readonly MySqlConnection con = new("server=localhost;user=root;database=pro1;password=");
         MySqlCommand MyCommand2;
@@ -26,7 +26,7 @@ namespace carPro
         int rowIndex;
 
 
-        public customerSignIn()
+        public CustomerSignIn()
         {
             InitializeComponent();
             forSale.Columns.Add("שם מוצר", "שם מוצר");//0
@@ -44,13 +44,14 @@ namespace carPro
 
         private void CustomerSignIn_FormClosed(object sender, FormClosedEventArgs e)
         {
-            logInForm logIn = new();
+            LogInForm logIn = new();
             this.Dispose();
             logIn.ShowDialog();
         }
         private void EmtpyItems()
         {
-            for (int i=0;i<itemToCustomer.Rows.Count;i++) {
+            for (int i = 0; i < itemToCustomer.Rows.Count; i++)
+            {
                 if (itemToCustomer.Rows[i].Cells[5].Value.ToString() == "0")
                 {
                     itemToCustomer.Rows[i].DefaultCellStyle.BackColor = Color.Red;
@@ -97,6 +98,8 @@ namespace carPro
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                CustomerSignIn_FormClosed(null, null);
+
             }
         }
         private void HideItem()
@@ -313,7 +316,7 @@ namespace carPro
                     con.Close();
                     for (int i = 0; i < forSale.Rows.Count; i++)
                     {
-                       
+
                         strFun = "INSERT INTO sale(name, id, nameItem, typeCar, modelC,parCode,placeInShop, amount,price, image,amountSale,status)" +
                                                  " VALUES (@nameSa,@idSale,@nameIt,@typeC,@modelCar,@parC,@placeInSh,@amountItem,@priceItem,@imageItem,@amountSale,@statusOrder)";
                         MyCommand2 = new(strFun, con);
@@ -349,5 +352,14 @@ namespace carPro
         }
 
 
+        private void ItemToCustomer_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            ItemToCustomer_CellContentClick(sender, e);
+        }
+
+        private void ForSale_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            ForSale_CellContentClick(sender, e);
+        }
     }
 }

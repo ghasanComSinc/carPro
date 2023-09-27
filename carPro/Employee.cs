@@ -37,7 +37,7 @@ namespace carPro
 
         private void Employee_FormClosed(object sender, FormClosedEventArgs e)
         {
-            logInForm logIn = new();
+            LogInForm logIn = new();
             this.Dispose();
             logIn.ShowDialog();
         }
@@ -69,6 +69,7 @@ namespace carPro
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                Employee_FormClosed(null, null);
             }
         }
 

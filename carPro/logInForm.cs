@@ -1,21 +1,24 @@
 using MySql.Data.MySqlClient;
+using System.Net.Mail;
 using System.Data;
 using System.Windows.Forms;
+using WhatsAppApi;
+using WhatsAppApi.Parser;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
 using static System.Net.Mime.MediaTypeNames;
 using Application = System.Windows.Forms.Application;
 
 namespace carPro
 {
-    public partial class logInForm : System.Windows.Forms.Form
+    public partial class LogInForm : System.Windows.Forms.Form
     {
         readonly MySqlConnection connection = new("server=localhost;user=root;database=pro1;password=");
         MySqlCommand command;
         MySqlDataReader mdr;
-        public logInForm()
+        public LogInForm()
         {
             InitializeComponent();
-           tabControl1.SizeMode = TabSizeMode.Fixed;
+            tabControl1.SizeMode = TabSizeMode.Fixed;
             tabControl1.ItemSize = new Size(0, 1);
             tabControl1.Appearance = TabAppearance.FlatButtons;
         }
@@ -30,11 +33,11 @@ namespace carPro
 
                 if (mdr.Read())
                 {
-                        string statusAc = new(mdr[2].ToString());
-                        string name = new(mdr[3].ToString());
+                    string statusAc = new(mdr[2].ToString());
+                    string name = new(mdr[3].ToString());
                     if (statusAc.Equals("manger"))
                     {
-                        manger mangerform = new()
+                        Manger mangerform = new()
                         {
                             Size = this.Size,
                             Location = this.Location
@@ -48,7 +51,7 @@ namespace carPro
                         {
                             employName = name
                         };
-                        
+
                         this.Hide();
                         emp.ShowDialog();
 
@@ -76,10 +79,10 @@ namespace carPro
         {
             if (nameCustumer.Text != "")
             {
-                customerSignIn customerForm = new()
+                CustomerSignIn customerForm = new()
                 {
                     nameCustumer = nameCustumer.Text,
-                    
+
                 };
                 this.Hide();
                 customerForm.ShowDialog();
@@ -119,5 +122,9 @@ namespace carPro
             tabControl1.TabPages.Remove(tabPage1);
             tabControl1.TabPages.Add(tabPage2);
         }
+
+
+
+
     }
 }

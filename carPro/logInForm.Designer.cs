@@ -1,6 +1,6 @@
 ﻿namespace carPro
 {
-    partial class logInForm
+    partial class LogInForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(logInForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LogInForm));
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             panel1 = new Panel();
@@ -57,12 +57,12 @@
             tabControl1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
-            tabControl1.Location = new Point(-1, 27);
+            tabControl1.Location = new Point(0, 29);
             tabControl1.Name = "tabControl1";
             tabControl1.RightToLeft = RightToLeft.Yes;
             tabControl1.RightToLeftLayout = true;
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(807, 422);
+            tabControl1.Size = new Size(807, 420);
             tabControl1.TabIndex = 8;
             // 
             // tabPage1
@@ -71,7 +71,7 @@
             tabPage1.Location = new Point(4, 34);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(799, 384);
+            tabPage1.Size = new Size(799, 382);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "  ";
             tabPage1.UseVisualStyleBackColor = true;
@@ -88,13 +88,13 @@
             panel1.Controls.Add(label1);
             panel1.Location = new Point(194, 90);
             panel1.Name = "panel1";
-            panel1.Size = new Size(441, 187);
+            panel1.Size = new Size(441, 185);
             panel1.TabIndex = 8;
             // 
             // returnCustomer
             // 
             returnCustomer.Anchor = AnchorStyles.None;
-            returnCustomer.Location = new Point(3, 144);
+            returnCustomer.Location = new Point(3, 143);
             returnCustomer.Name = "returnCustomer";
             returnCustomer.Size = new Size(159, 40);
             returnCustomer.TabIndex = 14;
@@ -106,7 +106,7 @@
             // 
             pictureBox1.Anchor = AnchorStyles.None;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(71, 74);
+            pictureBox1.Location = new Point(71, 73);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(40, 31);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
@@ -117,7 +117,7 @@
             // password
             // 
             password.Anchor = AnchorStyles.None;
-            password.Location = new Point(127, 74);
+            password.Location = new Point(127, 73);
             password.Name = "password";
             password.PasswordChar = '*';
             password.Size = new Size(150, 31);
@@ -126,7 +126,7 @@
             // userName
             // 
             userName.Anchor = AnchorStyles.None;
-            userName.Location = new Point(127, 19);
+            userName.Location = new Point(127, 18);
             userName.Name = "userName";
             userName.Size = new Size(150, 31);
             userName.TabIndex = 10;
@@ -134,7 +134,7 @@
             // button1
             // 
             button1.Anchor = AnchorStyles.None;
-            button1.Location = new Point(314, 144);
+            button1.Location = new Point(314, 143);
             button1.Name = "button1";
             button1.Size = new Size(124, 40);
             button1.TabIndex = 9;
@@ -147,7 +147,7 @@
             label2.Anchor = AnchorStyles.None;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.Location = new Point(347, 74);
+            label2.Location = new Point(347, 73);
             label2.Name = "label2";
             label2.Size = new Size(67, 25);
             label2.TabIndex = 8;
@@ -158,7 +158,7 @@
             label1.Anchor = AnchorStyles.None;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(304, 21);
+            label1.Location = new Point(304, 20);
             label1.Name = "label1";
             label1.Size = new Size(112, 25);
             label1.TabIndex = 7;
@@ -174,7 +174,7 @@
             tabPage2.Location = new Point(4, 34);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(799, 384);
+            tabPage2.Size = new Size(799, 382);
             tabPage2.TabIndex = 1;
             tabPage2.Text = " ";
             tabPage2.UseVisualStyleBackColor = true;
@@ -184,7 +184,7 @@
             label4.Anchor = AnchorStyles.None;
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label4.Location = new Point(275, 44);
+            label4.Location = new Point(275, 43);
             label4.Name = "label4";
             label4.RightToLeft = RightToLeft.Yes;
             label4.Size = new Size(258, 25);
@@ -194,7 +194,7 @@
             // nameCustumer
             // 
             nameCustumer.Anchor = AnchorStyles.None;
-            nameCustumer.Location = new Point(275, 151);
+            nameCustumer.Location = new Point(275, 150);
             nameCustumer.Name = "nameCustumer";
             nameCustumer.Size = new Size(150, 31);
             nameCustumer.TabIndex = 16;
@@ -204,7 +204,7 @@
             label3.Anchor = AnchorStyles.None;
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label3.Location = new Point(452, 153);
+            label3.Location = new Point(452, 152);
             label3.Name = "label3";
             label3.Size = new Size(84, 25);
             label3.TabIndex = 15;
@@ -213,7 +213,7 @@
             // logInWorker
             // 
             logInWorker.Anchor = AnchorStyles.None;
-            logInWorker.Location = new Point(432, 224);
+            logInWorker.Location = new Point(432, 223);
             logInWorker.Name = "logInWorker";
             logInWorker.Size = new Size(132, 40);
             logInWorker.TabIndex = 14;
@@ -224,7 +224,7 @@
             // button2
             // 
             button2.Anchor = AnchorStyles.None;
-            button2.Location = new Point(165, 224);
+            button2.Location = new Point(165, 223);
             button2.Name = "button2";
             button2.Size = new Size(132, 40);
             button2.TabIndex = 13;
