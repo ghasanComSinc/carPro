@@ -291,7 +291,8 @@ namespace carPro
             string carType = typeCar.Text;
             string carM = carModel.Text;
             float pric;
-            if (float.TryParse(price.Text, out pric)) {
+            if (float.TryParse(price.Text, out pric))
+            {
                 if (pric <= 0 || price.Text == "")
                 {
                     priceFlag = true;
@@ -302,7 +303,7 @@ namespace carPro
                     priceFlag = false;
                 }
             }
-            else 
+            else
             {
                 priceFlag = true;
             }
@@ -326,7 +327,7 @@ namespace carPro
             {
                 MessageBox.Show("דגם רכב ריק");
             }
-            else if(priceFlag)
+            else if (priceFlag)
             {
                 MessageBox.Show("מחיר ריק/המחיר שלילי/מחיר רק");
             }
@@ -386,6 +387,31 @@ namespace carPro
                 picPath.Image = Image.FromFile(ofd.FileName);
 
             }
+        }
+
+        private void searchItem_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            for (int i = 0; i < searchItem.Items.Count; i++)
+            {
+                if (searchItem.SelectedIndex != i)
+                    searchItem.SetItemChecked(i, false);
+
+            }
+        }
+
+        private void search_box_TextChanged(object sender, EventArgs e)
+        {
+            DataView dataView = dataTable.DefaultView;
+            if (searchItem.Text != "")
+            {
+                if (searchItem.Text == "פ\"ר קוד")
+                    dataView.RowFilter = $"parCode LIKE '%{search_box.Text}%'";
+                else if(searchItem.Text == "סוג רכב")
+                    dataView.RowFilter = $"typeCar LIKE '%{search_box.Text}%'";
+                else
+                    dataView.RowFilter = $"nameItem LIKE '%{search_box.Text}%'";
+            }
+            items.Refresh();
         }
     }
 }

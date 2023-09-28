@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using static WhatsAppApi.Parser.FMessage;
 
 namespace carPro
 {
@@ -80,7 +81,7 @@ namespace carPro
             DataView dataView = dataTable.DefaultView;
             if (search.Text != "")
             {
-                if (search.Text == "שם של לקוח")
+                if (search.Text == "שם לקוח")
                     dataView.RowFilter = $"name LIKE '%{searchOr.Text}%'";
                 else
                     dataView.RowFilter = $"id LIKE '%{searchOr.Text}%'";
@@ -326,6 +327,16 @@ namespace carPro
             connection.Close();
 
 
+        }
+
+        private void search_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            for (int i = 0; i < search.Items.Count; i++)
+            {
+                if (search.SelectedIndex != i)
+                    search.SetItemChecked(i, false);
+
+            }
         }
     }
 }
