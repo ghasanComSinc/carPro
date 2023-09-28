@@ -32,10 +32,14 @@
             addItem = new TabPage();
             items = new DataGridView();
             panel2 = new Panel();
+            pictureBox1 = new PictureBox();
+            search_box = new TextBox();
+            listBox1 = new ListBox();
+            search_label = new Label();
+            add_item = new Button();
             label11 = new Label();
             price = new TextBox();
             picPath = new PictureBox();
-            button2 = new Button();
             label12 = new Label();
             label7 = new Label();
             Amount = new TextBox();
@@ -68,6 +72,7 @@
             addItem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)items).BeginInit();
             panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picPath).BeginInit();
             addUser.SuspendLayout();
             panel1.SuspendLayout();
@@ -84,7 +89,7 @@
             tab.RightToLeft = RightToLeft.Yes;
             tab.RightToLeftLayout = true;
             tab.SelectedIndex = 0;
-            tab.Size = new Size(887, 532);
+            tab.Size = new Size(1388, 831);
             tab.TabIndex = 9;
             tab.SelectedIndexChanged += TabControl1_SelectedIndexChanged;
             // 
@@ -95,7 +100,7 @@
             addItem.Location = new Point(4, 34);
             addItem.Name = "addItem";
             addItem.Padding = new Padding(3);
-            addItem.Size = new Size(879, 494);
+            addItem.Size = new Size(1380, 793);
             addItem.TabIndex = 0;
             addItem.Text = "הוספת  מוצר";
             addItem.UseVisualStyleBackColor = true;
@@ -117,16 +122,20 @@
             items.RightToLeft = RightToLeft.Yes;
             items.RowHeadersWidth = 62;
             items.RowTemplate.Height = 33;
-            items.Size = new Size(870, 214);
+            items.Size = new Size(1371, 513);
             items.TabIndex = 6;
             // 
             // panel2
             // 
             panel2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel2.Controls.Add(pictureBox1);
+            panel2.Controls.Add(search_box);
+            panel2.Controls.Add(listBox1);
+            panel2.Controls.Add(search_label);
+            panel2.Controls.Add(add_item);
             panel2.Controls.Add(label11);
             panel2.Controls.Add(price);
             panel2.Controls.Add(picPath);
-            panel2.Controls.Add(button2);
             panel2.Controls.Add(label12);
             panel2.Controls.Add(label7);
             panel2.Controls.Add(Amount);
@@ -140,16 +149,60 @@
             panel2.Controls.Add(label6);
             panel2.Controls.Add(nameItem);
             panel2.Controls.Add(typeCar);
-            panel2.Location = new Point(3, 222);
+            panel2.Location = new Point(3, 521);
             panel2.Name = "panel2";
-            panel2.Size = new Size(871, 262);
+            panel2.Size = new Size(1372, 262);
             panel2.TabIndex = 5;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Location = new Point(31, 38);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(203, 167);
+            pictureBox1.TabIndex = 193;
+            pictureBox1.TabStop = false;
+            // 
+            // search_box
+            // 
+            search_box.Location = new Point(286, 74);
+            search_box.Name = "search_box";
+            search_box.Size = new Size(141, 31);
+            search_box.TabIndex = 192;
+            // 
+            // listBox1
+            // 
+            listBox1.FormattingEnabled = true;
+            listBox1.ItemHeight = 25;
+            listBox1.Items.AddRange(new object[] { "פ\"ר קוד", "שם מוצר", "סוג רכב" });
+            listBox1.Location = new Point(433, 74);
+            listBox1.Name = "listBox1";
+            listBox1.Size = new Size(150, 29);
+            listBox1.TabIndex = 191;
+            // 
+            // search_label
+            // 
+            search_label.AutoSize = true;
+            search_label.Location = new Point(589, 74);
+            search_label.Name = "search_label";
+            search_label.Size = new Size(133, 25);
+            search_label.TabIndex = 190;
+            search_label.Text = "חיפוש מוצר לפי";
+            // 
+            // add_item
+            // 
+            add_item.Location = new Point(286, 211);
+            add_item.Name = "add_item";
+            add_item.Size = new Size(163, 36);
+            add_item.TabIndex = 189;
+            add_item.Text = "הוספת מוצר";
+            add_item.UseVisualStyleBackColor = true;
+            add_item.Click += add_item_Click;
             // 
             // label11
             // 
             label11.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label11.AutoSize = true;
-            label11.Location = new Point(811, 147);
+            label11.Location = new Point(1312, 147);
             label11.Name = "label11";
             label11.Size = new Size(51, 25);
             label11.TabIndex = 188;
@@ -158,7 +211,7 @@
             // price
             // 
             price.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            price.Location = new Point(294, 68);
+            price.Location = new Point(1107, 156);
             price.Name = "price";
             price.RightToLeft = RightToLeft.Yes;
             price.Size = new Size(150, 31);
@@ -167,28 +220,20 @@
             // picPath
             // 
             picPath.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            picPath.Location = new Point(296, 147);
+            picPath.BackColor = Color.Black;
+            picPath.Location = new Point(797, 147);
             picPath.Name = "picPath";
             picPath.Size = new Size(145, 94);
             picPath.SizeMode = PictureBoxSizeMode.Zoom;
             picPath.TabIndex = 187;
             picPath.TabStop = false;
-            // 
-            // button2
-            // 
-            button2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button2.Location = new Point(142, 211);
-            button2.Name = "button2";
-            button2.Size = new Size(130, 30);
-            button2.TabIndex = 185;
-            button2.Text = "הוספה תמונה";
-            button2.UseVisualStyleBackColor = true;
+            picPath.Click += picPath_Click;
             // 
             // label12
             // 
             label12.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label12.AutoSize = true;
-            label12.Location = new Point(492, 147);
+            label12.Location = new Point(993, 147);
             label12.Name = "label12";
             label12.Size = new Size(61, 25);
             label12.TabIndex = 186;
@@ -198,7 +243,7 @@
             // 
             label7.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label7.AutoSize = true;
-            label7.Location = new Point(501, 99);
+            label7.Location = new Point(1002, 99);
             label7.Name = "label7";
             label7.Size = new Size(52, 25);
             label7.TabIndex = 183;
@@ -207,7 +252,7 @@
             // Amount
             // 
             Amount.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            Amount.Location = new Point(294, 105);
+            Amount.Location = new Point(795, 105);
             Amount.Name = "Amount";
             Amount.RightToLeft = RightToLeft.Yes;
             Amount.Size = new Size(150, 31);
@@ -217,7 +262,7 @@
             // 
             label9.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label9.AutoSize = true;
-            label9.Location = new Point(448, 64);
+            label9.Location = new Point(949, 64);
             label9.Name = "label9";
             label9.Size = new Size(105, 25);
             label9.TabIndex = 182;
@@ -226,7 +271,7 @@
             // placeInShop
             // 
             placeInShop.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            placeInShop.Location = new Point(608, 147);
+            placeInShop.Location = new Point(792, 64);
             placeInShop.Name = "placeInShop";
             placeInShop.RightToLeft = RightToLeft.Yes;
             placeInShop.Size = new Size(150, 31);
@@ -236,7 +281,7 @@
             // 
             label10.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label10.AutoSize = true;
-            label10.Location = new Point(482, 22);
+            label10.Location = new Point(983, 22);
             label10.Name = "label10";
             label10.Size = new Size(71, 25);
             label10.TabIndex = 181;
@@ -245,7 +290,7 @@
             // parCode
             // 
             parCode.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            parCode.Location = new Point(294, 24);
+            parCode.Location = new Point(795, 24);
             parCode.Name = "parCode";
             parCode.RightToLeft = RightToLeft.Yes;
             parCode.Size = new Size(150, 31);
@@ -255,7 +300,7 @@
             // 
             label8.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label8.AutoSize = true;
-            label8.Location = new Point(789, 90);
+            label8.Location = new Point(1290, 90);
             label8.Name = "label8";
             label8.Size = new Size(76, 25);
             label8.TabIndex = 177;
@@ -264,7 +309,7 @@
             // carModel
             // 
             carModel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            carModel.Location = new Point(606, 95);
+            carModel.Location = new Point(1107, 95);
             carModel.Name = "carModel";
             carModel.RightToLeft = RightToLeft.Yes;
             carModel.Size = new Size(150, 31);
@@ -274,7 +319,7 @@
             // 
             label5.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label5.AutoSize = true;
-            label5.Location = new Point(790, 55);
+            label5.Location = new Point(1291, 55);
             label5.Name = "label5";
             label5.Size = new Size(72, 25);
             label5.TabIndex = 176;
@@ -284,7 +329,7 @@
             // 
             label6.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label6.AutoSize = true;
-            label6.Location = new Point(784, 11);
+            label6.Location = new Point(1285, 11);
             label6.Name = "label6";
             label6.Size = new Size(81, 25);
             label6.TabIndex = 175;
@@ -293,7 +338,7 @@
             // nameItem
             // 
             nameItem.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            nameItem.Location = new Point(606, 14);
+            nameItem.Location = new Point(1107, 14);
             nameItem.Name = "nameItem";
             nameItem.RightToLeft = RightToLeft.Yes;
             nameItem.Size = new Size(150, 31);
@@ -302,7 +347,7 @@
             // typeCar
             // 
             typeCar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            typeCar.Location = new Point(606, 58);
+            typeCar.Location = new Point(1107, 58);
             typeCar.Name = "typeCar";
             typeCar.RightToLeft = RightToLeft.Yes;
             typeCar.Size = new Size(150, 31);
@@ -315,7 +360,7 @@
             addUser.Location = new Point(4, 34);
             addUser.Name = "addUser";
             addUser.Padding = new Padding(3);
-            addUser.Size = new Size(879, 494);
+            addUser.Size = new Size(1380, 793);
             addUser.TabIndex = 1;
             addUser.Text = " הוספת משתמש";
             addUser.UseVisualStyleBackColor = true;
@@ -369,7 +414,7 @@
             status.Items.AddRange(new object[] { "manger", "employe" });
             status.Location = new Point(652, 93);
             status.Name = "status";
-            status.Size = new Size(141, 60);
+            status.Size = new Size(141, 56);
             status.TabIndex = 9;
             status.SelectedIndexChanged += status_SelectedIndexChanged;
             // 
@@ -486,7 +531,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(890, 534);
+            ClientSize = new Size(1391, 833);
             Controls.Add(tab);
             Name = "Manger";
             Text = "ממשק מנהל";
@@ -497,6 +542,7 @@
             ((System.ComponentModel.ISupportInitialize)items).EndInit();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)picPath).EndInit();
             addUser.ResumeLayout(false);
             panel1.ResumeLayout(false);
@@ -542,5 +588,10 @@
         private TextBox pass;
         private Label label3;
         private DataGridView items;
+        private Button add_item;
+        private Label search_label;
+        private ListBox listBox1;
+        private TextBox search_box;
+        private PictureBox pictureBox1;
     }
 }

@@ -144,7 +144,7 @@
             pay.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             pay.Location = new Point(218, 285);
             pay.Name = "pay";
-            pay.Size = new Size(88, 25);
+            pay.Size = new Size(74, 20);
             pay.TabIndex = 30;
             pay.Text = "לתשלום :\r\n";
             // 
@@ -186,7 +186,7 @@
             employeName.Location = new Point(695, 24);
             employeName.Name = "employeName";
             employeName.RightToLeft = RightToLeft.Yes;
-            employeName.Size = new Size(188, 50);
+            employeName.Size = new Size(156, 40);
             employeName.TabIndex = 19;
             employeName.Text = "ברוך הבאה עובד יקר ,\r\n ";
             // 
@@ -209,7 +209,7 @@
             // 
             search.FormattingEnabled = true;
             search.ItemHeight = 25;
-            search.Items.AddRange(new object[] { "", "שם של לקוח", "מספר זיהוי" });
+            search.Items.AddRange(new object[] { "", "שם לקוח", "מספר זיהוי" });
             search.Location = new Point(165, 22);
             search.Name = "search";
             search.RightToLeft = RightToLeft.Yes;
@@ -232,7 +232,7 @@
             label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label1.Location = new Point(325, 21);
             label1.Name = "label1";
-            label1.Size = new Size(149, 25);
+            label1.Size = new Size(125, 20);
             label1.TabIndex = 26;
             label1.Text = "חיפוש הזמנה לפי";
             // 
@@ -282,7 +282,7 @@
             label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label2.Location = new Point(25, 77);
             label2.Name = "label2";
-            label2.Size = new Size(153, 25);
+            label2.Size = new Size(127, 20);
             label2.TabIndex = 29;
             label2.Text = "חזרה לדף הזמנות";
             label2.Visible = false;

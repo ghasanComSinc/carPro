@@ -185,7 +185,7 @@ namespace carPro
         {
             for (int i = 0; i < itemsInOrder.Rows.Count; i++)
             {
-                
+
                 if (int.Parse(itemsInOrder.Rows[i].Cells[7].Value.ToString()) >= int.Parse(itemsInOrder.Rows[i].Cells[10].Value.ToString()))
                 {
                     try
@@ -245,7 +245,7 @@ namespace carPro
                 }
             }
         }
-        
+
         private void PayBu_Click(object sender, EventArgs e)
         {
             try
@@ -319,7 +319,7 @@ namespace carPro
             command = new MySqlCommand(strFun1, connection);
             //MySqlDataAdapter adapter1 = new(command);
             ///Regex.Match(subjectString, @"\d+").Value;
-            command.Parameters.AddWithValue("@price", Regex.Match(pay.Text.ToString(), @"\d+").Value );
+            command.Parameters.AddWithValue("@price", Regex.Match(pay.Text.ToString(), @"\d+").Value);
             command.Parameters.AddWithValue("@id", itemsInOrder.Rows[0].Cells[1].Value.ToString());
 
             command.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.     
