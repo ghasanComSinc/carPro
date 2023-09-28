@@ -124,6 +124,7 @@
             items.RowTemplate.Height = 33;
             items.Size = new Size(1295, 282);
             items.TabIndex = 6;
+            items.MouseMove += items_MouseMove;
             // 
             // panel2
             // 
@@ -165,9 +166,10 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Location = new Point(31, 38);
+            pictureBox1.Location = new Point(14, 11);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(203, 167);
+            pictureBox1.Size = new Size(303, 248);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 193;
             pictureBox1.TabStop = false;
             // 
@@ -190,9 +192,10 @@
             // 
             // add_item
             // 
-            add_item.Location = new Point(286, 211);
+            add_item.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            add_item.Location = new Point(589, 170);
             add_item.Name = "add_item";
-            add_item.Size = new Size(163, 36);
+            add_item.Size = new Size(126, 36);
             add_item.TabIndex = 189;
             add_item.Text = "הוספת מוצר";
             add_item.UseVisualStyleBackColor = true;
@@ -300,7 +303,7 @@
             // 
             label8.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label8.AutoSize = true;
-            label8.Location = new Point(1214, 90);
+            label8.Location = new Point(1214, 99);
             label8.Name = "label8";
             label8.Size = new Size(76, 25);
             label8.TabIndex = 177;
@@ -309,7 +312,7 @@
             // carModel
             // 
             carModel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            carModel.Location = new Point(1031, 95);
+            carModel.Location = new Point(1031, 104);
             carModel.Name = "carModel";
             carModel.RightToLeft = RightToLeft.Yes;
             carModel.Size = new Size(150, 31);
