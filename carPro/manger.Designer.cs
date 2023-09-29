@@ -32,6 +32,7 @@
             addItem = new TabPage();
             items = new DataGridView();
             panel2 = new Panel();
+            updateItems = new Button();
             searchItem = new CheckedListBox();
             pictureBox1 = new PictureBox();
             search_box = new TextBox();
@@ -124,11 +125,13 @@
             items.RowTemplate.Height = 33;
             items.Size = new Size(1295, 282);
             items.TabIndex = 6;
+            items.CellContentClick += items_CellContentClick;
             items.MouseMove += items_MouseMove;
             // 
             // panel2
             // 
             panel2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel2.Controls.Add(updateItems);
             panel2.Controls.Add(searchItem);
             panel2.Controls.Add(pictureBox1);
             panel2.Controls.Add(search_box);
@@ -154,6 +157,18 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(1296, 262);
             panel2.TabIndex = 5;
+            // 
+            // updateItems
+            // 
+            updateItems.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            updateItems.Location = new Point(589, 212);
+            updateItems.Name = "updateItems";
+            updateItems.Size = new Size(126, 36);
+            updateItems.TabIndex = 195;
+            updateItems.Text = "עדכון מוצר";
+            updateItems.UseVisualStyleBackColor = true;
+            updateItems.Visible = false;
+            updateItems.Click += updateItems_Click;
             // 
             // searchItem
             // 
@@ -596,5 +611,6 @@
         private TextBox search_box;
         private PictureBox pictureBox1;
         private CheckedListBox searchItem;
+        private Button updateItems;
     }
 }

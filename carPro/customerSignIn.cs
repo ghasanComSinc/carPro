@@ -24,8 +24,6 @@ namespace carPro
         int amount = 0;
         string parcod;
         int rowIndex;
-
-
         public CustomerSignIn()
         {
             InitializeComponent();
@@ -41,7 +39,6 @@ namespace carPro
             forSale.Columns[7].Visible = false;
 
         }
-
         private void CustomerSignIn_FormClosed(object sender, FormClosedEventArgs e)
         {
             LogInForm logIn = new();
@@ -131,7 +128,6 @@ namespace carPro
                 picItems.Image = null;
             }
         }
-
         private void ItemToCustomer_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -152,19 +148,16 @@ namespace carPro
                 HideItem();
             }
         }
-
         private void Plus_Click(object sender, EventArgs e)
         {
             if (amountSale.Text != "" && Regex.IsMatch(amountSale.Text, @"^\d+$") && amount >= int.Parse(amountSale.Text) + 1)
                 amountSale.Text = (int.Parse(amountSale.Text) + 1) + "";
         }
-
         private void Minus_Click(object sender, EventArgs e)
         {
             if (amountSale.Text != "" && Regex.IsMatch(amountSale.Text, @"^\d+$") && int.Parse(amountSale.Text) > 0)
                 amountSale.Text = (int.Parse(amountSale.Text) - 1) + "";
         }
-
         private void AmountSale_TextChanged(object sender, EventArgs e)
         {
             if (amountSale.Text != "" && Regex.IsMatch(amountSale.Text, @"^\d+$") && int.Parse(amountSale.Text) > amount)
@@ -241,12 +234,10 @@ namespace carPro
             }
 
         }
-
         private void TabControl1_MouseClick(object sender, MouseEventArgs e)
         {
             HideItem();
         }
-
         private void ForSale_MouseMove(object sender, MouseEventArgs e)
         {
             DataGridView.HitTestInfo hitTestInfo = forSale.HitTest(e.X, e.Y);
@@ -268,7 +259,6 @@ namespace carPro
                 saleItmesIm.Image = null;
             }
         }
-
         private void ForSale_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -292,7 +282,6 @@ namespace carPro
                 HideItem();
             }
         }
-
         private void SaveSale_Click(object sender, EventArgs e)
         {
             if (forSale.Rows.Count > 0)
@@ -350,13 +339,10 @@ namespace carPro
                 MessageBox.Show("הזמנה ריקה");
             }
         }
-
-
         private void ItemToCustomer_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             ItemToCustomer_CellContentClick(sender, e);
         }
-
         private void ForSale_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             ForSale_CellContentClick(sender, e);

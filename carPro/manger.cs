@@ -1,6 +1,8 @@
-﻿using Microsoft.VisualBasic.ApplicationServices;
+﻿using Microsoft.VisualBasic;
+using Microsoft.VisualBasic.ApplicationServices;
 using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Math;
+using Org.BouncyCastle.Utilities.Collections;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,6 +24,8 @@ namespace carPro
         readonly MySqlConnection con = new("server=localhost;user=root;database=pro1;password=");
         MySqlCommand MyCommand2;
         DataTable dataTable;
+        bool flagImg;
+        int index;
         public Manger()
         {
             InitializeComponent();
@@ -303,10 +307,8 @@ namespace carPro
                 float pric;
                 string parC = parCode.Text;
                 string placeInSh = placeInShop.Text;
-                int amou = int.Parse(Amount.Text);
+                int amou;
                 MemoryStream ms = new();
-                picPath.Image.Save(ms, picPath.Image.RawFormat);
-                byte[] img = ms.ToArray();
                 //all the if gona be here !!!
                 if (float.TryParse(price.Text, out pric))
                 {
@@ -353,15 +355,21 @@ namespace carPro
                 {
                     MessageBox.Show("כמות ריק");
                 }
-                else if (amou <= 0)
+                else if (int.TryParse(Amount.Text,out amou)&& amou <= 0)
                 {
                     MessageBox.Show("כמות שלילית");
+                }
+                else if(picPath.Image==null)
+                {
+                    MessageBox.Show("תמונה ריקה");
                 }
                 //all the if's end's here
                 else
                 {
                     try
                     {
+                        picPath.Image.Save(ms, picPath.Image.RawFormat);
+                        byte[] img = ms.ToArray();
                         string strFun = "INSERT INTO items(nameItem,typeCar,modelC,parCode,placeInShop,amount,price,image)VALUES (@nameIt,@typeC,@modelC,@parCod,@placeSho,@amount,@price, @imageLocation)";
                         MySqlConnection con = new("server=localhost;user=root;database=pro1;password=");
                         MySqlCommand MyCommand2 = new(strFun, con);
@@ -396,7 +404,7 @@ namespace carPro
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 picPath.Image = Image.FromFile(ofd.FileName);
-
+                flagImg = true;
             }
         }
 
@@ -444,6 +452,159 @@ namespace carPro
             else
             {
                 pictureBox1.Image = null;
+            }
+        }
+
+        private void items_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        { 
+            flagImg = false;
+            nameItem.Text = items.Rows[e.RowIndex].Cells[0].Value.ToString();
+            typeCar.Text = items.Rows[e.RowIndex].Cells[1].Value.ToString();
+            carModel.Text = items.Rows[e.RowIndex].Cells[2].Value.ToString();
+            parCode.Text = items.Rows[e.RowIndex].Cells[3].Value.ToString();
+            parCode.ReadOnly = true;
+            placeInShop.Text = items.Rows[e.RowIndex].Cells[4].Value.ToString();
+            Amount.Text = items.Rows[e.RowIndex].Cells[5].Value.ToString();
+            price.Text = items.Rows[e.RowIndex].Cells[6].Value.ToString();
+            DataGridViewCell selectedCell = items.Rows[e.RowIndex].Cells[7];
+            if (selectedCell.Value != null && selectedCell.Value.GetType() == typeof(byte[]))
+            {
+                byte[] imageData = (byte[])selectedCell.Value;
+                using MemoryStream ms = new(imageData);
+                picPath.Image = Image.FromStream(ms);
+            }
+            add_item.Visible = false;
+            updateItems.Visible = true;
+            index=e.RowIndex;
+        }
+        private void clearItmesDetla()
+        {
+
+            nameItem.Text = "";
+            typeCar.Text = "";
+            carModel.Text = "";
+            price.Text = "";
+            parCode.Text = "";
+            placeInShop.Text = "";
+            Amount.Text = "";
+            picPath.Image = null;
+            add_item.Visible = true;
+            updateItems.Visible = false;
+        }
+
+        private void updateItems_Click(object sender, EventArgs e)
+        {
+            bool priceFlag ;
+            string nameIt = nameItem.Text;
+            string carType = typeCar.Text;
+            string carM = carModel.Text;
+            float pric;
+            string parC = parCode.Text;
+            string placeInSh = placeInShop.Text;
+            int amou;
+            MemoryStream ms;
+            byte[] img=null;
+            if (flagImg)
+            {
+                ms = new();
+                picPath.Image.Save(ms, picPath.Image.RawFormat);
+                img = ms.ToArray();
+            }
+            else
+            {
+                DataGridViewCell selectedCell = items.Rows[index].Cells[7];
+                if (selectedCell.Value != null && selectedCell.Value.GetType() == typeof(byte[]))
+                {
+                    byte[] imageData = (byte[])selectedCell.Value;
+                    ms = new(imageData);
+                    picPath.Image = Image.FromStream(ms);
+                }
+            }
+            //all the if gona be here !!!
+            if (float.TryParse(price.Text, out pric))
+            {
+                if (pric <= 0 || price.Text == "")
+                {
+                    priceFlag = true;
+                }
+                else
+                {
+                    pric = float.Parse(price.Text);
+                    priceFlag = false;
+                }
+            }
+            else
+            {
+                priceFlag = true;
+            }
+
+            if (nameIt == "")
+            {
+                MessageBox.Show("שם מוצר ריק");
+            }
+            else if (carType == "")
+            {
+                MessageBox.Show("סוג רכב ריק");
+            }
+            else if (carM == "")
+            {
+                MessageBox.Show("דגם רכב ריק");
+            }
+            else if (priceFlag)
+            {
+                MessageBox.Show("מחיר ריק/שלילי");
+            }
+            else if (parC == "")
+            {
+                MessageBox.Show("פ'ר קוד ריק");
+            }
+            else if (placeInSh == "")
+            {
+                MessageBox.Show("מקום של מוצר ריק");
+            }
+            else if (Amount.Text == "")
+            {
+                MessageBox.Show("כמות ריק");
+            }
+            else if (int.TryParse(Amount.Text, out amou) && amou <= 0)
+            {
+                MessageBox.Show("כמות שלילית");
+            }
+            else if (picPath.Image == null)
+            {
+                MessageBox.Show("תמונה ריקה");
+            }
+            else
+            {
+                try
+                {
+                    string strFun;
+                    if (flagImg)
+                           strFun = "UPDATE `items` SET `nameItem`=@nameIt,`typeCar`= @typeC,`modelC`= @model,`placeInShop`= @placeInS,`amount`= @amounts,`price`= @prices,`image`= @images WHERE `parCode`= @parC ";
+                    else 
+                        strFun = "UPDATE `items` SET `nameItem`=@nameIt,`typeCar`= @typeC,`modelC`= @model,`placeInShop`= @placeInS,`amount`= @amounts,`price`= @prices WHERE `parCode`= @parC ";
+                    con.Open();
+                    MyCommand2 = new MySqlCommand(strFun, con);
+                    MyCommand2.Parameters.AddWithValue("@nameIt", nameIt);
+                    MyCommand2.Parameters.AddWithValue("@typeC", carType);
+                    MyCommand2.Parameters.AddWithValue("@model", carM);
+                    MyCommand2.Parameters.AddWithValue("@placeInS", placeInSh);
+                    MyCommand2.Parameters.AddWithValue("@amounts", amou);
+                    MyCommand2.Parameters.AddWithValue("@prices", pric);
+                    if(flagImg)
+                    MyCommand2.Parameters.AddWithValue("@images",img);
+                    MyCommand2.Parameters.AddWithValue("@parC", parC);
+                    MyCommand2.ExecuteNonQuery();
+                    con.Close();
+                    
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("hello");
+                    con.Close();
+                }
+                TabControl1_SelectedIndexChanged(sender, EventArgs.Empty);
+                clearItmesDetla();
             }
         }
     }
