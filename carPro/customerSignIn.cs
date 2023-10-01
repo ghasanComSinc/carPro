@@ -17,7 +17,7 @@ namespace carPro
 {
     public partial class CustomerSignIn : Form
     {
-        readonly MySqlConnection con = new("server=localhost;user=root;database=pro1;password=");
+        readonly MySqlConnection connection = new("server=sql12.freesqldatabase.com;user=sql12650296;database=sql12650296;password=QadX7ERzXj");
         MySqlCommand MyCommand2;
         int sum = 0;
         public string nameCustumer;
@@ -29,14 +29,10 @@ namespace carPro
             InitializeComponent();
             forSale.Columns.Add("שם מוצר", "שם מוצר");//0
             forSale.Columns.Add("סוג רכב", "סוג רכב");//1
-            forSale.Columns.Add("תת- רכב", "תת- רכב");//2
-            forSale.Columns.Add("פר", "פר");//3
-            forSale.Columns.Add("מקום בחנות", "מקום בחנות");//4
-            forSale.Columns.Add("כמות", "כמות");//5
-            forSale.Columns.Add("מחיר", "מחיר");//6
-            forSale.Columns.Add("תמונה", "תמונה");//7
-            forSale.Columns.Add("הזמנה", "הזמנה");//8
-            forSale.Columns[7].Visible = false;
+            forSale.Columns.Add("פר", "פר");//2
+            forSale.Columns.Add("כמות", "כמות");//3
+            forSale.Columns.Add("מחיר ליחידה", "מחיר ליחידה");//4
+            forSale.Columns.Add("סה\"כ מחיר", "סה\"כ מחיר");//5
 
         }
         private void CustomerSignIn_FormClosed(object sender, FormClosedEventArgs e)
@@ -67,8 +63,8 @@ namespace carPro
                 string strFun;
 
                 strFun = "SELECT * FROM `items` ORDER BY BINARY `typeCar` ASC;";
-                con.Open();
-                MyCommand2 = new MySqlCommand(strFun, con);
+                connection.Open();
+                MyCommand2 = new MySqlCommand(strFun, connection);
 
                 MySqlDataAdapter adapter = new(MyCommand2);
                 DataTable dataTable = new();
@@ -81,16 +77,15 @@ namespace carPro
 
                 itemToCustomer.Columns[0].HeaderText = "שם מוצר";
                 itemToCustomer.Columns[1].HeaderText = "סוג רכב";
-                itemToCustomer.Columns[2].HeaderText = "תת- רכב";
-                itemToCustomer.Columns[3].HeaderText = "פר";
-                itemToCustomer.Columns[4].HeaderText = "מקום בחנות";
-                itemToCustomer.Columns[4].Visible = false;
-                itemToCustomer.Columns[5].HeaderText = "כמות";
-                itemToCustomer.Columns[6].HeaderText = "מחיר";
+                itemToCustomer.Columns[2].HeaderText = "פר";
+                itemToCustomer.Columns[3].HeaderText = "כמות";
+                itemToCustomer.Columns[4].HeaderText = "מחיר ליחידה";
+                itemToCustomer.Columns[5].Visible = false;
+                itemToCustomer.Columns[6].Visible = false;
                 itemToCustomer.Columns[7].Visible = false;
-                itemToCustomer.Columns[7].HeaderText = "תמונה";
+                itemToCustomer.Columns[8].Visible = false;
                 EmtpyItems();
-                con.Close();
+                connection.Close();
             }
             catch (Exception ex)
             {
@@ -114,7 +109,7 @@ namespace carPro
             if (hitTestInfo.RowIndex >= 0)
             {
                 int rowIndex = hitTestInfo.RowIndex;
-                DataGridViewCell selectedCell = itemToCustomer.Rows[rowIndex].Cells[7];
+                DataGridViewCell selectedCell = itemToCustomer.Rows[rowIndex].Cells[6];
                 if (selectedCell.Value != null && selectedCell.Value.GetType() == typeof(byte[]))
                 {
                     byte[] imageData = (byte[])selectedCell.Value;
@@ -134,8 +129,8 @@ namespace carPro
             {
                 saleItem.Visible = true;
                 saleItem.Text = itemToCustomer.Rows[e.RowIndex].Cells[0].Value.ToString();
-                _ = int.TryParse(itemToCustomer.Rows[e.RowIndex].Cells[5].Value.ToString(), out amount);
-                parcod = itemToCustomer.Rows[e.RowIndex].Cells[3].Value.ToString();
+                _ = int.TryParse(itemToCustomer.Rows[e.RowIndex].Cells[3].Value.ToString(), out amount);
+                parcod = itemToCustomer.Rows[e.RowIndex].Cells[2].Value.ToString();
                 rowIndex = e.RowIndex;
                 sale.Visible = true;
                 amountSale.Visible = true;
@@ -160,7 +155,7 @@ namespace carPro
         }
         private void AmountSale_TextChanged(object sender, EventArgs e)
         {
-            if (amountSale.Text != "" && Regex.IsMatch(amountSale.Text, @"^\d+$") && int.Parse(amountSale.Text) > amount)
+            if (amountSale.Text != "" && Regex.IsMatch(amountSale.Text, @"^\d+$") && int.Parse(amountSale.Text) >= amount)
             {
                 MessageBox.Show("אין במלי הכמות הדרושה");
                 amountSale.Text = "0";
@@ -170,6 +165,7 @@ namespace carPro
                 amountSale.Text = "0";
             }
         }
+        // it coulde be done will !!
         private int ChechDoplicatItems()
         {
             for (int i = 0; i < forSale.Rows.Count; i++)
@@ -290,26 +286,26 @@ namespace carPro
                 {
                     string strFun = "SELECT COUNT(*) FROM paytable";
                     MySqlConnection con = new("server=localhost;user=root;database=pro1;password=");
-                    MySqlCommand MyCommand2 = new(strFun, con);
-                    con.Open();
+                    MySqlCommand MyCommand2 = new(strFun, connection);
+                    connection.Open();
                     _ = int.TryParse(MyCommand2.ExecuteScalar().ToString(), out int count);
-                    con.Close();
+                    connection.Close();
                     strFun = "INSERT INTO paytable(name, id, priceToPay,status) VALUES (@name,@idSale,@price,@status)";
-                    MyCommand2 = new(strFun, con);
-                    con.Open();
+                    MyCommand2 = new(strFun, connection);
+                    connection.Open();
                     MyCommand2.Parameters.AddWithValue("@name", nameCustumer);
                     MyCommand2.Parameters.AddWithValue("@idSale", count);
                     MyCommand2.Parameters.AddWithValue("@price", sum);
                     MyCommand2.Parameters.AddWithValue("@status", "process");
                     MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.     
-                    con.Close();
+                    connection.Close();
                     for (int i = 0; i < forSale.Rows.Count; i++)
                     {
 
                         strFun = "INSERT INTO sale(name, id, nameItem, typeCar, modelC,parCode,placeInShop, amount,price, image,amountSale,status)" +
                                                  " VALUES (@nameSa,@idSale,@nameIt,@typeC,@modelCar,@parC,@placeInSh,@amountItem,@priceItem,@imageItem,@amountSale,@statusOrder)";
-                        MyCommand2 = new(strFun, con);
-                        con.Open();
+                        MyCommand2 = new(strFun, connection);
+                        connection.Open();
                         MyCommand2.Parameters.AddWithValue("@nameSa", nameCustumer);
                         MyCommand2.Parameters.AddWithValue("@idSale", count);
                         MyCommand2.Parameters.AddWithValue("@nameIt", forSale.Rows[i].Cells[0].Value.ToString());
@@ -323,7 +319,7 @@ namespace carPro
                         MyCommand2.Parameters.AddWithValue("@amountSale", forSale.Rows[i].Cells[8].Value.ToString());
                         MyCommand2.Parameters.AddWithValue("@statusOrder", "process");
                         MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.     
-                        con.Close();
+                        connection.Close();
                     }
 
                     MessageBox.Show("שמרת הזמנה התבצעה בהצלחה ,מספר זיהוי שלכה הוא " + count);
