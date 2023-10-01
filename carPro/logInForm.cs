@@ -7,6 +7,8 @@ using WhatsAppApi.Parser;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
 using static System.Net.Mime.MediaTypeNames;
 using Application = System.Windows.Forms.Application;
+using Microsoft.VisualBasic.ApplicationServices;
+using System.Drawing;
 
 namespace carPro
 {
@@ -35,24 +37,27 @@ namespace carPro
                 {
                     string statusAc = new(mdr[2].ToString());
                     string name = new(mdr[3].ToString());
-                    if (statusAc.Equals("manger"))
+                    if (statusAc.Equals("m"))
                     {
                         Manger mangerform = new();
-                        
+
                         this.Hide();
                         mangerform.ShowDialog();
                     }
-                    else
+                    else if(statusAc.Equals("e"))
                     {
                         Employee emp = new()
                         {
                             employName = name
                         };
-
                         this.Hide();
                         emp.ShowDialog();
-
-
+                    }
+                    else
+                    {
+                        CustomerSignIn customerS=new();
+                        this.Hide();
+                        customerS.ShowDialog();
                     }
                     connection.Close();
 
@@ -71,23 +76,68 @@ namespace carPro
                 MessageBox.Show("no service connection");
             }
         }
-
+        private bool checkNumberPhone()
+        {
+            if(phoneCustomer.Text.Length!=8)
+                return false;
+            return phoneCustomer.Text.All(char.IsDigit);
+        }
         private void Button2_Click(object sender, EventArgs e)
         {
-            if (nameCustumer.Text != "")
+            if (phoneCustomer.Text == "")
             {
-                CustomerSignIn customerForm = new()
-                {
-                    nameCustumer = nameCustumer.Text,
-
-                };
-                this.Hide();
-                customerForm.ShowDialog();
+                MessageBox.Show("צריך להוסיף מספר טלפון");
+            }
+            else if (nameCustomer.Text == "")
+            {
+                MessageBox.Show("צריך להוסיף שם");
+            }
+            else if (passSin.Text=="")
+            {
+                MessageBox.Show("צריך להוסיף סיסמה");
             }
             else
             {
-                MessageBox.Show("צריך להוסף שם בכדי לכנס למערכת");
-            }
+                if (checkNumberPhone())
+                {
+                    try
+                    {
+                        string strFun;
+
+                        strFun = "INSERT INTO `UserTable`(`phoneNumber`, `password`, `name`, `status`, `start_date`, `last_date`, `available`)" +
+                                                 "VALUES (@phoneN,@pass,@nameCust,@staut,@startD,@lastD,@avi)";
+                        command = new MySqlCommand(strFun, connection);
+                        connection.Open();
+                        command.Parameters.AddWithValue("@phoneN",int.Parse(phoneCustomer.Text));
+                        command.Parameters.AddWithValue("@pass", passSin.Text);
+                        command.Parameters.AddWithValue("@nameCust", nameCustomer.Text);
+                        command.Parameters.AddWithValue("@staut", "c");
+                        command.Parameters.AddWithValue("@startD", DateTime.Now);
+                        command.Parameters.AddWithValue("@lastD", "");
+                        command.Parameters.AddWithValue("@avi", "available");
+                        command.ExecuteNonQuery();
+                        connection.Close();
+                        MessageBox.Show("הרשמה הצליחה");
+                        CustomerSignIn customerForm = new()
+                        {
+                            nameCustumer = phoneCustomer.Text,
+
+                        };
+                        this.Hide();
+                        customerForm.ShowDialog();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("משתמש קיים");
+                        connection.Close();
+                    }
+                  
+                }
+                else
+                {
+                    MessageBox.Show("מספר טלפון מכיל רק מספרים עם אורך של 8 ");
+                }
+            }  
         }
 
         private void PictureBox1_Click(object sender, EventArgs e)
@@ -105,7 +155,7 @@ namespace carPro
 
         private void LogInForm_Load(object sender, EventArgs e)
         {
-            tabControl1.TabPages.Remove(tabPage1);
+            tabControl1.TabPages.Remove(tabPage2);
         }
 
         private void LogInWorker_Click(object sender, EventArgs e)
@@ -120,8 +170,12 @@ namespace carPro
             tabControl1.TabPages.Add(tabPage2);
         }
 
-
-
-
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            if (passSin.PasswordChar == '*')
+                passSin.PasswordChar = '\0';
+            else
+                passSin.PasswordChar = '*';
+        }
     }
 }
