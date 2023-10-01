@@ -40,8 +40,13 @@
             label2 = new Label();
             label1 = new Label();
             tabPage2 = new TabPage();
+            pictureBox2 = new PictureBox();
+            nameCustomer = new TextBox();
+            passSin = new TextBox();
+            label5 = new Label();
+            label6 = new Label();
             label4 = new Label();
-            nameCustumer = new TextBox();
+            phoneCustomer = new TextBox();
             label3 = new Label();
             logInWorker = new Button();
             button2 = new Button();
@@ -50,6 +55,7 @@
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // tabControl1
@@ -98,7 +104,7 @@
             returnCustomer.Name = "returnCustomer";
             returnCustomer.Size = new Size(159, 40);
             returnCustomer.TabIndex = 14;
-            returnCustomer.Text = "החזרת לדף כניסה";
+            returnCustomer.Text = "הרשמה ";
             returnCustomer.UseVisualStyleBackColor = true;
             returnCustomer.Click += ReturnCustomer_Click;
             // 
@@ -166,8 +172,13 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(pictureBox2);
+            tabPage2.Controls.Add(nameCustomer);
+            tabPage2.Controls.Add(passSin);
+            tabPage2.Controls.Add(label5);
+            tabPage2.Controls.Add(label6);
             tabPage2.Controls.Add(label4);
-            tabPage2.Controls.Add(nameCustumer);
+            tabPage2.Controls.Add(phoneCustomer);
             tabPage2.Controls.Add(label3);
             tabPage2.Controls.Add(logInWorker);
             tabPage2.Controls.Add(button2);
@@ -178,6 +189,57 @@
             tabPage2.TabIndex = 1;
             tabPage2.Text = " ";
             tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Anchor = AnchorStyles.None;
+            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new Point(248, 207);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(40, 31);
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox2.TabIndex = 16;
+            pictureBox2.TabStop = false;
+            pictureBox2.Click += pictureBox2_Click;
+            // 
+            // nameCustomer
+            // 
+            nameCustomer.Anchor = AnchorStyles.None;
+            nameCustomer.Location = new Point(303, 142);
+            nameCustomer.Name = "nameCustomer";
+            nameCustomer.Size = new Size(150, 31);
+            nameCustomer.TabIndex = 19;
+            // 
+            // passSin
+            // 
+            passSin.Anchor = AnchorStyles.None;
+            passSin.Location = new Point(304, 207);
+            passSin.Name = "passSin";
+            passSin.PasswordChar = '*';
+            passSin.Size = new Size(150, 31);
+            passSin.TabIndex = 15;
+            // 
+            // label5
+            // 
+            label5.Anchor = AnchorStyles.None;
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label5.Location = new Point(507, 148);
+            label5.Name = "label5";
+            label5.Size = new Size(84, 25);
+            label5.TabIndex = 18;
+            label5.Text = "שם לקוח";
+            // 
+            // label6
+            // 
+            label6.Anchor = AnchorStyles.None;
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label6.Location = new Point(524, 207);
+            label6.Name = "label6";
+            label6.Size = new Size(67, 25);
+            label6.TabIndex = 14;
+            label6.Text = "סיסמה";
             // 
             // label4
             // 
@@ -191,54 +253,54 @@
             label4.TabIndex = 17;
             label4.Text = " ברוכים הבאים למערכת שלנו .";
             // 
-            // nameCustumer
+            // phoneCustomer
             // 
-            nameCustumer.Anchor = AnchorStyles.None;
-            nameCustumer.Location = new Point(275, 150);
-            nameCustumer.Name = "nameCustumer";
-            nameCustumer.Size = new Size(150, 31);
-            nameCustumer.TabIndex = 16;
+            phoneCustomer.Anchor = AnchorStyles.None;
+            phoneCustomer.Location = new Point(303, 91);
+            phoneCustomer.Name = "phoneCustomer";
+            phoneCustomer.Size = new Size(150, 31);
+            phoneCustomer.TabIndex = 16;
             // 
             // label3
             // 
             label3.Anchor = AnchorStyles.None;
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label3.Location = new Point(452, 152);
+            label3.Location = new Point(480, 93);
             label3.Name = "label3";
-            label3.Size = new Size(84, 25);
+            label3.Size = new Size(111, 25);
             label3.TabIndex = 15;
-            label3.Text = "שם לקוח";
+            label3.Text = "מספר טלפון";
             // 
             // logInWorker
             // 
             logInWorker.Anchor = AnchorStyles.None;
-            logInWorker.Location = new Point(432, 223);
+            logInWorker.Location = new Point(442, 275);
             logInWorker.Name = "logInWorker";
-            logInWorker.Size = new Size(132, 40);
+            logInWorker.Size = new Size(149, 40);
             logInWorker.TabIndex = 14;
-            logInWorker.Text = "כניסה לעובד";
+            logInWorker.Text = "חזרה לדף קודם";
             logInWorker.UseVisualStyleBackColor = true;
             logInWorker.Click += LogInWorker_Click;
             // 
             // button2
             // 
             button2.Anchor = AnchorStyles.None;
-            button2.Location = new Point(165, 223);
+            button2.Location = new Point(175, 275);
             button2.Name = "button2";
             button2.Size = new Size(132, 40);
             button2.TabIndex = 13;
-            button2.Text = "כניסה לקוח";
+            button2.Text = "הרשמה";
             button2.UseVisualStyleBackColor = true;
             button2.Click += Button2_Click;
             // 
-            // logInForm
+            // LogInForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(tabControl1);
-            Name = "logInForm";
+            Name = "LogInForm";
             Text = "כניסה למערכת";
             FormClosed += LogInForm_FormClosed;
             Load += LogInForm_Load;
@@ -249,6 +311,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
         }
 
@@ -266,9 +329,14 @@
         private TabPage tabPage2;
         private Button logInWorker;
         private Button button2;
-        private TextBox nameCustumer;
+        private TextBox phoneCustomer;
         private Label label3;
         private Button returnCustomer;
         private Label label4;
+        private TextBox nameCustomer;
+        private Label label5;
+        private PictureBox pictureBox2;
+        private TextBox passSin;
+        private Label label6;
     }
 }
