@@ -99,6 +99,7 @@
             orders.RowTemplate.Height = 33;
             orders.Size = new Size(851, 395);
             orders.TabIndex = 1;
+            orders.CellClick += orders_CellClick;
             orders.CellContentClick += Orders_CellContentClick;
             // 
             // tabPage2
@@ -202,14 +203,14 @@
             panel1.Controls.Add(addItemBu);
             panel1.Location = new Point(159, 5);
             panel1.Name = "panel1";
-            panel1.Size = new Size(512, 69);
+            panel1.Size = new Size(482, 69);
             panel1.TabIndex = 23;
             // 
             // search
             // 
             search.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             search.Items.AddRange(new object[] { "שם לקוח", "מספר זיהוי" });
-            search.Location = new Point(178, 3);
+            search.Location = new Point(148, 3);
             search.Name = "search";
             search.RightToLeft = RightToLeft.Yes;
             search.Size = new Size(141, 60);
@@ -219,7 +220,7 @@
             // searchOr
             // 
             searchOr.Anchor = AnchorStyles.None;
-            searchOr.Location = new Point(39, 22);
+            searchOr.Location = new Point(24, 22);
             searchOr.Name = "searchOr";
             searchOr.Size = new Size(120, 31);
             searchOr.TabIndex = 27;
@@ -230,7 +231,7 @@
             label1.Anchor = AnchorStyles.None;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(325, 21);
+            label1.Location = new Point(310, 21);
             label1.Name = "label1";
             label1.Size = new Size(149, 25);
             label1.TabIndex = 26;
@@ -240,7 +241,7 @@
             // 
             label7.Anchor = AnchorStyles.Right;
             label7.AutoSize = true;
-            label7.Location = new Point(828, 297);
+            label7.Location = new Point(798, 297);
             label7.Name = "label7";
             label7.Size = new Size(51, 25);
             label7.TabIndex = 16;
@@ -249,7 +250,7 @@
             // button1
             // 
             button1.Anchor = AnchorStyles.None;
-            button1.Location = new Point(306, 386);
+            button1.Location = new Point(291, 386);
             button1.Name = "button1";
             button1.Size = new Size(130, 30);
             button1.TabIndex = 8;
@@ -260,7 +261,7 @@
             // 
             label6.Anchor = AnchorStyles.None;
             label6.AutoSize = true;
-            label6.Location = new Point(665, 403);
+            label6.Location = new Point(650, 403);
             label6.Name = "label6";
             label6.Size = new Size(61, 25);
             label6.TabIndex = 13;
@@ -269,7 +270,7 @@
             // addItemBu
             // 
             addItemBu.Anchor = AnchorStyles.None;
-            addItemBu.Location = new Point(179, 458);
+            addItemBu.Location = new Point(164, 458);
             addItemBu.Name = "addItemBu";
             addItemBu.Size = new Size(112, 34);
             addItemBu.TabIndex = 8;

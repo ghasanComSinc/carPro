@@ -113,41 +113,44 @@ namespace carPro
 
         private void Orders_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            tabControl1.TabPages.Remove(allOrder);
-            tabControl1.TabPages.Add(tabPage2);
-            label2.Visible = true;
-            panel1.Visible = false;
-            try
+            if (e.RowIndex >= 0)
             {
-                string strFun;
-                strFun = "SELECT * FROM `sale` WHERE `id`=" + orders.Rows[e.RowIndex].Cells[1].Value.ToString();
-                connection.Open();
-                command = new MySqlCommand(strFun, connection);
-                MySqlDataAdapter adapter = new(command);
-                dataTable = new();
-                // Fill the DataTable with the query results
-                adapter.Fill(dataTable);
-                itemsInOrder.DataSource = dataTable;
-                itemsInOrder.Columns[9].Visible = false;
-                itemsInOrder.Columns[11].Visible = false;
-                itemsInOrder.Columns[0].HeaderText = "שם לקוח";
-                itemsInOrder.Columns[1].HeaderText = "מספר זיהוי";
-                itemsInOrder.Columns[2].HeaderText = "שם מוצר";
-                itemsInOrder.Columns[3].HeaderText = "סוג רכב";
-                itemsInOrder.Columns[4].HeaderText = "מודל";
-                itemsInOrder.Columns[5].HeaderText = "זיהוי מוצר";
-                itemsInOrder.Columns[6].HeaderText = "מקום בחנות";
-                itemsInOrder.Columns[7].HeaderText = "קמות בחנות";
-                itemsInOrder.Columns[8].HeaderText = "מחיר";
-                itemsInOrder.Columns[9].HeaderText = "תמונה";
-                itemsInOrder.Columns[10].HeaderText = "קמות רצויה";
-                itemsInOrder.Columns[11].HeaderText = "מצב של הזמנה";
-                connection.Close();
-                ToPay();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                tabControl1.TabPages.Remove(allOrder);
+                tabControl1.TabPages.Add(tabPage2);
+                label2.Visible = true;
+                panel1.Visible = false;
+                try
+                {
+                    string strFun;
+                    strFun = "SELECT * FROM `sale` WHERE `id`=" + orders.Rows[e.RowIndex].Cells[1].Value.ToString();
+                    connection.Open();
+                    command = new MySqlCommand(strFun, connection);
+                    MySqlDataAdapter adapter = new(command);
+                    dataTable = new();
+                    // Fill the DataTable with the query results
+                    adapter.Fill(dataTable);
+                    itemsInOrder.DataSource = dataTable;
+                    itemsInOrder.Columns[9].Visible = false;
+                    itemsInOrder.Columns[11].Visible = false;
+                    itemsInOrder.Columns[0].HeaderText = "שם לקוח";
+                    itemsInOrder.Columns[1].HeaderText = "מספר זיהוי";
+                    itemsInOrder.Columns[2].HeaderText = "שם מוצר";
+                    itemsInOrder.Columns[3].HeaderText = "סוג רכב";
+                    itemsInOrder.Columns[4].HeaderText = "מודל";
+                    itemsInOrder.Columns[5].HeaderText = "זיהוי מוצר";
+                    itemsInOrder.Columns[6].HeaderText = "מקום בחנות";
+                    itemsInOrder.Columns[7].HeaderText = "קמות בחנות";
+                    itemsInOrder.Columns[8].HeaderText = "מחיר";
+                    itemsInOrder.Columns[9].HeaderText = "תמונה";
+                    itemsInOrder.Columns[10].HeaderText = "קמות רצויה";
+                    itemsInOrder.Columns[11].HeaderText = "מצב של הזמנה";
+                    connection.Close();
+                    ToPay();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 
@@ -337,6 +340,11 @@ namespace carPro
                     search.SetItemChecked(i, false);
 
             }
+        }
+
+        private void orders_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Orders_CellContentClick(sender, e);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace carPro
 {
     public partial class LogInForm : System.Windows.Forms.Form
     {
-        readonly MySqlConnection connection = new("server=localhost;user=root;database=pro1;password=");
+        readonly MySqlConnection connection = new("server=sql12.freesqldatabase.com;user=sql12650296;database=sql12650296;password=QadX7ERzXj");
         MySqlCommand command;
         MySqlDataReader mdr;
         public LogInForm()
@@ -27,7 +27,7 @@ namespace carPro
             try
             {
                 connection.Open();
-                string selectQuery = "SELECT * FROM test2 WHERE user_name = '" + userName.Text + "' AND password = '" + password.Text + "';";
+                string selectQuery = "SELECT * FROM UserTable WHERE phoneNumber = '" + userName.Text + "' AND password = '" + password.Text + "';";
                 command = new MySqlCommand(selectQuery, connection);
                 mdr = command.ExecuteReader();
 

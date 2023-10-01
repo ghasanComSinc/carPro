@@ -355,11 +355,11 @@ namespace carPro
                 {
                     MessageBox.Show("כמות ריק");
                 }
-                else if (int.TryParse(Amount.Text,out amou)&& amou <= 0)
+                else if (int.TryParse(Amount.Text, out amou) && amou <= 0)
                 {
                     MessageBox.Show("כמות שלילית");
                 }
-                else if(picPath.Image==null)
+                else if (picPath.Image == null)
                 {
                     MessageBox.Show("תמונה ריקה");
                 }
@@ -456,26 +456,29 @@ namespace carPro
         }
 
         private void items_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        { 
-            flagImg = false;
-            nameItem.Text = items.Rows[e.RowIndex].Cells[0].Value.ToString();
-            typeCar.Text = items.Rows[e.RowIndex].Cells[1].Value.ToString();
-            carModel.Text = items.Rows[e.RowIndex].Cells[2].Value.ToString();
-            parCode.Text = items.Rows[e.RowIndex].Cells[3].Value.ToString();
-            parCode.ReadOnly = true;
-            placeInShop.Text = items.Rows[e.RowIndex].Cells[4].Value.ToString();
-            Amount.Text = items.Rows[e.RowIndex].Cells[5].Value.ToString();
-            price.Text = items.Rows[e.RowIndex].Cells[6].Value.ToString();
-            DataGridViewCell selectedCell = items.Rows[e.RowIndex].Cells[7];
-            if (selectedCell.Value != null && selectedCell.Value.GetType() == typeof(byte[]))
+        {
+            if (e.RowIndex >= 0)
             {
-                byte[] imageData = (byte[])selectedCell.Value;
-                using MemoryStream ms = new(imageData);
-                picPath.Image = Image.FromStream(ms);
+                flagImg = false;
+                nameItem.Text = items.Rows[e.RowIndex].Cells[0].Value.ToString();
+                typeCar.Text = items.Rows[e.RowIndex].Cells[1].Value.ToString();
+                carModel.Text = items.Rows[e.RowIndex].Cells[2].Value.ToString();
+                parCode.Text = items.Rows[e.RowIndex].Cells[3].Value.ToString();
+                parCode.ReadOnly = true;
+                placeInShop.Text = items.Rows[e.RowIndex].Cells[4].Value.ToString();
+                Amount.Text = items.Rows[e.RowIndex].Cells[5].Value.ToString();
+                price.Text = items.Rows[e.RowIndex].Cells[6].Value.ToString();
+                DataGridViewCell selectedCell = items.Rows[e.RowIndex].Cells[7];
+                if (selectedCell.Value != null && selectedCell.Value.GetType() == typeof(byte[]))
+                {
+                    byte[] imageData = (byte[])selectedCell.Value;
+                    using MemoryStream ms = new(imageData);
+                    picPath.Image = Image.FromStream(ms);
+                }
+                add_item.Visible = false;
+                updateItems.Visible = true;
+                index = e.RowIndex;
             }
-            add_item.Visible = false;
-            updateItems.Visible = true;
-            index=e.RowIndex;
         }
         private void clearItmesDetla()
         {
@@ -494,7 +497,7 @@ namespace carPro
 
         private void updateItems_Click(object sender, EventArgs e)
         {
-            bool priceFlag ;
+            bool priceFlag;
             string nameIt = nameItem.Text;
             string carType = typeCar.Text;
             string carM = carModel.Text;
@@ -503,7 +506,7 @@ namespace carPro
             string placeInSh = placeInShop.Text;
             int amou;
             MemoryStream ms;
-            byte[] img=null;
+            byte[] img = null;
             if (flagImg)
             {
                 ms = new();
@@ -580,8 +583,8 @@ namespace carPro
                 {
                     string strFun;
                     if (flagImg)
-                           strFun = "UPDATE `items` SET `nameItem`=@nameIt,`typeCar`= @typeC,`modelC`= @model,`placeInShop`= @placeInS,`amount`= @amounts,`price`= @prices,`image`= @images WHERE `parCode`= @parC ";
-                    else 
+                        strFun = "UPDATE `items` SET `nameItem`=@nameIt,`typeCar`= @typeC,`modelC`= @model,`placeInShop`= @placeInS,`amount`= @amounts,`price`= @prices,`image`= @images WHERE `parCode`= @parC ";
+                    else
                         strFun = "UPDATE `items` SET `nameItem`=@nameIt,`typeCar`= @typeC,`modelC`= @model,`placeInShop`= @placeInS,`amount`= @amounts,`price`= @prices WHERE `parCode`= @parC ";
                     con.Open();
                     MyCommand2 = new MySqlCommand(strFun, con);
@@ -591,12 +594,12 @@ namespace carPro
                     MyCommand2.Parameters.AddWithValue("@placeInS", placeInSh);
                     MyCommand2.Parameters.AddWithValue("@amounts", amou);
                     MyCommand2.Parameters.AddWithValue("@prices", pric);
-                    if(flagImg)
-                    MyCommand2.Parameters.AddWithValue("@images",img);
+                    if (flagImg)
+                        MyCommand2.Parameters.AddWithValue("@images", img);
                     MyCommand2.Parameters.AddWithValue("@parC", parC);
                     MyCommand2.ExecuteNonQuery();
                     con.Close();
-                    
+
                 }
                 catch (Exception ex)
                 {
@@ -606,6 +609,11 @@ namespace carPro
                 TabControl1_SelectedIndexChanged(sender, EventArgs.Empty);
                 clearItmesDetla();
             }
+        }
+
+        private void items_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            items_CellContentClick(sender, e);
         }
     }
 }

@@ -125,6 +125,7 @@
             items.RowTemplate.Height = 33;
             items.Size = new Size(1295, 282);
             items.TabIndex = 6;
+            items.CellClick += items_CellClick;
             items.CellContentClick += items_CellContentClick;
             items.MouseMove += items_MouseMove;
             // 
