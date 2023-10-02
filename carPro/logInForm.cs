@@ -35,8 +35,8 @@ namespace carPro
 
                 if (mdr.Read())
                 {
-                    string statusAc = new(mdr[2].ToString());
-                    string name = new(mdr[3].ToString());
+                    string statusAc = new(mdr[3].ToString());
+                    string name = new(mdr[2].ToString());
                     if (statusAc.Equals("m"))
                     {
                         Manger mangerform = new();
@@ -44,7 +44,7 @@ namespace carPro
                         this.Hide();
                         mangerform.ShowDialog();
                     }
-                    else if(statusAc.Equals("e"))
+                    else if (statusAc.Equals("e"))
                     {
                         Employee emp = new()
                         {
@@ -55,30 +55,27 @@ namespace carPro
                     }
                     else
                     {
-                        CustomerSignIn customerS=new();
+                        CustomerSignIn customerS = new();
                         this.Hide();
                         customerS.ShowDialog();
                     }
-                    connection.Close();
-
                 }
                 else
                 {
 
-                    MessageBox.Show("Incorrect Login Information! Try again.");
-                    connection.Close();
+                    MessageBox.Show("משתמש לא קיים");   
                 }
-
-
+                connection.Close();
             }
             catch
             {
-                MessageBox.Show("no service connection");
+                MessageBox.Show("אין רשת");
+                connection.Close();
             }
         }
         private bool checkNumberPhone()
         {
-            if(phoneCustomer.Text.Length!=8)
+            if (phoneCustomer.Text.Length != 8)
                 return false;
             return phoneCustomer.Text.All(char.IsDigit);
         }
@@ -92,7 +89,7 @@ namespace carPro
             {
                 MessageBox.Show("צריך להוסיף שם");
             }
-            else if (passSin.Text=="")
+            else if (passSin.Text == "")
             {
                 MessageBox.Show("צריך להוסיף סיסמה");
             }
@@ -108,7 +105,7 @@ namespace carPro
                                                  "VALUES (@phoneN,@pass,@nameCust,@staut,@startD,@lastD,@avi)";
                         command = new MySqlCommand(strFun, connection);
                         connection.Open();
-                        command.Parameters.AddWithValue("@phoneN",int.Parse(phoneCustomer.Text));
+                        command.Parameters.AddWithValue("@phoneN", int.Parse(phoneCustomer.Text));
                         command.Parameters.AddWithValue("@pass", passSin.Text);
                         command.Parameters.AddWithValue("@nameCust", nameCustomer.Text);
                         command.Parameters.AddWithValue("@staut", "c");
@@ -131,13 +128,13 @@ namespace carPro
                         MessageBox.Show("משתמש קיים");
                         connection.Close();
                     }
-                  
+
                 }
                 else
                 {
-                    MessageBox.Show("מספר טלפון מכיל רק מספרים עם אורך של 8 ");
+                    MessageBox.Show("מספר טלפון מכיל רק מספרים עם אורך של 9 ");
                 }
-            }  
+            }
         }
 
         private void PictureBox1_Click(object sender, EventArgs e)
@@ -156,6 +153,7 @@ namespace carPro
         private void LogInForm_Load(object sender, EventArgs e)
         {
             tabControl1.TabPages.Remove(tabPage2);
+
         }
 
         private void LogInWorker_Click(object sender, EventArgs e)
@@ -176,6 +174,12 @@ namespace carPro
                 passSin.PasswordChar = '\0';
             else
                 passSin.PasswordChar = '*';
+        }
+
+        private void password_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+                Button1_Click(sender, e);
         }
     }
 }

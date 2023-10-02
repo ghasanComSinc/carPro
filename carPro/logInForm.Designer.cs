@@ -123,11 +123,12 @@
             // password
             // 
             password.Anchor = AnchorStyles.None;
-            password.Location = new Point(127, 73);
+            password.Location = new Point(127, 64);
             password.Name = "password";
             password.PasswordChar = '*';
             password.Size = new Size(150, 31);
             password.TabIndex = 11;
+            password.KeyPress += password_KeyPress;
             // 
             // userName
             // 
