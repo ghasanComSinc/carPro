@@ -190,14 +190,14 @@
             panel1.Controls.Add(amountSale);
             panel1.Location = new Point(27, 12);
             panel1.Name = "panel1";
-            panel1.Size = new Size(553, 65);
+            panel1.Size = new Size(406, 65);
             panel1.TabIndex = 16;
             // 
             // saleItem
             // 
             saleItem.Anchor = AnchorStyles.None;
             saleItem.AutoSize = true;
-            saleItem.Location = new Point(419, 17);
+            saleItem.Location = new Point(346, 17);
             saleItem.Name = "saleItem";
             saleItem.Size = new Size(59, 25);
             saleItem.TabIndex = 25;
@@ -208,7 +208,7 @@
             // 
             minus.Anchor = AnchorStyles.None;
             minus.Image = (Image)resources.GetObject("minus.Image");
-            minus.Location = new Point(217, 20);
+            minus.Location = new Point(144, 20);
             minus.Name = "minus";
             minus.Size = new Size(27, 26);
             minus.SizeMode = PictureBoxSizeMode.Zoom;
@@ -220,7 +220,7 @@
             // sale
             // 
             sale.Anchor = AnchorStyles.None;
-            sale.Location = new Point(84, 15);
+            sale.Location = new Point(11, 15);
             sale.Name = "sale";
             sale.Size = new Size(94, 40);
             sale.TabIndex = 23;
@@ -233,7 +233,7 @@
             // 
             plus.Anchor = AnchorStyles.None;
             plus.Image = (Image)resources.GetObject("plus.Image");
-            plus.Location = new Point(184, 20);
+            plus.Location = new Point(111, 20);
             plus.Name = "plus";
             plus.Size = new Size(27, 26);
             plus.SizeMode = PictureBoxSizeMode.Zoom;
@@ -245,7 +245,7 @@
             // amountSale
             // 
             amountSale.Anchor = AnchorStyles.None;
-            amountSale.Location = new Point(250, 15);
+            amountSale.Location = new Point(177, 15);
             amountSale.Name = "amountSale";
             amountSale.Size = new Size(150, 31);
             amountSale.TabIndex = 22;
@@ -275,7 +275,6 @@
             Name = "CustomerSignIn";
             RightToLeftLayout = true;
             Text = "ממשק לקוח";
-            FormClosed += CustomerSignIn_FormClosed;
             Load += CustomerSignIn_Load;
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);

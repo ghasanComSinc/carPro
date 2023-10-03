@@ -21,7 +21,9 @@ namespace carPro
     public partial class Employee : Form
     {
         public string employName;
-        readonly MySqlConnection connection = new("server=localhost;user=root;database=pro1;password=");
+        public bool man = false;
+        //readonly MySqlConnection connection = new("server=sql12.freesqldatabase.com;user=sql12650296;database=sql12650296;password=QadX7ERzXj");
+        readonly MySqlConnection connection = new("server=localhost;user=root;database=carshop;password=");
         MySqlCommand command;
         DataTable dataTable;
         public Employee()
@@ -31,51 +33,42 @@ namespace carPro
             int h = Screen.PrimaryScreen.Bounds.Height;
             this.Location = new Point(0, 0);
             this.Size = new Size(w, h);
-            tabControl1.SizeMode = TabSizeMode.Fixed;
-            tabControl1.ItemSize = new Size(0, 1);
-            tabControl1.Appearance = TabAppearance.FlatButtons;
         }
-
         private void Employee_FormClosed(object sender, FormClosedEventArgs e)
         {
             LogInForm logIn = new();
             this.Dispose();
             logIn.ShowDialog();
         }
-
         private void Employee_Load(object sender, EventArgs e)
         {
-            employeName.Text = "ברוך הבאה עובד יקר ,\r\n" + employName;
+            employeName.Text = "ברוך הבאה עובד יקר ";
             tabControl1.TabPages.Remove(tabPage2);
             try
             {
-
+                
                 string strFun;
-
-                strFun = "SELECT * FROM `paytable` WHERE `status`=\"process\"";
+                strFun = "SELECT * FROM `paytable` WHERE `status`=\"pro\"";
                 connection.Open();
                 command = new MySqlCommand(strFun, connection);
-
                 MySqlDataAdapter adapter = new(command);
                 dataTable = new();
                 // Fill the DataTable with the query results
                 adapter.Fill(dataTable);
                 orders.DataSource = dataTable;
-                orders.Columns[0].HeaderText = "שם של לקוח";
-                orders.Columns[1].HeaderText = "מספר זיהוי";
+                orders.Columns[0].HeaderText = "מספר טלפון";
+                orders.Columns[1].HeaderText = "מזה הזמנה";
                 orders.Columns[2].HeaderText = "לתשלום";
                 orders.Columns[3].Visible = false;
-                connection.Close();
+                connection.Close();  
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
                 Employee_FormClosed(null, null);
+                connection.Close();
             }
         }
-
-
-
         private void SearchOr_TextChanged(object sender, EventArgs e)
         {
             DataView dataView = dataTable.DefaultView;
@@ -110,7 +103,6 @@ namespace carPro
             }
             pay.Text = "לתשלום :\r\n" + sum;
         }
-
         private void Orders_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -122,7 +114,7 @@ namespace carPro
                 try
                 {
                     string strFun;
-                    strFun = "SELECT * FROM `sale` WHERE `id`=" + orders.Rows[e.RowIndex].Cells[1].Value.ToString();
+                    strFun = "SELECT * FROM `orders` WHERE `phoneNumber`=" + orders.Rows[e.RowIndex].Cells[1].Value.ToString()+ "AND stauts=pro";
                     connection.Open();
                     command = new MySqlCommand(strFun, connection);
                     MySqlDataAdapter adapter = new(command);
@@ -150,12 +142,10 @@ namespace carPro
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
+                    connection.Close();
                 }
             }
         }
-
-
-
         private void Label2_Click(object sender, EventArgs e)
         {
             label2.Visible = false;
@@ -226,6 +216,7 @@ namespace carPro
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message);
+                        connection.Close();
                     }
                 }
                 else
@@ -249,7 +240,6 @@ namespace carPro
                 }
             }
         }
-
         private void PayBu_Click(object sender, EventArgs e)
         {
             try
@@ -270,10 +260,10 @@ namespace carPro
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                connection.Close();
             }
 
         }
-
         private void Button2_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < itemsInOrder.Rows.Count; i++)
@@ -331,8 +321,7 @@ namespace carPro
 
 
         }
-
-        private void search_SelectedIndexChanged(object sender, EventArgs e)
+        private void Search_SelectedIndexChanged(object sender, EventArgs e)
         {
             for (int i = 0; i < search.Items.Count; i++)
             {
@@ -341,10 +330,18 @@ namespace carPro
 
             }
         }
-
-        private void orders_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void Orders_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             Orders_CellContentClick(sender, e);
+        }
+        private void SinC_Click(object sender, EventArgs e)
+        {
+            CustomerSignIn cust = new();
+            this.Hide();
+            cust.man = true;
+            cust.ShowDialog();
+
+            this.Show();
         }
     }
 }
