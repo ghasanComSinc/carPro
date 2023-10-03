@@ -128,6 +128,7 @@
             password.PasswordChar = '*';
             password.Size = new Size(150, 31);
             password.TabIndex = 2;
+            password.KeyPress += password_KeyPress;
             // 
             // userName
             // 

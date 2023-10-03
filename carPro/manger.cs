@@ -176,21 +176,24 @@ namespace carPro
         }
         private void Users_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            updateU.Visible = true;
-            deletU.Visible = true;
-            addU.Visible = false;
-            name.Text = users.Rows[e.RowIndex].Cells[2].Value.ToString();
-            pass.Text = users.Rows[e.RowIndex].Cells[1].Value.ToString();
-            userName.Text = users.Rows[e.RowIndex].Cells[0].Value.ToString();
-            userName.ReadOnly = true;
-            status.Text = users.Rows[e.RowIndex].Cells[3].Value.ToString();
-            if (status.Text == "מנהל")
-                status.SetItemChecked(0, true);
-            else if (status.Text == "עובד")
-                status.SetItemChecked(1, true);
-            else
-                status.SetItemChecked(2, true);
-            index = e.RowIndex;
+            if (e.RowIndex >= 0)
+            {
+                updateU.Visible = true;
+                deletU.Visible = true;
+                addU.Visible = false;
+                name.Text = users.Rows[e.RowIndex].Cells[2].Value.ToString();
+                pass.Text = users.Rows[e.RowIndex].Cells[1].Value.ToString();
+                userName.Text = users.Rows[e.RowIndex].Cells[0].Value.ToString();
+                userName.ReadOnly = true;
+                status.Text = users.Rows[e.RowIndex].Cells[3].Value.ToString();
+                if (status.Text == "מנהל")
+                    status.SetItemChecked(0, true);
+                else if (status.Text == "עובד")
+                    status.SetItemChecked(1, true);
+                else
+                    status.SetItemChecked(2, true);
+                index = e.RowIndex;
+            }
         }
         private void Users_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -259,7 +262,7 @@ namespace carPro
                 string userNa = userName.Text;
                 string stat = status.Text;
                 string strFun;
-                if (stat == "מנהל"&& users.Rows[index].Cells[6].Value.ToString()== "active")
+                if (stat == "מנהל" && users.Rows[index].Cells[6].Value.ToString() == "active")
                 {
                     strFun = "SELECT COUNT(*) FROM `usertable` WHERE `status`=@manger AND `available`=@act";
                     con.Open();
@@ -318,33 +321,45 @@ namespace carPro
                 MessageBox.Show("מוצר קיים");
             else
             {
-                bool priceFlag = false;
+                bool priceFlagSale;
+                bool priceFlagPay;
                 string nameIt = nameItem.Text;
                 string carType = typeCar.Text;
-                string carM = carModel.Text;
-                float pric;
-                string parC = parCode.Text;
                 string placeInSh = placeInShop.Text;
+                string parC = parCode.Text;
+                float salePrice;
+                float payPrice;
                 int amou;
+                string comn = comnet.Text;
                 MemoryStream ms = new();
                 //all the if gona be here !!!
-                if (float.TryParse(price.Text, out pric))
+                if (float.TryParse(price.Text, out salePrice))
                 {
-                    if (pric <= 0 || price.Text == "")
+                    if (salePrice <= 0 || price.Text == "")
                     {
-                        priceFlag = true;
+                        priceFlagSale = true;
                     }
                     else
                     {
-                        pric = float.Parse(price.Text);
-                        priceFlag = false;
+                        priceFlagSale = false;
                     }
                 }
                 else
                 {
-                    priceFlag = true;
+                    priceFlagSale = true;
                 }
-
+                if (float.TryParse(price.Text, out payPrice))
+                {
+                    if (payPrice <= 0 || paySale.Text == "")
+                    {
+                        priceFlagPay = true;
+                    }
+                    else
+                    {
+                        priceFlagPay = false;
+                    }
+                }
+                else { priceFlagPay = true; }
                 if (nameIt == "")
                 {
                     MessageBox.Show("שם מוצר ריק");
@@ -353,13 +368,13 @@ namespace carPro
                 {
                     MessageBox.Show("סוג רכב ריק");
                 }
-                else if (carM == "")
+                else if (priceFlagSale)
                 {
-                    MessageBox.Show("דגם רכב ריק");
+                    MessageBox.Show("מחיר מכירה ריק/שלילי");
                 }
-                else if (priceFlag)
+                else if (priceFlagPay)
                 {
-                    MessageBox.Show("מחיר ריק/שלילי");
+                    MessageBox.Show("מחיר קניה ריק/שלילי");
                 }
                 else if (parC == "")
                 {
@@ -381,6 +396,10 @@ namespace carPro
                 {
                     MessageBox.Show("תמונה ריקה");
                 }
+                else if (comn == "")
+                {
+                    MessageBox.Show("פרטים של מוצר ריק");
+                }
                 //all the if's end's here
                 else
                 {
@@ -388,18 +407,19 @@ namespace carPro
                     {
                         picPath.Image.Save(ms, picPath.Image.RawFormat);
                         byte[] img = ms.ToArray();
-                        string strFun = "INSERT INTO items(nameItem,typeCar,modelC,parCode,placeInShop,amount,price,image)VALUES (@nameIt,@typeC,@modelC,@parCod,@placeSho,@amount,@price, @imageLocation)";
-                        MySqlConnection con = new("server=localhost;user=root;database=pro1;password=");
-                        MySqlCommand MyCommand2 = new(strFun, con);
+                        string strFun = "INSERT INTO `items`(`nameItmes`, `typeCar`, `placeInShop`, `parCode`, `salePrice`, `payPrice`, `image`, `amount`, `comment`) VALUES " +
+                                        "(@nameIt,@typeC,@placeSho,@parCod,@salePri,@payPrice,@image,@amount,@com)";
+                        MyCommand2 = new MySqlCommand(strFun, con);
                         con.Open();
                         MyCommand2.Parameters.AddWithValue("@nameIt", nameIt);
                         MyCommand2.Parameters.AddWithValue("@typeC", carType);
-                        MyCommand2.Parameters.AddWithValue("@modelC", carM);
-                        MyCommand2.Parameters.AddWithValue("@parCod", parC);
                         MyCommand2.Parameters.AddWithValue("@placeSho", placeInSh);
+                        MyCommand2.Parameters.AddWithValue("@parCod", parC);
+                        MyCommand2.Parameters.AddWithValue("@salePri", salePrice);
+                        MyCommand2.Parameters.AddWithValue("@payPrice", payPrice);
+                        MyCommand2.Parameters.AddWithValue("@image", img);
                         MyCommand2.Parameters.AddWithValue("@amount", amou);
-                        MyCommand2.Parameters.AddWithValue("@price", pric);
-                        MyCommand2.Parameters.AddWithValue("@imageLocation", img);
+                        MyCommand2.Parameters.AddWithValue("@com", comn);
                         MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.
                         MessageBox.Show("הוספת מוצר הצליחה");
                         con.Close();
@@ -407,6 +427,7 @@ namespace carPro
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message);
+                        con.Close();
                     }
                 }
                 TabControl1_SelectedIndexChanged(sender, EventArgs.Empty);
@@ -443,7 +464,7 @@ namespace carPro
                 else if (searchItem.Text == "סוג רכב")
                     dataView.RowFilter = $"typeCar LIKE '%{search_box.Text}%'";
                 else
-                    dataView.RowFilter = $"nameItem LIKE '%{search_box.Text}%'";
+                    dataView.RowFilter = $"nameItmes LIKE '%{search_box.Text}%'";
             }
             items.Refresh();
         }
@@ -454,7 +475,7 @@ namespace carPro
             if (hitTestInfo.RowIndex >= 0)
             {
                 int rowIndex = hitTestInfo.RowIndex;
-                DataGridViewCell selectedCell = items.Rows[rowIndex].Cells[7];
+                DataGridViewCell selectedCell = items.Rows[rowIndex].Cells[6];
                 if (selectedCell.Value != null && selectedCell.Value.GetType() == typeof(byte[]))
                 {
                     byte[] imageData = (byte[])selectedCell.Value;
@@ -475,19 +496,21 @@ namespace carPro
                 flagImg = false;
                 nameItem.Text = items.Rows[e.RowIndex].Cells[0].Value.ToString();
                 typeCar.Text = items.Rows[e.RowIndex].Cells[1].Value.ToString();
-                carModel.Text = items.Rows[e.RowIndex].Cells[2].Value.ToString();
+                placeInShop.Text = items.Rows[e.RowIndex].Cells[2].Value.ToString();
                 parCode.Text = items.Rows[e.RowIndex].Cells[3].Value.ToString();
                 parCode.ReadOnly = true;
-                placeInShop.Text = items.Rows[e.RowIndex].Cells[4].Value.ToString();
+                price.Text = items.Rows[e.RowIndex].Cells[4].Value.ToString();
+                paySale.Text = items.Rows[e.RowIndex].Cells[5].Value.ToString();
                 Amount.Text = items.Rows[e.RowIndex].Cells[5].Value.ToString();
-                price.Text = items.Rows[e.RowIndex].Cells[6].Value.ToString();
-                DataGridViewCell selectedCell = items.Rows[e.RowIndex].Cells[7];
+                price.Text = items.Rows[e.RowIndex].Cells[7].Value.ToString();
+                DataGridViewCell selectedCell = items.Rows[e.RowIndex].Cells[6];
                 if (selectedCell.Value != null && selectedCell.Value.GetType() == typeof(byte[]))
                 {
                     byte[] imageData = (byte[])selectedCell.Value;
                     using MemoryStream ms = new(imageData);
                     picPath.Image = Image.FromStream(ms);
                 }
+                comnet.Text = items.Rows[e.RowIndex].Cells[8].Value.ToString();
                 add_item.Visible = false;
                 updateItems.Visible = true;
                 index = e.RowIndex;
@@ -498,27 +521,31 @@ namespace carPro
 
             nameItem.Text = "";
             typeCar.Text = "";
-            carModel.Text = "";
-            price.Text = "";
-            parCode.Text = "";
             placeInShop.Text = "";
+            parCode.Text = "";
+            price.Text = "";
+            paySale.Text = "";
             Amount.Text = "";
             picPath.Image = null;
             add_item.Visible = true;
             updateItems.Visible = false;
+            comnet.Text = "";
         }
         private void updateItems_Click(object sender, EventArgs e)
         {
-            bool priceFlag;
+            bool priceFlagSale;
+            bool priceFlagPay;
             string nameIt = nameItem.Text;
             string carType = typeCar.Text;
-            string carM = carModel.Text;
-            float pric;
-            string parC = parCode.Text;
             string placeInSh = placeInShop.Text;
+            string parC = parCode.Text;
+            float salePrice;
+            float payPrice;
             int amou;
-            MemoryStream ms;
+            string comn = comnet.Text;
+            MemoryStream ms = new();
             byte[] img = null;
+            //all the if gona be here !!!
             if (flagImg)
             {
                 ms = new();
@@ -535,24 +562,33 @@ namespace carPro
                     picPath.Image = Image.FromStream(ms);
                 }
             }
-            //all the if gona be here !!!
-            if (float.TryParse(price.Text, out pric))
+            if (float.TryParse(price.Text, out salePrice))
             {
-                if (pric <= 0 || price.Text == "")
+                if (salePrice <= 0 || price.Text == "")
                 {
-                    priceFlag = true;
+                    priceFlagSale = true;
                 }
                 else
                 {
-                    pric = float.Parse(price.Text);
-                    priceFlag = false;
+                    priceFlagSale = false;
                 }
             }
             else
             {
-                priceFlag = true;
+                priceFlagSale = true;
             }
-
+            if (float.TryParse(price.Text, out payPrice))
+            {
+                if (payPrice <= 0 || paySale.Text == "")
+                {
+                    priceFlagPay = true;
+                }
+                else
+                {
+                    priceFlagPay = false;
+                }
+            }
+            else { priceFlagPay = true; }
             if (nameIt == "")
             {
                 MessageBox.Show("שם מוצר ריק");
@@ -561,13 +597,13 @@ namespace carPro
             {
                 MessageBox.Show("סוג רכב ריק");
             }
-            else if (carM == "")
+            else if (priceFlagSale)
             {
-                MessageBox.Show("דגם רכב ריק");
+                MessageBox.Show("מחיר מכירה ריק/שלילי");
             }
-            else if (priceFlag)
+            else if (priceFlagPay)
             {
-                MessageBox.Show("מחיר ריק/שלילי");
+                MessageBox.Show("מחיר קניה ריק/שלילי");
             }
             else if (parC == "")
             {
@@ -589,33 +625,39 @@ namespace carPro
             {
                 MessageBox.Show("תמונה ריקה");
             }
+            else if (comn == "")
+            {
+                MessageBox.Show("פרטים של מוצר ריק");
+            }
+            //all the if's end's here
             else
             {
                 try
                 {
                     string strFun;
                     if (flagImg)
-                        strFun = "UPDATE `items` SET `nameItem`=@nameIt,`typeCar`= @typeC,`modelC`= @model,`placeInShop`= @placeInS,`amount`= @amounts,`price`= @prices,`image`= @images WHERE `parCode`= @parC ";
+                        strFun = "UPDATE `items` SET `nameItem`=@nameIt,`typeCar`= @typeC,`placeInShop`= @placeSho,`parCode`= @parCod,`salePrice`=salePri,`payPrice`=payPrice,`image`= @images,`amount`= @amounts,`comment`= @com WHERE `parCode`= @parC ";
                     else
-                        strFun = "UPDATE `items` SET `nameItem`=@nameIt,`typeCar`= @typeC,`modelC`= @model,`placeInShop`= @placeInS,`amount`= @amounts,`price`= @prices WHERE `parCode`= @parC ";
-                    con.Open();
+                        strFun = "UPDATE `items` SET `nameItmes`=@nameIt,`typeCar`= @typeC,`placeInShop`= @placeSho,`parCode`= @parCod,`salePrice`=@salePri,`payPrice`=@payPrice,`amount`= @amount,`comment`= @com WHERE `parCode`= @parCod ";
                     MyCommand2 = new MySqlCommand(strFun, con);
+                    con.Open();
                     MyCommand2.Parameters.AddWithValue("@nameIt", nameIt);
                     MyCommand2.Parameters.AddWithValue("@typeC", carType);
-                    MyCommand2.Parameters.AddWithValue("@model", carM);
-                    MyCommand2.Parameters.AddWithValue("@placeInS", placeInSh);
-                    MyCommand2.Parameters.AddWithValue("@amounts", amou);
-                    MyCommand2.Parameters.AddWithValue("@prices", pric);
+                    MyCommand2.Parameters.AddWithValue("@placeSho", placeInSh);
+                    MyCommand2.Parameters.AddWithValue("@parCod", parC);
+                    MyCommand2.Parameters.AddWithValue("@salePri", salePrice);
+                    MyCommand2.Parameters.AddWithValue("@payPrice", payPrice);
                     if (flagImg)
-                        MyCommand2.Parameters.AddWithValue("@images", img);
-                    MyCommand2.Parameters.AddWithValue("@parC", parC);
+                        MyCommand2.Parameters.AddWithValue("@image", img);
+                    MyCommand2.Parameters.AddWithValue("@amount", amou);
+                    MyCommand2.Parameters.AddWithValue("@com", comn);
                     MyCommand2.ExecuteNonQuery();
                     con.Close();
 
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("hello");
+                    MessageBox.Show("מוצר קיים");
                     con.Close();
                 }
                 TabControl1_SelectedIndexChanged(sender, EventArgs.Empty);
@@ -642,5 +684,7 @@ namespace carPro
             employee.man = true;
             employee.ShowDialog();
         }
+
+
     }
 }
