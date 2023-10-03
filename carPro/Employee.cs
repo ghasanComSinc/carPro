@@ -141,7 +141,7 @@ namespace carPro
                     itemsInOrder.Columns[11].HeaderText = "מחיר";
                     itemsInOrder.Columns[12].Visible = false;//paypri
                     itemsInOrder.Columns[13].Visible = false;//pic
-                    itemsInOrder.Columns[14].HeaderText = "קמות בחנות";
+                    itemsInOrder.Columns[14].Visible = false;// "קמות בחנות";
                     itemsInOrder.Columns[15].HeaderText = "הערה על מוצר";
                     ToPay();
                     phoneNum.Visible = true;
