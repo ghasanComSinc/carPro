@@ -14,7 +14,8 @@ namespace carPro
 {
     public partial class LogInForm : System.Windows.Forms.Form
     {
-        readonly MySqlConnection connection = new("server=sql12.freesqldatabase.com;user=sql12650296;database=sql12650296;password=QadX7ERzXj");
+        readonly MySqlConnection connection = new("server=localhost;user=root;database=sql12650296;password=");
+        //readonly MySqlConnection connection = new("server=sql12.freesqldatabase.com;user=sql12650296;database=sql12650296;password=QadX7ERzXj");
         MySqlCommand command;
         MySqlDataReader mdr;
         public LogInForm()

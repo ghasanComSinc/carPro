@@ -21,7 +21,8 @@ namespace carPro
     public partial class Employee : Form
     {
         public string employName;
-        readonly MySqlConnection connection = new("server=localhost;user=root;database=pro1;password=");
+        readonly MySqlConnection connection = new("server=localhost;user=root;database=sql12650296;password=");
+        //readonly MySqlConnection connection = new("server=sql12.freesqldatabase.com;user=sql12650296;database=sql12650296;password=QadX7ERzXj");
         MySqlCommand command;
         DataTable dataTable;
         public Employee()
