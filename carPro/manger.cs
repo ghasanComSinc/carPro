@@ -22,6 +22,7 @@ namespace carPro
 {
     public partial class Manger : Form
     {
+        public string phone_number;
         // readonly MySqlConnection con = new("server=sql12.freesqldatabase.com;user=sql12650296;database=sql12650296;password=QadX7ERzXj");
         readonly MySqlConnection con = new("server=localhost;user=root;database=carshop;password=");
         MySqlCommand MyCommand2;
@@ -664,7 +665,10 @@ namespace carPro
         }
         private void SinC_Click(object sender, EventArgs e)
         {
-            CustomerSignIn cust = new();
+            CustomerSignIn cust = new()
+            {
+                nameCustumer = phone_number
+            };
             this.Hide();
             
             cust.ShowDialog();
@@ -672,7 +676,10 @@ namespace carPro
         }
         private void SinEm_Click(object sender, EventArgs e)
         {
-            Employee employee = new();
+            Employee employee = new()
+            {
+                employName= phone_number
+            };
             this.Hide();
             employee.man = true;
             employee.ShowDialog();

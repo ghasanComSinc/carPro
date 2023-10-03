@@ -39,7 +39,10 @@ namespace carPro
                     string name = new(mdr[2].ToString());
                     if (statusAc.Equals("ордм"))
                     {
-                        Manger mangerform = new();
+                        Manger mangerform = new()
+                        {
+                            phone_number = userName.Text
+                        };
                         this.Hide();
                         mangerform.ShowDialog();
                     }
@@ -47,7 +50,7 @@ namespace carPro
                     {
                         Employee emp = new()
                         {
-                            employName = name
+                            employName = userName.Text
                         };
                         this.Hide();
                         emp.ShowDialog();

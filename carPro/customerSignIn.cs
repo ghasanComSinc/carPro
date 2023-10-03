@@ -34,9 +34,9 @@ namespace carPro
             InitializeComponent();
             forSale.Columns.Add("שם מוצר", "שם מוצר");//0
             forSale.Columns.Add("סוג רכב", "סוג רכב");//1
-            forSale.Columns.Add("פר", "פר");//2
-            forSale.Columns.Add("כמות", "כמות");//3
-            forSale.Columns.Add("מחיר ליחידה", "מחיר ליחידה");//4
+            forSale.Columns.Add("פר", "פר");//2->3
+            forSale.Columns.Add("כמות", "כמות");//3->7
+            forSale.Columns.Add("מחיר ליחידה", "מחיר ליחידה");//4->4
             forSale.Columns.Add("סה\"כ מחיר", "סה\"כ מחיר");//5
             forSale.Columns.Add("pic", "");//6
             forSale.Columns[6].Visible = false;
@@ -85,13 +85,13 @@ namespace carPro
 
                 itemToCustomer.Columns[0].HeaderText = "שם מוצר";
                 itemToCustomer.Columns[1].HeaderText = "סוג רכב";
-                itemToCustomer.Columns[2].HeaderText = "פר";
-                itemToCustomer.Columns[3].HeaderText = "כמות";
+                itemToCustomer.Columns[2].Visible = false;
+                itemToCustomer.Columns[3].HeaderText = "פר";
                 itemToCustomer.Columns[4].HeaderText = "מחיר ליחידה";
                 itemToCustomer.Columns[5].Visible = false;
                 itemToCustomer.Columns[6].Visible = false;
-                itemToCustomer.Columns[7].Visible = false;
-                itemToCustomer.Columns[8].Visible = false;
+                itemToCustomer.Columns[7].HeaderText = "כמות";
+                itemToCustomer.Columns[8].HeaderText = "הערה";
                 EmtpyItems();
                 connection.Close();
             }
@@ -137,8 +137,8 @@ namespace carPro
             {
                 saleItem.Visible = true;
                 saleItem.Text = itemToCustomer.Rows[e.RowIndex].Cells[0].Value.ToString();
-                _ = int.TryParse(itemToCustomer.Rows[e.RowIndex].Cells[3].Value.ToString(), out amount);
-                parcod = itemToCustomer.Rows[e.RowIndex].Cells[2].Value.ToString();
+                _ = int.TryParse(itemToCustomer.Rows[e.RowIndex].Cells[7].Value.ToString(), out amount);
+                parcod = itemToCustomer.Rows[e.RowIndex].Cells[3].Value.ToString();
                 rowIndex = e.RowIndex;
                 sale.Visible = true;
                 amountSale.Visible = true;
@@ -153,7 +153,7 @@ namespace carPro
         }
         private void Plus_Click(object sender, EventArgs e)
         {
-            if (amountSale.Text != "" && Regex.IsMatch(amountSale.Text, @"^\d+$") && amount >= int.Parse(amountSale.Text) + 1)
+            if (amountSale.Text != "" && Regex.IsMatch(amountSale.Text, @"^\d+$") && amount >= int.Parse(amountSale.Text))
                 amountSale.Text = (int.Parse(amountSale.Text) + 1) + "";
         }
         private void Minus_Click(object sender, EventArgs e)
@@ -163,7 +163,7 @@ namespace carPro
         }
         private void AmountSale_TextChanged(object sender, EventArgs e)
         {
-            if (amountSale.Text != "" && Regex.IsMatch(amountSale.Text, @"^\d+$") && int.Parse(amountSale.Text) >= amount)
+            if (amountSale.Text != "" && Regex.IsMatch(amountSale.Text, @"^\d+$") && int.Parse(amountSale.Text) > amount)
             {
                 MessageBox.Show("אין במלי הכמות הדרושה");
                 amountSale.Text = "0";
@@ -173,7 +173,7 @@ namespace carPro
                 amountSale.Text = "0";
             }
         }
-        // it coulde be done will !!
+
         private int ChechDoplicatItems()
         {
             for (int i = 0; i < forSale.Rows.Count; i++)
@@ -186,9 +186,7 @@ namespace carPro
             return -1;
         }
         private void Sale_Click(object sender, EventArgs e)
-        {
-
-            // Create a new row in DataGridView2
+        {    
             int rowOld = ChechDoplicatItems();
             if (rowOld == -1)
             {
@@ -198,9 +196,13 @@ namespace carPro
                     // Copy data from selected row in DataGridView1 to the new row in DataGridView2
                     for (int i = 0; i < forSale.Rows[rowIndexNew].Cells.Count; i++)
                     {
-                        if (i >= 0 && i < 3 || i == 4 || i == 6)
+                        if (i >= 0 && i < 2 || i == 4 || i == 6)
                         {
                             forSale.Rows[rowIndexNew].Cells[i].Value = itemToCustomer.Rows[rowIndex].Cells[i].Value;
+                        }
+                        else if (i == 2)
+                        {
+                            forSale.Rows[rowIndexNew].Cells[i].Value = itemToCustomer.Rows[rowIndex].Cells[3].Value;
                         }
                         else if (i == 3)
                         {
