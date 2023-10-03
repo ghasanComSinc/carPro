@@ -186,7 +186,7 @@ namespace carPro
             return -1;
         }
         private void Sale_Click(object sender, EventArgs e)
-        {    
+        {
             int rowOld = ChechDoplicatItems();
             if (rowOld == -1)
             {
@@ -233,7 +233,7 @@ namespace carPro
                     _ = int.TryParse(forSale.Rows[rowOld].Cells[3].Value.ToString(), out num1);
                     _ = int.TryParse(forSale.Rows[rowOld].Cells[4].Value.ToString(), out num2);
                     sum += num1 * num2;
-                    forSale.Rows[rowOld].Cells[5].Value= num1 * num2;
+                    forSale.Rows[rowOld].Cells[5].Value = num1 * num2;
                     priceToPay.Text = "מחיר לתשלום:" + "\n" + sum + "";
                 }
                 else if (amountSale.Text == "0" && tabControl1.SelectedIndex == 1)
@@ -314,10 +314,10 @@ namespace carPro
                         "(@phoneNumber,@orderId,@price,@status)";
                     MyCommand2 = new(strFun, connection);
                     connection.Open();
-                    MyCommand2.Parameters.AddWithValue("@phoneNumber",nameCustumer);
+                    MyCommand2.Parameters.AddWithValue("@phoneNumber", nameCustumer);
                     MyCommand2.Parameters.AddWithValue("@orderId", count);
                     MyCommand2.Parameters.AddWithValue("@price", sum);
-                    MyCommand2.Parameters.AddWithValue("@status", "pro");
+                    MyCommand2.Parameters.AddWithValue("@status", "proce");
                     MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.     
                     connection.Close();
                     for (int i = 0; i < forSale.Rows.Count; i++)
@@ -330,7 +330,7 @@ namespace carPro
                         MyCommand2.Parameters.AddWithValue("@parCode", forSale.Rows[i].Cells[2].Value);
                         MyCommand2.Parameters.AddWithValue("@orderId", count);
                         MyCommand2.Parameters.AddWithValue("@amount", forSale.Rows[i].Cells[3].Value);
-                        MyCommand2.Parameters.AddWithValue("@stauts", "pro");
+                        MyCommand2.Parameters.AddWithValue("@stauts", "proce");
                         MyCommand2.Parameters.AddWithValue("@timeOrder", DateTime.Now.TimeOfDay.ToString());
                         MyCommand2.Parameters.AddWithValue("@dateOrder", DateTime.Now.Date.ToString());
                         MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.     

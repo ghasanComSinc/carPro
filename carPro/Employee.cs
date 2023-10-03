@@ -23,7 +23,6 @@ namespace carPro
     {
         public string employName;//phone
         public bool man = false;
-        //readonly MySqlConnection connection = new("server=sql12.freesqldatabase.com;user=sql12650296;database=sql12650296;password=QadX7ERzXj");
         readonly MySqlConnection connection = new("server=localhost;user=root;database=carshop;password=");
         MySqlCommand command;
         DataTable dataTable;

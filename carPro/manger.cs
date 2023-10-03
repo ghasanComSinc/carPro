@@ -23,7 +23,6 @@ namespace carPro
     public partial class Manger : Form
     {
         public string phone_number;
-        // readonly MySqlConnection con = new("server=sql12.freesqldatabase.com;user=sql12650296;database=sql12650296;password=QadX7ERzXj");
         readonly MySqlConnection con = new("server=localhost;user=root;database=carshop;password=");
         MySqlCommand MyCommand2;
         DataTable dataTable;

@@ -38,6 +38,7 @@
             saveSale = new Button();
             saleItmesIm = new PictureBox();
             forSale = new DataGridView();
+            tabPage3 = new TabPage();
             panel1 = new Panel();
             saleItem = new Label();
             minus = new PictureBox();
@@ -45,6 +46,7 @@
             plus = new PictureBox();
             amountSale = new TextBox();
             label3 = new Label();
+            logoPic = new PictureBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)itemToCustomer).BeginInit();
@@ -55,6 +57,7 @@
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)minus).BeginInit();
             ((System.ComponentModel.ISupportInitialize)plus).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)logoPic).BeginInit();
             SuspendLayout();
             // 
             // tabControl1
@@ -62,6 +65,7 @@
             tabControl1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
+            tabControl1.Controls.Add(tabPage3);
             tabControl1.Location = new Point(1, 49);
             tabControl1.Name = "tabControl1";
             tabControl1.RightToLeft = RightToLeft.Yes;
@@ -181,6 +185,16 @@
             forSale.CellContentClick += ForSale_CellContentClick;
             forSale.MouseMove += ForSale_MouseMove;
             // 
+            // tabPage3
+            // 
+            tabPage3.Location = new Point(4, 34);
+            tabPage3.Name = "tabPage3";
+            tabPage3.Padding = new Padding(3);
+            tabPage3.Size = new Size(945, 354);
+            tabPage3.TabIndex = 2;
+            tabPage3.Text = "דף הזמנות";
+            tabPage3.UseVisualStyleBackColor = true;
+            // 
             // panel1
             // 
             panel1.Controls.Add(saleItem);
@@ -260,15 +274,27 @@
             label3.Location = new Point(731, 4);
             label3.Name = "label3";
             label3.RightToLeft = RightToLeft.Yes;
-            label3.Size = new Size(217, 50);
+            label3.Size = new Size(179, 40);
             label3.TabIndex = 18;
             label3.Text = "ברוכים הבאים לחנות שלנו\r\nלקוח יקר, ";
+            // 
+            // logoPic
+            // 
+            logoPic.ErrorImage = null;
+            logoPic.Image = (Image)resources.GetObject("logoPic.Image");
+            logoPic.InitialImage = null;
+            logoPic.Location = new Point(438, 4);
+            logoPic.Name = "logoPic";
+            logoPic.Size = new Size(387, 79);
+            logoPic.TabIndex = 19;
+            logoPic.TabStop = false;
             // 
             // CustomerSignIn
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(966, 443);
+            Controls.Add(logoPic);
             Controls.Add(label3);
             Controls.Add(panel1);
             Controls.Add(tabControl1);
@@ -288,6 +314,7 @@
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)minus).EndInit();
             ((System.ComponentModel.ISupportInitialize)plus).EndInit();
+            ((System.ComponentModel.ISupportInitialize)logoPic).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -310,5 +337,7 @@
         private TextBox amountSale;
         private Label label3;
         private Label priceToPay;
+        private TabPage tabPage3;
+        private PictureBox logoPic;
     }
 }
