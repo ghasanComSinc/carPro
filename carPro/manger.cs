@@ -299,7 +299,7 @@ namespace carPro
             catch
             { }
         }
-        private void status_SelectedIndexChanged(object sender, EventArgs e)
+        private void Status_SelectedIndexChanged(object sender, EventArgs e)
         {
             for (int i = 0; i < status.Items.Count; i++)
             {
@@ -308,15 +308,15 @@ namespace carPro
 
             }
         }
-        private void searchItems()
+        private void SearchItems()
         {
             DataView dataView = dataTable.DefaultView;
             dataView.RowFilter = $"parCode = '{parCode.Text}'"; ;
             items.Refresh();
         }
-        private void add_item_Click(object sender, EventArgs e)
+        private void Add_item_Click(object sender, EventArgs e)
         {
-            searchItems();
+            SearchItems();
             if (items.RowCount == 1)
                 MessageBox.Show("מוצר קיים");
             else
@@ -327,13 +327,10 @@ namespace carPro
                 string carType = typeCar.Text;
                 string placeInSh = placeInShop.Text;
                 string parC = parCode.Text;
-                float salePrice;
-                float payPrice;
-                int amou;
                 string comn = comnet.Text;
                 MemoryStream ms = new();
                 //all the if gona be here !!!
-                if (float.TryParse(price.Text, out salePrice))
+                if (float.TryParse(price.Text, out float salePrice))
                 {
                     if (salePrice <= 0 || price.Text == "")
                     {
@@ -348,7 +345,7 @@ namespace carPro
                 {
                     priceFlagSale = true;
                 }
-                if (float.TryParse(price.Text, out payPrice))
+                if (float.TryParse(price.Text, out float payPrice))
                 {
                     if (payPrice <= 0 || paySale.Text == "")
                     {
@@ -388,7 +385,7 @@ namespace carPro
                 {
                     MessageBox.Show("כמות ריק");
                 }
-                else if (int.TryParse(Amount.Text, out amou) && amou <= 0)
+                else if (int.TryParse(Amount.Text, out int amou) && amou <= 0)
                 {
                     MessageBox.Show("כמות שלילית");
                 }
@@ -433,7 +430,7 @@ namespace carPro
                 TabControl1_SelectedIndexChanged(sender, EventArgs.Empty);
             }
         }
-        private void picPath_Click(object sender, EventArgs e)
+        private void PicPath_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new()
             {
@@ -445,7 +442,7 @@ namespace carPro
                 flagImg = true;
             }
         }
-        private void searchItem_SelectedIndexChanged(object sender, EventArgs e)
+        private void SearchItem_SelectedIndexChanged(object sender, EventArgs e)
         {
             for (int i = 0; i < searchItem.Items.Count; i++)
             {
@@ -454,7 +451,7 @@ namespace carPro
 
             }
         }
-        private void search_box_TextChanged(object sender, EventArgs e)
+        private void Search_box_TextChanged(object sender, EventArgs e)
         {
             DataView dataView = dataTable.DefaultView;
             if (searchItem.Text != "")
@@ -468,7 +465,7 @@ namespace carPro
             }
             items.Refresh();
         }
-        private void items_MouseMove(object sender, MouseEventArgs e)
+        private void Items_MouseMove(object sender, MouseEventArgs e)
         {
             DataGridView.HitTestInfo hitTestInfo = items.HitTest(e.X, e.Y);
 
@@ -489,7 +486,7 @@ namespace carPro
                 pictureBox1.Image = null;
             }
         }
-        private void items_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void Items_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
@@ -516,7 +513,7 @@ namespace carPro
                 index = e.RowIndex;
             }
         }
-        private void clearItmesDetla()
+        private void ClearItmesDetla()
         {
 
             nameItem.Text = "";
@@ -531,7 +528,7 @@ namespace carPro
             updateItems.Visible = false;
             comnet.Text = "";
         }
-        private void updateItems_Click(object sender, EventArgs e)
+        private void UpdateItems_Click(object sender, EventArgs e)
         {
             bool priceFlagSale;
             bool priceFlagPay;
@@ -539,11 +536,8 @@ namespace carPro
             string carType = typeCar.Text;
             string placeInSh = placeInShop.Text;
             string parC = parCode.Text;
-            float salePrice;
-            float payPrice;
-            int amou;
             string comn = comnet.Text;
-            MemoryStream ms = new();
+            MemoryStream ms ;
             byte[] img = null;
             //all the if gona be here !!!
             if (flagImg)
@@ -562,7 +556,7 @@ namespace carPro
                     picPath.Image = Image.FromStream(ms);
                 }
             }
-            if (float.TryParse(price.Text, out salePrice))
+            if (float.TryParse(price.Text, out float salePrice))
             {
                 if (salePrice <= 0 || price.Text == "")
                 {
@@ -577,7 +571,7 @@ namespace carPro
             {
                 priceFlagSale = true;
             }
-            if (float.TryParse(price.Text, out payPrice))
+            if (float.TryParse(price.Text, out float payPrice))
             {
                 if (payPrice <= 0 || paySale.Text == "")
                 {
@@ -617,7 +611,7 @@ namespace carPro
             {
                 MessageBox.Show("כמות ריק");
             }
-            else if (int.TryParse(Amount.Text, out amou) && amou <= 0)
+            else if (int.TryParse(Amount.Text, out int amou) && amou <= 0)
             {
                 MessageBox.Show("כמות שלילית");
             }
@@ -655,36 +649,33 @@ namespace carPro
                     con.Close();
 
                 }
-                catch (Exception ex)
+                catch 
                 {
                     MessageBox.Show("מוצר קיים");
                     con.Close();
                 }
                 TabControl1_SelectedIndexChanged(sender, EventArgs.Empty);
-                clearItmesDetla();
+                ClearItmesDetla();
             }
         }
-        private void items_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void Items_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            items_CellContentClick(sender, e);
+            Items_CellContentClick(sender, e);
         }
-        private void sinC_Click(object sender, EventArgs e)
+        private void SinC_Click(object sender, EventArgs e)
         {
             CustomerSignIn cust = new();
             this.Hide();
             cust.man = true;
             cust.ShowDialog();
-            cust = null;
             this.Show();
         }
-        private void sinEm_Click(object sender, EventArgs e)
+        private void SinEm_Click(object sender, EventArgs e)
         {
             Employee employee = new();
             this.Hide();
             employee.man = true;
             employee.ShowDialog();
         }
-
-
     }
 }

@@ -78,7 +78,7 @@ namespace carPro
                 connection.Close();
             }
         }
-        private bool checkNumberPhone()
+        private bool CheckNumberPhone()
         {
             if (phoneCustomer.Text.Length != 10)
                 return false;
@@ -100,7 +100,7 @@ namespace carPro
             }
             else
             {
-                if (checkNumberPhone())
+                if (CheckNumberPhone())
                 {
                     try
                     {
@@ -130,7 +130,7 @@ namespace carPro
                         customerForm = null;
                         this.Show();
                     }
-                    catch (Exception ex)
+                    catch 
                     {
                         MessageBox.Show("משתמש קיים");
                         connection.Close();
@@ -168,19 +168,19 @@ namespace carPro
             tabControl1.TabPages.Remove(tabPage1);
             tabControl1.TabPages.Add(tabPage2);
         }
-        private void pictureBox2_Click(object sender, EventArgs e)
+        private void PictureBox2_Click(object sender, EventArgs e)
         {
             if (passSin.PasswordChar == '*')
                 passSin.PasswordChar = '\0';
             else
                 passSin.PasswordChar = '*';
         }
-        private void password_KeyPress(object sender, KeyPressEventArgs e)
+        private void Password_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
                 Button1_Click(sender, e);
         }
-        private void passSin_KeyPress(object sender, KeyPressEventArgs e)
+        private void PassSin_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
                 Button2_Click(sender, e);

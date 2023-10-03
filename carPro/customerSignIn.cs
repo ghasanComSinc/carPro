@@ -340,9 +340,6 @@ namespace carPro
             ForSale_CellContentClick(sender, e);
         }
 
-        private void returnMan_Click(object sender, EventArgs e)
-        {
-
-        }
+       
     }
 }

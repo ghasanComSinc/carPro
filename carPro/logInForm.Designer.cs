@@ -128,7 +128,7 @@
             password.PasswordChar = '*';
             password.Size = new Size(150, 31);
             password.TabIndex = 2;
-            password.KeyPress += password_KeyPress;
+            password.KeyPress += Password_KeyPress;
             // 
             // userName
             // 
@@ -212,7 +212,7 @@
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 16;
             pictureBox2.TabStop = false;
-            pictureBox2.Click += pictureBox2_Click;
+            pictureBox2.Click += PictureBox2_Click;
             // 
             // nameCustomer
             // 
@@ -230,7 +230,7 @@
             passSin.PasswordChar = '*';
             passSin.Size = new Size(150, 31);
             passSin.TabIndex = 3;
-            passSin.KeyPress += passSin_KeyPress;
+            passSin.KeyPress += PassSin_KeyPress;
             // 
             // label5
             // 

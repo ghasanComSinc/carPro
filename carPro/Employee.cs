@@ -334,7 +334,7 @@ namespace carPro
 
         }
 
-        private void search_SelectedIndexChanged(object sender, EventArgs e)
+        private void Search_SelectedIndexChanged(object sender, EventArgs e)
         {
             for (int i = 0; i < search.Items.Count; i++)
             {
@@ -344,18 +344,18 @@ namespace carPro
             }
         }
 
-        private void orders_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void Orders_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             Orders_CellContentClick(sender, e);
         }
 
-        private void sinC_Click(object sender, EventArgs e)
+        private void SinC_Click(object sender, EventArgs e)
         {
             CustomerSignIn cust = new();
             this.Hide();
             cust.man = true;
             cust.ShowDialog();
-            cust = null;
+            
             this.Show();
         }
     }

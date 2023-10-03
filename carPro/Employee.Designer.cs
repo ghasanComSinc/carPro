@@ -100,7 +100,7 @@
             orders.RowTemplate.Height = 33;
             orders.Size = new Size(851, 395);
             orders.TabIndex = 1;
-            orders.CellClick += orders_CellClick;
+            orders.CellClick += Orders_CellClick;
             orders.CellContentClick += Orders_CellContentClick;
             // 
             // tabPage2
@@ -216,7 +216,7 @@
             search.RightToLeft = RightToLeft.Yes;
             search.Size = new Size(141, 60);
             search.TabIndex = 30;
-            search.SelectedIndexChanged += search_SelectedIndexChanged;
+            search.SelectedIndexChanged += Search_SelectedIndexChanged;
             // 
             // searchOr
             // 
@@ -298,7 +298,7 @@
             sinC.TabIndex = 198;
             sinC.Text = "כניסה לקוח";
             sinC.UseVisualStyleBackColor = true;
-            sinC.Click += sinC_Click;
+            sinC.Click += SinC_Click;
             // 
             // Employee
             // 

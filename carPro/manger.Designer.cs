@@ -129,9 +129,9 @@
             items.RowTemplate.Height = 33;
             items.Size = new Size(1340, 338);
             items.TabIndex = 7;
-            items.CellClick += items_CellClick;
-            items.CellContentClick += items_CellContentClick;
-            items.MouseMove += items_MouseMove;
+            items.CellClick += Items_CellClick;
+            items.CellContentClick += Items_CellContentClick;
+            items.MouseMove += Items_MouseMove;
             // 
             // panel2
             // 
@@ -195,7 +195,7 @@
             updateItems.Text = "עדכון מוצר";
             updateItems.UseVisualStyleBackColor = true;
             updateItems.Visible = false;
-            updateItems.Click += updateItems_Click;
+            updateItems.Click += UpdateItems_Click;
             // 
             // label8
             // 
@@ -223,7 +223,7 @@
             searchItem.Name = "searchItem";
             searchItem.Size = new Size(113, 88);
             searchItem.TabIndex = 194;
-            searchItem.SelectedIndexChanged += searchItem_SelectedIndexChanged;
+            searchItem.SelectedIndexChanged += SearchItem_SelectedIndexChanged;
             // 
             // price
             // 
@@ -259,7 +259,7 @@
             search_box.Name = "search_box";
             search_box.Size = new Size(141, 31);
             search_box.TabIndex = 192;
-            search_box.TextChanged += search_box_TextChanged;
+            search_box.TextChanged += Search_box_TextChanged;
             // 
             // search_label
             // 
@@ -279,7 +279,7 @@
             add_item.TabIndex = 189;
             add_item.Text = "הוספת מוצר";
             add_item.UseVisualStyleBackColor = true;
-            add_item.Click += add_item_Click;
+            add_item.Click += Add_item_Click;
             // 
             // picPath
             // 
@@ -291,7 +291,7 @@
             picPath.SizeMode = PictureBoxSizeMode.Zoom;
             picPath.TabIndex = 187;
             picPath.TabStop = false;
-            picPath.Click += picPath_Click;
+            picPath.Click += PicPath_Click;
             // 
             // label12
             // 
@@ -461,7 +461,7 @@
             status.Name = "status";
             status.Size = new Size(80, 88);
             status.TabIndex = 9;
-            status.SelectedIndexChanged += status_SelectedIndexChanged;
+            status.SelectedIndexChanged += Status_SelectedIndexChanged;
             // 
             // updateU
             // 
@@ -580,7 +580,7 @@
             sinC.TabIndex = 197;
             sinC.Text = "כניסה לקוח";
             sinC.UseVisualStyleBackColor = true;
-            sinC.Click += sinC_Click;
+            sinC.Click += SinC_Click;
             // 
             // sinEm
             // 
@@ -590,7 +590,7 @@
             sinEm.TabIndex = 198;
             sinEm.Text = "כניסה עובד";
             sinEm.UseVisualStyleBackColor = true;
-            sinEm.Click += sinEm_Click;
+            sinEm.Click += SinEm_Click;
             // 
             // Manger
             // 
