@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Math;
+using Org.BouncyCastle.Utilities.Collections;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WhatsAppApi.Parser;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
@@ -18,7 +20,7 @@ namespace carPro
 {
     public partial class CustomerSignIn : Form
     {
-        readonly MySqlConnection connection = new("server=localhost;user=root;database=sql12650296;password=");
+        readonly MySqlConnection connection = new("server=localhost;user=root;database=carshop;password=");
         //readonly MySqlConnection connection = new("server=sql12.freesqldatabase.com;user=sql12650296;database=sql12650296;password=QadX7ERzXj");
 
         MySqlCommand MyCommand2;
@@ -60,7 +62,6 @@ namespace carPro
         DataTable dataTable = new();
         private void CustomerSignIn_Load(object sender, EventArgs e)
         {
-            label3.Text += nameCustumer;
             int w = Screen.PrimaryScreen.Bounds.Width;
             int h = Screen.PrimaryScreen.Bounds.Height;
             this.Location = new Point(0, 0);
@@ -195,7 +196,7 @@ namespace carPro
                 {
                     int rowIndexNew = forSale.Rows.Add();
                     // Copy data from selected row in DataGridView1 to the new row in DataGridView2
-                    for (int i = 0; i < forSale.Rows[rowIndex].Cells.Count; i++)
+                    for (int i = 0; i < forSale.Rows[rowIndexNew].Cells.Count; i++)
                     {
                         if (i >= 0 && i < 3 || i == 4 || i == 6)
                         {
@@ -230,6 +231,7 @@ namespace carPro
                     _ = int.TryParse(forSale.Rows[rowOld].Cells[3].Value.ToString(), out num1);
                     _ = int.TryParse(forSale.Rows[rowOld].Cells[4].Value.ToString(), out num2);
                     sum += num1 * num2;
+                    forSale.Rows[rowOld].Cells[5].Value= num1 * num2;
                     priceToPay.Text = "מחיר לתשלום:" + "\n" + sum + "";
                 }
                 else if (amountSale.Text == "0" && tabControl1.SelectedIndex == 1)
@@ -280,11 +282,8 @@ namespace carPro
             {
                 saleItem.Visible = true;
                 saleItem.Text = forSale.Rows[e.RowIndex].Cells[0].Value.ToString();
-
                 _ = int.TryParse(itemToCustomer.Rows[e.RowIndex].Cells[4].Value.ToString(), out amount);
-
                 parcod = forSale.Rows[e.RowIndex].Cells[2].Value.ToString();
-
                 rowIndex = e.RowIndex;
                 sale.Visible = true;
                 amountSale.Visible = true;
@@ -304,43 +303,34 @@ namespace carPro
                 try
                 {
                     string strFun = "SELECT COUNT(*) FROM paytable";
-                    /*
-                     * I have to dell withj the=is next time !
-                     it's about the sql
-                    */
-                    MySqlConnection con = new("server=localhost;user=root;database=pro1;password=");
-                    MySqlCommand MyCommand2 = new(strFun, connection);
-                    connection.Open();
-                    _ = int.TryParse(MyCommand2.ExecuteScalar().ToString(), out int count);
-                    connection.Close();
-                    strFun = "INSERT INTO paytable(name, id, priceToPay,status) VALUES (@name,@idSale,@price,@status)";
                     MyCommand2 = new(strFun, connection);
                     connection.Open();
-                    MyCommand2.Parameters.AddWithValue("@name", nameCustumer);
-                    MyCommand2.Parameters.AddWithValue("@idSale", count);
+                    _ = int.TryParse(MyCommand2.ExecuteScalar().ToString(), out int count);
+                    count += 1;
+                    connection.Close();
+                    strFun = "INSERT INTO paytable(`phoneNumber`, `orderId`, `price`, `status`) VALUES" +
+                        "(@phoneNumber,@orderId,@price,@status)";
+                    MyCommand2 = new(strFun, connection);
+                    connection.Open();
+                    MyCommand2.Parameters.AddWithValue("@phoneNumber",nameCustumer);
+                    MyCommand2.Parameters.AddWithValue("@orderId", count);
                     MyCommand2.Parameters.AddWithValue("@price", sum);
-                    MyCommand2.Parameters.AddWithValue("@status", "process");
+                    MyCommand2.Parameters.AddWithValue("@status", "pro");
                     MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.     
                     connection.Close();
                     for (int i = 0; i < forSale.Rows.Count; i++)
                     {
-
-                        strFun = "INSERT INTO sale(name, id, nameItem, typeCar, modelC,parCode,placeInShop, amount,price, image,amountSale,status)" +
-                                                 " VALUES (@nameSa,@idSale,@nameIt,@typeC,@modelCar,@parC,@placeInSh,@amountItem,@priceItem,@imageItem,@amountSale,@statusOrder)";
+                        strFun = "INSERT `orders`(`phoneNumber`, `parCode`, `orderId`, `amount`, `stauts`, `timeOrder`, `dateOrder`) VALUES" +
+                                        "(@phoneNumber,@parCode,@orderId,@amount,@stauts,@timeOrder,@dateOrder)";
                         MyCommand2 = new(strFun, connection);
                         connection.Open();
-                        MyCommand2.Parameters.AddWithValue("@nameSa", nameCustumer);
-                        MyCommand2.Parameters.AddWithValue("@idSale", count);
-                        MyCommand2.Parameters.AddWithValue("@nameIt", forSale.Rows[i].Cells[0].Value.ToString());
-                        MyCommand2.Parameters.AddWithValue("@typeC", forSale.Rows[i].Cells[1].Value.ToString());
-                        MyCommand2.Parameters.AddWithValue("@modelCar", forSale.Rows[i].Cells[2].Value.ToString());
-                        MyCommand2.Parameters.AddWithValue("@parC", forSale.Rows[i].Cells[3].Value.ToString());
-                        MyCommand2.Parameters.AddWithValue("@placeInSh", forSale.Rows[i].Cells[4].Value.ToString());
-                        MyCommand2.Parameters.AddWithValue("@amountItem", forSale.Rows[i].Cells[5].Value.ToString());
-                        MyCommand2.Parameters.AddWithValue("@priceItem", forSale.Rows[i].Cells[6].Value.ToString());
-                        MyCommand2.Parameters.AddWithValue("@imageItem", forSale.Rows[i].Cells[7].Value);
-                        MyCommand2.Parameters.AddWithValue("@amountSale", forSale.Rows[i].Cells[8].Value.ToString());
-                        MyCommand2.Parameters.AddWithValue("@statusOrder", "process");
+                        MyCommand2.Parameters.AddWithValue("@phoneNumber", nameCustumer);
+                        MyCommand2.Parameters.AddWithValue("@parCode", forSale.Rows[i].Cells[2].Value);
+                        MyCommand2.Parameters.AddWithValue("@orderId", count);
+                        MyCommand2.Parameters.AddWithValue("@amount", forSale.Rows[i].Cells[3].Value);
+                        MyCommand2.Parameters.AddWithValue("@stauts", "pro");
+                        MyCommand2.Parameters.AddWithValue("@timeOrder", DateTime.Now.TimeOfDay.ToString());
+                        MyCommand2.Parameters.AddWithValue("@dateOrder", DateTime.Now.Date.ToString());
                         MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.     
                         connection.Close();
                     }
@@ -351,6 +341,7 @@ namespace carPro
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
+                    connection.Close();
                 }
             }
             else

@@ -338,7 +338,7 @@ namespace carPro
         {
             CustomerSignIn cust = new();
             this.Hide();
-            cust.man = true;
+           
             cust.ShowDialog();
 
             this.Show();

@@ -30,7 +30,7 @@ namespace carPro
             try
             {
                 connection.Open();
-                string selectQuery = "SELECT * FROM UserTable WHERE phoneNumber = '" + userName.Text + "' AND password = '" + password.Text + "' AND available = '" + "active" + "';";
+                string selectQuery = "SELECT * FROM userTable WHERE phoneNumber = '" + userName.Text + "' AND password = '" + password.Text + "' AND available = '" + "active" + "';";
                 command = new MySqlCommand(selectQuery, connection);
                 mdr = command.ExecuteReader();
                 if (mdr.Read())
@@ -54,7 +54,10 @@ namespace carPro
                     }
                     else
                     {
-                        CustomerSignIn customerS = new();
+                        CustomerSignIn customerS = new()
+                        {
+                            nameCustumer=userName.Text
+                        };
                         this.Hide();
                         customerS.ShowDialog();
                     }
