@@ -48,7 +48,8 @@
             addItemBu = new Button();
             label2 = new Label();
             sinC = new Button();
-            oldOrders = new TabPage();
+            phoneNum = new Label();
+            orderI = new Label();
             tabControl1.SuspendLayout();
             allOrder.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)orders).BeginInit();
@@ -63,7 +64,6 @@
             tabControl1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabControl1.Controls.Add(allOrder);
             tabControl1.Controls.Add(tabPage2);
-            tabControl1.Controls.Add(oldOrders);
             tabControl1.Location = new Point(8, 89);
             tabControl1.Name = "tabControl1";
             tabControl1.RightToLeft = RightToLeft.Yes;
@@ -212,7 +212,7 @@
             // search
             // 
             search.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            search.Items.AddRange(new object[] { "שם לקוח", "מספר זיהוי" });
+            search.Items.AddRange(new object[] { "מספר טלפון", "מזה הזמנה" });
             search.Location = new Point(148, 3);
             search.Name = "search";
             search.RightToLeft = RightToLeft.Yes;
@@ -302,21 +302,37 @@
             sinC.UseVisualStyleBackColor = true;
             sinC.Click += SinC_Click;
             // 
-            // oldOrders
+            // phoneNum
             // 
-            oldOrders.Location = new Point(4, 34);
-            oldOrders.Name = "oldOrders";
-            oldOrders.Padding = new Padding(3);
-            oldOrders.Size = new Size(867, 404);
-            oldOrders.TabIndex = 2;
-            oldOrders.Text = "הזמנות קודמות";
-            oldOrders.UseVisualStyleBackColor = true;
+            phoneNum.Anchor = AnchorStyles.Top;
+            phoneNum.AutoSize = true;
+            phoneNum.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            phoneNum.Location = new Point(456, 77);
+            phoneNum.Name = "phoneNum";
+            phoneNum.Size = new Size(185, 25);
+            phoneNum.TabIndex = 31;
+            phoneNum.Text = "מספר טלפון של לקוח";
+            phoneNum.Visible = false;
+            // 
+            // orderI
+            // 
+            orderI.Anchor = AnchorStyles.Top;
+            orderI.AutoSize = true;
+            orderI.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            orderI.Location = new Point(246, 77);
+            orderI.Name = "orderI";
+            orderI.Size = new Size(99, 25);
+            orderI.TabIndex = 199;
+            orderI.Text = "מזה הזמנה";
+            orderI.Visible = false;
             // 
             // Employee
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(890, 534);
+            Controls.Add(orderI);
+            Controls.Add(phoneNum);
             Controls.Add(sinC);
             Controls.Add(label2);
             Controls.Add(panel1);
@@ -360,6 +376,7 @@
         private Button button2;
         private CheckedListBox search;
         private Button sinC;
-        private TabPage oldOrders;
+        private Label phoneNum;
+        private Label orderI;
     }
 }

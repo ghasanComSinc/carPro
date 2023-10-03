@@ -681,8 +681,9 @@ namespace carPro
                 employName= phone_number
             };
             this.Hide();
-            employee.man = true;
+
             employee.ShowDialog();
+            this.Show();
         }
     }
 }

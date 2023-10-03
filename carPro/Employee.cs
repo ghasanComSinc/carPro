@@ -15,12 +15,13 @@ using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using static WhatsAppApi.Parser.FMessage;
+using WhatsAppApi.Parser;
 
 namespace carPro
 {
     public partial class Employee : Form
     {
-        public string employName;
+        public string employName;//phone
         public bool man = false;
         //readonly MySqlConnection connection = new("server=sql12.freesqldatabase.com;user=sql12650296;database=sql12650296;password=QadX7ERzXj");
         readonly MySqlConnection connection = new("server=localhost;user=root;database=carshop;password=");
@@ -46,7 +47,7 @@ namespace carPro
             tabControl1.TabPages.Remove(tabPage2);
             try
             {
-                
+
                 string strFun;
                 strFun = "SELECT * FROM `paytable` WHERE `status`=\"pro\"";
                 connection.Open();
@@ -60,7 +61,7 @@ namespace carPro
                 orders.Columns[1].HeaderText = "מזה הזמנה";
                 orders.Columns[2].HeaderText = "לתשלום";
                 orders.Columns[3].Visible = false;
-                connection.Close();  
+                connection.Close();
             }
             catch (Exception ex)
             {
@@ -72,12 +73,14 @@ namespace carPro
         private void SearchOr_TextChanged(object sender, EventArgs e)
         {
             DataView dataView = dataTable.DefaultView;
-            if (search.Text != "")
+            if (search.Text != "" && searchOr.Text != "")
             {
-                if (search.Text == "שם לקוח")
-                    dataView.RowFilter = $"name LIKE '%{searchOr.Text}%'";
+                if (search.Text == "מספר טלפון")
+                    dataView.RowFilter = $"Convert(phoneNumber, 'System.String') LIKE '%{searchOr.Text}%'";
                 else
-                    dataView.RowFilter = $"id LIKE '%{searchOr.Text}%'";
+                {
+                    dataView.RowFilter = $"Convert(orderId, 'System.String') LIKE '%{searchOr.Text}%'";
+                }
             }
             orders.Refresh();
         }
@@ -87,11 +90,11 @@ namespace carPro
             int sum = 0;
             for (int i = 0; i < itemsInOrder.Rows.Count; i++)
             {
-                if (int.Parse(itemsInOrder.Rows[i].Cells[7].Value.ToString()) == 0)
+                if (int.Parse(itemsInOrder.Rows[i].Cells[14].Value.ToString()) == 0)
                     itemsInOrder.Rows[i].DefaultCellStyle.BackColor = Color.Red;
-                else if (int.Parse(itemsInOrder.Rows[i].Cells[7].Value.ToString()) >= int.Parse(itemsInOrder.Rows[i].Cells[10].Value.ToString()))
+                else if (int.Parse(itemsInOrder.Rows[i].Cells[14].Value.ToString()) >= int.Parse(itemsInOrder.Rows[i].Cells[3].Value.ToString()))
                 {
-                    sum += int.Parse(itemsInOrder.Rows[i].Cells[8].Value.ToString()) * int.Parse(itemsInOrder.Rows[i].Cells[10].Value.ToString());
+                    sum += int.Parse(itemsInOrder.Rows[i].Cells[12].Value.ToString()) * int.Parse(itemsInOrder.Rows[i].Cells[3].Value.ToString());
                     itemsInOrder.Rows[i].DefaultCellStyle.BackColor = Color.White;
                 }
                 else
@@ -114,30 +117,37 @@ namespace carPro
                 try
                 {
                     string strFun;
-                    strFun = "SELECT * FROM `orders` WHERE `phoneNumber`=" + orders.Rows[e.RowIndex].Cells[1].Value.ToString()+ "AND stauts=pro";
+                    strFun = "SELECT * FROM `orders` join `items` ON `orders`.`parCode` = `items`.`parCode`" +
+                        $"WHERE `phoneNumber`={orders.Rows[e.RowIndex].Cells[0].Value} AND `orderId`='{orders.Rows[e.RowIndex].Cells[1].Value}'";
                     connection.Open();
                     command = new MySqlCommand(strFun, connection);
                     MySqlDataAdapter adapter = new(command);
                     dataTable = new();
                     // Fill the DataTable with the query results
                     adapter.Fill(dataTable);
-                    itemsInOrder.DataSource = dataTable;
-                    itemsInOrder.Columns[9].Visible = false;
-                    itemsInOrder.Columns[11].Visible = false;
-                    itemsInOrder.Columns[0].HeaderText = "שם לקוח";
-                    itemsInOrder.Columns[1].HeaderText = "מספר זיהוי";
-                    itemsInOrder.Columns[2].HeaderText = "שם מוצר";
-                    itemsInOrder.Columns[3].HeaderText = "סוג רכב";
-                    itemsInOrder.Columns[4].HeaderText = "מודל";
-                    itemsInOrder.Columns[5].HeaderText = "זיהוי מוצר";
-                    itemsInOrder.Columns[6].HeaderText = "מקום בחנות";
-                    itemsInOrder.Columns[7].HeaderText = "קמות בחנות";
-                    itemsInOrder.Columns[8].HeaderText = "מחיר";
-                    itemsInOrder.Columns[9].HeaderText = "תמונה";
-                    itemsInOrder.Columns[10].HeaderText = "קמות רצויה";
-                    itemsInOrder.Columns[11].HeaderText = "מצב של הזמנה";
                     connection.Close();
+                    itemsInOrder.DataSource = dataTable;
+                    itemsInOrder.Columns[0].Visible = false;// "מספר טלפון";
+                    itemsInOrder.Columns[1].HeaderText = "פר";
+                    itemsInOrder.Columns[2].Visible = false;// "מזה הזמנה";
+                    itemsInOrder.Columns[3].HeaderText = "כמות רצויה";
+                    itemsInOrder.Columns[4].Visible = false;//status
+                    itemsInOrder.Columns[5].HeaderText = "שעת קניה";
+                    itemsInOrder.Columns[6].HeaderText = "תאריך קניה";
+                    itemsInOrder.Columns[7].HeaderText = "שם מוצר";
+                    itemsInOrder.Columns[8].HeaderText = "סוג רכב";
+                    itemsInOrder.Columns[9].HeaderText = "מיקום בחנות";
+                    itemsInOrder.Columns[10].Visible = false;//parcode
+                    itemsInOrder.Columns[11].HeaderText = "מחיר";
+                    itemsInOrder.Columns[12].Visible = false;//paypri
+                    itemsInOrder.Columns[13].Visible = false;//pic
+                    itemsInOrder.Columns[14].HeaderText = "קמות בחנות";
+                    itemsInOrder.Columns[15].HeaderText = "הערה על מוצר";
                     ToPay();
+                    phoneNum.Visible = true;
+                    orderI.Visible = true;
+                    phoneNum.Text = "מספר טלפון של לקוח " + " " + itemsInOrder.Rows[0].Cells[0].Value.ToString();
+                    orderI.Text = "מזה הזמנה" + " " + itemsInOrder.Rows[0].Cells[2].Value.ToString();
                 }
                 catch (Exception ex)
                 {
@@ -150,6 +160,8 @@ namespace carPro
         {
             label2.Visible = false;
             panel1.Visible = true;
+            phoneNum.Visible = false;
+            orderI.Visible = false;
             tabControl1.TabPages.Remove(tabPage2);
             tabControl1.TabPages.Add(allOrder);
             Employee_Load(sender, e);
@@ -161,7 +173,7 @@ namespace carPro
             if (hitTestInfo.RowIndex >= 0)
             {
                 int rowIndex = hitTestInfo.RowIndex;
-                DataGridViewCell selectedCell = itemsInOrder.Rows[rowIndex].Cells[9];
+                DataGridViewCell selectedCell = itemsInOrder.Rows[rowIndex].Cells[13];
                 if (selectedCell.Value != null && selectedCell.Value.GetType() == typeof(byte[]))
                 {
                     byte[] imageData = (byte[])selectedCell.Value;
@@ -332,13 +344,16 @@ namespace carPro
         }
         private void Orders_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            Orders_CellContentClick(sender, e);
+            //Orders_CellContentClick(sender, e);
         }
         private void SinC_Click(object sender, EventArgs e)
         {
-            CustomerSignIn cust = new();
+            CustomerSignIn cust = new()
+            {
+                nameCustumer = employName
+            };
             this.Hide();
-           
+
             cust.ShowDialog();
 
             this.Show();
