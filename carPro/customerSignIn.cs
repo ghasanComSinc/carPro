@@ -12,15 +12,15 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace carPro
 {
     public partial class CustomerSignIn : Form
     {
+        readonly MySqlConnection connection = new("server=localhost;user=root;database=sql12650296;password=");
         //readonly MySqlConnection connection = new("server=sql12.freesqldatabase.com;user=sql12650296;database=sql12650296;password=QadX7ERzXj");
-        public bool man = false;
-        public bool emp = false;
-        readonly MySqlConnection connection = new("server=localhost;user=root;database=carshop;password=");
+
         MySqlCommand MyCommand2;
         int sum = 0;
         public string nameCustumer;
@@ -36,9 +36,17 @@ namespace carPro
             forSale.Columns.Add("כמות", "כמות");//3
             forSale.Columns.Add("מחיר ליחידה", "מחיר ליחידה");//4
             forSale.Columns.Add("סה\"כ מחיר", "סה\"כ מחיר");//5
+            forSale.Columns.Add("pic", "");//6
+            forSale.Columns[6].Visible = false;
 
+            //add photo !!
         }
-
+        private void CustomerSignIn_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            LogInForm logIn = new();
+            this.Dispose();
+            logIn.ShowDialog();
+        }
         private void EmtpyItems()
         {
             for (int i = 0; i < itemToCustomer.Rows.Count; i++)
@@ -49,6 +57,7 @@ namespace carPro
                 }
             }
         }
+        DataTable dataTable = new();
         private void CustomerSignIn_Load(object sender, EventArgs e)
         {
             label3.Text += nameCustumer;
@@ -65,7 +74,7 @@ namespace carPro
                 MyCommand2 = new MySqlCommand(strFun, connection);
 
                 MySqlDataAdapter adapter = new(MyCommand2);
-                DataTable dataTable = new();
+                //DataTable dataTable = new();
 
                 // Fill the DataTable with the query results
                 adapter.Fill(dataTable);
@@ -88,6 +97,8 @@ namespace carPro
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                CustomerSignIn_FormClosed(null, null);
+
             }
         }
         private void HideItem()
@@ -166,7 +177,7 @@ namespace carPro
         {
             for (int i = 0; i < forSale.Rows.Count; i++)
             {
-                if (forSale.Rows[i].Cells[3].Value.ToString() == parcod)
+                if (forSale.Rows[i].Cells[2].Value.ToString() == parcod)
                 {
                     return i;
                 }
@@ -184,15 +195,26 @@ namespace carPro
                 {
                     int rowIndexNew = forSale.Rows.Add();
                     // Copy data from selected row in DataGridView1 to the new row in DataGridView2
-                    for (int i = 0; i < itemToCustomer.Rows[rowIndex].Cells.Count; i++)
+                    for (int i = 0; i < forSale.Rows[rowIndex].Cells.Count; i++)
                     {
-                        forSale.Rows[rowIndexNew].Cells[i].Value = itemToCustomer.Rows[rowIndex].Cells[i].Value;
+                        if (i >= 0 && i < 3 || i == 4 || i == 6)
+                        {
+                            forSale.Rows[rowIndexNew].Cells[i].Value = itemToCustomer.Rows[rowIndex].Cells[i].Value;
+                        }
+                        else if (i == 3)
+                        {
+                            forSale.Rows[rowIndexNew].Cells[i].Value = amountSale.Text;
+                        }
+                        else if (i == 5)
+                        {
+                            forSale.Rows[rowIndexNew].Cells[i].Value = int.Parse(forSale.Rows[rowIndexNew].Cells[3].Value.ToString()) * int.Parse(forSale.Rows[rowIndexNew].Cells[4].Value.ToString());
+                        }
+
+
                     }
-                    forSale.Rows[rowIndexNew].Cells[8].Value = amountSale.Text;
                     tabPage2.Text = "הזמנה" + "(" + forSale.Rows.Count + ")";
-                    _ = int.TryParse(forSale.Rows[rowIndexNew].Cells[6].Value.ToString(), out int num1);
-                    _ = int.TryParse(forSale.Rows[rowIndexNew].Cells[8].Value.ToString(), out int num2);
-                    sum += num1 * num2;
+
+                    sum += int.Parse(forSale.Rows[rowIndexNew].Cells[5].Value.ToString());
                     priceToPay.Text = "מחיר לתשלום:" + "\n" + sum + "";
                 }
             }
@@ -200,12 +222,13 @@ namespace carPro
             {
                 if (amountSale.Text != "0")
                 {
-                    _ = int.TryParse(forSale.Rows[rowOld].Cells[6].Value.ToString(), out int num1);
-                    _ = int.TryParse(forSale.Rows[rowOld].Cells[8].Value.ToString(), out int num2);
+                    //forSale.Rows[rowOld].Cells[5].Value = int.Parse(forSale.Rows[rowOld].Cells[3].Value.ToString()) * int.Parse(forSale.Rows[rowOld].Cells[4].Value.ToString());
+                    _ = int.TryParse(forSale.Rows[rowOld].Cells[3].Value.ToString(), out int num1);
+                    _ = int.TryParse(forSale.Rows[rowOld].Cells[4].Value.ToString(), out int num2);
                     sum -= num1 * num2;
-                    forSale.Rows[rowOld].Cells[8].Value = amountSale.Text;
-                    _ = int.TryParse(forSale.Rows[rowOld].Cells[6].Value.ToString(), out num1);
-                    _ = int.TryParse(forSale.Rows[rowOld].Cells[8].Value.ToString(), out num2);
+                    forSale.Rows[rowOld].Cells[3].Value = amountSale.Text;
+                    _ = int.TryParse(forSale.Rows[rowOld].Cells[3].Value.ToString(), out num1);
+                    _ = int.TryParse(forSale.Rows[rowOld].Cells[4].Value.ToString(), out num2);
                     sum += num1 * num2;
                     priceToPay.Text = "מחיר לתשלום:" + "\n" + sum + "";
                 }
@@ -217,8 +240,8 @@ namespace carPro
                         tabPage2.Text = "הזמנה" + "(" + (forSale.Rows.Count - 1) + ")";
                     HideItem();
                     saleItmesIm.Image = null;
-                    _ = int.TryParse(forSale.Rows[rowOld].Cells[6].Value.ToString(), out int num1);
-                    _ = int.TryParse(forSale.Rows[rowOld].Cells[8].Value.ToString(), out int num2);
+                    _ = int.TryParse(forSale.Rows[rowOld].Cells[3].Value.ToString(), out int num1);
+                    _ = int.TryParse(forSale.Rows[rowOld].Cells[4].Value.ToString(), out int num2);
                     sum -= num1 * num2;
                     priceToPay.Text = "מחיר לתשלום:" + "\n" + sum + "";
                     forSale.Rows.RemoveAt(rowOld);
@@ -237,7 +260,7 @@ namespace carPro
             if (hitTestInfo.RowIndex >= 0)
             {
                 int rowIndex = hitTestInfo.RowIndex;
-                DataGridViewCell selectedCell = forSale.Rows[rowIndex].Cells[7];
+                DataGridViewCell selectedCell = forSale.Rows[rowIndex].Cells[6];
                 if (selectedCell.Value != null && selectedCell.Value.GetType() == typeof(byte[]))
                 {
                     byte[] imageData = (byte[])selectedCell.Value;
@@ -258,16 +281,16 @@ namespace carPro
                 saleItem.Visible = true;
                 saleItem.Text = forSale.Rows[e.RowIndex].Cells[0].Value.ToString();
 
-                _ = int.TryParse(itemToCustomer.Rows[e.RowIndex].Cells[5].Value.ToString(), out amount);
+                _ = int.TryParse(itemToCustomer.Rows[e.RowIndex].Cells[4].Value.ToString(), out amount);
 
-                parcod = forSale.Rows[e.RowIndex].Cells[3].Value.ToString();
+                parcod = forSale.Rows[e.RowIndex].Cells[2].Value.ToString();
 
                 rowIndex = e.RowIndex;
                 sale.Visible = true;
                 amountSale.Visible = true;
                 plus.Visible = true;
                 minus.Visible = true;
-                amountSale.Text = "0";
+                amountSale.Text = forSale.Rows[e.RowIndex].Cells[3].Value.ToString();
             }
             else
             {
@@ -281,6 +304,10 @@ namespace carPro
                 try
                 {
                     string strFun = "SELECT COUNT(*) FROM paytable";
+                    /*
+                     * I have to dell withj the=is next time !
+                     it's about the sql
+                    */
                     MySqlConnection con = new("server=localhost;user=root;database=pro1;password=");
                     MySqlCommand MyCommand2 = new(strFun, connection);
                     connection.Open();
@@ -319,7 +346,7 @@ namespace carPro
                     }
 
                     MessageBox.Show("שמרת הזמנה התבצעה בהצלחה ,מספר זיהוי שלכה הוא " + count);
-
+                    CustomerSignIn_FormClosed(null, null);
                 }
                 catch (Exception ex)
                 {
@@ -339,7 +366,5 @@ namespace carPro
         {
             ForSale_CellContentClick(sender, e);
         }
-
-
     }
 }
