@@ -21,8 +21,7 @@ namespace carPro
     public partial class Manger : Form
     {
 
-        readonly MySqlConnection connection = new("server=localhost;user=root;database=sql12650296;password=");
-        //readonly MySqlConnection connection = new("server=sql12.freesqldatabase.com;user=sql12650296;database=sql12650296;password=QadX7ERzXj");
+        readonly MySqlConnection con = new("server=localhost;user=root;database=pro1;password=");
         MySqlCommand MyCommand2;
         DataTable dataTable;
         bool flagImg;
@@ -79,20 +78,20 @@ namespace carPro
                         string strFun;
 
                         strFun = "INSERT INTO test2(user_name,password,status,name) VALUES (@userNa,@password,@status,@name)";
-                        MyCommand2 = new MySqlCommand(strFun, connection );
-                        connection.Open();
+                        MyCommand2 = new MySqlCommand(strFun, con);
+                        con.Open();
                         MyCommand2.Parameters.AddWithValue("@userNa", userNa);
                         MyCommand2.Parameters.AddWithValue("@password", password);
                         MyCommand2.Parameters.AddWithValue("@status", stat);
                         MyCommand2.Parameters.AddWithValue("@name", uName);
                         MyCommand2.ExecuteNonQuery();
-                        connection.Close();
+                        con.Close();
                         MessageBox.Show("הוספת משמשם הצליחה");
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message);
-                        connection.Close();
+                        con.Close();
                     }
                     TabControl1_SelectedIndexChanged(sender, EventArgs.Empty);
                 }
@@ -106,8 +105,8 @@ namespace carPro
                 {
                     string strFun;
                     strFun = "SELECT * FROM `items`";
-                    MyCommand2 = new MySqlCommand(strFun, connection);
-                    connection.Open();
+                    MyCommand2 = new MySqlCommand(strFun, con);
+                    con.Open();
                     MySqlDataAdapter adapter = new(MyCommand2);
                     dataTable = new();
                     // Fill the DataTable with the query results
@@ -125,12 +124,12 @@ namespace carPro
                     items.Columns[6].HeaderText = "מחיר";
                     items.Columns[7].HeaderText = "תמונה";
                     items.Columns[7].Visible = false;
-                    connection.Close();
+                    con.Close();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
-                    connection.Close();
+                    con.Close();
                 }
             }
             else if (tab.SelectedIndex == 1)
@@ -140,8 +139,8 @@ namespace carPro
                     string strFun;
 
                     strFun = "SELECT * FROM `test2`";
-                    MyCommand2 = new MySqlCommand(strFun, connection);
-                    connection.Open();
+                    MyCommand2 = new MySqlCommand(strFun, con);
+                    con.Open();
                     MySqlDataAdapter adapter = new(MyCommand2);
                     dataTable = new();
 
@@ -155,12 +154,12 @@ namespace carPro
                     users.Columns[1].HeaderText = "סיסמה";
                     users.Columns[2].HeaderText = "תפקיד";
                     users.Columns[3].HeaderText = "שם";
-                    connection.Close();
+                    con.Close();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
-                    connection.Close();
+                    con.Close();
                 }
             }
         }
@@ -219,14 +218,14 @@ namespace carPro
                 else
                 {
                     string strFun = "UPDATE `test2` SET `user_name`=@userN,`password`=@pass,`status`=@status,`name`=@nameU WHERE user_name=@userN";
-                    connection.Open();
-                    MyCommand2 = new MySqlCommand(strFun, connection);
+                    con.Open();
+                    MyCommand2 = new MySqlCommand(strFun, con);
                     MyCommand2.Parameters.AddWithValue("@userN", userName.Text);
                     MyCommand2.Parameters.AddWithValue("@pass", pass.Text);
                     MyCommand2.Parameters.AddWithValue("@status", status.Text);
                     MyCommand2.Parameters.AddWithValue("@nameU", name.Text);
                     MyCommand2.ExecuteNonQuery();
-                    connection.Close();
+                    con.Close();
                 }
             }
             catch (Exception ex)
@@ -257,22 +256,22 @@ namespace carPro
                 if (stat == "manger")
                 {
                     strFun = "SELECT COUNT(*) FROM `test2` WHERE `status`=@manger";
-                    connection.Open();
-                    MyCommand2 = new MySqlCommand(strFun, connection);
+                    con.Open();
+                    MyCommand2 = new MySqlCommand(strFun, con);
                     MyCommand2.Parameters.AddWithValue("@manger", stat);
                     int count = Convert.ToInt32(MyCommand2.ExecuteScalar());
-                    connection.Close();
+                    con.Close();
                     if (count == 1)
                     {
                         MessageBox.Show("קיים רק מנהיל יחד אי אפשר למחוק"); return;
                     }
                 }
                 strFun = "DELETE FROM `test2` WHERE user_name=@userN";
-                connection.Open();
-                MyCommand2 = new MySqlCommand(strFun, connection);
+                con.Open();
+                MyCommand2 = new MySqlCommand(strFun, con);
                 MyCommand2.Parameters.AddWithValue("@userN", userNa);
                 MyCommand2.ExecuteNonQuery();
-                connection.Close();
+                con.Close();
                 TabControl1_SelectedIndexChanged(sender, e);
                 Button1_Click_1(sender, e);
             }
@@ -373,8 +372,8 @@ namespace carPro
                         byte[] img = ms.ToArray();
                         string strFun = "INSERT INTO items(nameItem,typeCar,modelC,parCode,placeInShop,amount,price,image)VALUES (@nameIt,@typeC,@modelC,@parCod,@placeSho,@amount,@price, @imageLocation)";
                         MySqlConnection con = new("server=localhost;user=root;database=pro1;password=");
-                        MySqlCommand MyCommand2 = new(strFun, connection);
-                        connection.Open();
+                        MySqlCommand MyCommand2 = new(strFun, con);
+                        con.Open();
                         MyCommand2.Parameters.AddWithValue("@nameIt", nameIt);
                         MyCommand2.Parameters.AddWithValue("@typeC", carType);
                         MyCommand2.Parameters.AddWithValue("@modelC", carM);
@@ -385,7 +384,7 @@ namespace carPro
                         MyCommand2.Parameters.AddWithValue("@imageLocation", img);
                         MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.
                         MessageBox.Show("הוספת מוצר הצליחה");
-                        connection.Close();
+                        con.Close();
                     }
                     catch (Exception ex)
                     {
@@ -587,8 +586,8 @@ namespace carPro
                         strFun = "UPDATE `items` SET `nameItem`=@nameIt,`typeCar`= @typeC,`modelC`= @model,`placeInShop`= @placeInS,`amount`= @amounts,`price`= @prices,`image`= @images WHERE `parCode`= @parC ";
                     else
                         strFun = "UPDATE `items` SET `nameItem`=@nameIt,`typeCar`= @typeC,`modelC`= @model,`placeInShop`= @placeInS,`amount`= @amounts,`price`= @prices WHERE `parCode`= @parC ";
-                    connection.Open();
-                    MyCommand2 = new MySqlCommand(strFun, connection);
+                    con.Open();
+                    MyCommand2 = new MySqlCommand(strFun, con);
                     MyCommand2.Parameters.AddWithValue("@nameIt", nameIt);
                     MyCommand2.Parameters.AddWithValue("@typeC", carType);
                     MyCommand2.Parameters.AddWithValue("@model", carM);
@@ -599,13 +598,13 @@ namespace carPro
                         MyCommand2.Parameters.AddWithValue("@images", img);
                     MyCommand2.Parameters.AddWithValue("@parC", parC);
                     MyCommand2.ExecuteNonQuery();
-                    connection.Close();
+                    con.Close();
 
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("hello");
-                    connection.Close();
+                    con.Close();
                 }
                 TabControl1_SelectedIndexChanged(sender, EventArgs.Empty);
                 clearItmesDetla();
