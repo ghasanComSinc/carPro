@@ -48,6 +48,7 @@
             addItemBu = new Button();
             label2 = new Label();
             sinC = new Button();
+            oldOrders = new TabPage();
             tabControl1.SuspendLayout();
             allOrder.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)orders).BeginInit();
@@ -62,6 +63,7 @@
             tabControl1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabControl1.Controls.Add(allOrder);
             tabControl1.Controls.Add(tabPage2);
+            tabControl1.Controls.Add(oldOrders);
             tabControl1.Location = new Point(8, 89);
             tabControl1.Name = "tabControl1";
             tabControl1.RightToLeft = RightToLeft.Yes;
@@ -300,6 +302,16 @@
             sinC.UseVisualStyleBackColor = true;
             sinC.Click += SinC_Click;
             // 
+            // oldOrders
+            // 
+            oldOrders.Location = new Point(4, 34);
+            oldOrders.Name = "oldOrders";
+            oldOrders.Padding = new Padding(3);
+            oldOrders.Size = new Size(867, 404);
+            oldOrders.TabIndex = 2;
+            oldOrders.Text = "הזמנות קודמות";
+            oldOrders.UseVisualStyleBackColor = true;
+            // 
             // Employee
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -312,7 +324,6 @@
             Controls.Add(tabControl1);
             Name = "Employee";
             Text = "ממשק עובד";
-            FormClosed += Employee_FormClosed;
             Load += Employee_Load;
             tabControl1.ResumeLayout(false);
             allOrder.ResumeLayout(false);
@@ -349,5 +360,6 @@
         private Button button2;
         private CheckedListBox search;
         private Button sinC;
+        private TabPage oldOrders;
     }
 }

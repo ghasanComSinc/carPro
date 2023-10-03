@@ -42,8 +42,6 @@ namespace carPro
                         Manger mangerform = new();
                         this.Hide();
                         mangerform.ShowDialog();
-                        mangerform = null;
-
                     }
                     else if (statusAc.Equals("עובד"))
                     {
@@ -53,15 +51,12 @@ namespace carPro
                         };
                         this.Hide();
                         emp.ShowDialog();
-                        emp = null;
-
                     }
                     else
                     {
                         CustomerSignIn customerS = new();
                         this.Hide();
                         customerS.ShowDialog();
-                        customerS = null;
                     }
                     this.Show();
                 }

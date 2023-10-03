@@ -340,6 +340,6 @@ namespace carPro
             ForSale_CellContentClick(sender, e);
         }
 
-       
+
     }
 }
