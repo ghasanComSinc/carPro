@@ -21,6 +21,8 @@ namespace carPro
     public partial class Employee : Form
     {
         public string employName;
+        public bool man = false;
+        //readonly MySqlConnection connection = new("server=sql12.freesqldatabase.com;user=sql12650296;database=sql12650296;password=QadX7ERzXj");
         readonly MySqlConnection connection = new("server=localhost;user=root;database=pro1;password=");
         MySqlCommand command;
         DataTable dataTable;
@@ -345,6 +347,16 @@ namespace carPro
         private void orders_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             Orders_CellContentClick(sender, e);
+        }
+
+        private void sinC_Click(object sender, EventArgs e)
+        {
+            CustomerSignIn cust = new();
+            this.Hide();
+            cust.man = true;
+            cust.ShowDialog();
+            cust = null;
+            this.Show();
         }
     }
 }

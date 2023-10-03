@@ -14,7 +14,8 @@ namespace carPro
 {
     public partial class LogInForm : System.Windows.Forms.Form
     {
-        readonly MySqlConnection connection = new("server=sql12.freesqldatabase.com;user=sql12650296;database=sql12650296;password=QadX7ERzXj");
+        // readonly MySqlConnection connection = new("server=sql12.freesqldatabase.com;user=sql12650296;database=sql12650296;password=QadX7ERzXj");
+        readonly MySqlConnection connection = new("server=localhost;user=root;database=carshop;password=");
         MySqlCommand command;
         MySqlDataReader mdr;
         public LogInForm()
@@ -29,22 +30,22 @@ namespace carPro
             try
             {
                 connection.Open();
-                string selectQuery = "SELECT * FROM UserTable WHERE phoneNumber = '" + userName.Text + "' AND password = '" + password.Text + "';";
+                string selectQuery = "SELECT * FROM UserTable WHERE phoneNumber = '" + userName.Text + "' AND password = '" + password.Text + "' AND available = '" + "active" + "';";
                 command = new MySqlCommand(selectQuery, connection);
                 mdr = command.ExecuteReader();
-
                 if (mdr.Read())
                 {
                     string statusAc = new(mdr[3].ToString());
                     string name = new(mdr[2].ToString());
-                    if (statusAc.Equals("m"))
+                    if (statusAc.Equals("מנהל"))
                     {
                         Manger mangerform = new();
-
                         this.Hide();
                         mangerform.ShowDialog();
+                        mangerform = null;
+
                     }
-                    else if (statusAc.Equals("e"))
+                    else if (statusAc.Equals("עובד"))
                     {
                         Employee emp = new()
                         {
@@ -52,18 +53,22 @@ namespace carPro
                         };
                         this.Hide();
                         emp.ShowDialog();
+                        emp = null;
+
                     }
                     else
                     {
                         CustomerSignIn customerS = new();
                         this.Hide();
                         customerS.ShowDialog();
+                        customerS = null;
                     }
+                    this.Show();
                 }
                 else
                 {
 
-                    MessageBox.Show("משתמש לא קיים");   
+                    MessageBox.Show("משתמש לא קיים");
                 }
                 connection.Close();
             }
@@ -75,7 +80,7 @@ namespace carPro
         }
         private bool checkNumberPhone()
         {
-            if (phoneCustomer.Text.Length != 8)
+            if (phoneCustomer.Text.Length != 10)
                 return false;
             return phoneCustomer.Text.All(char.IsDigit);
         }
@@ -108,10 +113,10 @@ namespace carPro
                         command.Parameters.AddWithValue("@phoneN", int.Parse(phoneCustomer.Text));
                         command.Parameters.AddWithValue("@pass", passSin.Text);
                         command.Parameters.AddWithValue("@nameCust", nameCustomer.Text);
-                        command.Parameters.AddWithValue("@staut", "c");
+                        command.Parameters.AddWithValue("@staut", "לקוח");
                         command.Parameters.AddWithValue("@startD", DateTime.Now);
                         command.Parameters.AddWithValue("@lastD", "");
-                        command.Parameters.AddWithValue("@avi", "available");
+                        command.Parameters.AddWithValue("@avi", "active");
                         command.ExecuteNonQuery();
                         connection.Close();
                         MessageBox.Show("הרשמה הצליחה");
@@ -122,6 +127,8 @@ namespace carPro
                         };
                         this.Hide();
                         customerForm.ShowDialog();
+                        customerForm = null;
+                        this.Show();
                     }
                     catch (Exception ex)
                     {
@@ -136,7 +143,6 @@ namespace carPro
                 }
             }
         }
-
         private void PictureBox1_Click(object sender, EventArgs e)
         {
             if (password.PasswordChar == '*')
@@ -144,30 +150,24 @@ namespace carPro
             else
                 password.PasswordChar = '*';
         }
-
         private void LogInForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             System.Windows.Forms.Application.ExitThread();
         }
-
         private void LogInForm_Load(object sender, EventArgs e)
         {
             tabControl1.TabPages.Remove(tabPage2);
-
         }
-
         private void LogInWorker_Click(object sender, EventArgs e)
         {
             tabControl1.TabPages.Remove(tabPage2);
             tabControl1.TabPages.Add(tabPage1);
         }
-
         private void ReturnCustomer_Click(object sender, EventArgs e)
         {
             tabControl1.TabPages.Remove(tabPage1);
             tabControl1.TabPages.Add(tabPage2);
         }
-
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             if (passSin.PasswordChar == '*')
@@ -175,11 +175,15 @@ namespace carPro
             else
                 passSin.PasswordChar = '*';
         }
-
         private void password_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
                 Button1_Click(sender, e);
+        }
+        private void passSin_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+                Button2_Click(sender, e);
         }
     }
 }

@@ -47,6 +47,7 @@
             label6 = new Label();
             addItemBu = new Button();
             label2 = new Label();
+            sinC = new Button();
             tabControl1.SuspendLayout();
             allOrder.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)orders).BeginInit();
@@ -289,11 +290,22 @@
             label2.Visible = false;
             label2.Click += Label2_Click;
             // 
+            // sinC
+            // 
+            sinC.Location = new Point(25, 5);
+            sinC.Name = "sinC";
+            sinC.Size = new Size(124, 40);
+            sinC.TabIndex = 198;
+            sinC.Text = "כניסה לקוח";
+            sinC.UseVisualStyleBackColor = true;
+            sinC.Click += sinC_Click;
+            // 
             // Employee
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(890, 534);
+            Controls.Add(sinC);
             Controls.Add(label2);
             Controls.Add(panel1);
             Controls.Add(employeName);
@@ -336,5 +348,6 @@
         private Button payBu;
         private Button button2;
         private CheckedListBox search;
+        private Button sinC;
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic;
+﻿using Google.Protobuf.Collections;
+using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.ApplicationServices;
 using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Math;
@@ -13,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using WhatsAppApi.Parser;
 using static System.Net.Mime.MediaTypeNames;
 using Image = System.Drawing.Image;
 
@@ -20,8 +22,8 @@ namespace carPro
 {
     public partial class Manger : Form
     {
-
-        readonly MySqlConnection con = new("server=localhost;user=root;database=pro1;password=");
+        // readonly MySqlConnection con = new("server=sql12.freesqldatabase.com;user=sql12650296;database=sql12650296;password=QadX7ERzXj");
+        readonly MySqlConnection con = new("server=localhost;user=root;database=carshop;password=");
         MySqlCommand MyCommand2;
         DataTable dataTable;
         bool flagImg;
@@ -39,7 +41,7 @@ namespace carPro
         private void CheckUser()
         {
             DataView dataView = dataTable.DefaultView;
-            dataView.RowFilter = $"user_name = '{userName.Text}'"; ;
+            dataView.RowFilter = $"phoneNumber = '{userName.Text}'";
             users.Refresh();
         }
         private void AddU_Click(object sender, EventArgs e)
@@ -52,16 +54,16 @@ namespace carPro
             else
             {
                 string uName = name.Text;
-                string userNa = userName.Text;
+                string phone = userName.Text;
                 string password = pass.Text;
                 string stat = status.Text;
                 if (uName == "")
                 {
                     MessageBox.Show("שם עובד ריק");
                 }
-                else if (userNa == "")
+                else if (phone == "")
                 {
-                    MessageBox.Show("שם משתמש ריק");
+                    MessageBox.Show("שם מספר טלפון ריק");
                 }
                 else if (password == "")
                 {
@@ -77,16 +79,20 @@ namespace carPro
                     {
                         string strFun;
 
-                        strFun = "INSERT INTO test2(user_name,password,status,name) VALUES (@userNa,@password,@status,@name)";
+                        strFun = "INSERT INTO `usertable`(`phoneNumber`, `password`, `name`, `status`, `start_date`, `last_date`, `available`) VALUES " +
+                                                        "(@phone,@password,@name,@status,@start_date,@last_date,@available)";
                         MyCommand2 = new MySqlCommand(strFun, con);
                         con.Open();
-                        MyCommand2.Parameters.AddWithValue("@userNa", userNa);
+                        MyCommand2.Parameters.AddWithValue("@phone", phone);
                         MyCommand2.Parameters.AddWithValue("@password", password);
-                        MyCommand2.Parameters.AddWithValue("@status", stat);
                         MyCommand2.Parameters.AddWithValue("@name", uName);
+                        MyCommand2.Parameters.AddWithValue("@status", stat);
+                        MyCommand2.Parameters.AddWithValue("@start_date", DateTime.Now);
+                        MyCommand2.Parameters.AddWithValue("@last_date", "");
+                        MyCommand2.Parameters.AddWithValue("@available", "active");
                         MyCommand2.ExecuteNonQuery();
                         con.Close();
-                        MessageBox.Show("הוספת משמשם הצליחה");
+                        MessageBox.Show("הוספת משתמשם הצליחה");
                     }
                     catch (Exception ex)
                     {
@@ -111,19 +117,17 @@ namespace carPro
                     dataTable = new();
                     // Fill the DataTable with the query results
                     adapter.Fill(dataTable);
-
                     // Bind the DataTable to the DataGridView
                     items.DataSource = dataTable;
-
                     items.Columns[0].HeaderText = "שם מוצר";
                     items.Columns[1].HeaderText = "סוג רכב";
-                    items.Columns[2].HeaderText = "תת- רכב";
+                    items.Columns[2].HeaderText = "מקום בחנות";
                     items.Columns[3].HeaderText = "פר";
-                    items.Columns[4].HeaderText = "מקום בחנות";
-                    items.Columns[5].HeaderText = "כמות";
-                    items.Columns[6].HeaderText = "מחיר";
-                    items.Columns[7].HeaderText = "תמונה";
-                    items.Columns[7].Visible = false;
+                    items.Columns[4].HeaderText = "מחיר";
+                    items.Columns[5].Visible = false;//payPrice
+                    items.Columns[6].Visible = false;//image
+                    items.Columns[7].HeaderText = "קמות בחנות";
+                    items.Columns[8].HeaderText = "הערה";
                     con.Close();
                 }
                 catch (Exception ex)
@@ -137,23 +141,22 @@ namespace carPro
                 try
                 {
                     string strFun;
-
-                    strFun = "SELECT * FROM `test2`";
+                    strFun = "SELECT * FROM `UserTable`";
                     MyCommand2 = new MySqlCommand(strFun, con);
                     con.Open();
                     MySqlDataAdapter adapter = new(MyCommand2);
                     dataTable = new();
-
                     // Fill the DataTable with the query results
                     adapter.Fill(dataTable);
-
                     // Bind the DataTable to the DataGridView
                     users.DataSource = dataTable;
-
-                    users.Columns[0].HeaderText = "שם משתמש";
+                    users.Columns[0].HeaderText = "מספר טלפון";
                     users.Columns[1].HeaderText = "סיסמה";
-                    users.Columns[2].HeaderText = "תפקיד";
-                    users.Columns[3].HeaderText = "שם";
+                    users.Columns[2].HeaderText = "שם";
+                    users.Columns[3].HeaderText = "תפקיד";
+                    users.Columns[4].HeaderText = "תאריך התחלה";
+                    users.Columns[5].HeaderText = "תאריך סיום";
+                    users.Columns[6].HeaderText = "משתמש פעיל ";
                     con.Close();
                 }
                 catch (Exception ex)
@@ -176,16 +179,18 @@ namespace carPro
             updateU.Visible = true;
             deletU.Visible = true;
             addU.Visible = false;
-            name.Text = users.Rows[e.RowIndex].Cells[3].Value.ToString();
+            name.Text = users.Rows[e.RowIndex].Cells[2].Value.ToString();
             pass.Text = users.Rows[e.RowIndex].Cells[1].Value.ToString();
             userName.Text = users.Rows[e.RowIndex].Cells[0].Value.ToString();
             userName.ReadOnly = true;
-            status.Text = users.Rows[e.RowIndex].Cells[2].Value.ToString();
-            if (status.Text == "manger")
+            status.Text = users.Rows[e.RowIndex].Cells[3].Value.ToString();
+            if (status.Text == "מנהל")
                 status.SetItemChecked(0, true);
-            else
+            else if (status.Text == "עובד")
                 status.SetItemChecked(1, true);
-
+            else
+                status.SetItemChecked(2, true);
+            index = e.RowIndex;
         }
         private void Users_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -205,7 +210,7 @@ namespace carPro
                 }
                 else if (userNa == "")
                 {
-                    MessageBox.Show("שם משתמש ריק");
+                    MessageBox.Show("מספר טלפון ריק");
                 }
                 else if (password == "")
                 {
@@ -217,13 +222,14 @@ namespace carPro
                 }
                 else
                 {
-                    string strFun = "UPDATE `test2` SET `user_name`=@userN,`password`=@pass,`status`=@status,`name`=@nameU WHERE user_name=@userN";
+                    string strFun = "UPDATE `usertable` SET `password`=@pass,`name`=@name" +
+                                    ",`status`=@status WHERE `phoneNumber`=@phone";
                     con.Open();
                     MyCommand2 = new MySqlCommand(strFun, con);
-                    MyCommand2.Parameters.AddWithValue("@userN", userName.Text);
-                    MyCommand2.Parameters.AddWithValue("@pass", pass.Text);
-                    MyCommand2.Parameters.AddWithValue("@status", status.Text);
-                    MyCommand2.Parameters.AddWithValue("@nameU", name.Text);
+                    MyCommand2.Parameters.AddWithValue("@pass", password);
+                    MyCommand2.Parameters.AddWithValue("@name", uName);
+                    MyCommand2.Parameters.AddWithValue("@status", stat);
+                    MyCommand2.Parameters.AddWithValue("@phone", userNa);
                     MyCommand2.ExecuteNonQuery();
                     con.Close();
                 }
@@ -241,6 +247,7 @@ namespace carPro
             addU.Visible = true;
             name.Text = "";
             pass.Text = "";
+            status.Text = "";
             userName.Text = "";
             userName.ReadOnly = false;
             TabControl1_SelectedIndexChanged(sender, e);
@@ -251,14 +258,14 @@ namespace carPro
             {
                 string userNa = userName.Text;
                 string stat = status.Text;
-
                 string strFun;
-                if (stat == "manger")
+                if (stat == "מנהל"&& users.Rows[index].Cells[6].Value.ToString()== "active")
                 {
-                    strFun = "SELECT COUNT(*) FROM `test2` WHERE `status`=@manger";
+                    strFun = "SELECT COUNT(*) FROM `usertable` WHERE `status`=@manger AND `available`=@act";
                     con.Open();
                     MyCommand2 = new MySqlCommand(strFun, con);
                     MyCommand2.Parameters.AddWithValue("@manger", stat);
+                    MyCommand2.Parameters.AddWithValue("@act", "active");
                     int count = Convert.ToInt32(MyCommand2.ExecuteScalar());
                     con.Close();
                     if (count == 1)
@@ -266,10 +273,21 @@ namespace carPro
                         MessageBox.Show("קיים רק מנהיל יחד אי אפשר למחוק"); return;
                     }
                 }
-                strFun = "DELETE FROM `test2` WHERE user_name=@userN";
+
+                strFun = "UPDATE `usertable` SET `last_date`= @last,`available`= @av WHERE `phoneNumber`= @phone";
                 con.Open();
                 MyCommand2 = new MySqlCommand(strFun, con);
-                MyCommand2.Parameters.AddWithValue("@userN", userNa);
+                if (users.Rows[index].Cells[6].Value.ToString() == "active")
+                {
+                    MyCommand2.Parameters.AddWithValue("@last", DateTime.Now);
+                    MyCommand2.Parameters.AddWithValue("@av", "inactive");
+                }
+                else
+                {
+                    MyCommand2.Parameters.AddWithValue("@last", "");
+                    MyCommand2.Parameters.AddWithValue("@av", "active");
+                }
+                MyCommand2.Parameters.AddWithValue("@phone", userNa);
                 MyCommand2.ExecuteNonQuery();
                 con.Close();
                 TabControl1_SelectedIndexChanged(sender, e);
@@ -394,7 +412,6 @@ namespace carPro
                 TabControl1_SelectedIndexChanged(sender, EventArgs.Empty);
             }
         }
-
         private void picPath_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new()
@@ -407,7 +424,6 @@ namespace carPro
                 flagImg = true;
             }
         }
-
         private void searchItem_SelectedIndexChanged(object sender, EventArgs e)
         {
             for (int i = 0; i < searchItem.Items.Count; i++)
@@ -417,7 +433,6 @@ namespace carPro
 
             }
         }
-
         private void search_box_TextChanged(object sender, EventArgs e)
         {
             DataView dataView = dataTable.DefaultView;
@@ -432,7 +447,6 @@ namespace carPro
             }
             items.Refresh();
         }
-
         private void items_MouseMove(object sender, MouseEventArgs e)
         {
             DataGridView.HitTestInfo hitTestInfo = items.HitTest(e.X, e.Y);
@@ -454,7 +468,6 @@ namespace carPro
                 pictureBox1.Image = null;
             }
         }
-
         private void items_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -494,7 +507,6 @@ namespace carPro
             add_item.Visible = true;
             updateItems.Visible = false;
         }
-
         private void updateItems_Click(object sender, EventArgs e)
         {
             bool priceFlag;
@@ -610,10 +622,25 @@ namespace carPro
                 clearItmesDetla();
             }
         }
-
         private void items_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             items_CellContentClick(sender, e);
+        }
+        private void sinC_Click(object sender, EventArgs e)
+        {
+            CustomerSignIn cust = new();
+            this.Hide();
+            cust.man = true;
+            cust.ShowDialog();
+            cust = null;
+            this.Show();
+        }
+        private void sinEm_Click(object sender, EventArgs e)
+        {
+            Employee employee = new();
+            this.Hide();
+            employee.man = true;
+            employee.ShowDialog();
         }
     }
 }

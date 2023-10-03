@@ -17,7 +17,10 @@ namespace carPro
 {
     public partial class CustomerSignIn : Form
     {
-        readonly MySqlConnection connection = new("server=sql12.freesqldatabase.com;user=sql12650296;database=sql12650296;password=QadX7ERzXj");
+        //readonly MySqlConnection connection = new("server=sql12.freesqldatabase.com;user=sql12650296;database=sql12650296;password=QadX7ERzXj");
+        public bool man = false;
+        public bool emp = false;
+        readonly MySqlConnection connection = new("server=localhost;user=root;database=carshop;password=");
         MySqlCommand MyCommand2;
         int sum = 0;
         public string nameCustumer;
@@ -35,12 +38,7 @@ namespace carPro
             forSale.Columns.Add("סה\"כ מחיר", "סה\"כ מחיר");//5
 
         }
-        private void CustomerSignIn_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            LogInForm logIn = new();
-            this.Dispose();
-            logIn.ShowDialog();
-        }
+
         private void EmtpyItems()
         {
             for (int i = 0; i < itemToCustomer.Rows.Count; i++)
@@ -90,8 +88,6 @@ namespace carPro
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                CustomerSignIn_FormClosed(null, null);
-
             }
         }
         private void HideItem()
@@ -323,7 +319,7 @@ namespace carPro
                     }
 
                     MessageBox.Show("שמרת הזמנה התבצעה בהצלחה ,מספר זיהוי שלכה הוא " + count);
-                    CustomerSignIn_FormClosed(null, null);
+
                 }
                 catch (Exception ex)
                 {
@@ -342,6 +338,11 @@ namespace carPro
         private void ForSale_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             ForSale_CellContentClick(sender, e);
+        }
+
+        private void returnMan_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
