@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CustomerSignIn));
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            itemsCom = new Label();
             itemToCustomer = new DataGridView();
             picItems = new PictureBox();
             tabPage2 = new TabPage();
@@ -40,6 +41,8 @@
             forSale = new DataGridView();
             tabPage3 = new TabPage();
             dataGridView1 = new DataGridView();
+            itmesDe = new TabPage();
+            orderDe = new DataGridView();
             panel1 = new Panel();
             saleItem = new Label();
             minus = new PictureBox();
@@ -57,6 +60,8 @@
             ((System.ComponentModel.ISupportInitialize)forSale).BeginInit();
             tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            itmesDe.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)orderDe).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)minus).BeginInit();
             ((System.ComponentModel.ISupportInitialize)plus).BeginInit();
@@ -69,26 +74,40 @@
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Controls.Add(tabPage3);
-            tabControl1.Location = new Point(1, 49);
+            tabControl1.Controls.Add(itmesDe);
+            tabControl1.Location = new Point(-7, 83);
             tabControl1.Name = "tabControl1";
             tabControl1.RightToLeft = RightToLeft.Yes;
             tabControl1.RightToLeftLayout = true;
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(953, 392);
+            tabControl1.Size = new Size(961, 358);
             tabControl1.TabIndex = 17;
             tabControl1.MouseClick += TabControl1_MouseClick;
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(itemsCom);
             tabPage1.Controls.Add(itemToCustomer);
             tabPage1.Controls.Add(picItems);
             tabPage1.Location = new Point(4, 34);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(945, 354);
+            tabPage1.Size = new Size(953, 320);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "מוצרים בחנות";
             tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // itemsCom
+            // 
+            itemsCom.AutoSize = true;
+            itemsCom.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            itemsCom.Location = new Point(115, 289);
+            itemsCom.Name = "itemsCom";
+            itemsCom.RightToLeft = RightToLeft.No;
+            itemsCom.Size = new Size(20, 25);
+            itemsCom.TabIndex = 20;
+            itemsCom.Text = "s";
+            itemsCom.Visible = false;
             // 
             // itemToCustomer
             // 
@@ -107,7 +126,7 @@
             itemToCustomer.RightToLeft = RightToLeft.Yes;
             itemToCustomer.RowHeadersWidth = 62;
             itemToCustomer.RowTemplate.Height = 33;
-            itemToCustomer.Size = new Size(670, 342);
+            itemToCustomer.Size = new Size(670, 308);
             itemToCustomer.TabIndex = 0;
             itemToCustomer.CellClick += ItemToCustomer_CellClick;
             itemToCustomer.CellContentClick += ItemToCustomer_CellContentClick;
@@ -131,7 +150,7 @@
             tabPage2.Location = new Point(4, 34);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(945, 354);
+            tabPage2.Size = new Size(953, 320);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "הזמנה";
             tabPage2.UseVisualStyleBackColor = true;
@@ -182,7 +201,7 @@
             forSale.RightToLeft = RightToLeft.Yes;
             forSale.RowHeadersWidth = 62;
             forSale.RowTemplate.Height = 33;
-            forSale.Size = new Size(656, 345);
+            forSale.Size = new Size(664, 308);
             forSale.TabIndex = 1;
             forSale.CellClick += ForSale_CellClick;
             forSale.CellContentClick += ForSale_CellContentClick;
@@ -194,7 +213,7 @@
             tabPage3.Location = new Point(4, 34);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(3);
-            tabPage3.Size = new Size(945, 354);
+            tabPage3.Size = new Size(953, 320);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "דף הזמנות";
             tabPage3.UseVisualStyleBackColor = true;
@@ -214,10 +233,40 @@
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersWidth = 62;
             dataGridView1.RowTemplate.Height = 33;
-            dataGridView1.Size = new Size(943, 345);
+            dataGridView1.Size = new Size(951, 311);
             dataGridView1.TabIndex = 1;
             dataGridView1.CellClick += dataGridView1_CellClick;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            // 
+            // itmesDe
+            // 
+            itmesDe.Controls.Add(orderDe);
+            itmesDe.Location = new Point(4, 34);
+            itmesDe.Name = "itmesDe";
+            itmesDe.Padding = new Padding(3);
+            itmesDe.Size = new Size(953, 320);
+            itmesDe.TabIndex = 3;
+            itmesDe.Text = "פרוט הזמנה";
+            itmesDe.UseVisualStyleBackColor = true;
+            // 
+            // orderDe
+            // 
+            orderDe.AllowUserToAddRows = false;
+            orderDe.AllowUserToDeleteRows = false;
+            orderDe.AllowUserToOrderColumns = true;
+            orderDe.AllowUserToResizeColumns = false;
+            orderDe.AllowUserToResizeRows = false;
+            orderDe.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            orderDe.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            orderDe.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            orderDe.Location = new Point(6, 6);
+            orderDe.Name = "orderDe";
+            orderDe.ReadOnly = true;
+            orderDe.RightToLeft = RightToLeft.Yes;
+            orderDe.RowHeadersWidth = 62;
+            orderDe.RowTemplate.Height = 33;
+            orderDe.Size = new Size(941, 308);
+            orderDe.TabIndex = 2;
             // 
             // panel1
             // 
@@ -298,7 +347,7 @@
             label3.Location = new Point(731, 4);
             label3.Name = "label3";
             label3.RightToLeft = RightToLeft.Yes;
-            label3.Size = new Size(179, 40);
+            label3.Size = new Size(217, 50);
             label3.TabIndex = 18;
             label3.Text = "ברוכים הבאים לחנות שלנו\r\nלקוח יקר, ";
             // 
@@ -328,6 +377,7 @@
             Load += CustomerSignIn_Load;
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
+            tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)itemToCustomer).EndInit();
             ((System.ComponentModel.ISupportInitialize)picItems).EndInit();
             tabPage2.ResumeLayout(false);
@@ -336,6 +386,8 @@
             ((System.ComponentModel.ISupportInitialize)forSale).EndInit();
             tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            itmesDe.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)orderDe).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)minus).EndInit();
@@ -366,5 +418,8 @@
         private TabPage tabPage3;
         private PictureBox logoPic;
         private DataGridView dataGridView1;
+        private TabPage itmesDe;
+        private DataGridView orderDe;
+        private Label itemsCom;
     }
 }

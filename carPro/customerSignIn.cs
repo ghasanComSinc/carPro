@@ -40,7 +40,6 @@ namespace carPro
             forSale.Columns.Add("סה\"כ מחיר", "סה\"כ מחיר");//5
             forSale.Columns.Add("pic", "");//6
             forSale.Columns[6].Visible = false;
-            //add photo !!
         }
         private void CustomerSignIn_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -68,20 +67,15 @@ namespace carPro
             try
             {
                 string strFun;
-
                 strFun = "SELECT * FROM `items` ORDER BY BINARY `typeCar` ASC;";
                 connection.Open();
                 MyCommand2 = new MySqlCommand(strFun, connection);
-
                 MySqlDataAdapter adapter = new(MyCommand2);
                 //DataTable dataTable = new();
-
                 // Fill the DataTable with the query results
                 adapter.Fill(dataTable);
-
                 // Bind the DataTable to the DataGridView
                 itemToCustomer.DataSource = dataTable;
-
                 itemToCustomer.Columns[0].HeaderText = "שם מוצר";
                 itemToCustomer.Columns[1].HeaderText = "סוג רכב";
                 itemToCustomer.Columns[2].Visible = false;
@@ -98,42 +92,11 @@ namespace carPro
             {
                 MessageBox.Show(ex.Message);
                 CustomerSignIn_FormClosed(null, null);
-
-            } 
-            /* the load of the data orders*/
-            try
-            {
-                string strFun;
-
-                strFun = "SELECT * FROM `orders`;";// WHERE `phoneNumber` = " + Pkey;
-                connection.Open();
-                MyCommand2 = new MySqlCommand(strFun, connection);
-
-                MySqlDataAdapter adapter1 = new(MyCommand2);
-                //DataTable dataTable = new();
-
-                // Fill the DataTable with the query results
-                adapter1.Fill(dataTable);
-
-                // Bind the DataTable to the DataGridView
-                dataGridView1.DataSource = dataTable;
-/*
-                dataGridView1.Columns[0].HeaderText = "1";
-                dataGridView1.Columns[1].HeaderText = "2";
-                dataGridView1.Columns[2].HeaderText = "orderNumber";
-                dataGridView1.Columns[3].Visible = false;
-                dataGridView1.Columns[4].HeaderText = "סטטוס";
-                dataGridView1.Columns[5].HeaderText = "time";
-                dataGridView1.Columns[6].HeaderText = "date";
-                */
                 connection.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                CustomerSignIn_FormClosed(null, null);
 
             }
+            /* the load of the data orders*/
+
         }
         private void HideItem()
         {
@@ -142,6 +105,36 @@ namespace carPro
             amountSale.Visible = false;
             plus.Visible = false;
             minus.Visible = false;
+            if (tabControl1.SelectedIndex == 2)
+            {
+                try
+                {
+                    string strFun;
+
+                    strFun = "SELECT * FROM `payTable` WHERE `phoneNumber` = " + nameCustumer;
+                    connection.Open();
+                    MyCommand2 = new MySqlCommand(strFun, connection);
+
+                    MySqlDataAdapter adapter1 = new(MyCommand2);
+                    DataTable dataTable = new();
+
+                    // Fill the DataTable with the query results
+                    adapter1.Fill(dataTable);
+
+                    // Bind the DataTable to the DataGridView
+                    dataGridView1.DataSource = dataTable;
+                    dataGridView1.Columns[0].HeaderText = "מספר טלפון";
+                    dataGridView1.Columns[1].HeaderText = "מזה הזמנה";
+                    dataGridView1.Columns[2].HeaderText = "מחיר תשלום";
+                    dataGridView1.Columns[3].HeaderText = "מצב הזמנה";
+                    connection.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    connection.Close();
+                }
+            }
         }
         private void ItemToCustomer_MouseMove(object sender, MouseEventArgs e)
         {
@@ -156,12 +149,16 @@ namespace carPro
                     byte[] imageData = (byte[])selectedCell.Value;
                     using MemoryStream ms = new(imageData);
                     picItems.Image = Image.FromStream(ms);
-
+                    itmesDe.AutoScroll = true;
+                    itemsCom.MaximumSize = new System.Drawing.Size(100, 100);
+                    itemsCom.Text = itemToCustomer.Rows[rowIndex].Cells[8].Value.ToString();
+                    itemsCom.Visible = true;
                 }
             }
             else
             {
                 picItems.Image = null;
+                itemsCom.Visible = false;
             }
         }
         private void ItemToCustomer_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -206,7 +203,6 @@ namespace carPro
                 amountSale.Text = "0";
             }
         }
-
         private int ChechDoplicatItems()
         {
             for (int i = 0; i < forSale.Rows.Count; i++)
@@ -245,11 +241,8 @@ namespace carPro
                         {
                             forSale.Rows[rowIndexNew].Cells[i].Value = int.Parse(forSale.Rows[rowIndexNew].Cells[3].Value.ToString()) * int.Parse(forSale.Rows[rowIndexNew].Cells[4].Value.ToString());
                         }
-
-
                     }
                     tabPage2.Text = "הזמנה" + "(" + forSale.Rows.Count + ")";
-
                     sum += int.Parse(forSale.Rows[rowIndexNew].Cells[5].Value.ToString());
                     priceToPay.Text = "מחיר לתשלום:" + "\n" + sum + "";
                 }
@@ -303,7 +296,6 @@ namespace carPro
                     byte[] imageData = (byte[])selectedCell.Value;
                     using MemoryStream ms = new(imageData);
                     saleItmesIm.Image = Image.FromStream(ms);
-
                 }
             }
             else
@@ -363,7 +355,7 @@ namespace carPro
                         MyCommand2.Parameters.AddWithValue("@parCode", forSale.Rows[i].Cells[2].Value);
                         MyCommand2.Parameters.AddWithValue("@orderId", count);
                         MyCommand2.Parameters.AddWithValue("@amount", forSale.Rows[i].Cells[3].Value);
-                        MyCommand2.Parameters.AddWithValue("@stauts", "proce");
+                        MyCommand2.Parameters.AddWithValue("@stauts", "pro");
                         MyCommand2.Parameters.AddWithValue("@timeOrder", DateTime.Now.TimeOfDay.ToString());
                         MyCommand2.Parameters.AddWithValue("@dateOrder", DateTime.Now.Date.ToString());
                         MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.     
@@ -392,21 +384,37 @@ namespace carPro
         {
             ForSale_CellContentClick(sender, e);
         }
-
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             dataGridView1_CellContentClick(sender, e);
         }
-
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
-                
-            }
-            else
-            {
-                HideItem();
+                tabControl1.SelectedIndex = 3;
+                try
+                {
+                    string strFun;
+                    strFun = "SELECT * FROM `orders` " +
+                        $"WHERE `phoneNumber`={nameCustumer} AND `orderId`={dataGridView1.Rows[e.RowIndex].Cells[1].Value}";
+                    connection.Open();
+                    MyCommand2 = new MySqlCommand(strFun, connection);
+                    MySqlDataAdapter adapter = new(MyCommand2);
+                    DataTable dataTable = new();
+                    // Fill the DataTable with the query results
+                    adapter.Fill(dataTable);
+                    // Bind the DataTable to the DataGridView
+                    orderDe.DataSource = dataTable;
+
+
+                    connection.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    connection.Close();
+                }
             }
         }
     }
