@@ -256,7 +256,6 @@ namespace carPro
                 command.Parameters.AddWithValue("@orderId", itemsInOrder.Rows[0].Cells[2].Value.ToString());
                 command.ExecuteNonQuery();
                 connection.Close();
-
                 MessageBox.Show("הזמנה בוצעתה בהצלחה");
                 Employee_Load(sender, e);
                 Label2_Click(sender, e);
@@ -268,68 +267,73 @@ namespace carPro
                 connection.Close();
             }
 
-        }
-        /// <summary>
-        /// ////////////////////////
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        }      
         private void Button2_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < itemsInOrder.Rows.Count; i++)
             {
                 if (itemsInOrder.Rows[i].DefaultCellStyle.BackColor == Color.Green)
                 {
-                    string strFun = "UPDATE `sale` SET `amountSale`=@amountS WHERE `id`=@id";
+                    string strFun = "UPDATE `orders` SET `amount`=@amountS WHERE `phoneNumber`=@id AND `parCode`=@par AND `orderId`=@idOr";
                     connection.Open();
                     command = new MySqlCommand(strFun, connection);
-                    command.Parameters.AddWithValue("@amountS", itemsInOrder.Rows[i].Cells[7].Value.ToString());
-                    command.Parameters.AddWithValue("@id", itemsInOrder.Rows[i].Cells[1].Value.ToString());
+                    command.Parameters.AddWithValue("@amountS", itemsInOrder.Rows[i].Cells[14].Value.ToString());
+                    command.Parameters.AddWithValue("@id", itemsInOrder.Rows[i].Cells[0].Value);
+                    command.Parameters.AddWithValue("@par", itemsInOrder.Rows[i].Cells[1].Value.ToString());
+                    command.Parameters.AddWithValue("@idOr", itemsInOrder.Rows[i].Cells[2].Value.ToString());
                     command.ExecuteNonQuery();
                     connection.Close();
                     MessageBox.Show("עדכון מוצר התבציע בהצלחה");
-                    ///////////////////////////////////////////////////////////////////
-                    ///string strFun;
-                    strFun = "SELECT * FROM `sale` WHERE `id`=" + itemsInOrder.Rows[i].Cells[1].Value.ToString();
-                    connection.Open();
-                    command = new MySqlCommand(strFun, connection);
-                    MySqlDataAdapter adapter = new(command);
-                    dataTable = new();
-                    // Fill the DataTable with the query results
-                    adapter.Fill(dataTable);
-                    itemsInOrder.DataSource = dataTable;
-                    itemsInOrder.Columns[9].Visible = false;
-                    itemsInOrder.Columns[11].Visible = false;
-                    itemsInOrder.Columns[0].HeaderText = "שם לקוח";
-                    itemsInOrder.Columns[1].HeaderText = "מספר זיהוי";
-                    itemsInOrder.Columns[2].HeaderText = "שם מוצר";
-                    itemsInOrder.Columns[3].HeaderText = "סוג רכב";
-                    itemsInOrder.Columns[4].HeaderText = "מודל";
-                    itemsInOrder.Columns[5].HeaderText = "זיהוי מוצר";
-                    itemsInOrder.Columns[6].HeaderText = "מקום בחנות";
-                    itemsInOrder.Columns[7].HeaderText = "קמות בחנות";
-                    itemsInOrder.Columns[8].HeaderText = "מחיר";
-                    itemsInOrder.Columns[9].HeaderText = "תמונה";
-                    itemsInOrder.Columns[10].HeaderText = "קמות רצויה";
-                    itemsInOrder.Columns[11].HeaderText = "מצב של הזמנה";
-                    connection.Close();
-                    ToPay();
-                    /// //////////////////////////////////////////////////////////////
                 }
             }
-            string strFun1 = "UPDATE `paytable` SET `priceToPay`=@price WHERE `id`=@id";
-
-            connection.Open();
-            command = new MySqlCommand(strFun1, connection);
-            //MySqlDataAdapter adapter1 = new(command);
-            ///Regex.Match(subjectString, @"\d+").Value;
-            command.Parameters.AddWithValue("@price", Regex.Match(pay.Text.ToString(), @"\d+").Value);
-            command.Parameters.AddWithValue("@id", itemsInOrder.Rows[0].Cells[1].Value.ToString());
-
-            command.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.     
-            connection.Close();
-
-
+            try
+            {
+                string strFun1 = "UPDATE `paytable` SET `price`=@price WHERE `phoneNumber`=@id AND `orderId`=@orderId";
+                connection.Open();
+                command = new MySqlCommand(strFun1, connection);
+                command.Parameters.AddWithValue("@price", Regex.Match(pay.Text.ToString(), @"\d+").Value);
+                command.Parameters.AddWithValue("@id", itemsInOrder.Rows[0].Cells[0].Value);
+                command.Parameters.AddWithValue("@orderId", itemsInOrder.Rows[0].Cells[2].Value.ToString());
+                command.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.     
+                connection.Close();
+                strFun1 = "SELECT * FROM `orders` join `items` ON `orders`.`parCode` = `items`.`parCode`" +
+                    $"WHERE `phoneNumber`={itemsInOrder.Rows[0].Cells[0].Value} AND `orderId`='{itemsInOrder.Rows[0].Cells[2].Value}'";
+                connection.Open();
+                command = new MySqlCommand(strFun1, connection);
+                MySqlDataAdapter adapter = new(command);
+                dataTable = new();
+                // Fill the DataTable with the query results
+                adapter.Fill(dataTable);
+                connection.Close();
+                itemsInOrder.DataSource = dataTable;
+                itemsInOrder.Columns[0].Visible = false;// "מספר טלפון";
+                itemsInOrder.Columns[1].HeaderText = "פר";
+                itemsInOrder.Columns[2].Visible = false;// "מזה הזמנה";
+                itemsInOrder.Columns[3].HeaderText = "כמות רצויה";
+                itemsInOrder.Columns[4].Visible = false;//status
+                itemsInOrder.Columns[5].HeaderText = "שעת קניה";
+                itemsInOrder.Columns[6].HeaderText = "תאריך קניה";
+                itemsInOrder.Columns[7].HeaderText = "שם מוצר";
+                itemsInOrder.Columns[8].HeaderText = "סוג רכב";
+                itemsInOrder.Columns[9].HeaderText = "מיקום בחנות";
+                itemsInOrder.Columns[10].Visible = false;//parcode
+                itemsInOrder.Columns[11].HeaderText = "מחיר";
+                itemsInOrder.Columns[12].Visible = false;//paypri
+                itemsInOrder.Columns[13].Visible = false;//pic
+                itemsInOrder.Columns[14].Visible = false;// "קמות בחנות";
+                itemsInOrder.Columns[15].HeaderText = "הערה על מוצר";
+                ToPay();
+                phoneNum.Visible = true;
+                orderI.Visible = true;
+                phoneNum.Text = "מספר טלפון של לקוח " + " " + itemsInOrder.Rows[0].Cells[0].Value.ToString();
+                orderI.Text = "מזה הזמנה" + " " + itemsInOrder.Rows[0].Cells[2].Value.ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                connection.Close();
+            }
+            button2.Visible = false;
         }
         private void Search_SelectedIndexChanged(object sender, EventArgs e)
         {
