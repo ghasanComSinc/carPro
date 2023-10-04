@@ -191,7 +191,7 @@ namespace carPro
             for (int i = 0; i < itemsInOrder.Rows.Count; i++)
             {
 
-                if (int.Parse(itemsInOrder.Rows[i].Cells[7].Value.ToString()) >= int.Parse(itemsInOrder.Rows[i].Cells[10].Value.ToString()))
+                if (int.Parse(itemsInOrder.Rows[i].Cells[14].Value.ToString()) >= int.Parse(itemsInOrder.Rows[i].Cells[3].Value.ToString()))
                 {
                     try
                     {
@@ -199,28 +199,19 @@ namespace carPro
                         connection.Open();
                         command = new MySqlCommand(strFun, connection);
                         MySqlDataAdapter adapter = new(command);
-                        int amount = int.Parse(itemsInOrder.Rows[i].Cells[7].Value.ToString()) - int.Parse(itemsInOrder.Rows[i].Cells[10].Value.ToString());
+                        int amount = int.Parse(itemsInOrder.Rows[i].Cells[14].Value.ToString()) - int.Parse(itemsInOrder.Rows[i].Cells[3].Value.ToString());
                         command.Parameters.AddWithValue("@amountIt", amount.ToString());
-                        command.Parameters.AddWithValue("@id", itemsInOrder.Rows[i].Cells[5].Value.ToString());
+                        command.Parameters.AddWithValue("@id", itemsInOrder.Rows[i].Cells[1].Value.ToString());
                         command.ExecuteNonQuery();
                         connection.Close();
-                        strFun = "UPDATE `sale` SET `amount`= @amountIt, `status`=@statusIt WHERE id=@idCustm AND parCode=@id";
+                        strFun = "UPDATE `orders` SET `stauts`=@statusIt WHERE `phoneNumber`=@idCustm AND `orderId`=@id AND `parCode`=@par";
                         connection.Open();
                         command = new MySqlCommand(strFun, connection);
                         adapter = new(command);
-                        command.Parameters.AddWithValue("@amountIt", amount.ToString());
-                        command.Parameters.AddWithValue("@statusIt", "successful");
-                        command.Parameters.AddWithValue("@idCustm", itemsInOrder.Rows[i].Cells[1].Value.ToString());
-                        command.Parameters.AddWithValue("@id", itemsInOrder.Rows[i].Cells[5].Value.ToString());
-                        command.ExecuteNonQuery();
-                        connection.Close();
-                        strFun = "UPDATE `sale` SET `amount`= @amountIt WHERE id!=@idCustm AND parCode=@id";
-                        connection.Open();
-                        command = new MySqlCommand(strFun, connection);
-                        adapter = new(command);
-                        command.Parameters.AddWithValue("@amountIt", amount.ToString());
-                        command.Parameters.AddWithValue("@idCustm", itemsInOrder.Rows[i].Cells[1].Value.ToString());
-                        command.Parameters.AddWithValue("@id", itemsInOrder.Rows[i].Cells[5].Value.ToString());
+                        command.Parameters.AddWithValue("@statusIt", "suc");
+                        command.Parameters.AddWithValue("@idCustm", itemsInOrder.Rows[i].Cells[0].Value.ToString());
+                        command.Parameters.AddWithValue("@id", itemsInOrder.Rows[i].Cells[2].Value.ToString());
+                        command.Parameters.AddWithValue("@par", itemsInOrder.Rows[i].Cells[10].Value.ToString());
                         command.ExecuteNonQuery();
                         connection.Close();
                     }
@@ -234,19 +225,21 @@ namespace carPro
                 {
                     try
                     {
-                        String strFun = "UPDATE `sale` SET  `status`=@statusIt WHERE id=@idCustm AND parCode=@id";
+                        String strFun = "UPDATE `orders` SET  `stauts`=@statusIt WHERE `phoneNumber`=@idCustm AND `orderId`=@id AND `parCode`=@par";
                         connection.Open();
                         command = new MySqlCommand(strFun, connection);
                         MySqlDataAdapter adapter = new(command);
-                        command.Parameters.AddWithValue("@statusIt", "cancel");
-                        command.Parameters.AddWithValue("@idCustm", itemsInOrder.Rows[i].Cells[1].Value.ToString());
-                        command.Parameters.AddWithValue("@id", itemsInOrder.Rows[i].Cells[5].Value.ToString());
+                        command.Parameters.AddWithValue("@statusIt", "can");
+                        command.Parameters.AddWithValue("@idCustm", itemsInOrder.Rows[i].Cells[0].Value.ToString());
+                        command.Parameters.AddWithValue("@id", itemsInOrder.Rows[i].Cells[2].Value.ToString());
+                        command.Parameters.AddWithValue("@par", itemsInOrder.Rows[i].Cells[10].Value.ToString());
                         command.ExecuteNonQuery();
                         connection.Close();
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message);
+                        connection.Close();
                     }
                 }
             }
@@ -255,11 +248,12 @@ namespace carPro
         {
             try
             {
-                string strFun = "UPDATE `paytable` SET `status`= 'successful' WHERE `id`=@id";
+                string strFun = "UPDATE `paytable` SET `status`= 'suc' WHERE `phoneNumber`=@id AND `orderId`=@orderId";
                 connection.Open();
                 command = new MySqlCommand(strFun, connection);
                 MySqlDataAdapter adapter = new(command);
-                command.Parameters.AddWithValue("@id", itemsInOrder.Rows[0].Cells[1].Value.ToString());
+                command.Parameters.AddWithValue("@id", itemsInOrder.Rows[0].Cells[0].Value.ToString());
+                command.Parameters.AddWithValue("@orderId", itemsInOrder.Rows[0].Cells[2].Value.ToString());
                 command.ExecuteNonQuery();
                 connection.Close();
 
@@ -275,6 +269,11 @@ namespace carPro
             }
 
         }
+        /// <summary>
+        /// ////////////////////////
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button2_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < itemsInOrder.Rows.Count; i++)

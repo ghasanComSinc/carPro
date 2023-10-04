@@ -84,7 +84,8 @@ namespace carPro
                 itemToCustomer.Columns[5].Visible = false;
                 itemToCustomer.Columns[6].Visible = false;
                 itemToCustomer.Columns[7].HeaderText = "כמות";
-                itemToCustomer.Columns[8].HeaderText = "הערה";
+                itemToCustomer.Columns[8].Visible = false;// "הערה";
+
                 EmtpyItems();
                 connection.Close();
             }
@@ -152,6 +153,7 @@ namespace carPro
                     itmesDe.AutoScroll = true;
                     itemsCom.MaximumSize = new System.Drawing.Size(100, 100);
                     itemsCom.Text = itemToCustomer.Rows[rowIndex].Cells[8].Value.ToString();
+
                     itemsCom.Visible = true;
                 }
             }

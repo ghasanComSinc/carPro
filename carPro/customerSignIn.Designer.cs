@@ -353,12 +353,14 @@
             // 
             // logoPic
             // 
+            logoPic.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             logoPic.ErrorImage = null;
             logoPic.Image = (Image)resources.GetObject("logoPic.Image");
             logoPic.InitialImage = null;
             logoPic.Location = new Point(438, 4);
             logoPic.Name = "logoPic";
-            logoPic.Size = new Size(223, 79);
+            logoPic.Size = new Size(287, 82);
+            logoPic.SizeMode = PictureBoxSizeMode.Zoom;
             logoPic.TabIndex = 19;
             logoPic.TabStop = false;
             // 
