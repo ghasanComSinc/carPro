@@ -39,6 +39,7 @@
             saleItmesIm = new PictureBox();
             forSale = new DataGridView();
             tabPage3 = new TabPage();
+            dataGridView1 = new DataGridView();
             panel1 = new Panel();
             saleItem = new Label();
             minus = new PictureBox();
@@ -54,6 +55,8 @@
             tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)saleItmesIm).BeginInit();
             ((System.ComponentModel.ISupportInitialize)forSale).BeginInit();
+            tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)minus).BeginInit();
             ((System.ComponentModel.ISupportInitialize)plus).BeginInit();
@@ -187,6 +190,7 @@
             // 
             // tabPage3
             // 
+            tabPage3.Controls.Add(dataGridView1);
             tabPage3.Location = new Point(4, 34);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(3);
@@ -194,6 +198,26 @@
             tabPage3.TabIndex = 2;
             tabPage3.Text = "דף הזמנות";
             tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToDeleteRows = false;
+            dataGridView1.AllowUserToOrderColumns = true;
+            dataGridView1.AllowUserToResizeColumns = false;
+            dataGridView1.AllowUserToResizeRows = false;
+            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(-4, 6);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.ReadOnly = true;
+            dataGridView1.RowHeadersWidth = 62;
+            dataGridView1.RowTemplate.Height = 33;
+            dataGridView1.Size = new Size(943, 345);
+            dataGridView1.TabIndex = 1;
+            dataGridView1.CellClick += dataGridView1_CellClick;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // panel1
             // 
@@ -285,7 +309,7 @@
             logoPic.InitialImage = null;
             logoPic.Location = new Point(438, 4);
             logoPic.Name = "logoPic";
-            logoPic.Size = new Size(387, 79);
+            logoPic.Size = new Size(223, 79);
             logoPic.TabIndex = 19;
             logoPic.TabStop = false;
             // 
@@ -310,6 +334,8 @@
             tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)saleItmesIm).EndInit();
             ((System.ComponentModel.ISupportInitialize)forSale).EndInit();
+            tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)minus).EndInit();
@@ -339,5 +365,6 @@
         private Label priceToPay;
         private TabPage tabPage3;
         private PictureBox logoPic;
+        private DataGridView dataGridView1;
     }
 }

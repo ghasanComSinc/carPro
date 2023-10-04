@@ -40,7 +40,6 @@ namespace carPro
             forSale.Columns.Add("סה\"כ מחיר", "סה\"כ מחיר");//5
             forSale.Columns.Add("pic", "");//6
             forSale.Columns[6].Visible = false;
-
             //add photo !!
         }
         private void CustomerSignIn_FormClosed(object sender, FormClosedEventArgs e)
@@ -304,7 +303,7 @@ namespace carPro
             {
                 try
                 {
-                    string strFun = "SELECT COUNT(*) FROM paytable";
+                    string strFun = "SELECT COUNT(*) FROM `paytable`;";
                     MyCommand2 = new(strFun, connection);
                     connection.Open();
                     _ = int.TryParse(MyCommand2.ExecuteScalar().ToString(), out int count);
@@ -358,6 +357,52 @@ namespace carPro
         private void ForSale_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             ForSale_CellContentClick(sender, e);
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            dataGridView1_CellContentClick(sender, e);
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int w = Screen.PrimaryScreen.Bounds.Width;
+            int h = Screen.PrimaryScreen.Bounds.Height;
+            this.Location = new Point(0, 0);
+            this.Size = new Size(w, h);
+            try
+            {
+                string strFun;
+
+                strFun = "SELECT * FROM `orders`;";// WHERE `phoneNumber` = " + Pkey;
+                connection.Open();
+                MyCommand2 = new MySqlCommand(strFun, connection);
+
+                MySqlDataAdapter adapter = new(MyCommand2);
+                //DataTable dataTable = new();
+
+                // Fill the DataTable with the query results
+                adapter.Fill(dataTable);
+
+                // Bind the DataTable to the DataGridView
+                dataGridView1.DataSource = dataTable;
+
+                dataGridView1.Columns[0].HeaderText = "1";
+                dataGridView1.Columns[1].HeaderText = "2";
+                dataGridView1.Columns[2].HeaderText = "orderNumber";
+                dataGridView1.Columns[3].Visible = false;
+                dataGridView1.Columns[4].HeaderText = "סטטוס";
+                dataGridView1.Columns[5].HeaderText = "time";
+                dataGridView1.Columns[6].HeaderText = "date";
+                EmtpyItems();
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                CustomerSignIn_FormClosed(null, null);
+
+            }
         }
     }
 }
