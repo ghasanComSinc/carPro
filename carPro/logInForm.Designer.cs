@@ -73,6 +73,9 @@
             // 
             // tabPage1
             // 
+            tabPage1.BackColor = Color.Transparent;
+            tabPage1.BackgroundImage = Properties.Resources.logo_autopart;
+            tabPage1.BackgroundImageLayout = ImageLayout.Zoom;
             tabPage1.Controls.Add(panel1);
             tabPage1.Location = new Point(4, 34);
             tabPage1.Name = "tabPage1";
@@ -80,7 +83,6 @@
             tabPage1.Size = new Size(799, 411);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "  ";
-            tabPage1.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
@@ -92,15 +94,15 @@
             panel1.Controls.Add(button1);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(label1);
-            panel1.Location = new Point(162, 71);
+            panel1.Location = new Point(166, 113);
             panel1.Name = "panel1";
-            panel1.Size = new Size(465, 236);
+            panel1.Size = new Size(465, 198);
             panel1.TabIndex = 8;
             // 
             // returnCustomer
             // 
             returnCustomer.Anchor = AnchorStyles.None;
-            returnCustomer.Location = new Point(14, 145);
+            returnCustomer.Location = new Point(14, 126);
             returnCustomer.Name = "returnCustomer";
             returnCustomer.Size = new Size(159, 40);
             returnCustomer.TabIndex = 4;
@@ -112,7 +114,7 @@
             // 
             pictureBox1.Anchor = AnchorStyles.None;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(106, 87);
+            pictureBox1.Location = new Point(106, 68);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(40, 31);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
@@ -123,7 +125,7 @@
             // password
             // 
             password.Anchor = AnchorStyles.None;
-            password.Location = new Point(162, 78);
+            password.Location = new Point(162, 59);
             password.Name = "password";
             password.PasswordChar = '*';
             password.Size = new Size(150, 31);
@@ -133,7 +135,7 @@
             // userName
             // 
             userName.Anchor = AnchorStyles.None;
-            userName.Location = new Point(162, 32);
+            userName.Location = new Point(162, 13);
             userName.Name = "userName";
             userName.Size = new Size(150, 31);
             userName.TabIndex = 1;
@@ -141,7 +143,7 @@
             // button1
             // 
             button1.Anchor = AnchorStyles.None;
-            button1.Location = new Point(325, 145);
+            button1.Location = new Point(325, 126);
             button1.Name = "button1";
             button1.Size = new Size(124, 40);
             button1.TabIndex = 3;
@@ -154,9 +156,9 @@
             label2.Anchor = AnchorStyles.None;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.Location = new Point(382, 87);
+            label2.Location = new Point(382, 68);
             label2.Name = "label2";
-            label2.Size = new Size(67, 25);
+            label2.Size = new Size(56, 20);
             label2.TabIndex = 16;
             label2.Text = "סיסמה";
             // 
@@ -165,9 +167,9 @@
             label1.Anchor = AnchorStyles.None;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(339, 34);
+            label1.Location = new Point(339, 15);
             label1.Name = "label1";
-            label1.Size = new Size(112, 25);
+            label1.Size = new Size(91, 20);
             label1.TabIndex = 15;
             label1.Text = "שם משתמש";
             // 
@@ -239,7 +241,7 @@
             label5.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label5.Location = new Point(507, 162);
             label5.Name = "label5";
-            label5.Size = new Size(84, 25);
+            label5.Size = new Size(70, 20);
             label5.TabIndex = 18;
             label5.Text = "שם לקוח";
             // 
@@ -250,7 +252,7 @@
             label6.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label6.Location = new Point(524, 221);
             label6.Name = "label6";
-            label6.Size = new Size(67, 25);
+            label6.Size = new Size(56, 20);
             label6.TabIndex = 14;
             label6.Text = "סיסמה";
             // 
@@ -262,7 +264,7 @@
             label4.Location = new Point(275, 57);
             label4.Name = "label4";
             label4.RightToLeft = RightToLeft.Yes;
-            label4.Size = new Size(258, 25);
+            label4.Size = new Size(216, 20);
             label4.TabIndex = 17;
             label4.Text = " ברוכים הבאים למערכת שלנו .";
             // 
@@ -281,7 +283,7 @@
             label3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label3.Location = new Point(480, 107);
             label3.Name = "label3";
-            label3.Size = new Size(111, 25);
+            label3.Size = new Size(93, 20);
             label3.TabIndex = 15;
             label3.Text = "מספר טלפון";
             // 
@@ -300,6 +302,9 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ButtonFace;
+            BackgroundImage = Properties.Resources.logo_autopart;
+            BackgroundImageLayout = ImageLayout.Center;
             ClientSize = new Size(800, 450);
             Controls.Add(tabControl1);
             Name = "LogInForm";

@@ -34,7 +34,7 @@ namespace carPro
             InitializeComponent();
             forSale.Columns.Add("שם מוצר", "שם מוצר");//0
             forSale.Columns.Add("סוג רכב", "סוג רכב");//1
-            forSale.Columns.Add("פר", "פר");//2->3
+            forSale.Columns.Add("ברקוד", "ברקוד");//2->3
             forSale.Columns.Add("כמות", "כמות");//3->7
             forSale.Columns.Add("מחיר ליחידה", "מחיר ליחידה");//4->4
             forSale.Columns.Add("סה\"כ מחיר", "סה\"כ מחיר");//5
@@ -79,7 +79,7 @@ namespace carPro
                 itemToCustomer.Columns[0].HeaderText = "שם מוצר";
                 itemToCustomer.Columns[1].HeaderText = "סוג רכב";
                 itemToCustomer.Columns[2].Visible = false;
-                itemToCustomer.Columns[3].HeaderText = "פר";
+                itemToCustomer.Columns[3].HeaderText = "ברקוד";
                 itemToCustomer.Columns[4].HeaderText = "מחיר ליחידה";
                 itemToCustomer.Columns[5].Visible = false;
                 itemToCustomer.Columns[6].Visible = false;
@@ -124,8 +124,8 @@ namespace carPro
 
                     // Bind the DataTable to the DataGridView
                     dataGridView1.DataSource = dataTable;
-                    dataGridView1.Columns[0].HeaderText = "מספר טלפון";
-                    dataGridView1.Columns[1].HeaderText = "מזה הזמנה";
+                    dataGridView1.Columns[0].Visible = false;
+                    dataGridView1.Columns[1].HeaderText = "מספר הזמנה";
                     dataGridView1.Columns[2].HeaderText = "מחיר תשלום";
                     dataGridView1.Columns[3].HeaderText = "מצב הזמנה";
                     connection.Close();
@@ -408,6 +408,16 @@ namespace carPro
                     adapter.Fill(dataTable);
                     // Bind the DataTable to the DataGridView
                     orderDe.DataSource = dataTable;
+                    //the number off the custmer to be used in the logo style
+                    string phoneNumber = orderDe.Columns[0].ToString();
+                    orderDe.Columns[0].Visible = false; //the number of customer  
+                    // we can add the name of the prodact insted of the phone number in this taple?
+                    orderDe.Columns[1].HeaderText = "ברקוד";
+                    orderDe.Columns[2].HeaderText = "מספר הזמנה";
+                    orderDe.Columns[3].HeaderText = "כמות";
+                    orderDe.Columns[4].HeaderText = "סטטוס הזמנה";
+                    orderDe.Columns[5].Visible = false;//the time 
+                    orderDe.Columns[6].HeaderText = " צאריך ושעת הזמנה";
 
 
                     connection.Close();

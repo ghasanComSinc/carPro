@@ -59,7 +59,7 @@ namespace carPro
                     {
                         CustomerSignIn customerS = new()
                         {
-                            nameCustumer=userName.Text
+                            nameCustumer = userName.Text
                         };
                         this.Hide();
                         customerS.ShowDialog();
@@ -131,7 +131,7 @@ namespace carPro
                         customerForm = null;
                         this.Show();
                     }
-                    catch 
+                    catch
                     {
                         MessageBox.Show("משתמש קיים");
                         connection.Close();

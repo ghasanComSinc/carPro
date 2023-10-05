@@ -63,6 +63,26 @@ namespace carPro.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _1000_F_397463002_6EYeghuJQzUwbxITLg7s3DtL8uKhovZk {
+            get {
+                object obj = ResourceManager.GetObject("1000_F_397463002_6EYeghuJQzUwbxITLg7s3DtL8uKhovZk", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap logo_autopart {
+            get {
+                object obj = ResourceManager.GetObject("logo autopart", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Screenshot_2023_10_03_235622 {
             get {
                 object obj = ResourceManager.GetObject("Screenshot 2023-10-03 235622", resourceCulture);
