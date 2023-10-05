@@ -105,11 +105,12 @@ namespace carPro
         }
         private void TabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            string strFun;
+            statusOrder.Visible = false;
             if (tab.SelectedIndex == 0)
             {
                 try
                 {
-                    string strFun;
                     strFun = "SELECT * FROM `items`";
                     MyCommand2 = new MySqlCommand(strFun, con);
                     con.Open();
@@ -140,7 +141,6 @@ namespace carPro
             {
                 try
                 {
-                    string strFun;
                     strFun = "SELECT * FROM `UserTable`";
                     MyCommand2 = new MySqlCommand(strFun, con);
                     con.Open();
@@ -157,6 +157,33 @@ namespace carPro
                     users.Columns[4].HeaderText = "תאריך התחלה";
                     users.Columns[5].HeaderText = "תאריך סיום";
                     users.Columns[6].HeaderText = "משתמש פעיל ";
+                    con.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    con.Close();
+                }
+            }
+            else if (tab.SelectedIndex == 2)
+            {
+                statusOrder.Visible = true;
+                statusOrder.SelectedIndex = 0;
+                try
+                {
+                    strFun = "SELECT * FROM `paytable`";
+                    MyCommand2 = new MySqlCommand(strFun, con);
+                    con.Open();
+                    MySqlDataAdapter adapter = new(MyCommand2);
+                    dataTable = new();
+                    // Fill the DataTable with the query results
+                    adapter.Fill(dataTable);
+                    // Bind the DataTable to the DataGridView
+                    orders.DataSource = dataTable;
+                    orders.Columns[0].HeaderText = "מספר טלפון";
+                    orders.Columns[1].HeaderText = "מזה הזמנה";
+                    orders.Columns[2].HeaderText = "מחיר";
+                    orders.Columns[3].HeaderText = "מצב"; 
                     con.Close();
                 }
                 catch (Exception ex)
@@ -537,7 +564,7 @@ namespace carPro
             string placeInSh = placeInShop.Text;
             string parC = parCode.Text;
             string comn = comnet.Text;
-            MemoryStream ms ;
+            MemoryStream ms;
             byte[] img = null;
             //all the if gona be here !!!
             if (flagImg)
@@ -649,7 +676,7 @@ namespace carPro
                     con.Close();
 
                 }
-                catch 
+                catch
                 {
                     MessageBox.Show("מוצר קיים");
                     con.Close();
@@ -669,7 +696,7 @@ namespace carPro
                 nameCustumer = phone_number
             };
             this.Hide();
-            
+
             cust.ShowDialog();
             this.Show();
         }
@@ -677,12 +704,53 @@ namespace carPro
         {
             Employee employee = new()
             {
-                employName= phone_number
+                employName = phone_number
             };
             this.Hide();
 
             employee.ShowDialog();
             this.Show();
+        }
+        private void statusOrder_SelectedItemChanged(object sender, EventArgs e)
+        {
+            string strFun;
+            if(statusOrder.SelectedIndex == 0)
+            {
+                strFun = "SELECT * FROM `paytable`";
+            }
+            else if(statusOrder.SelectedIndex == 1)
+            {
+                strFun = "SELECT * FROM `paytable` WHERE `status`= \"suc\"";
+            }
+            else if(statusOrder.SelectedIndex == 2)
+            {
+                strFun = "SELECT * FROM `paytable` WHERE `status`=\"pro\"";
+            }
+            else
+            {
+                strFun = "SELECT * FROM `paytable` WHERE `status`=\"can\"";
+            }
+            try
+            {
+                MyCommand2 = new MySqlCommand(strFun, con);
+                con.Open();
+                MySqlDataAdapter adapter = new(MyCommand2);
+                dataTable = new();
+                // Fill the DataTable with the query results
+                adapter.Fill(dataTable);
+                // Bind the DataTable to the DataGridView
+                orders.DataSource = dataTable;
+                orders.Columns[0].HeaderText = "מספר טלפון";
+                orders.Columns[1].HeaderText = "מזה הזמנה";
+                orders.Columns[2].HeaderText = "מחיר";
+                orders.Columns[3].HeaderText = "מצב";
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                con.Close();
+            }
         }
     }
 }

@@ -71,8 +71,11 @@
             label1 = new Label();
             addU = new Button();
             users = new DataGridView();
+            ordersM = new TabPage();
+            orders = new DataGridView();
             sinC = new Button();
             sinEm = new Button();
+            statusOrder = new DomainUpDown();
             tab.SuspendLayout();
             addItem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)items).BeginInit();
@@ -82,6 +85,8 @@
             addUser.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)users).BeginInit();
+            ordersM.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)orders).BeginInit();
             SuspendLayout();
             // 
             // tab
@@ -89,6 +94,7 @@
             tab.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tab.Controls.Add(addItem);
             tab.Controls.Add(addUser);
+            tab.Controls.Add(ordersM);
             tab.Location = new Point(0, 54);
             tab.Name = "tab";
             tab.RightToLeft = RightToLeft.Yes;
@@ -572,6 +578,37 @@
             users.CellClick += Users_CellClick;
             users.CellContentClick += Users_CellContentClick;
             // 
+            // ordersM
+            // 
+            ordersM.Controls.Add(orders);
+            ordersM.Location = new Point(4, 34);
+            ordersM.Name = "ordersM";
+            ordersM.Padding = new Padding(3);
+            ordersM.Size = new Size(1349, 617);
+            ordersM.TabIndex = 2;
+            ordersM.Text = "הזמנות";
+            ordersM.UseVisualStyleBackColor = true;
+            // 
+            // orders
+            // 
+            orders.AllowUserToAddRows = false;
+            orders.AllowUserToDeleteRows = false;
+            orders.AllowUserToOrderColumns = true;
+            orders.AllowUserToResizeColumns = false;
+            orders.AllowUserToResizeRows = false;
+            orders.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            orders.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            orders.BackgroundColor = SystemColors.ButtonHighlight;
+            orders.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            orders.Location = new Point(6, 6);
+            orders.Name = "orders";
+            orders.ReadOnly = true;
+            orders.RightToLeft = RightToLeft.Yes;
+            orders.RowHeadersWidth = 62;
+            orders.RowTemplate.Height = 33;
+            orders.Size = new Size(1335, 605);
+            orders.TabIndex = 5;
+            // 
             // sinC
             // 
             sinC.Location = new Point(21, 12);
@@ -592,11 +629,27 @@
             sinEm.UseVisualStyleBackColor = true;
             sinEm.Click += SinEm_Click;
             // 
+            // statusOrder
+            // 
+            statusOrder.Items.Add("כול הזמנות");
+            statusOrder.Items.Add("suc\\הצליחה");
+            statusOrder.Items.Add("pro\\בשלב עבודה");
+            statusOrder.Items.Add("can\\התבתלה");
+            statusOrder.Location = new Point(599, 21);
+            statusOrder.Name = "statusOrder";
+            statusOrder.ReadOnly = true;
+            statusOrder.RightToLeft = RightToLeft.Yes;
+            statusOrder.Size = new Size(180, 31);
+            statusOrder.TabIndex = 199;
+            statusOrder.Visible = false;
+            statusOrder.SelectedItemChanged += statusOrder_SelectedItemChanged;
+            // 
             // Manger
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1357, 711);
+            Controls.Add(statusOrder);
             Controls.Add(sinEm);
             Controls.Add(sinC);
             Controls.Add(tab);
@@ -615,6 +668,8 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)users).EndInit();
+            ordersM.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)orders).EndInit();
             ResumeLayout(false);
         }
 
@@ -665,5 +720,8 @@
         private DataGridView items;
         private TextBox comnet;
         private Label label13;
+        private TabPage ordersM;
+        private DataGridView orders;
+        private DomainUpDown statusOrder;
     }
 }
