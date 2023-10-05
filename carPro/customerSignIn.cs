@@ -67,10 +67,21 @@ namespace carPro
             try
             {
                 string strFun;
-                strFun = "SELECT * FROM `items` ORDER BY BINARY `typeCar` ASC;";
+                strFun= "SELECT `name` FROM `usertable` WHERE `phoneNumber`="+ nameCustumer;
                 connection.Open();
                 MyCommand2 = new MySqlCommand(strFun, connection);
                 MySqlDataAdapter adapter = new(MyCommand2);
+                adapter = new(MyCommand2);
+                DataTable dataTable1 = new();
+                adapter.Fill(dataTable1);
+                phoneNumber.Text += nameCustumer;
+                DataRow row = dataTable1.Rows[0];
+                customerName.Text += row["name"];
+                connection.Close();
+                strFun = "SELECT * FROM `items` ORDER BY BINARY `typeCar` ASC;";
+                connection.Open();
+                MyCommand2 = new MySqlCommand(strFun, connection);
+                adapter = new(MyCommand2);
                 //DataTable dataTable = new();
                 // Fill the DataTable with the query results
                 adapter.Fill(dataTable);
@@ -85,7 +96,6 @@ namespace carPro
                 itemToCustomer.Columns[6].Visible = false;
                 itemToCustomer.Columns[7].HeaderText = "כמות";
                 itemToCustomer.Columns[8].Visible = false;// "הערה";
-
                 EmtpyItems();
                 connection.Close();
             }

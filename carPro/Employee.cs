@@ -274,29 +274,29 @@ namespace carPro
             {
                 if (itemsInOrder.Rows[i].DefaultCellStyle.BackColor == Color.Green)
                 {
-                    string strFun = "UPDATE `orders` SET `amount`=@amountS WHERE `phoneNumber`=@id AND `parCode`=@par AND `orderId`=@idOr";
-                    connection.Open();
-                    command = new MySqlCommand(strFun, connection);
-                    command.Parameters.AddWithValue("@amountS", itemsInOrder.Rows[i].Cells[14].Value.ToString());
-                    command.Parameters.AddWithValue("@id", itemsInOrder.Rows[i].Cells[0].Value);
-                    command.Parameters.AddWithValue("@par", itemsInOrder.Rows[i].Cells[1].Value.ToString());
-                    command.Parameters.AddWithValue("@idOr", itemsInOrder.Rows[i].Cells[2].Value.ToString());
-                    command.ExecuteNonQuery();
-                    connection.Close();
-                    MessageBox.Show("עדכון מוצר התבציע בהצלחה");
+                    try
+                    {
+                        string strFun = "UPDATE `orders` SET `amount`=@amountS WHERE `phoneNumber`=@id AND `parCode`=@par AND `orderId`=@idOr";
+                        connection.Open();
+                        command = new MySqlCommand(strFun, connection);
+                        command.Parameters.AddWithValue("@amountS", itemsInOrder.Rows[i].Cells[14].Value.ToString());
+                        command.Parameters.AddWithValue("@id", itemsInOrder.Rows[i].Cells[0].Value);
+                        command.Parameters.AddWithValue("@par", itemsInOrder.Rows[i].Cells[1].Value.ToString());
+                        command.Parameters.AddWithValue("@idOr", itemsInOrder.Rows[i].Cells[2].Value.ToString());
+                        command.ExecuteNonQuery();
+                        connection.Close();
+                        MessageBox.Show("עדכון מוצר התבציע בהצלחה");
+                    }
+                    catch(Exception ex) 
+                    {
+                        MessageBox.Show(ex.Message);
+                        connection.Close();
+                    }
                 }
             }
             try
             {
-                string strFun1 = "UPDATE `paytable` SET `price`=@price WHERE `phoneNumber`=@id AND `orderId`=@orderId";
-                connection.Open();
-                command = new MySqlCommand(strFun1, connection);
-                command.Parameters.AddWithValue("@price", Regex.Match(pay.Text.ToString(), @"\d+").Value);
-                command.Parameters.AddWithValue("@id", itemsInOrder.Rows[0].Cells[0].Value);
-                command.Parameters.AddWithValue("@orderId", itemsInOrder.Rows[0].Cells[2].Value.ToString());
-                command.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.     
-                connection.Close();
-                strFun1 = "SELECT * FROM `orders` join `items` ON `orders`.`parCode` = `items`.`parCode`" +
+                string strFun1 = "SELECT * FROM `orders` join `items` ON `orders`.`parCode` = `items`.`parCode`" +
                     $"WHERE `phoneNumber`={itemsInOrder.Rows[0].Cells[0].Value} AND `orderId`='{itemsInOrder.Rows[0].Cells[2].Value}'";
                 connection.Open();
                 command = new MySqlCommand(strFun1, connection);
@@ -323,6 +323,14 @@ namespace carPro
                 itemsInOrder.Columns[14].Visible = false;// "קמות בחנות";
                 itemsInOrder.Columns[15].HeaderText = "הערה על מוצר";
                 ToPay();
+                strFun1 = "UPDATE `paytable` SET `price`=@price WHERE `phoneNumber`=@id AND `orderId`=@orderId";
+                connection.Open();
+                command = new MySqlCommand(strFun1, connection);
+                command.Parameters.AddWithValue("@price", Regex.Match(pay.Text.ToString(), @"\d+").Value);
+                command.Parameters.AddWithValue("@id", itemsInOrder.Rows[0].Cells[0].Value);
+                command.Parameters.AddWithValue("@orderId", itemsInOrder.Rows[0].Cells[2].Value.ToString());
+                command.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.     
+                connection.Close();
                 phoneNum.Visible = true;
                 orderI.Visible = true;
                 phoneNum.Text = "מספר טלפון של לקוח " + " " + itemsInOrder.Rows[0].Cells[0].Value.ToString();

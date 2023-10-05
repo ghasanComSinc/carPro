@@ -51,6 +51,8 @@
             amountSale = new TextBox();
             label3 = new Label();
             logoPic = new PictureBox();
+            phoneNumber = new Label();
+            customerName = new Label();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)itemToCustomer).BeginInit();
@@ -275,16 +277,16 @@
             panel1.Controls.Add(sale);
             panel1.Controls.Add(plus);
             panel1.Controls.Add(amountSale);
-            panel1.Location = new Point(27, 12);
+            panel1.Location = new Point(4, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(406, 65);
+            panel1.Size = new Size(421, 65);
             panel1.TabIndex = 16;
             // 
             // saleItem
             // 
             saleItem.Anchor = AnchorStyles.None;
             saleItem.AutoSize = true;
-            saleItem.Location = new Point(346, 17);
+            saleItem.Location = new Point(353, 17);
             saleItem.Name = "saleItem";
             saleItem.Size = new Size(59, 25);
             saleItem.TabIndex = 25;
@@ -295,7 +297,7 @@
             // 
             minus.Anchor = AnchorStyles.None;
             minus.Image = (Image)resources.GetObject("minus.Image");
-            minus.Location = new Point(144, 20);
+            minus.Location = new Point(151, 20);
             minus.Name = "minus";
             minus.Size = new Size(27, 26);
             minus.SizeMode = PictureBoxSizeMode.Zoom;
@@ -307,7 +309,7 @@
             // sale
             // 
             sale.Anchor = AnchorStyles.None;
-            sale.Location = new Point(11, 15);
+            sale.Location = new Point(18, 15);
             sale.Name = "sale";
             sale.Size = new Size(94, 40);
             sale.TabIndex = 23;
@@ -320,7 +322,7 @@
             // 
             plus.Anchor = AnchorStyles.None;
             plus.Image = (Image)resources.GetObject("plus.Image");
-            plus.Location = new Point(111, 20);
+            plus.Location = new Point(118, 20);
             plus.Name = "plus";
             plus.Size = new Size(27, 26);
             plus.SizeMode = PictureBoxSizeMode.Zoom;
@@ -332,7 +334,7 @@
             // amountSale
             // 
             amountSale.Anchor = AnchorStyles.None;
-            amountSale.Location = new Point(177, 15);
+            amountSale.Location = new Point(184, 15);
             amountSale.Name = "amountSale";
             amountSale.Size = new Size(150, 31);
             amountSale.TabIndex = 22;
@@ -347,9 +349,9 @@
             label3.Location = new Point(731, 4);
             label3.Name = "label3";
             label3.RightToLeft = RightToLeft.Yes;
-            label3.Size = new Size(217, 50);
+            label3.Size = new Size(217, 25);
             label3.TabIndex = 18;
-            label3.Text = "ברוכים הבאים לחנות שלנו\r\nלקוח יקר, ";
+            label3.Text = "ברוכים הבאים לחנות שלנו\r\n";
             // 
             // logoPic
             // 
@@ -357,18 +359,44 @@
             logoPic.ErrorImage = null;
             logoPic.Image = (Image)resources.GetObject("logoPic.Image");
             logoPic.InitialImage = null;
-            logoPic.Location = new Point(438, 4);
+            logoPic.Location = new Point(431, -5);
             logoPic.Name = "logoPic";
             logoPic.Size = new Size(287, 82);
             logoPic.SizeMode = PictureBoxSizeMode.Zoom;
             logoPic.TabIndex = 19;
             logoPic.TabStop = false;
             // 
+            // phoneNumber
+            // 
+            phoneNumber.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            phoneNumber.AutoSize = true;
+            phoneNumber.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            phoneNumber.Location = new Point(830, 34);
+            phoneNumber.Name = "phoneNumber";
+            phoneNumber.RightToLeft = RightToLeft.Yes;
+            phoneNumber.Size = new Size(118, 25);
+            phoneNumber.TabIndex = 21;
+            phoneNumber.Text = "מספר טלפון :";
+            // 
+            // customerName
+            // 
+            customerName.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            customerName.AutoSize = true;
+            customerName.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            customerName.Location = new Point(861, 59);
+            customerName.Name = "customerName";
+            customerName.RightToLeft = RightToLeft.Yes;
+            customerName.Size = new Size(87, 25);
+            customerName.TabIndex = 22;
+            customerName.Text = "שם לקוח:";
+            // 
             // CustomerSignIn
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(966, 443);
+            Controls.Add(customerName);
+            Controls.Add(phoneNumber);
             Controls.Add(logoPic);
             Controls.Add(label3);
             Controls.Add(panel1);
@@ -423,5 +451,7 @@
         private TabPage itmesDe;
         private DataGridView orderDe;
         private Label itemsCom;
+        private Label phoneNumber;
+        private Label customerName;
     }
 }
