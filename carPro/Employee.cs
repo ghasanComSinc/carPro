@@ -186,8 +186,9 @@ namespace carPro
                 picItems.Image = null;
             }
         }
-        private void UpdateItems()
+        private bool UpdateItems()
         {
+            bool flag=false;
             for (int i = 0; i < itemsInOrder.Rows.Count; i++)
             {
 
@@ -214,6 +215,7 @@ namespace carPro
                         command.Parameters.AddWithValue("@par", itemsInOrder.Rows[i].Cells[10].Value.ToString());
                         command.ExecuteNonQuery();
                         connection.Close();
+                        flag = true;
                     }
                     catch (Exception ex)
                     {
@@ -243,12 +245,17 @@ namespace carPro
                     }
                 }
             }
+            return flag;
         }
         private void PayBu_Click(object sender, EventArgs e)
         {
+            string strFun;
+            if (UpdateItems()==false)
+                 strFun = "UPDATE `paytable` SET `status`= 'can' WHERE `phoneNumber`=@id AND `orderId`=@orderId";
+            else
+                strFun = "UPDATE `paytable` SET `status`= 'suc' WHERE `phoneNumber`=@id AND `orderId`=@orderId";
             try
             {
-                string strFun = "UPDATE `paytable` SET `status`= 'suc' WHERE `phoneNumber`=@id AND `orderId`=@orderId";
                 connection.Open();
                 command = new MySqlCommand(strFun, connection);
                 MySqlDataAdapter adapter = new(command);
@@ -258,8 +265,7 @@ namespace carPro
                 connection.Close();
                 MessageBox.Show("הזמנה בוצעתה בהצלחה");
                 Employee_Load(sender, e);
-                Label2_Click(sender, e);
-                UpdateItems();
+                Label2_Click(sender, e);      
             }
             catch (Exception ex)
             {
