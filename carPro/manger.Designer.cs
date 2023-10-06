@@ -32,12 +32,12 @@
             addItem = new TabPage();
             items = new DataGridView();
             panel2 = new Panel();
+            searchItem = new DomainUpDown();
             comnet = new TextBox();
             label13 = new Label();
             updateItems = new Button();
             label8 = new Label();
             paySale = new TextBox();
-            searchItem = new CheckedListBox();
             price = new TextBox();
             pictureBox1 = new PictureBox();
             label11 = new Label();
@@ -58,9 +58,9 @@
             typeCar = new TextBox();
             addUser = new TabPage();
             panel1 = new Panel();
+            status = new DomainUpDown();
             deletU = new Button();
             button1 = new Button();
-            status = new CheckedListBox();
             updateU = new Button();
             label4 = new Label();
             pass = new TextBox();
@@ -142,12 +142,12 @@
             // panel2
             // 
             panel2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel2.Controls.Add(searchItem);
             panel2.Controls.Add(comnet);
             panel2.Controls.Add(label13);
             panel2.Controls.Add(updateItems);
             panel2.Controls.Add(label8);
             panel2.Controls.Add(paySale);
-            panel2.Controls.Add(searchItem);
             panel2.Controls.Add(price);
             panel2.Controls.Add(pictureBox1);
             panel2.Controls.Add(label11);
@@ -170,6 +170,18 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(1343, 268);
             panel2.TabIndex = 5;
+            // 
+            // searchItem
+            // 
+            searchItem.Items.Add("פ\"ר קוד");
+            searchItem.Items.Add("שם מוצר");
+            searchItem.Items.Add("סוג רכב");
+            searchItem.Location = new Point(450, 77);
+            searchItem.Name = "searchItem";
+            searchItem.ReadOnly = true;
+            searchItem.RightToLeft = RightToLeft.Yes;
+            searchItem.Size = new Size(146, 31);
+            searchItem.TabIndex = 200;
             // 
             // comnet
             // 
@@ -222,15 +234,6 @@
             paySale.Size = new Size(150, 31);
             paySale.TabIndex = 6;
             // 
-            // searchItem
-            // 
-            searchItem.Items.AddRange(new object[] { "פ\"ר קוד", "שם מוצר", "סוג רכב" });
-            searchItem.Location = new Point(470, 76);
-            searchItem.Name = "searchItem";
-            searchItem.Size = new Size(113, 88);
-            searchItem.TabIndex = 194;
-            searchItem.SelectedIndexChanged += SearchItem_SelectedIndexChanged;
-            // 
             // price
             // 
             price.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -263,7 +266,7 @@
             // 
             search_box.Location = new Point(323, 76);
             search_box.Name = "search_box";
-            search_box.Size = new Size(141, 31);
+            search_box.Size = new Size(128, 31);
             search_box.TabIndex = 192;
             search_box.TextChanged += Search_box_TextChanged;
             // 
@@ -419,9 +422,9 @@
             // panel1
             // 
             panel1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel1.Controls.Add(status);
             panel1.Controls.Add(deletU);
             panel1.Controls.Add(button1);
-            panel1.Controls.Add(status);
             panel1.Controls.Add(updateU);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(pass);
@@ -435,6 +438,19 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1338, 175);
             panel1.TabIndex = 5;
+            // 
+            // status
+            // 
+            status.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            status.Items.Add("מנהל");
+            status.Items.Add("עובד");
+            status.Items.Add("לקוח");
+            status.Location = new Point(1098, 70);
+            status.Name = "status";
+            status.ReadOnly = true;
+            status.RightToLeft = RightToLeft.Yes;
+            status.Size = new Size(150, 31);
+            status.TabIndex = 200;
             // 
             // deletU
             // 
@@ -451,23 +467,13 @@
             // button1
             // 
             button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button1.Location = new Point(1006, 83);
+            button1.Location = new Point(889, 123);
             button1.Name = "button1";
             button1.Size = new Size(111, 35);
             button1.TabIndex = 10;
             button1.Text = "ריקון נתונים";
             button1.UseVisualStyleBackColor = true;
             button1.Click += Button1_Click_1;
-            // 
-            // status
-            // 
-            status.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            status.Items.AddRange(new object[] { "מנהל", "עובד", "לקוח" });
-            status.Location = new Point(1184, 64);
-            status.Name = "status";
-            status.Size = new Size(80, 88);
-            status.TabIndex = 9;
-            status.SelectedIndexChanged += Status_SelectedIndexChanged;
             // 
             // updateU
             // 
@@ -686,7 +692,6 @@
         private Label label1;
         private Button addU;
         private Button updateU;
-        private CheckedListBox status;
         private Button button1;
         private Button deletU;
         private Panel panel2;
@@ -713,7 +718,6 @@
         private Label search_label;
         private TextBox search_box;
         private PictureBox pictureBox1;
-        private CheckedListBox searchItem;
         private Button updateItems;
         private Button sinC;
         private Button sinEm;
@@ -723,5 +727,7 @@
         private TabPage ordersM;
         private DataGridView orders;
         private DomainUpDown statusOrder;
+        private DomainUpDown searchItem;
+        private DomainUpDown status;
     }
 }

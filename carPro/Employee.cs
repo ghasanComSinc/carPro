@@ -72,7 +72,7 @@ namespace carPro
         private void SearchOr_TextChanged(object sender, EventArgs e)
         {
             DataView dataView = dataTable.DefaultView;
-            if (search.Text != "" && searchOr.Text != "")
+            if (search.Text != ""&& search.Text != " " && searchOr.Text != "")
             {
                 if (search.Text == "מספר טלפון")
                     dataView.RowFilter = $"Convert(phoneNumber, 'System.String') LIKE '%{searchOr.Text}%'";
@@ -80,6 +80,10 @@ namespace carPro
                 {
                     dataView.RowFilter = $"Convert(orderId, 'System.String') LIKE '%{searchOr.Text}%'";
                 }
+            }
+            else
+            {
+                Employee_Load(sender,e);
             }
             orders.Refresh();
         }
@@ -188,7 +192,7 @@ namespace carPro
         }
         private bool UpdateItems()
         {
-            bool flag=false;
+            bool flag = false;
             for (int i = 0; i < itemsInOrder.Rows.Count; i++)
             {
 
@@ -250,8 +254,8 @@ namespace carPro
         private void PayBu_Click(object sender, EventArgs e)
         {
             string strFun;
-            if (UpdateItems()==false)
-                 strFun = "UPDATE `paytable` SET `status`= 'can' WHERE `phoneNumber`=@id AND `orderId`=@orderId";
+            if (UpdateItems() == false)
+                strFun = "UPDATE `paytable` SET `status`= 'can' WHERE `phoneNumber`=@id AND `orderId`=@orderId";
             else
                 strFun = "UPDATE `paytable` SET `status`= 'suc' WHERE `phoneNumber`=@id AND `orderId`=@orderId";
             try
@@ -265,7 +269,7 @@ namespace carPro
                 connection.Close();
                 MessageBox.Show("הזמנה בוצעתה בהצלחה");
                 Employee_Load(sender, e);
-                Label2_Click(sender, e);      
+                Label2_Click(sender, e);
             }
             catch (Exception ex)
             {
@@ -273,7 +277,7 @@ namespace carPro
                 connection.Close();
             }
 
-        }      
+        }
         private void Button2_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < itemsInOrder.Rows.Count; i++)
@@ -293,7 +297,7 @@ namespace carPro
                         connection.Close();
                         MessageBox.Show("עדכון מוצר התבציע בהצלחה");
                     }
-                    catch(Exception ex) 
+                    catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message);
                         connection.Close();
@@ -348,15 +352,6 @@ namespace carPro
                 connection.Close();
             }
             button2.Visible = false;
-        }
-        private void Search_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            for (int i = 0; i < search.Items.Count; i++)
-            {
-                if (search.SelectedIndex != i)
-                    search.SetItemChecked(i, false);
-
-            }
         }
         private void Orders_CellClick(object sender, DataGridViewCellEventArgs e)
         {

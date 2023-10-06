@@ -82,7 +82,7 @@
             tabControl1.RightToLeft = RightToLeft.Yes;
             tabControl1.RightToLeftLayout = true;
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(961, 358);
+            tabControl1.Size = new Size(1172, 493);
             tabControl1.TabIndex = 17;
             tabControl1.MouseClick += TabControl1_MouseClick;
             // 
@@ -94,7 +94,7 @@
             tabPage1.Location = new Point(4, 34);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(953, 320);
+            tabPage1.Size = new Size(1164, 455);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "מוצרים בחנות";
             tabPage1.UseVisualStyleBackColor = true;
@@ -128,7 +128,7 @@
             itemToCustomer.RightToLeft = RightToLeft.Yes;
             itemToCustomer.RowHeadersWidth = 62;
             itemToCustomer.RowTemplate.Height = 33;
-            itemToCustomer.Size = new Size(670, 308);
+            itemToCustomer.Size = new Size(881, 443);
             itemToCustomer.TabIndex = 0;
             itemToCustomer.CellClick += ItemToCustomer_CellClick;
             itemToCustomer.CellContentClick += ItemToCustomer_CellContentClick;
@@ -152,7 +152,7 @@
             tabPage2.Location = new Point(4, 34);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(953, 320);
+            tabPage2.Size = new Size(1164, 455);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "הזמנה";
             tabPage2.UseVisualStyleBackColor = true;
@@ -203,7 +203,7 @@
             forSale.RightToLeft = RightToLeft.Yes;
             forSale.RowHeadersWidth = 62;
             forSale.RowTemplate.Height = 33;
-            forSale.Size = new Size(664, 308);
+            forSale.Size = new Size(875, 443);
             forSale.TabIndex = 1;
             forSale.CellClick += ForSale_CellClick;
             forSale.CellContentClick += ForSale_CellContentClick;
@@ -215,7 +215,7 @@
             tabPage3.Location = new Point(4, 34);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(3);
-            tabPage3.Size = new Size(953, 320);
+            tabPage3.Size = new Size(1164, 455);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "דף הזמנות";
             tabPage3.UseVisualStyleBackColor = true;
@@ -230,12 +230,12 @@
             dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(-4, 6);
+            dataGridView1.Location = new Point(15, 6);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersWidth = 62;
             dataGridView1.RowTemplate.Height = 33;
-            dataGridView1.Size = new Size(951, 311);
+            dataGridView1.Size = new Size(1143, 443);
             dataGridView1.TabIndex = 1;
             dataGridView1.CellClick += dataGridView1_CellClick;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
@@ -246,7 +246,7 @@
             itmesDe.Location = new Point(4, 34);
             itmesDe.Name = "itmesDe";
             itmesDe.Padding = new Padding(3);
-            itmesDe.Size = new Size(953, 320);
+            itmesDe.Size = new Size(1164, 455);
             itmesDe.TabIndex = 3;
             itmesDe.Text = "פרוט הזמנה";
             itmesDe.UseVisualStyleBackColor = true;
@@ -267,7 +267,7 @@
             orderDe.RightToLeft = RightToLeft.Yes;
             orderDe.RowHeadersWidth = 62;
             orderDe.RowTemplate.Height = 33;
-            orderDe.Size = new Size(941, 308);
+            orderDe.Size = new Size(1152, 443);
             orderDe.TabIndex = 2;
             // 
             // panel1
@@ -346,7 +346,7 @@
             label3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label3.Location = new Point(731, 4);
+            label3.Location = new Point(942, 4);
             label3.Name = "label3";
             label3.RightToLeft = RightToLeft.Yes;
             label3.Size = new Size(217, 25);
@@ -361,7 +361,7 @@
             logoPic.InitialImage = null;
             logoPic.Location = new Point(431, -5);
             logoPic.Name = "logoPic";
-            logoPic.Size = new Size(287, 82);
+            logoPic.Size = new Size(360, 82);
             logoPic.SizeMode = PictureBoxSizeMode.Zoom;
             logoPic.TabIndex = 19;
             logoPic.TabStop = false;
@@ -371,7 +371,7 @@
             phoneNumber.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             phoneNumber.AutoSize = true;
             phoneNumber.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            phoneNumber.Location = new Point(830, 34);
+            phoneNumber.Location = new Point(1041, 34);
             phoneNumber.Name = "phoneNumber";
             phoneNumber.RightToLeft = RightToLeft.Yes;
             phoneNumber.Size = new Size(118, 25);
@@ -383,7 +383,7 @@
             customerName.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             customerName.AutoSize = true;
             customerName.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            customerName.Location = new Point(861, 59);
+            customerName.Location = new Point(1072, 59);
             customerName.Name = "customerName";
             customerName.RightToLeft = RightToLeft.Yes;
             customerName.Size = new Size(87, 25);
@@ -394,7 +394,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(966, 443);
+            ClientSize = new Size(1177, 578);
             Controls.Add(customerName);
             Controls.Add(phoneNumber);
             Controls.Add(logoPic);

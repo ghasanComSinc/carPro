@@ -183,7 +183,7 @@ namespace carPro
                     orders.Columns[0].HeaderText = "מספר טלפון";
                     orders.Columns[1].HeaderText = "מזה הזמנה";
                     orders.Columns[2].HeaderText = "מחיר";
-                    orders.Columns[3].HeaderText = "מצב"; 
+                    orders.Columns[3].HeaderText = "מצב";
                     con.Close();
                 }
                 catch (Exception ex)
@@ -214,11 +214,11 @@ namespace carPro
                 userName.ReadOnly = true;
                 status.Text = users.Rows[e.RowIndex].Cells[3].Value.ToString();
                 if (status.Text == "מנהל")
-                    status.SetItemChecked(0, true);
+                    status.SelectedIndex = 0;
                 else if (status.Text == "עובד")
-                    status.SetItemChecked(1, true);
+                    status.SelectedIndex = 1;
                 else
-                    status.SetItemChecked(2, true);
+                    status.SelectedIndex = 2;
                 index = e.RowIndex;
             }
         }
@@ -325,15 +325,6 @@ namespace carPro
             }
             catch
             { }
-        }
-        private void Status_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            for (int i = 0; i < status.Items.Count; i++)
-            {
-                if (status.SelectedIndex != i)
-                    status.SetItemChecked(i, false);
-
-            }
         }
         private void SearchItems()
         {
@@ -467,15 +458,6 @@ namespace carPro
             {
                 picPath.Image = Image.FromFile(ofd.FileName);
                 flagImg = true;
-            }
-        }
-        private void SearchItem_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            for (int i = 0; i < searchItem.Items.Count; i++)
-            {
-                if (searchItem.SelectedIndex != i)
-                    searchItem.SetItemChecked(i, false);
-
             }
         }
         private void Search_box_TextChanged(object sender, EventArgs e)
@@ -714,15 +696,15 @@ namespace carPro
         private void statusOrder_SelectedItemChanged(object sender, EventArgs e)
         {
             string strFun;
-            if(statusOrder.SelectedIndex == 0)
+            if (statusOrder.SelectedIndex == 0)
             {
                 strFun = "SELECT * FROM `paytable`";
             }
-            else if(statusOrder.SelectedIndex == 1)
+            else if (statusOrder.SelectedIndex == 1)
             {
                 strFun = "SELECT * FROM `paytable` WHERE `status`= \"suc\"";
             }
-            else if(statusOrder.SelectedIndex == 2)
+            else if (statusOrder.SelectedIndex == 2)
             {
                 strFun = "SELECT * FROM `paytable` WHERE `status`=\"pro\"";
             }

@@ -39,7 +39,7 @@
             itemsInOrder = new DataGridView();
             employeName = new Label();
             panel1 = new Panel();
-            search = new CheckedListBox();
+            search = new DomainUpDown();
             searchOr = new TextBox();
             label1 = new Label();
             label7 = new Label();
@@ -211,14 +211,14 @@
             // 
             // search
             // 
-            search.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            search.Items.AddRange(new object[] { "מספר טלפון", "מזה הזמנה" });
-            search.Location = new Point(148, 3);
+            search.Items.Add("מספר טלפון");
+            search.Items.Add("מזה הזמנה");
+            search.Location = new Point(151, 19);
             search.Name = "search";
+            search.ReadOnly = true;
             search.RightToLeft = RightToLeft.Yes;
-            search.Size = new Size(141, 60);
-            search.TabIndex = 30;
-            search.SelectedIndexChanged += Search_SelectedIndexChanged;
+            search.Size = new Size(153, 31);
+            search.TabIndex = 200;
             // 
             // searchOr
             // 
@@ -374,9 +374,9 @@
         private Label pay;
         private Button payBu;
         private Button button2;
-        private CheckedListBox search;
         private Button sinC;
         private Label phoneNum;
         private Label orderI;
+        private DomainUpDown search;
     }
 }

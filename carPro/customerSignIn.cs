@@ -67,7 +67,7 @@ namespace carPro
             try
             {
                 string strFun;
-                strFun= "SELECT `name` FROM `usertable` WHERE `phoneNumber`="+ nameCustumer;
+                strFun = "SELECT `name` FROM `usertable` WHERE `phoneNumber`=" + nameCustumer;
                 connection.Open();
                 MyCommand2 = new MySqlCommand(strFun, connection);
                 MySqlDataAdapter adapter = new(MyCommand2);
