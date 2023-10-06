@@ -51,7 +51,7 @@ namespace carPro
         {
             for (int i = 0; i < itemToCustomer.Rows.Count; i++)
             {
-                if (itemToCustomer.Rows[i].Cells[5].Value.ToString() == "0")
+                if (itemToCustomer.Rows[i].Cells[7].Value.ToString() == "0")
                 {
                     itemToCustomer.Rows[i].DefaultCellStyle.BackColor = Color.Red;
                 }
@@ -104,7 +104,6 @@ namespace carPro
                 MessageBox.Show(ex.Message);
                 CustomerSignIn_FormClosed(null, null);
                 connection.Close();
-
             }
             /* the load of the data orders*/
 
@@ -438,6 +437,39 @@ namespace carPro
                     connection.Close();
                 }
             }
+        }
+        private void searchItem_TextChanged(object sender, EventArgs e)
+        {
+            DataView dataView = dataTable.DefaultView;
+            if (searchItem.Text != "")
+            {
+                dataView.RowFilter = $"nameItmes LIKE '%{searchItem.Text}%'";
+            }
+            else
+            {
+                try
+                {
+                    string strFun = "SELECT * FROM `items`ORDER BY BINARY `typeCar` ASC;";
+                    connection.Open();
+                    MyCommand2 = new MySqlCommand(strFun, connection);
+                    MySqlDataAdapter adapter = new(MyCommand2);
+                    DataTable dataTable1 = new();
+                    // Fill the DataTable with the query results
+                    adapter.Fill(dataTable1);
+                    dataTable = dataTable1;
+                    // Bind the DataTable to the DataGridView
+                    itemToCustomer.DataSource = dataTable;
+                    EmtpyItems();
+                    connection.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    CustomerSignIn_FormClosed(null, null);
+                    connection.Close();
+                }
+            }
+            itemToCustomer.Refresh();
         }
     }
 }

@@ -180,7 +180,7 @@
             searchItem.Name = "searchItem";
             searchItem.ReadOnly = true;
             searchItem.RightToLeft = RightToLeft.Yes;
-            searchItem.Size = new Size(146, 31);
+            searchItem.Size = new Size(133, 31);
             searchItem.TabIndex = 200;
             // 
             // comnet

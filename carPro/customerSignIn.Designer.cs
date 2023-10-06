@@ -53,6 +53,8 @@
             logoPic = new PictureBox();
             phoneNumber = new Label();
             customerName = new Label();
+            searchItem = new TextBox();
+            label1 = new Label();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)itemToCustomer).BeginInit();
@@ -390,11 +392,34 @@
             customerName.TabIndex = 22;
             customerName.Text = "שם לקוח:";
             // 
+            // searchItem
+            // 
+            searchItem.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            searchItem.Location = new Point(795, 31);
+            searchItem.Name = "searchItem";
+            searchItem.RightToLeft = RightToLeft.Yes;
+            searchItem.Size = new Size(141, 31);
+            searchItem.TabIndex = 26;
+            searchItem.TextChanged += searchItem_TextChanged;
+            // 
+            // label1
+            // 
+            label1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Location = new Point(830, 4);
+            label1.Name = "label1";
+            label1.Size = new Size(106, 25);
+            label1.TabIndex = 27;
+            label1.Text = "חיפוש מוצר";
+            // 
             // CustomerSignIn
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1177, 578);
+            Controls.Add(label1);
+            Controls.Add(searchItem);
             Controls.Add(customerName);
             Controls.Add(phoneNumber);
             Controls.Add(logoPic);
@@ -453,5 +478,7 @@
         private Label itemsCom;
         private Label phoneNumber;
         private Label customerName;
+        private TextBox searchItem;
+        private Label label1;
     }
 }
