@@ -411,10 +411,12 @@ namespace carPro
                 {
                     MessageBox.Show("תמונה ריקה");
                 }
-                else if (comn == "")
+               /* 
+                * else if (comn == "")
                 {
                     MessageBox.Show("פרטים של מוצר ריק");
                 }
+               */
                 //all the if's end's here
                 else
                 {
