@@ -548,7 +548,7 @@ namespace carPro
             add_item.Visible = true;
             updateItems.Visible = false;
             comnet.Text = "";
-            parCode.Visible = true;
+            parCode.ReadOnly = false;
         }
         private void UpdateItems_Click(object sender, EventArgs e)
         {
@@ -654,7 +654,7 @@ namespace carPro
                     if (flagImg)
                         strFun = "UPDATE `items` SET `nameItem`=@nameIt,`typeCar`= @typeC,`placeInShop`= @placeSho,`parCode`= @parCod,`salePrice`=salePri,`payPrice`=payPrice,`image`= @images,`amount`= @amounts,`comment`= @com WHERE `parCode`= @parC ";
                     else
-                        strFun = "UPDATE `items` SET `nameItmes`=@nameIt,`typeCar`= @typeC,`placeInShop`= @placeSho,`parCode`= @parCod,`salePrice`=@salePri,`payPrice`=@payPrice,`amount`= @amount,`comment`= @com WHERE `parCode`= @parCod ";
+                        strFun = "UPDATE `items` SET `nameItmes`=@nameIt,`typeCar`= @typeC,`placeInShop`= @placeSho,`parCode`= @parCod,`salePrice`=@salePri,`payPrice`=@payPrice,`amount`= @amounts,`comment`= @com WHERE `parCode`= @parCod ";
                     MyCommand2 = new MySqlCommand(strFun, con);
                     con.Open();
                     MyCommand2.Parameters.AddWithValue("@nameIt", nameIt);
@@ -664,8 +664,8 @@ namespace carPro
                     MyCommand2.Parameters.AddWithValue("@salePri", salePrice);
                     MyCommand2.Parameters.AddWithValue("@payPrice", payPrice);
                     if (flagImg)
-                        MyCommand2.Parameters.AddWithValue("@image", img);
-                    MyCommand2.Parameters.AddWithValue("@amount", amou);
+                        MyCommand2.Parameters.AddWithValue("@images", img);
+                    MyCommand2.Parameters.AddWithValue("@amounts", amou);
                     MyCommand2.Parameters.AddWithValue("@com", comn);
                     MyCommand2.ExecuteNonQuery();
                     con.Close();
