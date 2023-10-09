@@ -411,12 +411,12 @@ namespace carPro
                 {
                     MessageBox.Show("תמונה ריקה");
                 }
-               /* 
-                * else if (comn == "")
-                {
-                    MessageBox.Show("פרטים של מוצר ריק");
-                }
-               */
+                /* 
+                 * else if (comn == "")
+                 {
+                     MessageBox.Show("פרטים של מוצר ריק");
+                 }
+                */
                 //all the if's end's here
                 else
                 {
@@ -440,6 +440,16 @@ namespace carPro
                         MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.
                         MessageBox.Show("הוספת מוצר הצליחה");
                         con.Close();
+                        nameItem.Text = "";
+                        typeCar.Text = "";
+                        placeInShop.Text = "";
+                        parCode.Text = "";
+                        price.Text = "";
+                        paySale.Text = "";
+                        Amount.Text = "";
+                        picPath.Controls.Clear();
+                        comnet.Text = "";
+
                     }
                     catch (Exception ex)
                     {
@@ -538,6 +548,7 @@ namespace carPro
             add_item.Visible = true;
             updateItems.Visible = false;
             comnet.Text = "";
+            parCode.Visible = true;
         }
         private void UpdateItems_Click(object sender, EventArgs e)
         {
@@ -658,7 +669,6 @@ namespace carPro
                     MyCommand2.Parameters.AddWithValue("@com", comn);
                     MyCommand2.ExecuteNonQuery();
                     con.Close();
-
                 }
                 catch
                 {
