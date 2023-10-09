@@ -652,7 +652,7 @@ namespace carPro
                 {
                     string strFun;
                     if (flagImg)
-                        strFun = "UPDATE `items` SET `nameItem`=@nameIt,`typeCar`= @typeC,`placeInShop`= @placeSho,`parCode`= @parCod,`salePrice`=salePri,`payPrice`=payPrice,`image`= @images,`amount`= @amounts,`comment`= @com WHERE `parCode`= @parC ";
+                        strFun = "UPDATE `items` SET `nameItmes`=@nameIt,`typeCar`= @typeC,`placeInShop`= @placeSho,`parCode`= @parCod,`salePrice`=@salePri,`payPrice`=@payPrice,`image`= @images,`amount`= @amounts,`comment`= @com WHERE `parCode`= @parCod ";
                     else
                         strFun = "UPDATE `items` SET `nameItmes`=@nameIt,`typeCar`= @typeC,`placeInShop`= @placeSho,`parCode`= @parCod,`salePrice`=@salePri,`payPrice`=@payPrice,`amount`= @amounts,`comment`= @com WHERE `parCode`= @parCod ";
                     MyCommand2 = new MySqlCommand(strFun, con);
