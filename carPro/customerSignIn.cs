@@ -353,7 +353,7 @@ namespace carPro
                     MyCommand2.Parameters.AddWithValue("@phoneNumber", nameCustumer);
                     MyCommand2.Parameters.AddWithValue("@orderId", count);
                     MyCommand2.Parameters.AddWithValue("@price", sum);
-                    MyCommand2.Parameters.AddWithValue("@status", "proce");
+                    MyCommand2.Parameters.AddWithValue("@status", "בטיפול");
                     MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.     
                     connection.Close();
                     for (int i = 0; i < forSale.Rows.Count; i++)
@@ -366,9 +366,9 @@ namespace carPro
                         MyCommand2.Parameters.AddWithValue("@parCode", forSale.Rows[i].Cells[2].Value);
                         MyCommand2.Parameters.AddWithValue("@orderId", count);
                         MyCommand2.Parameters.AddWithValue("@amount", forSale.Rows[i].Cells[3].Value);
-                        MyCommand2.Parameters.AddWithValue("@stauts", "pro");
-                        MyCommand2.Parameters.AddWithValue("@timeOrder", DateTime.Now.TimeOfDay.ToString());
-                        MyCommand2.Parameters.AddWithValue("@dateOrder", DateTime.Now.Date.ToString());
+                        MyCommand2.Parameters.AddWithValue("@stauts", "בטיפול");
+                        MyCommand2.Parameters.AddWithValue("@timeOrder", DateTime.Now.ToLongTimeString());
+                        MyCommand2.Parameters.AddWithValue("@dateOrder", DateTime.Now.ToShortDateString());
                         MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.     
                         connection.Close();
                     }
@@ -425,10 +425,8 @@ namespace carPro
                     orderDe.Columns[2].HeaderText = "מספר הזמנה";
                     orderDe.Columns[3].HeaderText = "כמות";
                     orderDe.Columns[4].HeaderText = "סטטוס הזמנה";
-                    orderDe.Columns[5].Visible = false;//the time 
-                    orderDe.Columns[6].HeaderText = " צאריך ושעת הזמנה";
-
-
+                    orderDe.Columns[5].HeaderText = "שעת הזמנה";
+                    orderDe.Columns[6].HeaderText = "תאריך ושעת הזמנה";
                     connection.Close();
                 }
                 catch (Exception ex)

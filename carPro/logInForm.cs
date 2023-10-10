@@ -30,7 +30,7 @@ namespace carPro
             try
             {
                 connection.Open();
-                string selectQuery = "SELECT * FROM userTable WHERE phoneNumber = '" + userName.Text + "' AND password = '" + password.Text + "' AND available = '" + "active" + "';";
+                string selectQuery = "SELECT * FROM userTable WHERE phoneNumber = '" + userName.Text + "' AND password = '" + password.Text + "' AND available = '" + "פעיל" + "';";
                 command = new MySqlCommand(selectQuery, connection);
                 mdr = command.ExecuteReader();
                 if (mdr.Read())
@@ -117,7 +117,7 @@ namespace carPro
                         command.Parameters.AddWithValue("@staut", "לקוח");
                         command.Parameters.AddWithValue("@startD", DateTime.Now);
                         command.Parameters.AddWithValue("@lastD", "");
-                        command.Parameters.AddWithValue("@avi", "active");
+                        command.Parameters.AddWithValue("@avi", "פעיל");
                         command.ExecuteNonQuery();
                         connection.Close();
                         MessageBox.Show("הרשמה הצליחה");

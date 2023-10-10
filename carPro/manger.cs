@@ -89,7 +89,7 @@ namespace carPro
                         MyCommand2.Parameters.AddWithValue("@status", stat);
                         MyCommand2.Parameters.AddWithValue("@start_date", DateTime.Now);
                         MyCommand2.Parameters.AddWithValue("@last_date", "");
-                        MyCommand2.Parameters.AddWithValue("@available", "active");
+                        MyCommand2.Parameters.AddWithValue("@available", "פעיל");
                         MyCommand2.ExecuteNonQuery();
                         con.Close();
                         MessageBox.Show("הוספת משתמשם הצליחה");
@@ -289,13 +289,13 @@ namespace carPro
                 string userNa = userName.Text;
                 string stat = status.Text;
                 string strFun;
-                if (stat == "מנהל" && users.Rows[index].Cells[6].Value.ToString() == "active")
+                if (stat == "מנהל" && users.Rows[index].Cells[6].Value.ToString() == "פעיל")
                 {
                     strFun = "SELECT COUNT(*) FROM `usertable` WHERE `status`=@manger AND `available`=@act";
                     con.Open();
                     MyCommand2 = new MySqlCommand(strFun, con);
                     MyCommand2.Parameters.AddWithValue("@manger", stat);
-                    MyCommand2.Parameters.AddWithValue("@act", "active");
+                    MyCommand2.Parameters.AddWithValue("@act", "פעיל");
                     int count = Convert.ToInt32(MyCommand2.ExecuteScalar());
                     con.Close();
                     if (count == 1)
@@ -307,15 +307,15 @@ namespace carPro
                 strFun = "UPDATE `usertable` SET `last_date`= @last,`available`= @av WHERE `phoneNumber`= @phone";
                 con.Open();
                 MyCommand2 = new MySqlCommand(strFun, con);
-                if (users.Rows[index].Cells[6].Value.ToString() == "active")
+                if (users.Rows[index].Cells[6].Value.ToString() == "פעיל")
                 {
                     MyCommand2.Parameters.AddWithValue("@last", DateTime.Now);
-                    MyCommand2.Parameters.AddWithValue("@av", "inactive");
+                    MyCommand2.Parameters.AddWithValue("@av", "לא פעיל");
                 }
                 else
                 {
                     MyCommand2.Parameters.AddWithValue("@last", "");
-                    MyCommand2.Parameters.AddWithValue("@av", "active");
+                    MyCommand2.Parameters.AddWithValue("@av", "פעיל");
                 }
                 MyCommand2.Parameters.AddWithValue("@phone", userNa);
                 MyCommand2.ExecuteNonQuery();
@@ -714,15 +714,15 @@ namespace carPro
             }
             else if (statusOrder.SelectedIndex == 1)
             {
-                strFun = "SELECT * FROM `paytable` WHERE `status`= \"suc\"";
+                strFun = "SELECT * FROM `paytable` WHERE `status`=\"בוצעה בהצלחה\"";
             }
             else if (statusOrder.SelectedIndex == 2)
             {
-                strFun = "SELECT * FROM `paytable` WHERE `status`=\"pro\"";
+                strFun = "SELECT * FROM `paytable` WHERE `status`=\"בטיפול\"";
             }
             else
             {
-                strFun = "SELECT * FROM `paytable` WHERE `status`=\"can\"";
+                strFun = "SELECT * FROM `paytable` WHERE `status`=\"בוטלה\"";
             }
             try
             {
@@ -738,6 +738,37 @@ namespace carPro
                 orders.Columns[1].HeaderText = "מזה הזמנה";
                 orders.Columns[2].HeaderText = "מחיר";
                 orders.Columns[3].HeaderText = "מצב";
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                con.Close();
+            }
+        }
+        private void orders_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            tab.SelectedIndex = 3;
+            string strFun = "SELECT * FROM `orders` WHERE `phoneNumber`=@phone AND `orderId`=@orderId";
+            try
+            {
+                MyCommand2 = new MySqlCommand(strFun, con);
+                con.Open();
+                MySqlDataAdapter adapter = new(MyCommand2);
+                dataTable = new();
+                // Fill the DataTable with the query results
+                MyCommand2.Parameters.AddWithValue("@phone", orders.Rows[e.RowIndex].Cells[0].Value);
+                MyCommand2.Parameters.AddWithValue("@orderId", orders.Rows[e.RowIndex].Cells[1].Value);
+                adapter.Fill(dataTable);
+                // Bind the DataTable to the DataGridView
+                orderD.DataSource = dataTable;
+                orderD.Columns[0].HeaderText = "מספר טלפון";
+                orderD.Columns[1].HeaderText = "פר";
+                orderD.Columns[2].HeaderText = "מזה הזמנה";
+                orderD.Columns[3].HeaderText = "כמות";
+                orderD.Columns[4].HeaderText = "מצב";
+                orderD.Columns[5].HeaderText = "שעה";
+                orderD.Columns[6].HeaderText = "תאריך";
                 con.Close();
             }
             catch (Exception ex)

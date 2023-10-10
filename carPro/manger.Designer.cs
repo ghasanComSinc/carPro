@@ -73,6 +73,8 @@
             users = new DataGridView();
             ordersM = new TabPage();
             orders = new DataGridView();
+            ordersD = new TabPage();
+            orderD = new DataGridView();
             sinC = new Button();
             sinEm = new Button();
             statusOrder = new DomainUpDown();
@@ -87,6 +89,8 @@
             ((System.ComponentModel.ISupportInitialize)users).BeginInit();
             ordersM.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)orders).BeginInit();
+            ordersD.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)orderD).BeginInit();
             SuspendLayout();
             // 
             // tab
@@ -95,6 +99,7 @@
             tab.Controls.Add(addItem);
             tab.Controls.Add(addUser);
             tab.Controls.Add(ordersM);
+            tab.Controls.Add(ordersD);
             tab.Location = new Point(0, 54);
             tab.Name = "tab";
             tab.RightToLeft = RightToLeft.Yes;
@@ -614,6 +619,38 @@
             orders.RowTemplate.Height = 33;
             orders.Size = new Size(1335, 605);
             orders.TabIndex = 5;
+            orders.CellContentClick += orders_CellContentClick;
+            // 
+            // ordersD
+            // 
+            ordersD.Controls.Add(orderD);
+            ordersD.Location = new Point(4, 34);
+            ordersD.Name = "ordersD";
+            ordersD.Padding = new Padding(3);
+            ordersD.Size = new Size(1349, 617);
+            ordersD.TabIndex = 3;
+            ordersD.Text = "פירוט הזמנות";
+            ordersD.UseVisualStyleBackColor = true;
+            // 
+            // orderD
+            // 
+            orderD.AllowUserToAddRows = false;
+            orderD.AllowUserToDeleteRows = false;
+            orderD.AllowUserToOrderColumns = true;
+            orderD.AllowUserToResizeColumns = false;
+            orderD.AllowUserToResizeRows = false;
+            orderD.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            orderD.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            orderD.BackgroundColor = SystemColors.ButtonHighlight;
+            orderD.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            orderD.Location = new Point(7, 6);
+            orderD.Name = "orderD";
+            orderD.ReadOnly = true;
+            orderD.RightToLeft = RightToLeft.Yes;
+            orderD.RowHeadersWidth = 62;
+            orderD.RowTemplate.Height = 33;
+            orderD.Size = new Size(1335, 605);
+            orderD.TabIndex = 6;
             // 
             // sinC
             // 
@@ -638,9 +675,9 @@
             // statusOrder
             // 
             statusOrder.Items.Add("כול הזמנות");
-            statusOrder.Items.Add("suc\\הצליחה");
-            statusOrder.Items.Add("pro\\בשלב עבודה");
-            statusOrder.Items.Add("can\\התבתלה");
+            statusOrder.Items.Add("בוצעה בהצלחה");
+            statusOrder.Items.Add("בטיפול");
+            statusOrder.Items.Add("בוטלה");
             statusOrder.Location = new Point(599, 21);
             statusOrder.Name = "statusOrder";
             statusOrder.ReadOnly = true;
@@ -676,6 +713,8 @@
             ((System.ComponentModel.ISupportInitialize)users).EndInit();
             ordersM.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)orders).EndInit();
+            ordersD.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)orderD).EndInit();
             ResumeLayout(false);
         }
 
@@ -729,5 +768,7 @@
         private DomainUpDown statusOrder;
         private DomainUpDown searchItem;
         private DomainUpDown status;
+        private TabPage ordersD;
+        private DataGridView orderD;
     }
 }

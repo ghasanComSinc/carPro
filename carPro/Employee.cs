@@ -48,7 +48,7 @@ namespace carPro
             {
 
                 string strFun;
-                strFun = "SELECT * FROM `paytable` WHERE `status`=\"pro\"";
+                strFun = "SELECT * FROM `paytable` WHERE `status`=\"בטיפול\"";
                 connection.Open();
                 command = new MySqlCommand(strFun, connection);
                 MySqlDataAdapter adapter = new(command);
@@ -213,7 +213,7 @@ namespace carPro
                         connection.Open();
                         command = new MySqlCommand(strFun, connection);
                         adapter = new(command);
-                        command.Parameters.AddWithValue("@statusIt", "suc");
+                        command.Parameters.AddWithValue("@statusIt", "בוצעה בהצלחה");
                         command.Parameters.AddWithValue("@idCustm", itemsInOrder.Rows[i].Cells[0].Value.ToString());
                         command.Parameters.AddWithValue("@id", itemsInOrder.Rows[i].Cells[2].Value.ToString());
                         command.Parameters.AddWithValue("@par", itemsInOrder.Rows[i].Cells[10].Value.ToString());
@@ -235,7 +235,7 @@ namespace carPro
                         connection.Open();
                         command = new MySqlCommand(strFun, connection);
                         MySqlDataAdapter adapter = new(command);
-                        command.Parameters.AddWithValue("@statusIt", "can");
+                        command.Parameters.AddWithValue("@statusIt", "בוטלה");
                         command.Parameters.AddWithValue("@idCustm", itemsInOrder.Rows[i].Cells[0].Value.ToString());
                         command.Parameters.AddWithValue("@id", itemsInOrder.Rows[i].Cells[2].Value.ToString());
                         command.Parameters.AddWithValue("@par", itemsInOrder.Rows[i].Cells[10].Value.ToString());
@@ -255,9 +255,9 @@ namespace carPro
         {
             string strFun;
             if (UpdateItems() == false)
-                strFun = "UPDATE `paytable` SET `status`= 'can' WHERE `phoneNumber`=@id AND `orderId`=@orderId";
+                strFun = "UPDATE `paytable` SET `status`= 'בוטלה' WHERE `phoneNumber`=@id AND `orderId`=@orderId";
             else
-                strFun = "UPDATE `paytable` SET `status`= 'suc' WHERE `phoneNumber`=@id AND `orderId`=@orderId";
+                strFun = "UPDATE `paytable` SET `status`= 'בוצעה בהצלחה' WHERE `phoneNumber`=@id AND `orderId`=@orderId";
             try
             {
                 connection.Open();
