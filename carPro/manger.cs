@@ -831,7 +831,6 @@ namespace carPro
             AddPhrase(new Phrase(items.Columns[3].HeaderText, tableFont));
             AddPhrase(new Phrase(items.Columns[5].HeaderText, tableFont));
             AddPhrase(new Phrase(items.Columns[7].HeaderText, tableFont));
-
             for (int i = 0; i < items.Rows.Count; i++)
             {
                 if (items.Rows[i].Cells[7].Value.ToString() == "0")
@@ -850,7 +849,6 @@ namespace carPro
                 AddPhrase(new Phrase(items.Rows[i].Cells[5].Value.ToString(), tableFont));
                 AddPhrase(new Phrase(items.Rows[i].Cells[7].Value.ToString(), tableFont));
             }
-
             doc.Add(saveTablePdf);
         }
         private void button3_Click(object sender, EventArgs e)
@@ -903,28 +901,41 @@ namespace carPro
             saveFileFromManger.Filter = "PDF Files|*.pdf";
             if (saveFileFromManger.ShowDialog() == DialogResult.OK)
             {
-                saveTableFont(5);
-                doc.Add(new Phrase("מספר טלפון :" + orderD.Rows[0].Cells[0].Value+"\n", new Font(tableFont1, 12)
-                {
-                    Color = BaseColor.BLACK,
-                 
-                    
-                }));
-                doc.Add(new Phrase("מזה הזמנה :" + orderD.Rows[0].Cells[2].Value + "\n", new Font(tableFont1, 12)
+                doc = new iTextSharp.text.Document();
+                iTextSharp.text.pdf.PdfWriter.GetInstance(doc, new FileStream(saveFileFromManger.FileName, FileMode.Create));
+                doc.Open();
+                tableFont = new Font(tableFont1, 12)
                 {
                     Color = BaseColor.BLACK
-                }));
-                float[] widthOfTable = new float[5];
-                for (int i = 0; i < widthOfTable.Length; i++)
+                };
+                saveTablePdf = new iTextSharp.text.pdf.PdfPTable(1)
                 {
-                    widthOfTable[i] = 20f;
-                }
-                saveTablePdf.SetWidths(widthOfTable);
-                for (int i = 0; i < orderD.ColumnCount; i++)
-                    AddPhrase(new Phrase(orderD.Columns[i].HeaderText, tableFont));
+                    HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER
+                    ,
+                    DefaultCell = { BorderWidth = 0 }
+                };
+                saveTablePdf.RunDirection = iTextSharp.text.pdf.PdfWriter.RUN_DIRECTION_RTL;
+
+                AddPhrase(new Phrase(orderD.Columns[0].HeaderText+ ":" + orderD.Rows[0].Cells[0].Value.ToString(), tableFont));
+                AddPhrase(new Phrase(orderD.Columns[2].HeaderText + ":" + orderD.Rows[0].Cells[2].Value.ToString(), tableFont));
+                doc.Add(saveTablePdf);
+                saveTablePdf = new iTextSharp.text.pdf.PdfPTable(5)
+                {
+                    HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER
+                };
+                saveTablePdf.RunDirection = iTextSharp.text.pdf.PdfWriter.RUN_DIRECTION_RTL;
+                AddPhrase(new Phrase(orderD.Columns[1].HeaderText, tableFont));
+                AddPhrase(new Phrase(orderD.Columns[3].HeaderText, tableFont));
+                AddPhrase(new Phrase(orderD.Columns[4].HeaderText, tableFont));
+                AddPhrase(new Phrase(orderD.Columns[5].HeaderText, tableFont));
+                AddPhrase(new Phrase(orderD.Columns[6].HeaderText, tableFont));
                 for (int i = 0; i < orderD.Rows.Count; i++)
                 {
-                    AddPhrase(new Phrase(orderD.Rows[i].Cells[0].Value.ToString(), tableFont));
+                    AddPhrase(new Phrase(orderD.Rows[i].Cells[1].Value.ToString(), tableFont));
+                    AddPhrase(new Phrase(orderD.Rows[i].Cells[3].Value.ToString(), tableFont));
+                    AddPhrase(new Phrase(orderD.Rows[i].Cells[4].Value.ToString(), tableFont));
+                    AddPhrase(new Phrase(orderD.Rows[i].Cells[5].Value.ToString(), tableFont));
+                    AddPhrase(new Phrase(orderD.Rows[i].Cells[6].Value.ToString(), tableFont));
                 }
                 doc.Add(saveTablePdf);
                 doc.Close();
