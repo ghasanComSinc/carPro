@@ -719,7 +719,7 @@
             ExPDF.Controls.Add(ItmesPDF);
             ExPDF.Controls.Add(ExpUserPDF);
             ExPDF.Controls.Add(ordersDe);
-            ExPDF.Location = new Point(312, 12);
+            ExPDF.Location = new Point(304, 12);
             ExPDF.Name = "ExPDF";
             ExPDF.RightToLeft = RightToLeft.Yes;
             ExPDF.RightToLeftLayout = true;
