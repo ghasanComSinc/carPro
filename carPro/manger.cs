@@ -32,7 +32,7 @@ namespace carPro
         int index;
         private PdfPTable saveTablePdf;
         private iTextSharp.text.Document doc;
-        iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(@"C:\Users\ASUS\Desktop\Guttman Myamfix.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(@"D:\autocar_path\Guttman Myamfix.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         Font tableFont;
         public Manger()
         {
@@ -650,7 +650,7 @@ namespace carPro
             {
                 MessageBox.Show("כמות ריק");
             }
-            else if (int.TryParse(Amount.Text, out int amou) && amou <= 0)
+            else if (int.TryParse(Amount.Text, out int amou) && amou < 0)
             {
                 MessageBox.Show("כמות שלילית");
             }

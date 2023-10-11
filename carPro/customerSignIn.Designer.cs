@@ -55,6 +55,11 @@
             customerName = new Label();
             searchItem = new TextBox();
             label1 = new Label();
+            tab_PDF = new TabControl();
+            tabPage4 = new TabPage();
+            PDF_Button_order = new Button();
+            tabPage5 = new TabPage();
+            PDF_Button_all_orders = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)itemToCustomer).BeginInit();
@@ -70,6 +75,9 @@
             ((System.ComponentModel.ISupportInitialize)minus).BeginInit();
             ((System.ComponentModel.ISupportInitialize)plus).BeginInit();
             ((System.ComponentModel.ISupportInitialize)logoPic).BeginInit();
+            tab_PDF.SuspendLayout();
+            tabPage4.SuspendLayout();
+            tabPage5.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -108,7 +116,7 @@
             itemsCom.Location = new Point(115, 289);
             itemsCom.Name = "itemsCom";
             itemsCom.RightToLeft = RightToLeft.No;
-            itemsCom.Size = new Size(20, 25);
+            itemsCom.Size = new Size(15, 20);
             itemsCom.TabIndex = 20;
             itemsCom.Text = "s";
             itemsCom.Visible = false;
@@ -286,12 +294,11 @@
             // 
             // saleItem
             // 
-            saleItem.Anchor = AnchorStyles.None;
             saleItem.AutoSize = true;
-            saleItem.Location = new Point(353, 17);
+            saleItem.Location = new Point(281, 18);
             saleItem.Name = "saleItem";
             saleItem.Size = new Size(59, 25);
-            saleItem.TabIndex = 25;
+            saleItem.TabIndex = 50;
             saleItem.Text = "label1";
             saleItem.Visible = false;
             // 
@@ -338,7 +345,7 @@
             amountSale.Anchor = AnchorStyles.None;
             amountSale.Location = new Point(184, 15);
             amountSale.Name = "amountSale";
-            amountSale.Size = new Size(150, 31);
+            amountSale.Size = new Size(91, 31);
             amountSale.TabIndex = 22;
             amountSale.Visible = false;
             amountSale.TextChanged += AmountSale_TextChanged;
@@ -351,7 +358,7 @@
             label3.Location = new Point(942, 4);
             label3.Name = "label3";
             label3.RightToLeft = RightToLeft.Yes;
-            label3.Size = new Size(217, 25);
+            label3.Size = new Size(179, 20);
             label3.TabIndex = 18;
             label3.Text = "ברוכים הבאים לחנות שלנו\r\n";
             // 
@@ -376,7 +383,7 @@
             phoneNumber.Location = new Point(1041, 34);
             phoneNumber.Name = "phoneNumber";
             phoneNumber.RightToLeft = RightToLeft.Yes;
-            phoneNumber.Size = new Size(118, 25);
+            phoneNumber.Size = new Size(98, 20);
             phoneNumber.TabIndex = 21;
             phoneNumber.Text = "מספר טלפון :";
             // 
@@ -388,7 +395,7 @@
             customerName.Location = new Point(1072, 59);
             customerName.Name = "customerName";
             customerName.RightToLeft = RightToLeft.Yes;
-            customerName.Size = new Size(87, 25);
+            customerName.Size = new Size(72, 20);
             customerName.TabIndex = 22;
             customerName.Text = "שם לקוח:";
             // 
@@ -409,15 +416,66 @@
             label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label1.Location = new Point(830, 4);
             label1.Name = "label1";
-            label1.Size = new Size(106, 25);
+            label1.Size = new Size(89, 20);
             label1.TabIndex = 27;
             label1.Text = "חיפוש מוצר";
+            // 
+            // tab_PDF
+            // 
+            tab_PDF.Controls.Add(tabPage4);
+            tab_PDF.Controls.Add(tabPage5);
+            tab_PDF.Location = new Point(431, 4);
+            tab_PDF.Name = "tab_PDF";
+            tab_PDF.SelectedIndex = 0;
+            tab_PDF.Size = new Size(169, 107);
+            tab_PDF.TabIndex = 28;
+            // 
+            // tabPage4
+            // 
+            tabPage4.Controls.Add(PDF_Button_order);
+            tabPage4.Location = new Point(4, 34);
+            tabPage4.Name = "tabPage4";
+            tabPage4.Padding = new Padding(3);
+            tabPage4.Size = new Size(161, 69);
+            tabPage4.TabIndex = 0;
+            tabPage4.Text = "tabPage4";
+            tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // PDF_Button_order
+            // 
+            PDF_Button_order.Location = new Point(29, 12);
+            PDF_Button_order.Name = "PDF_Button_order";
+            PDF_Button_order.Size = new Size(94, 29);
+            PDF_Button_order.TabIndex = 0;
+            PDF_Button_order.Text = "button1";
+            PDF_Button_order.UseVisualStyleBackColor = true;
+            // 
+            // tabPage5
+            // 
+            tabPage5.Controls.Add(PDF_Button_all_orders);
+            tabPage5.Location = new Point(4, 34);
+            tabPage5.Name = "tabPage5";
+            tabPage5.Padding = new Padding(3);
+            tabPage5.Size = new Size(152, 69);
+            tabPage5.TabIndex = 1;
+            tabPage5.Text = "tabPage5";
+            tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // PDF_Button_all_orders
+            // 
+            PDF_Button_all_orders.Location = new Point(75, 28);
+            PDF_Button_all_orders.Name = "PDF_Button_all_orders";
+            PDF_Button_all_orders.Size = new Size(94, 29);
+            PDF_Button_all_orders.TabIndex = 0;
+            PDF_Button_all_orders.Text = "button1";
+            PDF_Button_all_orders.UseVisualStyleBackColor = true;
             // 
             // CustomerSignIn
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1177, 578);
+            Controls.Add(tab_PDF);
             Controls.Add(label1);
             Controls.Add(searchItem);
             Controls.Add(customerName);
@@ -448,6 +506,9 @@
             ((System.ComponentModel.ISupportInitialize)minus).EndInit();
             ((System.ComponentModel.ISupportInitialize)plus).EndInit();
             ((System.ComponentModel.ISupportInitialize)logoPic).EndInit();
+            tab_PDF.ResumeLayout(false);
+            tabPage4.ResumeLayout(false);
+            tabPage5.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -480,5 +541,10 @@
         private Label customerName;
         private TextBox searchItem;
         private Label label1;
+        private TabControl tab_PDF;
+        private TabPage tabPage4;
+        private TabPage tabPage5;
+        private Button PDF_Button_order;
+        private Button PDF_Button_all_orders;
     }
 }
