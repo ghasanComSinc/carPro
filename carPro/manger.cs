@@ -32,7 +32,7 @@ namespace carPro
         int index;
         private PdfPTable saveTablePdf;
         private iTextSharp.text.Document doc;
-        iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(@"D:\autocar_path\Guttman Myamfix.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(@"C:\Users\ASUS\Desktop\VarelaRound-Regular.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         Font tableFont;
         public Manger()
         {
@@ -766,7 +766,8 @@ namespace carPro
         private void orders_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             tab.SelectedIndex = 3;
-            string strFun = "SELECT * FROM `orders` WHERE `phoneNumber`=@phone AND `orderId`=@orderId";
+            string strFun = "SELECT * FROM `orders` join `items` ON `orders`.`parCode` = `items`.`parCode`" +
+                        $"WHERE `phoneNumber`={orders.Rows[e.RowIndex].Cells[0].Value} AND `orderId`='{orders.Rows[e.RowIndex].Cells[1].Value}'";
             try
             {
                 MyCommand2 = new MySqlCommand(strFun, con);
@@ -774,18 +775,27 @@ namespace carPro
                 MySqlDataAdapter adapter = new(MyCommand2);
                 dataTable = new();
                 // Fill the DataTable with the query results
-                MyCommand2.Parameters.AddWithValue("@phone", orders.Rows[e.RowIndex].Cells[0].Value);
-                MyCommand2.Parameters.AddWithValue("@orderId", orders.Rows[e.RowIndex].Cells[1].Value);
                 adapter.Fill(dataTable);
                 // Bind the DataTable to the DataGridView
                 orderD.DataSource = dataTable;
                 orderD.Columns[0].HeaderText = "מספר טלפון";
+                orderD.Columns[0].Visible = false;
                 orderD.Columns[1].HeaderText = "פר";
                 orderD.Columns[2].HeaderText = "מזה הזמנה";
-                orderD.Columns[3].HeaderText = "כמות";
-                orderD.Columns[4].HeaderText = "מצב";
-                orderD.Columns[5].HeaderText = "שעה";
-                orderD.Columns[6].HeaderText = "תאריך";
+                orderD.Columns[2].Visible = false;
+                orderD.Columns[3].HeaderText = "כמות רצויה";
+                orderD.Columns[4].Visible = false;//status
+                orderD.Columns[5].HeaderText = "שעת קניה";
+                orderD.Columns[6].HeaderText = "תאריך קניה";
+                orderD.Columns[7].HeaderText = "שם מוצר";
+                orderD.Columns[8].HeaderText = "סוג רכב";
+                orderD.Columns[9].HeaderText = "מיקום בחנות";
+                orderD.Columns[10].Visible = false;//parcode
+                orderD.Columns[11].HeaderText = "מחיר";
+                orderD.Columns[12].Visible = false;//paypri
+                orderD.Columns[13].Visible = false;//pic
+                orderD.Columns[14].Visible = false;// "קמות בחנות";
+                orderD.Columns[15].HeaderText = "הערה על מוצר";
                 con.Close();
                 ExPDF.TabPages.Add(ordersDe);
             }
@@ -916,14 +926,15 @@ namespace carPro
                 };
                 saveTablePdf.RunDirection = iTextSharp.text.pdf.PdfWriter.RUN_DIRECTION_RTL;
 
-                AddPhrase(new Phrase(orderD.Columns[0].HeaderText+ ":" + orderD.Rows[0].Cells[0].Value.ToString(), tableFont));
+                AddPhrase(new Phrase(orderD.Columns[0].HeaderText + ":" + orderD.Rows[0].Cells[0].Value.ToString(), tableFont));
                 AddPhrase(new Phrase(orderD.Columns[2].HeaderText + ":" + orderD.Rows[0].Cells[2].Value.ToString(), tableFont));
                 doc.Add(saveTablePdf);
-                saveTablePdf = new iTextSharp.text.pdf.PdfPTable(5)
+                saveTablePdf = new iTextSharp.text.pdf.PdfPTable(6)
                 {
                     HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER
                 };
                 saveTablePdf.RunDirection = iTextSharp.text.pdf.PdfWriter.RUN_DIRECTION_RTL;
+                AddPhrase(new Phrase(orderD.Columns[7].HeaderText, tableFont));
                 AddPhrase(new Phrase(orderD.Columns[1].HeaderText, tableFont));
                 AddPhrase(new Phrase(orderD.Columns[3].HeaderText, tableFont));
                 AddPhrase(new Phrase(orderD.Columns[4].HeaderText, tableFont));
@@ -931,11 +942,13 @@ namespace carPro
                 AddPhrase(new Phrase(orderD.Columns[6].HeaderText, tableFont));
                 for (int i = 0; i < orderD.Rows.Count; i++)
                 {
+                    AddPhrase(new Phrase(orderD.Rows[i].Cells[7].Value.ToString(), tableFont));
                     AddPhrase(new Phrase(orderD.Rows[i].Cells[1].Value.ToString(), tableFont));
                     AddPhrase(new Phrase(orderD.Rows[i].Cells[3].Value.ToString(), tableFont));
                     AddPhrase(new Phrase(orderD.Rows[i].Cells[4].Value.ToString(), tableFont));
                     AddPhrase(new Phrase(orderD.Rows[i].Cells[5].Value.ToString(), tableFont));
                     AddPhrase(new Phrase(orderD.Rows[i].Cells[6].Value.ToString(), tableFont));
+                   
                 }
                 doc.Add(saveTablePdf);
                 doc.Close();
