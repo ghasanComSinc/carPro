@@ -94,6 +94,7 @@
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(1172, 493);
             tabControl1.TabIndex = 17;
+            tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             tabControl1.MouseClick += TabControl1_MouseClick;
             // 
             // tabPage1
@@ -456,7 +457,7 @@
             tabPage5.Location = new Point(4, 34);
             tabPage5.Name = "tabPage5";
             tabPage5.Padding = new Padding(3);
-            tabPage5.Size = new Size(152, 69);
+            tabPage5.Size = new Size(161, 69);
             tabPage5.TabIndex = 1;
             tabPage5.Text = "tabPage5";
             tabPage5.UseVisualStyleBackColor = true;

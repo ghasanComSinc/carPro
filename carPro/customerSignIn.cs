@@ -29,6 +29,7 @@ namespace carPro
         int amount = 0;
         string parcod;
         int rowIndex;
+        private iTextSharp.text.Document document_PDF;
         public CustomerSignIn()
         {
             InitializeComponent();
@@ -40,6 +41,9 @@ namespace carPro
             forSale.Columns.Add("סה\"כ מחיר", "סה\"כ מחיר");//5
             forSale.Columns.Add("pic", "");//6
             forSale.Columns[6].Visible = false;
+            tab_PDF.SizeMode = TabSizeMode.Fixed;
+            tab_PDF.ItemSize = new Size(0, 1);
+            tab_PDF.Appearance = TabAppearance.FlatButtons;
         }
         private void CustomerSignIn_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -78,33 +82,15 @@ namespace carPro
                 DataRow row = dataTable1.Rows[0];
                 customerName.Text += row["name"];
                 connection.Close();
-                strFun = "SELECT * FROM `items` ORDER BY BINARY `typeCar` ASC;";
-                connection.Open();
-                MyCommand2 = new MySqlCommand(strFun, connection);
-                adapter = new(MyCommand2);
-                //DataTable dataTable = new();
-                // Fill the DataTable with the query results
-                adapter.Fill(dataTable);
-                // Bind the DataTable to the DataGridView
-                itemToCustomer.DataSource = dataTable;
-                itemToCustomer.Columns[0].HeaderText = "שם מוצר";
-                itemToCustomer.Columns[1].HeaderText = "סוג רכב";
-                itemToCustomer.Columns[2].Visible = false;
-                itemToCustomer.Columns[3].HeaderText = "ברקוד";
-                itemToCustomer.Columns[4].HeaderText = "מחיר ליחידה";
-                itemToCustomer.Columns[5].Visible = false;
-                itemToCustomer.Columns[6].Visible = false;
-                itemToCustomer.Columns[7].HeaderText = "כמות";
-                itemToCustomer.Columns[8].Visible = false;// "הערה";
-                EmtpyItems();
-                connection.Close();
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
-                MessageBox.Show(ex.Message);
-                CustomerSignIn_FormClosed(null, null);
-                connection.Close();
-            }
+                    MessageBox.Show(ex.Message);
+                    CustomerSignIn_FormClosed(null, null);
+                    connection.Close();
+                }
+
+            tabControl1_SelectedIndexChanged(sender,e);
             /* the load of the data orders*/
 
         }
@@ -115,36 +101,7 @@ namespace carPro
             amountSale.Visible = false;
             plus.Visible = false;
             minus.Visible = false;
-            if (tabControl1.SelectedIndex == 2)
-            {
-                try
-                {
-                    string strFun;
-
-                    strFun = "SELECT * FROM `payTable` WHERE `phoneNumber` = " + nameCustumer;
-                    connection.Open();
-                    MyCommand2 = new MySqlCommand(strFun, connection);
-
-                    MySqlDataAdapter adapter1 = new(MyCommand2);
-                    DataTable dataTable = new();
-
-                    // Fill the DataTable with the query results
-                    adapter1.Fill(dataTable);
-
-                    // Bind the DataTable to the DataGridView
-                    dataGridView1.DataSource = dataTable;
-                    dataGridView1.Columns[0].Visible = false;
-                    dataGridView1.Columns[1].HeaderText = "מספר הזמנה";
-                    dataGridView1.Columns[2].HeaderText = "מחיר תשלום";
-                    dataGridView1.Columns[3].HeaderText = "מצב הזמנה";
-                    connection.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    connection.Close();
-                }
-            }
+            
         }
         private void ItemToCustomer_MouseMove(object sender, MouseEventArgs e)
         {
@@ -468,6 +425,81 @@ namespace carPro
                 }
             }
             itemToCustomer.Refresh();
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            for (int i = 0; i < tab_PDF.TabCount;)
+                tab_PDF.TabPages.Remove(tab_PDF.TabPages[0]);
+            if(tabControl1.SelectedIndex == 0)
+            try
+            {
+                    MySqlDataAdapter adapter = new(MyCommand2);
+                    string strFun = "SELECT * FROM `items` ORDER BY BINARY `typeCar` ASC;";
+                    connection.Open();
+                    MyCommand2 = new MySqlCommand(strFun, connection);
+                    adapter = new(MyCommand2);
+                    dataTable = new();
+                    // Fill the DataTable with the query results
+                    adapter.Fill(dataTable);
+                    // Bind the DataTable to the DataGridView
+                    itemToCustomer.DataSource = dataTable;
+                    itemToCustomer.Columns[0].HeaderText = "שם מוצר";
+                    itemToCustomer.Columns[1].HeaderText = "סוג רכב";
+                    itemToCustomer.Columns[2].Visible = false;
+                    itemToCustomer.Columns[3].HeaderText = "ברקוד";
+                    itemToCustomer.Columns[4].HeaderText = "מחיר ליחידה";
+                    itemToCustomer.Columns[5].Visible = false;
+                    itemToCustomer.Columns[6].Visible = false;
+                    itemToCustomer.Columns[7].HeaderText = "כמות";
+                    itemToCustomer.Columns[8].Visible = false;// "הערה";
+                    EmtpyItems();
+                    connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                CustomerSignIn_FormClosed(null, null);
+                connection.Close();
+            }
+            else if (tabControl1.SelectedIndex == 2)
+            {
+                try
+                {
+                    tab_PDF.TabPages.Add(tabPage4);
+                    string strFun;
+
+                    strFun = "SELECT * FROM `payTable` WHERE `phoneNumber` = " + nameCustumer;
+                    connection.Open();
+                    MyCommand2 = new MySqlCommand(strFun, connection);
+
+                    MySqlDataAdapter adapter1 = new(MyCommand2);
+                    DataTable dataTable = new();
+
+                    // Fill the DataTable with the query results
+                    adapter1.Fill(dataTable);
+
+                    // Bind the DataTable to the DataGridView
+                    dataGridView1.DataSource = dataTable;
+                    dataGridView1.Columns[0].Visible = false;
+                    dataGridView1.Columns[1].HeaderText = "מספר הזמנה";
+                    dataGridView1.Columns[2].HeaderText = "מחיר תשלום";
+                    dataGridView1.Columns[3].HeaderText = "מצב הזמנה";
+                    connection.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    connection.Close();
+                }
+            }
+            else if (tabControl1.SelectedIndex == 3)
+            {
+                tab_PDF.TabPages.Add(tabPage5);
+
+            }
+
+
         }
     }
 }
