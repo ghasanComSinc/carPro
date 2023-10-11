@@ -82,7 +82,12 @@
             saveFileFromManger = new SaveFileDialog();
             ExPDF = new TabControl();
             ordersPDF = new TabPage();
+            ExPDFOr = new Button();
             ItmesPDF = new TabPage();
+            ExpUserPDF = new TabPage();
+            PDFUser = new Button();
+            ordersDe = new TabPage();
+            ExPDFDeOr = new Button();
             tab.SuspendLayout();
             addItem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)items).BeginInit();
@@ -99,6 +104,8 @@
             ExPDF.SuspendLayout();
             ordersPDF.SuspendLayout();
             ItmesPDF.SuspendLayout();
+            ExpUserPDF.SuspendLayout();
+            ordersDe.SuspendLayout();
             SuspendLayout();
             // 
             // tab
@@ -686,7 +693,7 @@
             statusOrder.Items.Add("בוצעה בהצלחה");
             statusOrder.Items.Add("בטיפול");
             statusOrder.Items.Add("בוטלה");
-            statusOrder.Location = new Point(106, 44);
+            statusOrder.Location = new Point(61, 6);
             statusOrder.Name = "statusOrder";
             statusOrder.ReadOnly = true;
             statusOrder.RightToLeft = RightToLeft.Yes;
@@ -710,6 +717,8 @@
             ExPDF.Anchor = AnchorStyles.Top;
             ExPDF.Controls.Add(ordersPDF);
             ExPDF.Controls.Add(ItmesPDF);
+            ExPDF.Controls.Add(ExpUserPDF);
+            ExPDF.Controls.Add(ordersDe);
             ExPDF.Location = new Point(312, 12);
             ExPDF.Name = "ExPDF";
             ExPDF.RightToLeft = RightToLeft.Yes;
@@ -720,14 +729,25 @@
             // 
             // ordersPDF
             // 
+            ordersPDF.Controls.Add(ExPDFOr);
             ordersPDF.Controls.Add(statusOrder);
             ordersPDF.Location = new Point(4, 34);
             ordersPDF.Name = "ordersPDF";
             ordersPDF.Padding = new Padding(3);
             ordersPDF.Size = new Size(292, 112);
             ordersPDF.TabIndex = 0;
-            ordersPDF.Text = "tabPage1";
+            ordersPDF.Text = "דוח הזמנות";
             ordersPDF.UseVisualStyleBackColor = true;
+            // 
+            // ExPDFOr
+            // 
+            ExPDFOr.Location = new Point(90, 43);
+            ExPDFOr.Name = "ExPDFOr";
+            ExPDFOr.Size = new Size(113, 61);
+            ExPDFOr.TabIndex = 201;
+            ExPDFOr.Text = "הוצאת דוח הזמנות";
+            ExPDFOr.UseVisualStyleBackColor = true;
+            ExPDFOr.Click += ExPDFOr_Click;
             // 
             // ItmesPDF
             // 
@@ -737,8 +757,50 @@
             ItmesPDF.Padding = new Padding(3);
             ItmesPDF.Size = new Size(292, 112);
             ItmesPDF.TabIndex = 1;
-            ItmesPDF.Text = "tabPage2";
+            ItmesPDF.Text = "ספרת מלי";
             ItmesPDF.UseVisualStyleBackColor = true;
+            // 
+            // ExpUserPDF
+            // 
+            ExpUserPDF.Controls.Add(PDFUser);
+            ExpUserPDF.Location = new Point(4, 34);
+            ExpUserPDF.Name = "ExpUserPDF";
+            ExpUserPDF.Padding = new Padding(3);
+            ExpUserPDF.Size = new Size(292, 112);
+            ExpUserPDF.TabIndex = 2;
+            ExpUserPDF.Text = "דוח משתמש";
+            ExpUserPDF.UseVisualStyleBackColor = true;
+            // 
+            // PDFUser
+            // 
+            PDFUser.Location = new Point(54, 29);
+            PDFUser.Name = "PDFUser";
+            PDFUser.Size = new Size(156, 61);
+            PDFUser.TabIndex = 201;
+            PDFUser.Text = "הוצאת דוח של משתמשים";
+            PDFUser.UseVisualStyleBackColor = true;
+            PDFUser.Click += PDFUser_Click;
+            // 
+            // ordersDe
+            // 
+            ordersDe.Controls.Add(ExPDFDeOr);
+            ordersDe.Location = new Point(4, 34);
+            ordersDe.Name = "ordersDe";
+            ordersDe.Padding = new Padding(3);
+            ordersDe.Size = new Size(292, 112);
+            ordersDe.TabIndex = 3;
+            ordersDe.Text = "פירוט הזמנה";
+            ordersDe.UseVisualStyleBackColor = true;
+            // 
+            // ExPDFDeOr
+            // 
+            ExPDFDeOr.Location = new Point(68, 26);
+            ExPDFDeOr.Name = "ExPDFDeOr";
+            ExPDFDeOr.Size = new Size(156, 61);
+            ExPDFDeOr.TabIndex = 202;
+            ExPDFDeOr.Text = "הוצאת דוח של פרוט הזמנה";
+            ExPDFDeOr.UseVisualStyleBackColor = true;
+            ExPDFDeOr.Click += ExPDFDeOr_Click;
             // 
             // Manger
             // 
@@ -771,6 +833,8 @@
             ExPDF.ResumeLayout(false);
             ordersPDF.ResumeLayout(false);
             ItmesPDF.ResumeLayout(false);
+            ExpUserPDF.ResumeLayout(false);
+            ordersDe.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -793,7 +857,7 @@
         private Label label11;
         private TextBox price;
         private PictureBox picPath;
-        private Button button2;
+        private Button ExPDFDeOr;
         private Label label12;
         private Label label7;
         private TextBox Amount;
@@ -831,5 +895,9 @@
         private TabControl ExPDF;
         private TabPage ordersPDF;
         private TabPage ItmesPDF;
+        private Button ExPDFOr;
+        private TabPage ExpUserPDF;
+        private Button PDFUser;
+        private TabPage ordersDe;
     }
 }
