@@ -537,8 +537,7 @@ namespace carPro
                 parCode.ReadOnly = true;
                 price.Text = items.Rows[e.RowIndex].Cells[4].Value.ToString();
                 paySale.Text = items.Rows[e.RowIndex].Cells[5].Value.ToString();
-                Amount.Text = items.Rows[e.RowIndex].Cells[5].Value.ToString();
-                price.Text = items.Rows[e.RowIndex].Cells[7].Value.ToString();
+                Amount.Text = items.Rows[e.RowIndex].Cells[7].Value.ToString();
                 DataGridViewCell selectedCell = items.Rows[e.RowIndex].Cells[6];
                 if (selectedCell.Value != null && selectedCell.Value.GetType() == typeof(byte[]))
                 {
