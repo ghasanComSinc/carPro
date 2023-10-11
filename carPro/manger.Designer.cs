@@ -78,6 +78,11 @@
             sinC = new Button();
             sinEm = new Button();
             statusOrder = new DomainUpDown();
+            pdfItems = new Button();
+            saveFileFromManger = new SaveFileDialog();
+            ExPDF = new TabControl();
+            ordersPDF = new TabPage();
+            ItmesPDF = new TabPage();
             tab.SuspendLayout();
             addItem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)items).BeginInit();
@@ -91,6 +96,9 @@
             ((System.ComponentModel.ISupportInitialize)orders).BeginInit();
             ordersD.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)orderD).BeginInit();
+            ExPDF.SuspendLayout();
+            ordersPDF.SuspendLayout();
+            ItmesPDF.SuspendLayout();
             SuspendLayout();
             // 
             // tab
@@ -100,12 +108,12 @@
             tab.Controls.Add(addUser);
             tab.Controls.Add(ordersM);
             tab.Controls.Add(ordersD);
-            tab.Location = new Point(0, 54);
+            tab.Location = new Point(-39, 142);
             tab.Name = "tab";
             tab.RightToLeft = RightToLeft.Yes;
             tab.RightToLeftLayout = true;
             tab.SelectedIndex = 0;
-            tab.Size = new Size(1357, 655);
+            tab.Size = new Size(1420, 610);
             tab.TabIndex = 9;
             tab.SelectedIndexChanged += TabControl1_SelectedIndexChanged;
             // 
@@ -116,7 +124,7 @@
             addItem.Location = new Point(4, 34);
             addItem.Name = "addItem";
             addItem.Padding = new Padding(3);
-            addItem.Size = new Size(1349, 617);
+            addItem.Size = new Size(1412, 572);
             addItem.TabIndex = 0;
             addItem.Text = "הוספת  מוצר";
             addItem.UseVisualStyleBackColor = true;
@@ -132,13 +140,13 @@
             items.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             items.BackgroundColor = SystemColors.ButtonHighlight;
             items.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            items.Location = new Point(6, 6);
+            items.Location = new Point(56, 6);
             items.Name = "items";
             items.ReadOnly = true;
             items.RightToLeft = RightToLeft.Yes;
             items.RowHeadersWidth = 62;
             items.RowTemplate.Height = 33;
-            items.Size = new Size(1340, 338);
+            items.Size = new Size(1353, 291);
             items.TabIndex = 7;
             items.CellClick += Items_CellClick;
             items.CellContentClick += Items_CellContentClick;
@@ -171,9 +179,9 @@
             panel2.Controls.Add(label6);
             panel2.Controls.Add(nameItem);
             panel2.Controls.Add(typeCar);
-            panel2.Location = new Point(3, 346);
+            panel2.Location = new Point(56, 303);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1343, 268);
+            panel2.Size = new Size(1350, 266);
             panel2.TabIndex = 5;
             // 
             // searchItem
@@ -191,7 +199,7 @@
             // comnet
             // 
             comnet.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            comnet.Location = new Point(619, 50);
+            comnet.Location = new Point(626, 50);
             comnet.Multiline = true;
             comnet.Name = "comnet";
             comnet.RightToLeft = RightToLeft.Yes;
@@ -202,7 +210,7 @@
             // 
             label13.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label13.AutoSize = true;
-            label13.Location = new Point(651, 16);
+            label13.Location = new Point(658, 16);
             label13.Name = "label13";
             label13.Size = new Size(134, 25);
             label13.TabIndex = 196;
@@ -211,7 +219,7 @@
             // updateItems
             // 
             updateItems.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            updateItems.Location = new Point(470, 212);
+            updateItems.Location = new Point(477, 212);
             updateItems.Name = "updateItems";
             updateItems.Size = new Size(126, 36);
             updateItems.TabIndex = 195;
@@ -224,7 +232,7 @@
             // 
             label8.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label8.AutoSize = true;
-            label8.Location = new Point(968, 56);
+            label8.Location = new Point(975, 56);
             label8.Name = "label8";
             label8.Size = new Size(92, 25);
             label8.TabIndex = 177;
@@ -233,7 +241,7 @@
             // paySale
             // 
             paySale.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            paySale.Location = new Point(801, 61);
+            paySale.Location = new Point(808, 61);
             paySale.Name = "paySale";
             paySale.RightToLeft = RightToLeft.Yes;
             paySale.Size = new Size(150, 31);
@@ -242,7 +250,7 @@
             // price
             // 
             price.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            price.Location = new Point(801, 16);
+            price.Location = new Point(808, 16);
             price.Name = "price";
             price.RightToLeft = RightToLeft.Yes;
             price.Size = new Size(155, 31);
@@ -261,7 +269,7 @@
             // 
             label11.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label11.AutoSize = true;
-            label11.Location = new Point(962, 18);
+            label11.Location = new Point(969, 18);
             label11.Name = "label11";
             label11.Size = new Size(105, 25);
             label11.TabIndex = 188;
@@ -287,7 +295,7 @@
             // add_item
             // 
             add_item.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            add_item.Location = new Point(470, 170);
+            add_item.Location = new Point(477, 170);
             add_item.Name = "add_item";
             add_item.Size = new Size(126, 36);
             add_item.TabIndex = 189;
@@ -299,7 +307,7 @@
             // 
             picPath.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             picPath.BackColor = Color.Black;
-            picPath.Location = new Point(803, 148);
+            picPath.Location = new Point(810, 148);
             picPath.Name = "picPath";
             picPath.Size = new Size(145, 94);
             picPath.SizeMode = PictureBoxSizeMode.Zoom;
@@ -311,7 +319,7 @@
             // 
             label12.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label12.AutoSize = true;
-            label12.Location = new Point(999, 148);
+            label12.Location = new Point(1006, 148);
             label12.Name = "label12";
             label12.Size = new Size(61, 25);
             label12.TabIndex = 186;
@@ -321,7 +329,7 @@
             // 
             label7.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label7.AutoSize = true;
-            label7.Location = new Point(1008, 100);
+            label7.Location = new Point(1015, 100);
             label7.Name = "label7";
             label7.Size = new Size(52, 25);
             label7.TabIndex = 183;
@@ -330,7 +338,7 @@
             // Amount
             // 
             Amount.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            Amount.Location = new Point(801, 106);
+            Amount.Location = new Point(808, 106);
             Amount.Name = "Amount";
             Amount.RightToLeft = RightToLeft.Yes;
             Amount.Size = new Size(150, 31);
@@ -340,7 +348,7 @@
             // 
             label9.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label9.AutoSize = true;
-            label9.Location = new Point(1235, 105);
+            label9.Location = new Point(1242, 105);
             label9.Name = "label9";
             label9.Size = new Size(105, 25);
             label9.TabIndex = 182;
@@ -349,7 +357,7 @@
             // placeInShop
             // 
             placeInShop.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            placeInShop.Location = new Point(1078, 105);
+            placeInShop.Location = new Point(1085, 105);
             placeInShop.Name = "placeInShop";
             placeInShop.RightToLeft = RightToLeft.Yes;
             placeInShop.Size = new Size(150, 31);
@@ -359,7 +367,7 @@
             // 
             label10.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label10.AutoSize = true;
-            label10.Location = new Point(1267, 157);
+            label10.Location = new Point(1274, 157);
             label10.Name = "label10";
             label10.Size = new Size(71, 25);
             label10.TabIndex = 181;
@@ -368,7 +376,7 @@
             // parCode
             // 
             parCode.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            parCode.Location = new Point(1079, 159);
+            parCode.Location = new Point(1086, 159);
             parCode.Name = "parCode";
             parCode.RightToLeft = RightToLeft.Yes;
             parCode.Size = new Size(150, 31);
@@ -378,7 +386,7 @@
             // 
             label5.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label5.AutoSize = true;
-            label5.Location = new Point(1262, 55);
+            label5.Location = new Point(1269, 55);
             label5.Name = "label5";
             label5.Size = new Size(72, 25);
             label5.TabIndex = 176;
@@ -388,7 +396,7 @@
             // 
             label6.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label6.AutoSize = true;
-            label6.Location = new Point(1256, 11);
+            label6.Location = new Point(1263, 11);
             label6.Name = "label6";
             label6.Size = new Size(81, 25);
             label6.TabIndex = 175;
@@ -397,7 +405,7 @@
             // nameItem
             // 
             nameItem.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            nameItem.Location = new Point(1078, 14);
+            nameItem.Location = new Point(1085, 14);
             nameItem.Name = "nameItem";
             nameItem.RightToLeft = RightToLeft.Yes;
             nameItem.Size = new Size(150, 31);
@@ -406,7 +414,7 @@
             // typeCar
             // 
             typeCar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            typeCar.Location = new Point(1078, 58);
+            typeCar.Location = new Point(1085, 58);
             typeCar.Name = "typeCar";
             typeCar.RightToLeft = RightToLeft.Yes;
             typeCar.Size = new Size(150, 31);
@@ -419,7 +427,7 @@
             addUser.Location = new Point(4, 34);
             addUser.Name = "addUser";
             addUser.Padding = new Padding(3);
-            addUser.Size = new Size(1349, 617);
+            addUser.Size = new Size(1412, 572);
             addUser.TabIndex = 1;
             addUser.Text = " הוספת משתמש";
             addUser.UseVisualStyleBackColor = true;
@@ -439,9 +447,9 @@
             panel1.Controls.Add(name);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(addU);
-            panel1.Location = new Point(5, 439);
+            panel1.Location = new Point(47, 394);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1338, 175);
+            panel1.Size = new Size(1357, 175);
             panel1.TabIndex = 5;
             // 
             // status
@@ -450,7 +458,7 @@
             status.Items.Add("מנהל");
             status.Items.Add("עובד");
             status.Items.Add("לקוח");
-            status.Location = new Point(1098, 70);
+            status.Location = new Point(1117, 70);
             status.Name = "status";
             status.ReadOnly = true;
             status.RightToLeft = RightToLeft.Yes;
@@ -460,7 +468,7 @@
             // deletU
             // 
             deletU.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            deletU.Location = new Point(715, 108);
+            deletU.Location = new Point(734, 108);
             deletU.Name = "deletU";
             deletU.Size = new Size(133, 64);
             deletU.TabIndex = 11;
@@ -472,7 +480,7 @@
             // button1
             // 
             button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button1.Location = new Point(889, 123);
+            button1.Location = new Point(908, 123);
             button1.Name = "button1";
             button1.Size = new Size(111, 35);
             button1.TabIndex = 10;
@@ -483,7 +491,7 @@
             // updateU
             // 
             updateU.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            updateU.Location = new Point(715, 67);
+            updateU.Location = new Point(734, 67);
             updateU.Name = "updateU";
             updateU.Size = new Size(133, 35);
             updateU.TabIndex = 8;
@@ -496,7 +504,7 @@
             // 
             label4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label4.AutoSize = true;
-            label4.Location = new Point(1270, 64);
+            label4.Location = new Point(1289, 64);
             label4.Name = "label4";
             label4.Size = new Size(62, 25);
             label4.TabIndex = 7;
@@ -505,7 +513,7 @@
             // pass
             // 
             pass.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            pass.Location = new Point(632, 30);
+            pass.Location = new Point(651, 30);
             pass.Name = "pass";
             pass.Size = new Size(119, 31);
             pass.TabIndex = 3;
@@ -514,7 +522,7 @@
             // 
             label3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label3.AutoSize = true;
-            label3.Location = new Point(757, 30);
+            label3.Location = new Point(776, 30);
             label3.Name = "label3";
             label3.Size = new Size(65, 25);
             label3.TabIndex = 5;
@@ -523,7 +531,7 @@
             // userName
             // 
             userName.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            userName.Location = new Point(828, 24);
+            userName.Location = new Point(847, 24);
             userName.Name = "userName";
             userName.Size = new Size(150, 31);
             userName.TabIndex = 2;
@@ -532,7 +540,7 @@
             // 
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label2.AutoSize = true;
-            label2.Location = new Point(984, 27);
+            label2.Location = new Point(1003, 27);
             label2.Name = "label2";
             label2.Size = new Size(105, 25);
             label2.TabIndex = 3;
@@ -541,7 +549,7 @@
             // name
             // 
             name.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            name.Location = new Point(1098, 18);
+            name.Location = new Point(1117, 18);
             name.Name = "name";
             name.Size = new Size(150, 31);
             name.TabIndex = 1;
@@ -550,7 +558,7 @@
             // 
             label1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label1.AutoSize = true;
-            label1.Location = new Point(1254, 20);
+            label1.Location = new Point(1273, 20);
             label1.Name = "label1";
             label1.Size = new Size(78, 25);
             label1.TabIndex = 1;
@@ -559,7 +567,7 @@
             // addU
             // 
             addU.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            addU.Location = new Point(854, 83);
+            addU.Location = new Point(873, 83);
             addU.Name = "addU";
             addU.Size = new Size(146, 35);
             addU.TabIndex = 0;
@@ -578,13 +586,13 @@
             users.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             users.BackgroundColor = SystemColors.ButtonHighlight;
             users.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            users.Location = new Point(8, 13);
+            users.Location = new Point(47, 13);
             users.Name = "users";
             users.ReadOnly = true;
             users.RightToLeft = RightToLeft.Yes;
             users.RowHeadersWidth = 62;
             users.RowTemplate.Height = 33;
-            users.Size = new Size(1332, 420);
+            users.Size = new Size(1357, 375);
             users.TabIndex = 4;
             users.CellClick += Users_CellClick;
             users.CellContentClick += Users_CellContentClick;
@@ -595,7 +603,7 @@
             ordersM.Location = new Point(4, 34);
             ordersM.Name = "ordersM";
             ordersM.Padding = new Padding(3);
-            ordersM.Size = new Size(1349, 617);
+            ordersM.Size = new Size(1412, 572);
             ordersM.TabIndex = 2;
             ordersM.Text = "הזמנות";
             ordersM.UseVisualStyleBackColor = true;
@@ -617,7 +625,7 @@
             orders.RightToLeft = RightToLeft.Yes;
             orders.RowHeadersWidth = 62;
             orders.RowTemplate.Height = 33;
-            orders.Size = new Size(1335, 605);
+            orders.Size = new Size(1398, 560);
             orders.TabIndex = 5;
             orders.CellContentClick += orders_CellContentClick;
             // 
@@ -627,7 +635,7 @@
             ordersD.Location = new Point(4, 34);
             ordersD.Name = "ordersD";
             ordersD.Padding = new Padding(3);
-            ordersD.Size = new Size(1349, 617);
+            ordersD.Size = new Size(1412, 572);
             ordersD.TabIndex = 3;
             ordersD.Text = "פירוט הזמנות";
             ordersD.UseVisualStyleBackColor = true;
@@ -649,7 +657,7 @@
             orderD.RightToLeft = RightToLeft.Yes;
             orderD.RowHeadersWidth = 62;
             orderD.RowTemplate.Height = 33;
-            orderD.Size = new Size(1335, 605);
+            orderD.Size = new Size(1384, 560);
             orderD.TabIndex = 6;
             // 
             // sinC
@@ -678,7 +686,7 @@
             statusOrder.Items.Add("בוצעה בהצלחה");
             statusOrder.Items.Add("בטיפול");
             statusOrder.Items.Add("בוטלה");
-            statusOrder.Location = new Point(599, 21);
+            statusOrder.Location = new Point(106, 44);
             statusOrder.Name = "statusOrder";
             statusOrder.ReadOnly = true;
             statusOrder.RightToLeft = RightToLeft.Yes;
@@ -687,12 +695,57 @@
             statusOrder.Visible = false;
             statusOrder.SelectedItemChanged += statusOrder_SelectedItemChanged;
             // 
+            // pdfItems
+            // 
+            pdfItems.Location = new Point(76, 19);
+            pdfItems.Name = "pdfItems";
+            pdfItems.Size = new Size(156, 61);
+            pdfItems.TabIndex = 200;
+            pdfItems.Text = "הוצאת דוח של ספרת מלי";
+            pdfItems.UseVisualStyleBackColor = true;
+            pdfItems.Click += button3_Click;
+            // 
+            // ExPDF
+            // 
+            ExPDF.Anchor = AnchorStyles.Top;
+            ExPDF.Controls.Add(ordersPDF);
+            ExPDF.Controls.Add(ItmesPDF);
+            ExPDF.Location = new Point(312, 12);
+            ExPDF.Name = "ExPDF";
+            ExPDF.RightToLeft = RightToLeft.Yes;
+            ExPDF.RightToLeftLayout = true;
+            ExPDF.SelectedIndex = 0;
+            ExPDF.Size = new Size(300, 150);
+            ExPDF.TabIndex = 6;
+            // 
+            // ordersPDF
+            // 
+            ordersPDF.Controls.Add(statusOrder);
+            ordersPDF.Location = new Point(4, 34);
+            ordersPDF.Name = "ordersPDF";
+            ordersPDF.Padding = new Padding(3);
+            ordersPDF.Size = new Size(292, 112);
+            ordersPDF.TabIndex = 0;
+            ordersPDF.Text = "tabPage1";
+            ordersPDF.UseVisualStyleBackColor = true;
+            // 
+            // ItmesPDF
+            // 
+            ItmesPDF.Controls.Add(pdfItems);
+            ItmesPDF.Location = new Point(4, 34);
+            ItmesPDF.Name = "ItmesPDF";
+            ItmesPDF.Padding = new Padding(3);
+            ItmesPDF.Size = new Size(292, 112);
+            ItmesPDF.TabIndex = 1;
+            ItmesPDF.Text = "tabPage2";
+            ItmesPDF.UseVisualStyleBackColor = true;
+            // 
             // Manger
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1357, 711);
-            Controls.Add(statusOrder);
+            ClientSize = new Size(1381, 754);
+            Controls.Add(ExPDF);
             Controls.Add(sinEm);
             Controls.Add(sinC);
             Controls.Add(tab);
@@ -715,6 +768,9 @@
             ((System.ComponentModel.ISupportInitialize)orders).EndInit();
             ordersD.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)orderD).EndInit();
+            ExPDF.ResumeLayout(false);
+            ordersPDF.ResumeLayout(false);
+            ItmesPDF.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -770,5 +826,10 @@
         private DomainUpDown status;
         private TabPage ordersD;
         private DataGridView orderD;
+        private Button pdfItems;
+        private SaveFileDialog saveFileFromManger;
+        private TabControl ExPDF;
+        private TabPage ordersPDF;
+        private TabPage ItmesPDF;
     }
 }

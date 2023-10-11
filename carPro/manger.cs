@@ -1,22 +1,23 @@
-﻿using Google.Protobuf.Collections;
-using Microsoft.VisualBasic;
-using Microsoft.VisualBasic.ApplicationServices;
+﻿using iText.Kernel.Pdf;
+using iText.StyledXmlParser.Jsoup.Nodes;
 using MySql.Data.MySqlClient;
-using Org.BouncyCastle.Math;
-using Org.BouncyCastle.Utilities.Collections;
+using System.Data;
+using System.Reflection.Metadata;
+using Image = System.Drawing.Image;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml;
-using WhatsAppApi.Parser;
-using static System.Net.Mime.MediaTypeNames;
-using Image = System.Drawing.Image;
+using Font = iTextSharp.text.Font;
 
 namespace carPro
 {
@@ -28,9 +29,15 @@ namespace carPro
         DataTable dataTable;
         bool flagImg;
         int index;
+        private PdfPTable saveTablePdf;
+        private iTextSharp.text.Document doc;
         public Manger()
         {
             InitializeComponent();
+            ExPDF.SizeMode = TabSizeMode.Fixed;
+            ExPDF.ItemSize = new Size(0, 1);
+            ExPDF.Appearance = TabAppearance.FlatButtons;
+
         }
         private void Manger_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -105,12 +112,15 @@ namespace carPro
         }
         private void TabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ExPDF.TabPages.Remove(ItmesPDF);
+            ExPDF.TabPages.Remove(ordersPDF);
             string strFun;
             statusOrder.Visible = false;
             if (tab.SelectedIndex == 0)
             {
                 try
                 {
+                    ExPDF.TabPages.Add(ItmesPDF);
                     strFun = "SELECT * FROM `items`";
                     MyCommand2 = new MySqlCommand(strFun, con);
                     con.Open();
@@ -125,6 +135,8 @@ namespace carPro
                     items.Columns[2].HeaderText = "מקום בחנות";
                     items.Columns[3].HeaderText = "פר";
                     items.Columns[4].HeaderText = "מחיר";
+                    items.Columns[5].HeaderText = "מחיר קניה";
+                    items.Columns[6].HeaderText = "תמונה";
                     items.Columns[5].Visible = false;//payPrice
                     items.Columns[6].Visible = false;//image
                     items.Columns[7].HeaderText = "קמות בחנות";
@@ -167,6 +179,7 @@ namespace carPro
             }
             else if (tab.SelectedIndex == 2)
             {
+                ExPDF.TabPages.Add(ordersPDF);
                 statusOrder.Visible = true;
                 statusOrder.SelectedIndex = 0;
                 try
@@ -200,6 +213,7 @@ namespace carPro
             int h = Screen.PrimaryScreen.Bounds.Height;
             this.Location = new Point(0, 0);
             this.Size = new Size(w, h);
+            ExPDF.TabPages.Remove(ordersPDF);
         }
         private void Users_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -776,6 +790,74 @@ namespace carPro
                 MessageBox.Show(ex.Message);
                 con.Close();
             }
+        }
+
+        private void AddPhrase(Phrase phrase)
+        {
+            saveTablePdf.AddCell(phrase);
+        }
+        private void SaveFile()
+        {
+            iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(@"C:\Users\ASUS\Desktop\Guttman Myamfix.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            Font tableFont = new Font(tableFont1, 12)
+            {
+                Color = BaseColor.BLACK
+            };
+            saveTablePdf = new iTextSharp.text.pdf.PdfPTable(5)
+            {
+                HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER
+            };
+            saveTablePdf.RunDirection = iTextSharp.text.pdf.PdfWriter.RUN_DIRECTION_RTL;
+            float[] widthOfTable = new float[5];
+            for (int i = 0; i < widthOfTable.Length; i++)
+            {
+                if (i != 3)
+                    widthOfTable[i] = 20f;
+                else
+                    widthOfTable[i] = 90f;
+            }
+            saveTablePdf.SetWidths(widthOfTable);
+            AddPhrase(new Phrase(items.Columns[0].HeaderText, tableFont));
+            AddPhrase(new Phrase(items.Columns[1].HeaderText, tableFont));
+            AddPhrase(new Phrase(items.Columns[3].HeaderText, tableFont));
+            AddPhrase(new Phrase(items.Columns[5].HeaderText, tableFont));
+            AddPhrase(new Phrase(items.Columns[7].HeaderText, tableFont));
+
+            for (int i = 0; i < items.Rows.Count; i++)
+            {
+                if (items.Rows[i].Cells[7].Value.ToString() == "0")
+                    tableFont = new Font(tableFont1, 12)
+                    {
+                        Color = BaseColor.RED
+                    };
+                else
+                    tableFont = new Font(tableFont1, 12)
+                    {
+                        Color = BaseColor.BLACK
+                    };
+                AddPhrase(new Phrase(items.Rows[i].Cells[0].Value.ToString(), tableFont));
+                AddPhrase(new Phrase(items.Rows[i].Cells[1].Value.ToString(), tableFont));
+                AddPhrase(new Phrase(items.Rows[i].Cells[3].Value.ToString(), tableFont));
+                AddPhrase(new Phrase(items.Rows[i].Cells[5].Value.ToString(), tableFont));
+                AddPhrase(new Phrase(items.Rows[i].Cells[7].Value.ToString(), tableFont));
+            }
+
+            doc.Add(saveTablePdf);
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            saveFileFromManger.FileName = string.Empty;
+            saveFileFromManger.Filter = "PDF Files|*.pdf";
+            if (saveFileFromManger.ShowDialog() == DialogResult.OK)
+            {
+                doc = new iTextSharp.text.Document();
+                iTextSharp.text.pdf.PdfWriter.GetInstance(doc, new FileStream(saveFileFromManger.FileName, FileMode.Create));
+                doc.Open();
+                SaveFile();
+                doc.Close();
+                MessageBox.Show("הפעולה הסתימה בהצלחה");
+            }
+
         }
     }
 }
