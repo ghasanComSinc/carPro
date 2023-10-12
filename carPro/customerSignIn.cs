@@ -12,7 +12,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WhatsAppApi.Parser;
+
 using static System.ComponentModel.Design.ObjectSelectorEditor;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
@@ -29,7 +29,7 @@ namespace carPro
         int amount = 0;
         string parcod;
         int rowIndex;
-        private iTextSharp.text.Document document_PDF;
+
         public CustomerSignIn()
         {
             InitializeComponent();
@@ -90,7 +90,7 @@ namespace carPro
                     connection.Close();
                 }
 
-            tabControl1_SelectedIndexChanged(sender,e);
+            TabControl1_SelectedIndexChanged(sender,e);
             /* the load of the data orders*/
 
         }
@@ -352,11 +352,11 @@ namespace carPro
         {
             ForSale_CellContentClick(sender, e);
         }
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            dataGridView1_CellContentClick(sender, e);
+            DataGridView1_CellContentClick(sender, e);
         }
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
@@ -393,7 +393,7 @@ namespace carPro
                 }
             }
         }
-        private void searchItem_TextChanged(object sender, EventArgs e)
+        private void SearchItem_TextChanged(object sender, EventArgs e)
         {
             DataView dataView = dataTable.DefaultView;
             if (searchItem.Text != "")
@@ -427,7 +427,7 @@ namespace carPro
             itemToCustomer.Refresh();
         }
 
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        private void TabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             for (int i = 0; i < tab_PDF.TabCount;)
                 tab_PDF.TabPages.Remove(tab_PDF.TabPages[0]);

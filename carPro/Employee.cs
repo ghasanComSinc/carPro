@@ -14,8 +14,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-using static WhatsAppApi.Parser.FMessage;
-using WhatsAppApi.Parser;
+
 
 namespace carPro
 {

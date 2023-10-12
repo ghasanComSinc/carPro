@@ -2,8 +2,6 @@ using MySql.Data.MySqlClient;
 using System.Net.Mail;
 using System.Data;
 using System.Windows.Forms;
-using WhatsAppApi;
-using WhatsAppApi.Parser;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
 using static System.Net.Mime.MediaTypeNames;
 using Application = System.Windows.Forms.Application;

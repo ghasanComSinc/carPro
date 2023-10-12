@@ -1,25 +1,9 @@
-﻿using iText.Kernel.Pdf;
-using iText.StyledXmlParser.Jsoup.Nodes;
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using System.Data;
-using System.Reflection.Metadata;
 using Image = System.Drawing.Image;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using Font = iTextSharp.text.Font;
-using iText.Layout;
-using Microsoft.VisualBasic.ApplicationServices;
 
 namespace carPro
 {
@@ -33,7 +17,7 @@ namespace carPro
         int index;
         private PdfPTable saveTablePdf;
         private iTextSharp.text.Document doc;
-        iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(@"C:\Users\ASUS\Desktop\VarelaRound-Regular.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        readonly iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(@"C:\Users\ASUS\Desktop\VarelaRound-Regular.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         //iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(@"D:\autocar_path\VarelaRound-Regular.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         Font tableFont;
         public Manger()
@@ -42,7 +26,6 @@ namespace carPro
             ExPDF.SizeMode = TabSizeMode.Fixed;
             ExPDF.ItemSize = new Size(0, 1);
             ExPDF.Appearance = TabAppearance.FlatButtons;
-
         }
         private void Manger_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -727,7 +710,7 @@ namespace carPro
             employee.ShowDialog();
             this.Show();
         }
-        private void statusOrder_SelectedItemChanged(object sender, EventArgs e)
+        private void StatusOrder_SelectedItemChanged(object sender, EventArgs e)
         {
             string strFun;
             if (statusOrder.SelectedIndex == 0)
@@ -768,7 +751,7 @@ namespace carPro
                 con.Close();
             }
         }
-        private void orders_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void Orders_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             tab.SelectedIndex = 3;
             string strFun = "SELECT * FROM `orders` join `items` ON `orders`.`parCode` = `items`.`parCode`" +
@@ -814,7 +797,7 @@ namespace carPro
         {
             saveTablePdf.AddCell(phrase);
         }
-        private void saveTableFont(int count)
+        private void SaveTableFont(int count)
         {
             doc = new iTextSharp.text.Document();
             iTextSharp.text.pdf.PdfWriter.GetInstance(doc, new FileStream(saveFileFromManger.FileName, FileMode.Create));
@@ -823,15 +806,15 @@ namespace carPro
             {
                 Color = BaseColor.BLACK
             };
-            saveTablePdf = new iTextSharp.text.pdf.PdfPTable(count)
+            saveTablePdf = new PdfPTable(count)
             {
-                HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER
+                HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER,
+                RunDirection = iTextSharp.text.pdf.PdfWriter.RUN_DIRECTION_RTL
             };
-            saveTablePdf.RunDirection = iTextSharp.text.pdf.PdfWriter.RUN_DIRECTION_RTL;
         }
         private void SaveFile()
         {
-            saveTableFont(5);
+            SaveTableFont(5);
             float[] widthOfTable = new float[5];
             for (int i = 0; i < widthOfTable.Length; i++)
             {
@@ -868,7 +851,7 @@ namespace carPro
             }
             doc.Add(saveTablePdf);
         }
-        private void button3_Click(object sender, EventArgs e)
+        private void Button3_Click(object sender, EventArgs e)
         {
             saveFileFromManger.FileName = string.Empty;
             saveFileFromManger.Filter = "PDF Files|*.pdf";
@@ -879,13 +862,13 @@ namespace carPro
                 MessageBox.Show("הפעולה הסתימה בהצלחה");
             }
         }
-        private void savePdfFile(DataGridView data)
+        private void SavePdfFile(DataGridView data)
         {
             saveFileFromManger.FileName = string.Empty;
             saveFileFromManger.Filter = "PDF Files|*.pdf";
             if (saveFileFromManger.ShowDialog() == DialogResult.OK)
             {
-                saveTableFont(data.ColumnCount);
+                SaveTableFont(data.ColumnCount);
                 float[] widthOfTable = new float[data.ColumnCount];
                 for (int i = 0; i < widthOfTable.Length; i++)
                 {
@@ -906,11 +889,11 @@ namespace carPro
         }
         private void ExPDFOr_Click(object sender, EventArgs e)
         {
-            savePdfFile(orders);
+            SavePdfFile(orders);
         }
         private void PDFUser_Click(object sender, EventArgs e)
         {
-            savePdfFile(users);
+            SavePdfFile(users);
         }
         private void ExPDFDeOr_Click(object sender, EventArgs e)
         {
@@ -925,22 +908,22 @@ namespace carPro
                 {
                     Color = BaseColor.BLACK
                 };
-                saveTablePdf = new iTextSharp.text.pdf.PdfPTable(1)
+                saveTablePdf = new PdfPTable(1)
                 {
                     HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER
                     ,
-                    DefaultCell = { BorderWidth = 0 }
+                    DefaultCell = { BorderWidth = 0 },
+                    RunDirection = iTextSharp.text.pdf.PdfWriter.RUN_DIRECTION_RTL
                 };
-                saveTablePdf.RunDirection = iTextSharp.text.pdf.PdfWriter.RUN_DIRECTION_RTL;
 
                 AddPhrase(new Phrase(orderD.Columns[0].HeaderText + ":" + orderD.Rows[0].Cells[0].Value.ToString(), tableFont));
                 AddPhrase(new Phrase(orderD.Columns[2].HeaderText + ":" + orderD.Rows[0].Cells[2].Value.ToString(), tableFont));
                 doc.Add(saveTablePdf);
                 saveTablePdf = new iTextSharp.text.pdf.PdfPTable(6)
                 {
-                    HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER
+                    HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER,
+                    RunDirection = iTextSharp.text.pdf.PdfWriter.RUN_DIRECTION_RTL
                 };
-                saveTablePdf.RunDirection = iTextSharp.text.pdf.PdfWriter.RUN_DIRECTION_RTL;
                 AddPhrase(new Phrase(orderD.Columns[7].HeaderText, tableFont));
                 AddPhrase(new Phrase(orderD.Columns[1].HeaderText, tableFont));
                 AddPhrase(new Phrase(orderD.Columns[3].HeaderText, tableFont));
@@ -961,7 +944,7 @@ namespace carPro
                 doc.Close();
             }
         }
-        private void deleteItems_Click(object sender, EventArgs e)
+        private void DeleteItems_Click(object sender, EventArgs e)
         {
             try
             {
@@ -980,11 +963,13 @@ namespace carPro
                 MyCommand2.ExecuteNonQuery();
                 con.Close();
                 TabControl1_SelectedIndexChanged(sender, e);
-                Button1_Click_1(sender, e);
+                Button1_Click_1(sender, e);      
+                ClearItmesDetla();
             }
             catch (Exception ex)
             {
-
+                con.Close();
+                MessageBox.Show(ex.Message);
             }
         }
     }

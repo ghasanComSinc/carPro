@@ -94,7 +94,7 @@
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(1172, 493);
             tabControl1.TabIndex = 17;
-            tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
+            tabControl1.SelectedIndexChanged += TabControl1_SelectedIndexChanged;
             tabControl1.MouseClick += TabControl1_MouseClick;
             // 
             // tabPage1
@@ -248,8 +248,8 @@
             dataGridView1.RowTemplate.Height = 33;
             dataGridView1.Size = new Size(1143, 443);
             dataGridView1.TabIndex = 1;
-            dataGridView1.CellClick += dataGridView1_CellClick;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            dataGridView1.CellClick += DataGridView1_CellClick;
+            dataGridView1.CellContentClick += DataGridView1_CellContentClick;
             // 
             // itmesDe
             // 
@@ -408,7 +408,7 @@
             searchItem.RightToLeft = RightToLeft.Yes;
             searchItem.Size = new Size(141, 31);
             searchItem.TabIndex = 26;
-            searchItem.TextChanged += searchItem_TextChanged;
+            searchItem.TextChanged += SearchItem_TextChanged;
             // 
             // label1
             // 

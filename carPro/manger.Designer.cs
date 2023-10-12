@@ -203,7 +203,7 @@
             deleteItems.Text = "מחיקה\\החזרה מוצר";
             deleteItems.UseVisualStyleBackColor = true;
             deleteItems.Visible = false;
-            deleteItems.Click += deleteItems_Click;
+            deleteItems.Click += DeleteItems_Click;
             // 
             // searchItem
             // 
@@ -648,7 +648,7 @@
             orders.RowTemplate.Height = 33;
             orders.Size = new Size(1398, 560);
             orders.TabIndex = 5;
-            orders.CellContentClick += orders_CellContentClick;
+            orders.CellContentClick += Orders_CellContentClick;
             // 
             // ordersD
             // 
@@ -714,7 +714,7 @@
             statusOrder.Size = new Size(180, 31);
             statusOrder.TabIndex = 199;
             statusOrder.Visible = false;
-            statusOrder.SelectedItemChanged += statusOrder_SelectedItemChanged;
+            statusOrder.SelectedItemChanged += StatusOrder_SelectedItemChanged;
             // 
             // pdfItems
             // 
@@ -724,7 +724,7 @@
             pdfItems.TabIndex = 200;
             pdfItems.Text = "הוצאת דוח של ספרת מלי";
             pdfItems.UseVisualStyleBackColor = true;
-            pdfItems.Click += button3_Click;
+            pdfItems.Click += Button3_Click;
             // 
             // ExPDF
             // 
