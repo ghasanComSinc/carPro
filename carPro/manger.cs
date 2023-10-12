@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Font = iTextSharp.text.Font;
 using iText.Layout;
+using Microsoft.VisualBasic.ApplicationServices;
 
 namespace carPro
 {
@@ -32,8 +33,8 @@ namespace carPro
         int index;
         private PdfPTable saveTablePdf;
         private iTextSharp.text.Document doc;
-        //iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(@"C:\Users\ASUS\Desktop\VarelaRound-Regular.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-        iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(@"D:\autocar_path\VarelaRound-Regular.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(@"C:\Users\ASUS\Desktop\VarelaRound-Regular.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        //iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(@"D:\autocar_path\VarelaRound-Regular.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         Font tableFont;
         public Manger()
         {
@@ -116,6 +117,7 @@ namespace carPro
         }
         private void TabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            deleteItems.Visible = false;
             for (int i = 0; i < ExPDF.TabCount;)
                 ExPDF.TabPages.Remove(ExPDF.TabPages[0]);
             string strFun;
@@ -145,6 +147,7 @@ namespace carPro
                     items.Columns[6].Visible = false;//image
                     items.Columns[7].HeaderText = "קמות בחנות";
                     items.Columns[8].HeaderText = "הערה";
+                    items.Columns[9].HeaderText = "זמין";
                     con.Close();
                 }
                 catch (Exception ex)
@@ -530,6 +533,7 @@ namespace carPro
         {
             if (e.RowIndex >= 0)
             {
+                deleteItems.Visible = true;
                 flagImg = false;
                 nameItem.Text = items.Rows[e.RowIndex].Cells[0].Value.ToString();
                 typeCar.Text = items.Rows[e.RowIndex].Cells[1].Value.ToString();
@@ -844,21 +848,23 @@ namespace carPro
             AddPhrase(new Phrase(items.Columns[7].HeaderText, tableFont));
             for (int i = 0; i < items.Rows.Count; i++)
             {
-                if (items.Rows[i].Cells[7].Value.ToString() == "0")
-                    tableFont = new Font(tableFont1, 12)
-                    {
-                        Color = BaseColor.RED
-                    };
-                else
-                    tableFont = new Font(tableFont1, 12)
-                    {
-                        Color = BaseColor.BLACK
-                    };
-                AddPhrase(new Phrase(items.Rows[i].Cells[0].Value.ToString(), tableFont));
-                AddPhrase(new Phrase(items.Rows[i].Cells[1].Value.ToString(), tableFont));
-                AddPhrase(new Phrase(items.Rows[i].Cells[3].Value.ToString(), tableFont));
-                AddPhrase(new Phrase(items.Rows[i].Cells[5].Value.ToString(), tableFont));
-                AddPhrase(new Phrase(items.Rows[i].Cells[7].Value.ToString(), tableFont));
+                if (items.Rows[i].Cells[9].Value.ToString() == "פעיל") {
+                    if (items.Rows[i].Cells[7].Value.ToString() == "0")
+                        tableFont = new Font(tableFont1, 12)
+                        {
+                            Color = BaseColor.RED
+                        };
+                    else
+                        tableFont = new Font(tableFont1, 12)
+                        {
+                            Color = BaseColor.BLACK
+                        };
+                    AddPhrase(new Phrase(items.Rows[i].Cells[0].Value.ToString(), tableFont));
+                    AddPhrase(new Phrase(items.Rows[i].Cells[1].Value.ToString(), tableFont));
+                    AddPhrase(new Phrase(items.Rows[i].Cells[3].Value.ToString(), tableFont));
+                    AddPhrase(new Phrase(items.Rows[i].Cells[5].Value.ToString(), tableFont));
+                    AddPhrase(new Phrase(items.Rows[i].Cells[7].Value.ToString(), tableFont));
+                }
             }
             doc.Add(saveTablePdf);
         }
@@ -949,10 +955,36 @@ namespace carPro
                     AddPhrase(new Phrase(orderD.Rows[i].Cells[4].Value.ToString(), tableFont));
                     AddPhrase(new Phrase(orderD.Rows[i].Cells[5].Value.ToString(), tableFont));
                     AddPhrase(new Phrase(orderD.Rows[i].Cells[6].Value.ToString(), tableFont));
-                   
+
                 }
                 doc.Add(saveTablePdf);
                 doc.Close();
+            }
+        }
+        private void deleteItems_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string strFun = "UPDATE  `items` SET `available`= @av WHERE `parCode`= @parCod";
+                con.Open();
+                MyCommand2 = new MySqlCommand(strFun, con);
+                if (items.Rows[index].Cells[9].Value.ToString() == "פעיל")
+                {
+                    MyCommand2.Parameters.AddWithValue("@av", "לא פעיל");
+                }
+                else
+                {
+                    MyCommand2.Parameters.AddWithValue("@av", "פעיל");
+                }
+                MyCommand2.Parameters.AddWithValue("@parCod", items.Rows[index].Cells[3].Value.ToString());
+                MyCommand2.ExecuteNonQuery();
+                con.Close();
+                TabControl1_SelectedIndexChanged(sender, e);
+                Button1_Click_1(sender, e);
+            }
+            catch (Exception ex)
+            {
+
             }
         }
     }

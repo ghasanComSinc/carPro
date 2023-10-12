@@ -31,7 +31,8 @@
             tab = new TabControl();
             addItem = new TabPage();
             items = new DataGridView();
-            panel2 = new Panel();
+            updateIt = new Panel();
+            deleteItems = new Button();
             searchItem = new DomainUpDown();
             comnet = new TextBox();
             label13 = new Label();
@@ -91,7 +92,7 @@
             tab.SuspendLayout();
             addItem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)items).BeginInit();
-            panel2.SuspendLayout();
+            updateIt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picPath).BeginInit();
             addUser.SuspendLayout();
@@ -127,7 +128,7 @@
             // addItem
             // 
             addItem.Controls.Add(items);
-            addItem.Controls.Add(panel2);
+            addItem.Controls.Add(updateIt);
             addItem.Location = new Point(4, 34);
             addItem.Name = "addItem";
             addItem.Padding = new Padding(3);
@@ -159,37 +160,50 @@
             items.CellContentClick += Items_CellContentClick;
             items.MouseMove += Items_MouseMove;
             // 
-            // panel2
+            // updateIt
             // 
-            panel2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            panel2.Controls.Add(searchItem);
-            panel2.Controls.Add(comnet);
-            panel2.Controls.Add(label13);
-            panel2.Controls.Add(updateItems);
-            panel2.Controls.Add(label8);
-            panel2.Controls.Add(paySale);
-            panel2.Controls.Add(price);
-            panel2.Controls.Add(pictureBox1);
-            panel2.Controls.Add(label11);
-            panel2.Controls.Add(search_box);
-            panel2.Controls.Add(search_label);
-            panel2.Controls.Add(add_item);
-            panel2.Controls.Add(picPath);
-            panel2.Controls.Add(label12);
-            panel2.Controls.Add(label7);
-            panel2.Controls.Add(Amount);
-            panel2.Controls.Add(label9);
-            panel2.Controls.Add(placeInShop);
-            panel2.Controls.Add(label10);
-            panel2.Controls.Add(parCode);
-            panel2.Controls.Add(label5);
-            panel2.Controls.Add(label6);
-            panel2.Controls.Add(nameItem);
-            panel2.Controls.Add(typeCar);
-            panel2.Location = new Point(56, 303);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(1350, 266);
-            panel2.TabIndex = 5;
+            updateIt.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            updateIt.Controls.Add(deleteItems);
+            updateIt.Controls.Add(searchItem);
+            updateIt.Controls.Add(comnet);
+            updateIt.Controls.Add(label13);
+            updateIt.Controls.Add(updateItems);
+            updateIt.Controls.Add(label8);
+            updateIt.Controls.Add(paySale);
+            updateIt.Controls.Add(price);
+            updateIt.Controls.Add(pictureBox1);
+            updateIt.Controls.Add(label11);
+            updateIt.Controls.Add(search_box);
+            updateIt.Controls.Add(search_label);
+            updateIt.Controls.Add(add_item);
+            updateIt.Controls.Add(picPath);
+            updateIt.Controls.Add(label12);
+            updateIt.Controls.Add(label7);
+            updateIt.Controls.Add(Amount);
+            updateIt.Controls.Add(label9);
+            updateIt.Controls.Add(placeInShop);
+            updateIt.Controls.Add(label10);
+            updateIt.Controls.Add(parCode);
+            updateIt.Controls.Add(label5);
+            updateIt.Controls.Add(label6);
+            updateIt.Controls.Add(nameItem);
+            updateIt.Controls.Add(typeCar);
+            updateIt.Location = new Point(56, 303);
+            updateIt.Name = "updateIt";
+            updateIt.Size = new Size(1350, 266);
+            updateIt.TabIndex = 5;
+            // 
+            // deleteItems
+            // 
+            deleteItems.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            deleteItems.Location = new Point(338, 170);
+            deleteItems.Name = "deleteItems";
+            deleteItems.Size = new Size(133, 64);
+            deleteItems.TabIndex = 201;
+            deleteItems.Text = "מחיקה\\החזרה מוצר";
+            deleteItems.UseVisualStyleBackColor = true;
+            deleteItems.Visible = false;
+            deleteItems.Click += deleteItems_Click;
             // 
             // searchItem
             // 
@@ -818,8 +832,8 @@
             tab.ResumeLayout(false);
             addItem.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)items).EndInit();
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
+            updateIt.ResumeLayout(false);
+            updateIt.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)picPath).EndInit();
             addUser.ResumeLayout(false);
@@ -853,7 +867,7 @@
         private Button updateU;
         private Button button1;
         private Button deletU;
-        private Panel panel2;
+        private Panel updateIt;
         private Label label11;
         private TextBox price;
         private PictureBox picPath;
@@ -899,5 +913,6 @@
         private TabPage ExpUserPDF;
         private Button PDFUser;
         private TabPage ordersDe;
+        private Button deleteItems;
     }
 }

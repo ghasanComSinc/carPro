@@ -435,7 +435,7 @@ namespace carPro
             try
             {
                     MySqlDataAdapter adapter = new(MyCommand2);
-                    string strFun = "SELECT * FROM `items` ORDER BY BINARY `typeCar` ASC;";
+                    string strFun = "SELECT * FROM `items` WHERE `available`=\"פעיל\"   ORDER BY BINARY `typeCar` ASC";
                     connection.Open();
                     MyCommand2 = new MySqlCommand(strFun, connection);
                     adapter = new(MyCommand2);
@@ -453,6 +453,7 @@ namespace carPro
                     itemToCustomer.Columns[6].Visible = false;
                     itemToCustomer.Columns[7].HeaderText = "כמות";
                     itemToCustomer.Columns[8].Visible = false;// "הערה";
+                    itemToCustomer.Columns[9].Visible = false;// available;
                     EmtpyItems();
                     connection.Close();
             }
