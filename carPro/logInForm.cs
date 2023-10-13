@@ -109,7 +109,7 @@ namespace carPro
                                                  "VALUES (@phoneN,@pass,@nameCust,@staut,@startD,@lastD,@avi)";
                         command = new MySqlCommand(strFun, connection);
                         connection.Open();
-                        command.Parameters.AddWithValue("@phoneN", int.Parse(phoneCustomer.Text));
+                        command.Parameters.AddWithValue("@phoneN", phoneCustomer.Text);
                         command.Parameters.AddWithValue("@pass", passSin.Text);
                         command.Parameters.AddWithValue("@nameCust", nameCustomer.Text);
                         command.Parameters.AddWithValue("@staut", "לקוח");
