@@ -4,6 +4,7 @@ using Image = System.Drawing.Image;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Font = iTextSharp.text.Font;
+using System.Windows.Forms;
 
 namespace carPro
 {
@@ -15,6 +16,7 @@ namespace carPro
         DataTable dataTable;
         bool flagImg;
         int index;
+        private string oldPar,oldId;
         private PdfPTable saveTablePdf;
         private iTextSharp.text.Document doc;
         readonly iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(@"C:\Users\ASUS\Desktop\VarelaRound-Regular.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
@@ -103,6 +105,8 @@ namespace carPro
             deleteItems.Visible = false;
             for (int i = 0; i < ExPDF.TabCount;)
                 ExPDF.TabPages.Remove(ExPDF.TabPages[0]);
+            if (tab.TabPages.Count == 4 && tab.SelectedIndex != 3)
+                tab.TabPages.Remove(tab.TabPages[3]);
             string strFun;
             statusOrder.Visible = false;
             if (tab.SelectedIndex == 0)
@@ -216,7 +220,7 @@ namespace carPro
                 name.Text = users.Rows[e.RowIndex].Cells[2].Value.ToString();
                 pass.Text = users.Rows[e.RowIndex].Cells[1].Value.ToString();
                 userName.Text = users.Rows[e.RowIndex].Cells[0].Value.ToString();
-                userName.ReadOnly = true;
+                oldId = userName.Text;
                 status.Text = users.Rows[e.RowIndex].Cells[3].Value.ToString();
                 if (status.Text == "מנהל")
                     status.SelectedIndex = 0;
@@ -257,21 +261,28 @@ namespace carPro
                 }
                 else
                 {
-                    string strFun = "UPDATE `usertable` SET `password`=@pass,`name`=@name" +
-                                    ",`status`=@status WHERE `phoneNumber`=@phone";
+                    string strFun = "UPDATE `usertable`,`paytable`,`orders` SET" +
+                                    "`usertable`.`phoneNumber`=@oldphone,`orders`.`phoneNumber`=@oldphone," +
+                                    "`paytable`.`phoneNumber`=@oldphone,`password`=@pass,`name`=@name" +
+                                    ",`usertable`.`status`=@status" +
+                                    " WHERE `usertable`.`phoneNumber`=@phone AND" +
+                                    "`orders`.`phoneNumber`=@phone AND `paytable`.`phoneNumber`=@phone";
                     con.Open();
                     MyCommand2 = new MySqlCommand(strFun, con);
+                    MyCommand2.Parameters.AddWithValue("@oldphone", userNa);
                     MyCommand2.Parameters.AddWithValue("@pass", password);
                     MyCommand2.Parameters.AddWithValue("@name", uName);
                     MyCommand2.Parameters.AddWithValue("@status", stat);
-                    MyCommand2.Parameters.AddWithValue("@phone", userNa);
+                    MyCommand2.Parameters.AddWithValue("@phone", oldId);
                     MyCommand2.ExecuteNonQuery();
                     con.Close();
+                    phone_number = userNa;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                con.Close();
             }
             TabControl1_SelectedIndexChanged(sender, e);
         }
@@ -429,8 +440,8 @@ namespace carPro
                     {
                         picPath.Image.Save(ms, picPath.Image.RawFormat);
                         byte[] img = ms.ToArray();
-                        string strFun = "INSERT INTO `items`(`nameItmes`, `typeCar`, `placeInShop`, `parCode`, `salePrice`, `payPrice`, `image`, `amount`, `comment`) VALUES " +
-                                        "(@nameIt,@typeC,@placeSho,@parCod,@salePri,@payPrice,@image,@amount,@com)";
+                        string strFun = "INSERT INTO `items`(`nameItmes`, `typeCar`, `placeInShop`, `parCode`, `salePrice`, `payPrice`, `image`, `amount`, `comment`,`available`) VALUES " +
+                                        "(@nameIt,@typeC,@placeSho,@parCod,@salePri,@payPrice,@image,@amount,@com,@avai)";
                         MyCommand2 = new MySqlCommand(strFun, con);
                         con.Open();
                         MyCommand2.Parameters.AddWithValue("@nameIt", nameIt);
@@ -442,6 +453,7 @@ namespace carPro
                         MyCommand2.Parameters.AddWithValue("@image", img);
                         MyCommand2.Parameters.AddWithValue("@amount", amou);
                         MyCommand2.Parameters.AddWithValue("@com", comn);
+                        MyCommand2.Parameters.AddWithValue("@avai", "פעיל");
                         MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.
                         MessageBox.Show("הוספת מוצר הצליחה");
                         con.Close();
@@ -522,7 +534,7 @@ namespace carPro
                 typeCar.Text = items.Rows[e.RowIndex].Cells[1].Value.ToString();
                 placeInShop.Text = items.Rows[e.RowIndex].Cells[2].Value.ToString();
                 parCode.Text = items.Rows[e.RowIndex].Cells[3].Value.ToString();
-                parCode.ReadOnly = true;
+                oldPar = parCode.Text;
                 price.Text = items.Rows[e.RowIndex].Cells[4].Value.ToString();
                 paySale.Text = items.Rows[e.RowIndex].Cells[5].Value.ToString();
                 Amount.Text = items.Rows[e.RowIndex].Cells[7].Value.ToString();
@@ -657,9 +669,9 @@ namespace carPro
                 {
                     string strFun;
                     if (flagImg)
-                        strFun = "UPDATE `items` SET `nameItmes`=@nameIt,`typeCar`= @typeC,`placeInShop`= @placeSho,`parCode`= @parCod,`salePrice`=@salePri,`payPrice`=@payPrice,`image`= @images,`amount`= @amounts,`comment`= @com WHERE `parCode`= @parCod ";
+                        strFun = "UPDATE `items`,`orders` SET `orders`.`parCode`=@parCod,`nameItmes`=@nameIt,`typeCar`= @typeC,`placeInShop`= @placeSho,`items`.`parCode`= @parCod,`salePrice`=@salePri,`payPrice`=@payPrice,`image`= @images,`items`.`amount`= @amounts,`comment`= @com WHERE `orders`.`parCode`= @oldPa AND `items`.`parCode`= @oldPa";
                     else
-                        strFun = "UPDATE `items` SET `nameItmes`=@nameIt,`typeCar`= @typeC,`placeInShop`= @placeSho,`parCode`= @parCod,`salePrice`=@salePri,`payPrice`=@payPrice,`amount`= @amounts,`comment`= @com WHERE `parCode`= @parCod ";
+                        strFun = "UPDATE `items`,`orders` SET `orders`.`parCode`=@parCod,`nameItmes`=@nameIt,`typeCar`= @typeC,`placeInShop`= @placeSho,`items`.`parCode`= @parCod,`salePrice`=@salePri,`payPrice`=@payPrice,`items`.`amount`= @amounts,`comment`= @com WHERE `orders`.`parCode`= @oldPa AND  `items`.`parCode`= @oldPa";
                     MyCommand2 = new MySqlCommand(strFun, con);
                     con.Open();
                     MyCommand2.Parameters.AddWithValue("@nameIt", nameIt);
@@ -672,6 +684,7 @@ namespace carPro
                         MyCommand2.Parameters.AddWithValue("@images", img);
                     MyCommand2.Parameters.AddWithValue("@amounts", amou);
                     MyCommand2.Parameters.AddWithValue("@com", comn);
+                    MyCommand2.Parameters.AddWithValue("@oldPa", oldPar);
                     MyCommand2.ExecuteNonQuery();
                     con.Close();
                 }
@@ -698,6 +711,7 @@ namespace carPro
 
             cust.ShowDialog();
             this.Show();
+            Manger_Load(sender, e);
         }
         private void SinEm_Click(object sender, EventArgs e)
         {
@@ -709,6 +723,7 @@ namespace carPro
 
             employee.ShowDialog();
             this.Show();
+            Manger_Load(sender, e);
         }
         private void StatusOrder_SelectedItemChanged(object sender, EventArgs e)
         {
@@ -753,6 +768,7 @@ namespace carPro
         }
         private void Orders_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            tab.TabPages.Add(ordersD);
             tab.SelectedIndex = 3;
             string strFun = "SELECT * FROM `orders` join `items` ON `orders`.`parCode` = `items`.`parCode`" +
                         $"WHERE `phoneNumber`={orders.Rows[e.RowIndex].Cells[0].Value} AND `orderId`='{orders.Rows[e.RowIndex].Cells[1].Value}'";
@@ -772,7 +788,7 @@ namespace carPro
                 orderD.Columns[2].HeaderText = "מזה הזמנה";
                 orderD.Columns[2].Visible = false;
                 orderD.Columns[3].HeaderText = "כמות רצויה";
-                orderD.Columns[4].Visible = false;//status
+                orderD.Columns[4].HeaderText = "מצב של מוצר";//status
                 orderD.Columns[5].HeaderText = "שעת קניה";
                 orderD.Columns[6].HeaderText = "תאריך קניה";
                 orderD.Columns[7].HeaderText = "שם מוצר";
@@ -784,6 +800,7 @@ namespace carPro
                 orderD.Columns[13].Visible = false;//pic
                 orderD.Columns[14].Visible = false;// "קמות בחנות";
                 orderD.Columns[15].HeaderText = "הערה על מוצר";
+                orderD.Columns[16].Visible = false;// "מצב של מוצר";
                 con.Close();
                 ExPDF.TabPages.Add(ordersDe);
             }
@@ -831,7 +848,8 @@ namespace carPro
             AddPhrase(new Phrase(items.Columns[7].HeaderText, tableFont));
             for (int i = 0; i < items.Rows.Count; i++)
             {
-                if (items.Rows[i].Cells[9].Value.ToString() == "פעיל") {
+                if (items.Rows[i].Cells[9].Value.ToString() == "פעיל")
+                {
                     if (items.Rows[i].Cells[7].Value.ToString() == "0")
                         tableFont = new Font(tableFont1, 12)
                         {
@@ -963,7 +981,7 @@ namespace carPro
                 MyCommand2.ExecuteNonQuery();
                 con.Close();
                 TabControl1_SelectedIndexChanged(sender, e);
-                Button1_Click_1(sender, e);      
+                Button1_Click_1(sender, e);
                 ClearItmesDetla();
             }
             catch (Exception ex)

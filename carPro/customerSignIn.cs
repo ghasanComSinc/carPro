@@ -83,14 +83,14 @@ namespace carPro
                 customerName.Text += row["name"];
                 connection.Close();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                    MessageBox.Show(ex.Message);
-                    CustomerSignIn_FormClosed(null, null);
-                    connection.Close();
-                }
+                MessageBox.Show(ex.Message);
+                CustomerSignIn_FormClosed(null, null);
+                connection.Close();
+            }
 
-            TabControl1_SelectedIndexChanged(sender,e);
+            TabControl1_SelectedIndexChanged(sender, e);
             /* the load of the data orders*/
 
         }
@@ -101,7 +101,7 @@ namespace carPro
             amountSale.Visible = false;
             plus.Visible = false;
             minus.Visible = false;
-            
+
         }
         private void ItemToCustomer_MouseMove(object sender, MouseEventArgs e)
         {
@@ -431,9 +431,9 @@ namespace carPro
         {
             for (int i = 0; i < tab_PDF.TabCount;)
                 tab_PDF.TabPages.Remove(tab_PDF.TabPages[0]);
-            if(tabControl1.SelectedIndex == 0)
-            try
-            {
+            if (tabControl1.SelectedIndex == 0)
+                try
+                {
                     MySqlDataAdapter adapter = new(MyCommand2);
                     string strFun = "SELECT * FROM `items` WHERE `available`=\"פעיל\"   ORDER BY BINARY `typeCar` ASC";
                     connection.Open();
@@ -456,13 +456,13 @@ namespace carPro
                     itemToCustomer.Columns[9].Visible = false;// available;
                     EmtpyItems();
                     connection.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                CustomerSignIn_FormClosed(null, null);
-                connection.Close();
-            }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    CustomerSignIn_FormClosed(null, null);
+                    connection.Close();
+                }
             else if (tabControl1.SelectedIndex == 2)
             {
                 try

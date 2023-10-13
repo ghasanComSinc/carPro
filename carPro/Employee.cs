@@ -71,7 +71,7 @@ namespace carPro
         private void SearchOr_TextChanged(object sender, EventArgs e)
         {
             DataView dataView = dataTable.DefaultView;
-            if (search.Text != ""&& search.Text != " " && searchOr.Text != "")
+            if (search.Text != "" && search.Text != " " && searchOr.Text != "")
             {
                 if (search.Text == "מספר טלפון")
                     dataView.RowFilter = $"Convert(phoneNumber, 'System.String') LIKE '%{searchOr.Text}%'";
@@ -82,7 +82,7 @@ namespace carPro
             }
             else
             {
-                Employee_Load(sender,e);
+                Employee_Load(sender, e);
             }
             orders.Refresh();
         }
@@ -363,10 +363,10 @@ namespace carPro
                 nameCustumer = employName
             };
             this.Hide();
-
             cust.ShowDialog();
-
             this.Show();
+            Employee_Load(sender, e);
+
         }
     }
 }

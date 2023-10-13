@@ -28,6 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CustomerSignIn));
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
@@ -87,12 +91,12 @@
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Controls.Add(tabPage3);
             tabControl1.Controls.Add(itmesDe);
-            tabControl1.Location = new Point(-7, 83);
+            tabControl1.Location = new Point(-7, 85);
             tabControl1.Name = "tabControl1";
             tabControl1.RightToLeft = RightToLeft.Yes;
             tabControl1.RightToLeftLayout = true;
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1172, 493);
+            tabControl1.Size = new Size(1184, 491);
             tabControl1.TabIndex = 17;
             tabControl1.SelectedIndexChanged += TabControl1_SelectedIndexChanged;
             tabControl1.MouseClick += TabControl1_MouseClick;
@@ -105,7 +109,7 @@
             tabPage1.Location = new Point(4, 34);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(1164, 455);
+            tabPage1.Size = new Size(1176, 453);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "מוצרים בחנות";
             tabPage1.UseVisualStyleBackColor = true;
@@ -117,7 +121,7 @@
             itemsCom.Location = new Point(115, 289);
             itemsCom.Name = "itemsCom";
             itemsCom.RightToLeft = RightToLeft.No;
-            itemsCom.Size = new Size(15, 20);
+            itemsCom.Size = new Size(20, 25);
             itemsCom.TabIndex = 20;
             itemsCom.Text = "s";
             itemsCom.Visible = false;
@@ -132,6 +136,14 @@
             itemToCustomer.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             itemToCustomer.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             itemToCustomer.BackgroundColor = SystemColors.ButtonHighlight;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            itemToCustomer.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             itemToCustomer.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             itemToCustomer.Location = new Point(272, 6);
             itemToCustomer.Name = "itemToCustomer";
@@ -139,7 +151,7 @@
             itemToCustomer.RightToLeft = RightToLeft.Yes;
             itemToCustomer.RowHeadersWidth = 62;
             itemToCustomer.RowTemplate.Height = 33;
-            itemToCustomer.Size = new Size(881, 443);
+            itemToCustomer.Size = new Size(898, 441);
             itemToCustomer.TabIndex = 0;
             itemToCustomer.CellClick += ItemToCustomer_CellClick;
             itemToCustomer.CellContentClick += ItemToCustomer_CellContentClick;
@@ -163,7 +175,7 @@
             tabPage2.Location = new Point(4, 34);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(1164, 455);
+            tabPage2.Size = new Size(1176, 453);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "הזמנה";
             tabPage2.UseVisualStyleBackColor = true;
@@ -207,6 +219,14 @@
             forSale.AllowUserToResizeRows = false;
             forSale.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             forSale.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            forSale.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             forSale.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             forSale.Location = new Point(283, 6);
             forSale.Name = "forSale";
@@ -214,7 +234,7 @@
             forSale.RightToLeft = RightToLeft.Yes;
             forSale.RowHeadersWidth = 62;
             forSale.RowTemplate.Height = 33;
-            forSale.Size = new Size(875, 443);
+            forSale.Size = new Size(887, 441);
             forSale.TabIndex = 1;
             forSale.CellClick += ForSale_CellClick;
             forSale.CellContentClick += ForSale_CellContentClick;
@@ -226,7 +246,7 @@
             tabPage3.Location = new Point(4, 34);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(3);
-            tabPage3.Size = new Size(1164, 455);
+            tabPage3.Size = new Size(1176, 453);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "דף הזמנות";
             tabPage3.UseVisualStyleBackColor = true;
@@ -240,13 +260,21 @@
             dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(15, 6);
+            dataGridView1.Location = new Point(7, 6);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersWidth = 62;
             dataGridView1.RowTemplate.Height = 33;
-            dataGridView1.Size = new Size(1143, 443);
+            dataGridView1.Size = new Size(1163, 441);
             dataGridView1.TabIndex = 1;
             dataGridView1.CellClick += DataGridView1_CellClick;
             dataGridView1.CellContentClick += DataGridView1_CellContentClick;
@@ -257,7 +285,7 @@
             itmesDe.Location = new Point(4, 34);
             itmesDe.Name = "itmesDe";
             itmesDe.Padding = new Padding(3);
-            itmesDe.Size = new Size(1164, 455);
+            itmesDe.Size = new Size(1176, 453);
             itmesDe.TabIndex = 3;
             itmesDe.Text = "פרוט הזמנה";
             itmesDe.UseVisualStyleBackColor = true;
@@ -271,6 +299,14 @@
             orderDe.AllowUserToResizeRows = false;
             orderDe.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             orderDe.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Control;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            orderDe.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             orderDe.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             orderDe.Location = new Point(6, 6);
             orderDe.Name = "orderDe";
@@ -278,7 +314,7 @@
             orderDe.RightToLeft = RightToLeft.Yes;
             orderDe.RowHeadersWidth = 62;
             orderDe.RowTemplate.Height = 33;
-            orderDe.Size = new Size(1152, 443);
+            orderDe.Size = new Size(1164, 441);
             orderDe.TabIndex = 2;
             // 
             // panel1
@@ -359,7 +395,7 @@
             label3.Location = new Point(942, 4);
             label3.Name = "label3";
             label3.RightToLeft = RightToLeft.Yes;
-            label3.Size = new Size(179, 20);
+            label3.Size = new Size(217, 25);
             label3.TabIndex = 18;
             label3.Text = "ברוכים הבאים לחנות שלנו\r\n";
             // 
@@ -384,7 +420,7 @@
             phoneNumber.Location = new Point(1041, 34);
             phoneNumber.Name = "phoneNumber";
             phoneNumber.RightToLeft = RightToLeft.Yes;
-            phoneNumber.Size = new Size(98, 20);
+            phoneNumber.Size = new Size(118, 25);
             phoneNumber.TabIndex = 21;
             phoneNumber.Text = "מספר טלפון :";
             // 
@@ -396,7 +432,7 @@
             customerName.Location = new Point(1072, 59);
             customerName.Name = "customerName";
             customerName.RightToLeft = RightToLeft.Yes;
-            customerName.Size = new Size(72, 20);
+            customerName.Size = new Size(87, 25);
             customerName.TabIndex = 22;
             customerName.Text = "שם לקוח:";
             // 
@@ -417,7 +453,7 @@
             label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label1.Location = new Point(830, 4);
             label1.Name = "label1";
-            label1.Size = new Size(89, 20);
+            label1.Size = new Size(106, 25);
             label1.TabIndex = 27;
             label1.Text = "חיפוש מוצר";
             // 
