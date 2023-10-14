@@ -940,6 +940,17 @@ namespace carPro
                 doc = new iTextSharp.text.Document();
                 iTextSharp.text.pdf.PdfWriter.GetInstance(doc, new FileStream(saveFileFromManger.FileName, FileMode.Create));
                 doc.Open();
+                /*creat title in pdf*/
+                Font font = new Font(BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED), 12);
+                Paragraph title = new Paragraph("פרטי הזמנה ", font);
+                PdfPCell cell = new PdfPCell(title);
+                cell.Border = 0; // Remove cell borders if needed
+                cell.RunDirection = PdfWriter.RUN_DIRECTION_RTL;
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                saveTablePdf = new PdfPTable(1);
+                saveTablePdf.AddCell(cell);
+                doc.Add(saveTablePdf);
+                /*creat title in pdf*/
                 tableFont = new Font(tableFont1, 12)
                 {
                     Color = BaseColor.BLACK
