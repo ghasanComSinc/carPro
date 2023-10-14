@@ -22,8 +22,8 @@ namespace carPro
         private PdfPTable saveTablePdf;
         private iTextSharp.text.Document doc;
         readonly static string path =@"C:\Users\ASUS\Desktop\VarelaRound-Regular.ttf";
-        readonly iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-        //iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(@"D:\autocar_path\VarelaRound-Regular.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        //readonly iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(@"D:\autocar_path\VarelaRound-Regular.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         Font tableFont;
         public Manger()
         {
@@ -838,7 +838,8 @@ namespace carPro
                 iTextSharp.text.pdf.PdfWriter.GetInstance(doc, new FileStream(saveFileFromManger.FileName, FileMode.Create));
                 doc.Open();
                 /*put image*/
-                iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("C:\\Users\\ASUS\\source\\repos\\carPro\\carPro\\plus.png");
+                iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("D:\\autopatr\\images.jpeg");
+                // iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("C:\\Users\\ASUS\\source\\repos\\carPro\\carPro\\plus.png");
                 img.ScaleToFit(200f, 200f); // Adjust the width and height as needed
                 img.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
                 doc.Add(img);

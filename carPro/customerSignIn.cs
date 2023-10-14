@@ -1,4 +1,6 @@
-﻿using MySql.Data.MySqlClient;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Utilities.Collections;
 using System;
@@ -12,6 +14,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Font = iTextSharp.text.Font;
+using Image = System.Drawing.Image;
 
 using static System.ComponentModel.Design.ObjectSelectorEditor;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
@@ -62,6 +66,15 @@ namespace carPro
             }
         }
         DataTable dataTable = new();
+        private PdfPTable saveTablePdf;
+        private iTextSharp.text.Document document;
+        //readonly static string path = @"C:\Users\ASUS\Desktop\VarelaRound-Regular.ttf";
+        readonly static string path = @"D:\autocar_path\VarelaRound-Regular.ttf";
+        //readonly iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(@"D:\autocar_path\VarelaRound-Regular.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+
+        Font tableFont;
+
         private void CustomerSignIn_Load(object sender, EventArgs e)
         {
             int w = Screen.PrimaryScreen.Bounds.Width;
@@ -501,6 +514,115 @@ namespace carPro
             }
 
 
+        }
+
+        private void PDF_Button_order_Click(object sender, EventArgs e)
+        {
+            SavePdfFile(dataGridView1, "test", 0);
+        }
+        private void SaveTableFont(int count)
+        {
+            tableFont = new Font(tableFont1, 12)
+            {
+                Color = BaseColor.BLACK
+            };
+            saveTablePdf = new PdfPTable(count)
+            {
+                HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER,
+                RunDirection = iTextSharp.text.pdf.PdfWriter.RUN_DIRECTION_RTL
+            };
+        }
+        private void SavePdfFile(DataGridView data, string titleStr, int fileNum)
+        {
+            saveFileforCustumr.FileName = string.Empty;
+            saveFileforCustumr.Filter = "PDF Files|*.pdf";
+            if (saveFileforCustumr.ShowDialog() == DialogResult.OK)
+            {
+                document= new iTextSharp.text.Document();
+                iTextSharp.text.pdf.PdfWriter.GetInstance(document, new FileStream(saveFileforCustumr.FileName, FileMode.Create));
+                document.Open();
+                /*put image*/
+                iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("D:\\autopatr\\images.jpeg");
+                //iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("C:\\Users\\ASUS\\source\\repos\\carPro\\carPro\\plus.png");
+                img.ScaleToFit(200f, 200f); // Adjust the width and height as needed
+                img.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
+                document.Add(img);
+                /*put image*/
+                /*creat title in pdf*/
+                Font font = new Font(BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED), 12);
+                Paragraph title = new Paragraph(titleStr, font);
+                PdfPCell cell = new PdfPCell(title);
+                cell.Border = 0; // Remove cell borders if needed
+                cell.RunDirection = PdfWriter.RUN_DIRECTION_RTL;
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                saveTablePdf = new PdfPTable(1);
+                saveTablePdf.AddCell(cell);
+                document.Add(saveTablePdf);
+                /*creat title in pdf*/
+                if (fileNum == 0)
+                    SaveTableFont(data.ColumnCount);
+                else
+                    SaveTableFont(5);
+                float[] widthOfTable = new float[saveTablePdf.NumberOfColumns];
+                for (int i = 0; i < widthOfTable.Length; i++)
+                {
+                    if (fileNum == 0)
+                        widthOfTable[i] = 20f;
+                    else
+                    {
+                        if (i != 3)
+                            widthOfTable[i] = 20f;
+                        else
+                            widthOfTable[i] = 90f;
+                    }
+                }
+                saveTablePdf.SetWidths(widthOfTable);
+                if (fileNum == 0)
+                {
+                    for (int i = 0; i < data.ColumnCount; i++)
+                        saveTablePdf.AddCell(new Phrase(data.Columns[i].HeaderText, tableFont));
+                }
+                else
+                {
+                    saveTablePdf.AddCell(new Phrase(data.Columns[0].HeaderText, tableFont));
+                    saveTablePdf.AddCell(new Phrase(data.Columns[1].HeaderText, tableFont));
+                    saveTablePdf.AddCell(new Phrase(data.Columns[3].HeaderText, tableFont));
+                    saveTablePdf.AddCell(new Phrase(data.Columns[5].HeaderText, tableFont));
+                    saveTablePdf.AddCell(new Phrase(data.Columns[7].HeaderText, tableFont));
+                }
+                for (int i = 0; i < data.Rows.Count; i++)
+                {
+                    if (fileNum == 0)
+                    {
+                        for (int j = 0; j < data.ColumnCount; j++)
+                            saveTablePdf.AddCell(new Phrase(data.Rows[i].Cells[j].Value.ToString(), tableFont));
+                    }
+                    else
+                    {
+                        if (data.Rows[i].Cells[9].Value.ToString() == "פעיל")
+                        {
+                            if (data.Rows[i].Cells[7].Value.ToString() == "0")
+                                tableFont = new Font(tableFont1, 12)
+                                {
+                                    Color = BaseColor.RED
+                                };
+                            else
+                                tableFont = new Font(tableFont1, 12)
+                                {
+                                    Color = BaseColor.BLACK
+                                };
+                            saveTablePdf.AddCell(new Phrase(data.Rows[i].Cells[0].Value.ToString(), tableFont));
+                            saveTablePdf.AddCell(new Phrase(data.Rows[i].Cells[1].Value.ToString(), tableFont));
+                            saveTablePdf.AddCell(new Phrase(data.Rows[i].Cells[3].Value.ToString(), tableFont));
+                            saveTablePdf.AddCell(new Phrase(data.Rows[i].Cells[5].Value.ToString(), tableFont));
+                            saveTablePdf.AddCell(new Phrase(data.Rows[i].Cells[7].Value.ToString(), tableFont));
+                        }
+                    }
+                }
+                document.Add(saveTablePdf);
+                document.Close();
+                MessageBox.Show("הפעולה הסתימה בהצלחה");
+            }
         }
     }
 }

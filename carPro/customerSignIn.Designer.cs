@@ -64,6 +64,7 @@
             PDF_Button_order = new Button();
             tabPage5 = new TabPage();
             PDF_Button_all_orders = new Button();
+            saveFileforCustumr = new SaveFileDialog();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)itemToCustomer).BeginInit();
@@ -121,7 +122,7 @@
             itemsCom.Location = new Point(115, 289);
             itemsCom.Name = "itemsCom";
             itemsCom.RightToLeft = RightToLeft.No;
-            itemsCom.Size = new Size(20, 25);
+            itemsCom.Size = new Size(15, 20);
             itemsCom.TabIndex = 20;
             itemsCom.Text = "s";
             itemsCom.Visible = false;
@@ -395,7 +396,7 @@
             label3.Location = new Point(942, 4);
             label3.Name = "label3";
             label3.RightToLeft = RightToLeft.Yes;
-            label3.Size = new Size(217, 25);
+            label3.Size = new Size(179, 20);
             label3.TabIndex = 18;
             label3.Text = "ברוכים הבאים לחנות שלנו\r\n";
             // 
@@ -420,7 +421,7 @@
             phoneNumber.Location = new Point(1041, 34);
             phoneNumber.Name = "phoneNumber";
             phoneNumber.RightToLeft = RightToLeft.Yes;
-            phoneNumber.Size = new Size(118, 25);
+            phoneNumber.Size = new Size(98, 20);
             phoneNumber.TabIndex = 21;
             phoneNumber.Text = "מספר טלפון :";
             // 
@@ -432,7 +433,7 @@
             customerName.Location = new Point(1072, 59);
             customerName.Name = "customerName";
             customerName.RightToLeft = RightToLeft.Yes;
-            customerName.Size = new Size(87, 25);
+            customerName.Size = new Size(72, 20);
             customerName.TabIndex = 22;
             customerName.Text = "שם לקוח:";
             // 
@@ -453,7 +454,7 @@
             label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label1.Location = new Point(830, 4);
             label1.Name = "label1";
-            label1.Size = new Size(106, 25);
+            label1.Size = new Size(89, 20);
             label1.TabIndex = 27;
             label1.Text = "חיפוש מוצר";
             // 
@@ -486,6 +487,7 @@
             PDF_Button_order.TabIndex = 0;
             PDF_Button_order.Text = "button1";
             PDF_Button_order.UseVisualStyleBackColor = true;
+            PDF_Button_order.Click += PDF_Button_order_Click;
             // 
             // tabPage5
             // 
@@ -583,5 +585,6 @@
         private TabPage tabPage5;
         private Button PDF_Button_order;
         private Button PDF_Button_all_orders;
+        private SaveFileDialog saveFileforCustumr;
     }
 }
