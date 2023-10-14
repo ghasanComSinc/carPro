@@ -24,7 +24,7 @@ namespace carPro
         //readonly MySqlConnection connection = new("server=sql12.freesqldatabase.com;user=sql12650296;database=sql12650296;password=QadX7ERzXj");
 
         MySqlCommand MyCommand2;
-        int sum = 0;
+        float sum = 0;
         public string nameCustumer;
         int amount = 0;
         string parcod;
@@ -207,11 +207,11 @@ namespace carPro
                         }
                         else if (i == 5)
                         {
-                            forSale.Rows[rowIndexNew].Cells[i].Value = int.Parse(forSale.Rows[rowIndexNew].Cells[3].Value.ToString()) * int.Parse(forSale.Rows[rowIndexNew].Cells[4].Value.ToString());
+                            forSale.Rows[rowIndexNew].Cells[i].Value = float.Parse(forSale.Rows[rowIndexNew].Cells[3].Value.ToString()) * float.Parse(forSale.Rows[rowIndexNew].Cells[4].Value.ToString());
                         }
                     }
                     tabPage2.Text = "הזמנה" + "(" + forSale.Rows.Count + ")";
-                    sum += int.Parse(forSale.Rows[rowIndexNew].Cells[5].Value.ToString());
+                    sum += float.Parse(forSale.Rows[rowIndexNew].Cells[5].Value.ToString());
                     priceToPay.Text = "מחיר לתשלום:" + "\n" + sum + "";
                 }
             }
@@ -220,12 +220,12 @@ namespace carPro
                 if (amountSale.Text != "0")
                 {
                     //forSale.Rows[rowOld].Cells[5].Value = int.Parse(forSale.Rows[rowOld].Cells[3].Value.ToString()) * int.Parse(forSale.Rows[rowOld].Cells[4].Value.ToString());
-                    _ = int.TryParse(forSale.Rows[rowOld].Cells[3].Value.ToString(), out int num1);
-                    _ = int.TryParse(forSale.Rows[rowOld].Cells[4].Value.ToString(), out int num2);
+                    _ = float.TryParse(forSale.Rows[rowOld].Cells[3].Value.ToString(), out float num1);
+                    _ = float.TryParse(forSale.Rows[rowOld].Cells[4].Value.ToString(), out float num2);
                     sum -= num1 * num2;
                     forSale.Rows[rowOld].Cells[3].Value = amountSale.Text;
-                    _ = int.TryParse(forSale.Rows[rowOld].Cells[3].Value.ToString(), out num1);
-                    _ = int.TryParse(forSale.Rows[rowOld].Cells[4].Value.ToString(), out num2);
+                    _ = float.TryParse(forSale.Rows[rowOld].Cells[3].Value.ToString(), out num1);
+                    _ = float.TryParse(forSale.Rows[rowOld].Cells[4].Value.ToString(), out num2);
                     sum += num1 * num2;
                     forSale.Rows[rowOld].Cells[5].Value = num1 * num2;
                     priceToPay.Text = "מחיר לתשלום:" + "\n" + sum + "";
@@ -238,8 +238,8 @@ namespace carPro
                         tabPage2.Text = "הזמנה" + "(" + (forSale.Rows.Count - 1) + ")";
                     HideItem();
                     saleItmesIm.Image = null;
-                    _ = int.TryParse(forSale.Rows[rowOld].Cells[3].Value.ToString(), out int num1);
-                    _ = int.TryParse(forSale.Rows[rowOld].Cells[4].Value.ToString(), out int num2);
+                    _ = float.TryParse(forSale.Rows[rowOld].Cells[3].Value.ToString(), out float num1);
+                    _ = float.TryParse(forSale.Rows[rowOld].Cells[4].Value.ToString(), out float num2);
                     sum -= num1 * num2;
                     priceToPay.Text = "מחיר לתשלום:" + "\n" + sum + "";
                     forSale.Rows.RemoveAt(rowOld);
