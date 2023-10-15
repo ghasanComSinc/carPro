@@ -74,14 +74,8 @@ namespace carPro
                 }
             }
         }
-
-
         private void CustomerSignIn_Load(object sender, EventArgs e)
-        {
-            int w = Screen.PrimaryScreen.Bounds.Width;
-            int h = Screen.PrimaryScreen.Bounds.Height;
-            this.Location = new Point(0, 0);
-            this.Size = new Size(w, h);
+        { 
             try
             {
                 string strFun;
@@ -103,10 +97,7 @@ namespace carPro
                 CustomerSignIn_FormClosed(null, null);
                 connection.Close();
             }
-
             TabControl1_SelectedIndexChanged(sender, e);
-            /* the load of the data orders*/
-
         }
         private void HideItem()
         {
@@ -178,7 +169,7 @@ namespace carPro
             if (amountSale.Text != "" && Regex.IsMatch(amountSale.Text, @"^\d+$") && int.Parse(amountSale.Text) > amount)
             {
                 MessageBox.Show("אין במלי הכמות הדרושה");
-                amountSale.Text = "0";
+                amountSale.Text = amount.ToString();
             }
             else if (!Regex.IsMatch(amountSale.Text, @"^\d+$"))
             {
@@ -440,9 +431,8 @@ namespace carPro
             }
             itemToCustomer.Refresh();
         }
-
         private void TabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        { 
             for (int i = 0; i < tab_PDF.TabCount;)
                 tab_PDF.TabPages.Remove(tab_PDF.TabPages[0]);
             if (tabControl1.SelectedIndex == 0)
@@ -517,7 +507,6 @@ namespace carPro
 
 
         }
-
         private void PDF_Button_order_Click(object sender, EventArgs e)
         {
             SavePdfFile(dataGridView1, "test", 0);

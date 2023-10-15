@@ -7,6 +7,7 @@ using Font = iTextSharp.text.Font;
 using System.Windows.Forms;
 using iText.Kernel.Geom;
 using iText.IO.Image;
+using Point = System.Drawing.Point;
 
 namespace carPro
 {
@@ -18,12 +19,12 @@ namespace carPro
         DataTable dataTable;
         bool flagImg;
         int index;
-        private string oldPar,oldId;
+        private string oldPar, oldId;
         private PdfPTable saveTablePdf;
         private iTextSharp.text.Document doc;
-        readonly static string path =@"C:\Users\ASUS\Desktop\VarelaRound-Regular.ttf";
+        readonly static string path = @"C:\Users\ASUS\Desktop\VarelaRound-Regular.ttf";
         readonly iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-       // iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(@"D:\autocar_path\VarelaRound-Regular.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        // iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(@"D:\autocar_path\VarelaRound-Regular.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         Font tableFont;
         public Manger()
         {
@@ -207,10 +208,6 @@ namespace carPro
         private void Manger_Load(object sender, EventArgs e)
         {
             TabControl1_SelectedIndexChanged(sender, e);
-            int w = Screen.PrimaryScreen.Bounds.Width;
-            int h = Screen.PrimaryScreen.Bounds.Height;
-            this.Location = new System.Drawing.Point(0, 0);
-            this.Size = new Size(w, h);
             ExPDF.TabPages.Remove(ordersPDF);
         }
         private void Users_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -556,7 +553,6 @@ namespace carPro
         }
         private void ClearItmesDetla()
         {
-
             nameItem.Text = "";
             typeCar.Text = "";
             placeInShop.Text = "";
@@ -710,8 +706,9 @@ namespace carPro
             {
                 nameCustumer = phone_number
             };
+            cust.Location = new System.Drawing.Point(this.Location.X, this.Location.Y);
+            cust.Size = this.Size;
             this.Hide();
-
             cust.ShowDialog();
             this.Show();
             Manger_Load(sender, e);
@@ -815,7 +812,7 @@ namespace carPro
             }
         }
         private void SaveTableFont(int count)
-        { 
+        {
             tableFont = new Font(tableFont1, 12)
             {
                 Color = BaseColor.BLACK
@@ -926,11 +923,11 @@ namespace carPro
         }
         private void ExPDFOr_Click(object sender, EventArgs e)
         {
-            SavePdfFile(orders,"דוח של הזמנות",0);
+            SavePdfFile(orders, "דוח של הזמנות", 0);
         }
         private void PDFUser_Click(object sender, EventArgs e)
         {
-            SavePdfFile(users,"דוח של משתמשים", 0);
+            SavePdfFile(users, "דוח של משתמשים", 0);
         }
         private void ExPDFDeOr_Click(object sender, EventArgs e)
         {

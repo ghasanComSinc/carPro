@@ -26,10 +26,6 @@ namespace carPro
         public Employee()
         {
             InitializeComponent();
-            int w = Screen.PrimaryScreen.Bounds.Width;
-            int h = Screen.PrimaryScreen.Bounds.Height;
-            this.Location = new Point(0, 0);
-            this.Size = new Size(w, h);
             tab_PDF.SizeMode = TabSizeMode.Fixed;
             tab_PDF.ItemSize = new Size(0, 1);
             tab_PDF.Appearance = TabAppearance.FlatButtons;
@@ -345,7 +341,9 @@ namespace carPro
             {
                 nameCustumer = employName
             };
-            this.Hide();
+            cust.Location = new System.Drawing.Point(this.Location.X, this.Location.Y);
+            cust.Size = this.Size;
+            this.Hide();   
             cust.ShowDialog();
             this.Show();
             Employee_Load(sender, e);
@@ -363,7 +361,7 @@ namespace carPro
                 RunDirection = iTextSharp.text.pdf.PdfWriter.RUN_DIRECTION_RTL
             };
         }
-        private void  fillFileDe(DataGridView data)
+        private void fillFileDe(DataGridView data)
         {
             for (int j = 0; j < data.ColumnCount; j++)
             {
@@ -390,7 +388,7 @@ namespace carPro
                 doc.Open();
                 /*put image*/
                 //iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("D:\\autopatr\\images.jpeg");
-                 iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("C:\\Users\\ASUS\\source\\repos\\carPro\\carPro\\plus.png");
+                iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("C:\\Users\\ASUS\\source\\repos\\carPro\\carPro\\plus.png");
                 img.ScaleToFit(200f, 200f); // Adjust the width and height as needed
                 img.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
                 doc.Add(img);
@@ -410,7 +408,7 @@ namespace carPro
                 float[] widthOfTable = new float[3];
                 for (int i = 0; i < widthOfTable.Length; i++)
                 {
-                        widthOfTable[i] = 20f;
+                    widthOfTable[i] = 20f;
                 }
                 saveTablePdf.SetWidths(widthOfTable);
                 fillFileDe(orders);
