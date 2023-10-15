@@ -363,6 +363,22 @@ namespace carPro
                 RunDirection = iTextSharp.text.pdf.PdfWriter.RUN_DIRECTION_RTL
             };
         }
+        private void  fillFileDe(DataGridView data)
+        {
+            for (int j = 0; j < data.ColumnCount; j++)
+            {
+                if (data.Columns[j].Visible == true)
+                    saveTablePdf.AddCell(new Phrase(data.Columns[j].HeaderText, tableFont));
+            }
+            for (int i = 0; i < data.Rows.Count; i++)
+            {
+                for (int j = 0; j < data.ColumnCount; j++)
+                {
+                    if (data.Rows[i].Cells[j].Visible == true)
+                        saveTablePdf.AddCell(new Phrase(data.Rows[i].Cells[j].Value.ToString(), tableFont));
+                }
+            }
+        }
         private void PDF_Button_order_Click(object sender, EventArgs e)
         {
             saveFileFromEmploye.FileName = string.Empty;
@@ -390,20 +406,14 @@ namespace carPro
                 saveTablePdf.AddCell(cell);
                 doc.Add(saveTablePdf);
                 /*creat title in pdf*/
-                SaveTableFont(orders.ColumnCount);
-                float[] widthOfTable = new float[saveTablePdf.NumberOfColumns];
+                SaveTableFont(3);
+                float[] widthOfTable = new float[3];
                 for (int i = 0; i < widthOfTable.Length; i++)
                 {
                         widthOfTable[i] = 20f;
                 }
                 saveTablePdf.SetWidths(widthOfTable);
-                    for (int i = 0; i < orders.ColumnCount; i++)
-                        saveTablePdf.AddCell(new Phrase(orders.Columns[i].HeaderText, tableFont));
-                for (int i = 0; i < orders.Rows.Count; i++)
-                {
-                        for (int j = 0; j < orders.ColumnCount; j++)
-                            saveTablePdf.AddCell(new Phrase(orders.Rows[i].Cells[j].Value.ToString(), tableFont));      
-                }
+                fillFileDe(orders);
                 doc.Add(saveTablePdf);
                 doc.Close();
                 MessageBox.Show("הפעולה הסתימה בהצלחה");
@@ -442,26 +452,12 @@ namespace carPro
                 saveTablePdf.AddCell(new Phrase(itemsInOrder.Columns[0].HeaderText + ":" + itemsInOrder.Rows[0].Cells[0].Value.ToString(), tableFont));
                 saveTablePdf.AddCell(new Phrase(itemsInOrder.Columns[2].HeaderText + ":" + itemsInOrder.Rows[0].Cells[2].Value.ToString(), tableFont));
                 doc.Add(saveTablePdf);
-                saveTablePdf = new iTextSharp.text.pdf.PdfPTable(6)
+                saveTablePdf = new iTextSharp.text.pdf.PdfPTable(9)
                 {
                     HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER,
                     RunDirection = iTextSharp.text.pdf.PdfWriter.RUN_DIRECTION_RTL
                 };
-                saveTablePdf.AddCell(new Phrase(itemsInOrder.Columns[7].HeaderText, tableFont));
-                saveTablePdf.AddCell(new Phrase(itemsInOrder.Columns[1].HeaderText, tableFont));
-                saveTablePdf.AddCell(new Phrase(itemsInOrder.Columns[3].HeaderText, tableFont));
-                saveTablePdf.AddCell(new Phrase(itemsInOrder.Columns[4].HeaderText, tableFont));
-                saveTablePdf.AddCell(new Phrase(itemsInOrder.Columns[5].HeaderText, tableFont));
-                saveTablePdf.AddCell(new Phrase(itemsInOrder.Columns[6].HeaderText, tableFont));
-                for (int i = 0; i < itemsInOrder.Rows.Count; i++)
-                {
-                    saveTablePdf.AddCell(new Phrase(itemsInOrder.Rows[i].Cells[7].Value.ToString(), tableFont));
-                    saveTablePdf.AddCell(new Phrase(itemsInOrder.Rows[i].Cells[1].Value.ToString(), tableFont));
-                    saveTablePdf.AddCell(new Phrase(itemsInOrder.Rows[i].Cells[3].Value.ToString(), tableFont));
-                    saveTablePdf.AddCell(new Phrase(itemsInOrder.Rows[i].Cells[4].Value.ToString(), tableFont));
-                    saveTablePdf.AddCell(new Phrase(itemsInOrder.Rows[i].Cells[5].Value.ToString(), tableFont));
-                    saveTablePdf.AddCell(new Phrase(itemsInOrder.Rows[i].Cells[6].Value.ToString(), tableFont));
-                }
+                fillFileDe(itemsInOrder);
                 doc.Add(saveTablePdf);
                 doc.Close();
                 MessageBox.Show("הפעולה הסתימה בהצלחה");
