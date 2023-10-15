@@ -33,6 +33,15 @@ namespace carPro
         int amount = 0;
         string parcod;
         int rowIndex;
+        DataTable dataTable = new();
+        private PdfPTable saveTablePdf;
+        private iTextSharp.text.Document document;
+        readonly static string path = @"C:\Users\ASUS\Desktop\VarelaRound-Regular.ttf";
+        //readonly static string path = @"D:\autocar_path\VarelaRound-Regular.ttf";
+        readonly iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        //iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(@"D:\autocar_path\VarelaRound-Regular.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+
+        Font tableFont;
 
         public CustomerSignIn()
         {
@@ -65,15 +74,7 @@ namespace carPro
                 }
             }
         }
-        DataTable dataTable = new();
-        private PdfPTable saveTablePdf;
-        private iTextSharp.text.Document document;
-        //readonly static string path = @"C:\Users\ASUS\Desktop\VarelaRound-Regular.ttf";
-        readonly static string path = @"D:\autocar_path\VarelaRound-Regular.ttf";
-        //readonly iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-        iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(@"D:\autocar_path\VarelaRound-Regular.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 
-        Font tableFont;
 
         private void CustomerSignIn_Load(object sender, EventArgs e)
         {
@@ -496,6 +497,7 @@ namespace carPro
                     // Bind the DataTable to the DataGridView
                     dataGridView1.DataSource = dataTable;
                     dataGridView1.Columns[0].Visible = false;
+                    dataGridView1.Columns[0].HeaderText = "מספר טלפון";
                     dataGridView1.Columns[1].HeaderText = "מספר הזמנה";
                     dataGridView1.Columns[2].HeaderText = "מחיר תשלום";
                     dataGridView1.Columns[3].HeaderText = "מצב הזמנה";
@@ -538,12 +540,12 @@ namespace carPro
             saveFileforCustumr.Filter = "PDF Files|*.pdf";
             if (saveFileforCustumr.ShowDialog() == DialogResult.OK)
             {
-                document= new iTextSharp.text.Document();
+                document = new iTextSharp.text.Document();
                 iTextSharp.text.pdf.PdfWriter.GetInstance(document, new FileStream(saveFileforCustumr.FileName, FileMode.Create));
                 document.Open();
                 /*put image*/
-                iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("D:\\autopatr\\images.jpeg");
-                //iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("C:\\Users\\ASUS\\source\\repos\\carPro\\carPro\\plus.png");
+                //iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("D:\\autopatr\\images.jpeg");
+                iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("C:\\Users\\ASUS\\source\\repos\\carPro\\carPro\\plus.png");
                 img.ScaleToFit(200f, 200f); // Adjust the width and height as needed
                 img.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
                 document.Add(img);

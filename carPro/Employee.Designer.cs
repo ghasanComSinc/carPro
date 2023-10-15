@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             allOrder = new TabPage();
             orders = new DataGridView();
@@ -52,6 +52,12 @@
             sinC = new Button();
             phoneNum = new Label();
             orderI = new Label();
+            tab_PDF = new TabControl();
+            pdfOrder = new TabPage();
+            PDF_Button_order = new Button();
+            itemDe = new TabPage();
+            PDF_Button_all_orders = new Button();
+            saveFileFromEmploye = new SaveFileDialog();
             tabControl1.SuspendLayout();
             allOrder.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)orders).BeginInit();
@@ -59,6 +65,9 @@
             ((System.ComponentModel.ISupportInitialize)picItems).BeginInit();
             ((System.ComponentModel.ISupportInitialize)itemsInOrder).BeginInit();
             panel1.SuspendLayout();
+            tab_PDF.SuspendLayout();
+            pdfOrder.SuspendLayout();
+            itemDe.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -71,7 +80,7 @@
             tabControl1.RightToLeft = RightToLeft.Yes;
             tabControl1.RightToLeftLayout = true;
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(875, 442);
+            tabControl1.Size = new Size(1027, 442);
             tabControl1.TabIndex = 18;
             // 
             // allOrder
@@ -80,7 +89,7 @@
             allOrder.Location = new Point(4, 34);
             allOrder.Name = "allOrder";
             allOrder.Padding = new Padding(3);
-            allOrder.Size = new Size(867, 404);
+            allOrder.Size = new Size(1019, 404);
             allOrder.TabIndex = 0;
             allOrder.Text = "הזמנות";
             allOrder.UseVisualStyleBackColor = true;
@@ -95,14 +104,14 @@
             orders.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             orders.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             orders.BackgroundColor = SystemColors.ButtonHighlight;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            orders.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            orders.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             orders.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             orders.Location = new Point(13, 6);
             orders.Name = "orders";
@@ -110,7 +119,7 @@
             orders.RightToLeft = RightToLeft.Yes;
             orders.RowHeadersWidth = 62;
             orders.RowTemplate.Height = 33;
-            orders.Size = new Size(851, 395);
+            orders.Size = new Size(1003, 395);
             orders.TabIndex = 1;
             orders.CellClick += Orders_CellClick;
             orders.CellContentClick += Orders_CellContentClick;
@@ -125,7 +134,7 @@
             tabPage2.Location = new Point(4, 34);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(867, 404);
+            tabPage2.Size = new Size(1019, 404);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "פרות של הזמנות";
             tabPage2.UseVisualStyleBackColor = true;
@@ -181,14 +190,14 @@
             itemsInOrder.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             itemsInOrder.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             itemsInOrder.BackgroundColor = SystemColors.ButtonHighlight;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            itemsInOrder.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Control;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            itemsInOrder.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             itemsInOrder.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             itemsInOrder.Location = new Point(309, 6);
             itemsInOrder.Name = "itemsInOrder";
@@ -196,7 +205,7 @@
             itemsInOrder.RightToLeft = RightToLeft.Yes;
             itemsInOrder.RowHeadersWidth = 62;
             itemsInOrder.RowTemplate.Height = 33;
-            itemsInOrder.Size = new Size(552, 393);
+            itemsInOrder.Size = new Size(704, 393);
             itemsInOrder.TabIndex = 2;
             itemsInOrder.MouseMove += ItemsInOrder_MouseMove;
             // 
@@ -205,7 +214,7 @@
             employeName.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             employeName.AutoSize = true;
             employeName.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            employeName.Location = new Point(695, 24);
+            employeName.Location = new Point(847, 24);
             employeName.Name = "employeName";
             employeName.RightToLeft = RightToLeft.Yes;
             employeName.Size = new Size(188, 50);
@@ -222,7 +231,7 @@
             panel1.Controls.Add(button1);
             panel1.Controls.Add(label6);
             panel1.Controls.Add(addItemBu);
-            panel1.Location = new Point(159, 5);
+            panel1.Location = new Point(359, 5);
             panel1.Name = "panel1";
             panel1.Size = new Size(482, 69);
             panel1.TabIndex = 23;
@@ -252,7 +261,7 @@
             label1.Anchor = AnchorStyles.None;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(310, 21);
+            label1.Location = new Point(330, 21);
             label1.Name = "label1";
             label1.Size = new Size(149, 25);
             label1.TabIndex = 26;
@@ -302,7 +311,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.Location = new Point(25, 77);
+            label2.Location = new Point(8, 67);
             label2.Name = "label2";
             label2.Size = new Size(153, 25);
             label2.TabIndex = 29;
@@ -325,7 +334,7 @@
             phoneNum.Anchor = AnchorStyles.Top;
             phoneNum.AutoSize = true;
             phoneNum.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            phoneNum.Location = new Point(456, 77);
+            phoneNum.Location = new Point(631, 77);
             phoneNum.Name = "phoneNum";
             phoneNum.Size = new Size(185, 25);
             phoneNum.TabIndex = 31;
@@ -337,18 +346,73 @@
             orderI.Anchor = AnchorStyles.Top;
             orderI.AutoSize = true;
             orderI.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            orderI.Location = new Point(246, 77);
+            orderI.Location = new Point(417, 77);
             orderI.Name = "orderI";
             orderI.Size = new Size(99, 25);
             orderI.TabIndex = 199;
             orderI.Text = "מזה הזמנה";
             orderI.Visible = false;
             // 
+            // tab_PDF
+            // 
+            tab_PDF.Controls.Add(pdfOrder);
+            tab_PDF.Controls.Add(itemDe);
+            tab_PDF.Location = new Point(174, 5);
+            tab_PDF.Name = "tab_PDF";
+            tab_PDF.RightToLeft = RightToLeft.Yes;
+            tab_PDF.RightToLeftLayout = true;
+            tab_PDF.SelectedIndex = 0;
+            tab_PDF.Size = new Size(180, 104);
+            tab_PDF.TabIndex = 200;
+            // 
+            // pdfOrder
+            // 
+            pdfOrder.Controls.Add(PDF_Button_order);
+            pdfOrder.Location = new Point(4, 34);
+            pdfOrder.Name = "pdfOrder";
+            pdfOrder.Padding = new Padding(3);
+            pdfOrder.Size = new Size(172, 66);
+            pdfOrder.TabIndex = 0;
+            pdfOrder.Text = "דוח הזמנה";
+            pdfOrder.UseVisualStyleBackColor = true;
+            // 
+            // PDF_Button_order
+            // 
+            PDF_Button_order.Location = new Point(19, 6);
+            PDF_Button_order.Name = "PDF_Button_order";
+            PDF_Button_order.Size = new Size(120, 47);
+            PDF_Button_order.TabIndex = 0;
+            PDF_Button_order.Text = "דוח חזמנות";
+            PDF_Button_order.UseVisualStyleBackColor = true;
+            PDF_Button_order.Click += PDF_Button_order_Click;
+            // 
+            // itemDe
+            // 
+            itemDe.Controls.Add(PDF_Button_all_orders);
+            itemDe.Location = new Point(4, 34);
+            itemDe.Name = "itemDe";
+            itemDe.Padding = new Padding(3);
+            itemDe.Size = new Size(172, 66);
+            itemDe.TabIndex = 1;
+            itemDe.Text = "דוח פרוט הזמנה";
+            itemDe.UseVisualStyleBackColor = true;
+            // 
+            // PDF_Button_all_orders
+            // 
+            PDF_Button_all_orders.Location = new Point(26, 17);
+            PDF_Button_all_orders.Name = "PDF_Button_all_orders";
+            PDF_Button_all_orders.Size = new Size(117, 32);
+            PDF_Button_all_orders.TabIndex = 0;
+            PDF_Button_all_orders.Text = "פרוט הזמנה";
+            PDF_Button_all_orders.UseVisualStyleBackColor = true;
+            PDF_Button_all_orders.Click += PDF_Button_all_orders_Click;
+            // 
             // Employee
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(890, 534);
+            ClientSize = new Size(1042, 534);
+            Controls.Add(tab_PDF);
             Controls.Add(orderI);
             Controls.Add(phoneNum);
             Controls.Add(sinC);
@@ -368,6 +432,9 @@
             ((System.ComponentModel.ISupportInitialize)itemsInOrder).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            tab_PDF.ResumeLayout(false);
+            pdfOrder.ResumeLayout(false);
+            itemDe.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -396,5 +463,11 @@
         private Label phoneNum;
         private Label orderI;
         private DomainUpDown search;
+        private TabControl tab_PDF;
+        private TabPage pdfOrder;
+        private Button PDF_Button_order;
+        private TabPage itemDe;
+        private Button PDF_Button_all_orders;
+        private SaveFileDialog saveFileFromEmploye;
     }
 }

@@ -122,7 +122,7 @@
             itemsCom.Location = new Point(115, 289);
             itemsCom.Name = "itemsCom";
             itemsCom.RightToLeft = RightToLeft.No;
-            itemsCom.Size = new Size(15, 20);
+            itemsCom.Size = new Size(20, 25);
             itemsCom.TabIndex = 20;
             itemsCom.Text = "s";
             itemsCom.Visible = false;
@@ -396,7 +396,7 @@
             label3.Location = new Point(942, 4);
             label3.Name = "label3";
             label3.RightToLeft = RightToLeft.Yes;
-            label3.Size = new Size(179, 20);
+            label3.Size = new Size(217, 25);
             label3.TabIndex = 18;
             label3.Text = "ברוכים הבאים לחנות שלנו\r\n";
             // 
@@ -421,7 +421,7 @@
             phoneNumber.Location = new Point(1041, 34);
             phoneNumber.Name = "phoneNumber";
             phoneNumber.RightToLeft = RightToLeft.Yes;
-            phoneNumber.Size = new Size(98, 20);
+            phoneNumber.Size = new Size(118, 25);
             phoneNumber.TabIndex = 21;
             phoneNumber.Text = "מספר טלפון :";
             // 
@@ -433,7 +433,7 @@
             customerName.Location = new Point(1072, 59);
             customerName.Name = "customerName";
             customerName.RightToLeft = RightToLeft.Yes;
-            customerName.Size = new Size(72, 20);
+            customerName.Size = new Size(87, 25);
             customerName.TabIndex = 22;
             customerName.Text = "שם לקוח:";
             // 
@@ -454,7 +454,7 @@
             label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label1.Location = new Point(830, 4);
             label1.Name = "label1";
-            label1.Size = new Size(89, 20);
+            label1.Size = new Size(106, 25);
             label1.TabIndex = 27;
             label1.Text = "חיפוש מוצר";
             // 
@@ -464,6 +464,8 @@
             tab_PDF.Controls.Add(tabPage5);
             tab_PDF.Location = new Point(431, 4);
             tab_PDF.Name = "tab_PDF";
+            tab_PDF.RightToLeft = RightToLeft.Yes;
+            tab_PDF.RightToLeftLayout = true;
             tab_PDF.SelectedIndex = 0;
             tab_PDF.Size = new Size(169, 107);
             tab_PDF.TabIndex = 28;
@@ -481,11 +483,11 @@
             // 
             // PDF_Button_order
             // 
-            PDF_Button_order.Location = new Point(29, 12);
+            PDF_Button_order.Location = new Point(23, 16);
             PDF_Button_order.Name = "PDF_Button_order";
-            PDF_Button_order.Size = new Size(94, 29);
+            PDF_Button_order.Size = new Size(117, 34);
             PDF_Button_order.TabIndex = 0;
-            PDF_Button_order.Text = "button1";
+            PDF_Button_order.Text = "דוח חזמנות";
             PDF_Button_order.UseVisualStyleBackColor = true;
             PDF_Button_order.Click += PDF_Button_order_Click;
             // 
@@ -502,11 +504,11 @@
             // 
             // PDF_Button_all_orders
             // 
-            PDF_Button_all_orders.Location = new Point(75, 28);
+            PDF_Button_all_orders.Location = new Point(26, 17);
             PDF_Button_all_orders.Name = "PDF_Button_all_orders";
-            PDF_Button_all_orders.Size = new Size(94, 29);
+            PDF_Button_all_orders.Size = new Size(117, 32);
             PDF_Button_all_orders.TabIndex = 0;
-            PDF_Button_all_orders.Text = "button1";
+            PDF_Button_all_orders.Text = "פרוט הזמנה";
             PDF_Button_all_orders.UseVisualStyleBackColor = true;
             // 
             // CustomerSignIn
