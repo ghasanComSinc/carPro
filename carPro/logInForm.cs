@@ -57,7 +57,7 @@ namespace carPro
                     {
                         CustomerSignIn customerS = new()
                         {
-                            nameCustumer = userName.Text
+                            PhoneNum = userName.Text
                         };
                         this.Hide();
                         customerS.ShowDialog();
@@ -121,7 +121,7 @@ namespace carPro
                         MessageBox.Show("הרשמה הצליחה");
                         CustomerSignIn customerForm = new()
                         {
-                            nameCustumer = phoneCustomer.Text,
+                            PhoneNum = phoneCustomer.Text,
 
                         };
                         this.Hide();

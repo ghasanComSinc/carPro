@@ -704,7 +704,7 @@ namespace carPro
         {
             CustomerSignIn cust = new()
             {
-                nameCustumer = phone_number
+                PhoneNum = phone_number
             };
             cust.Location = new System.Drawing.Point(this.Location.X, this.Location.Y);
             cust.Size = this.Size;

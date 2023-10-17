@@ -1,48 +1,28 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
-using MySql.Data.MySqlClient;
-using Org.BouncyCastle.Math;
-using Org.BouncyCastle.Utilities.Collections;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using Font = iTextSharp.text.Font;
 using Image = System.Drawing.Image;
-
-using static System.ComponentModel.Design.ObjectSelectorEditor;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace carPro
 {
     public partial class CustomerSignIn : Form
     {
-        readonly MySqlConnection connection = new("server=localhost;user=root;database=carshop;password=");
-        //readonly MySqlConnection connection = new("server=sql12.freesqldatabase.com;user=sql12650296;database=sql12650296;password=QadX7ERzXj");
-
-        MySqlCommand MyCommand2;
+        DataTable dataTable;
         float sum = 0;
-        public string nameCustumer;
+        public string PhoneNum;
         int amount = 0;
         string parcod;
         int rowIndex;
-        DataTable dataTable = new();
         private PdfPTable saveTablePdf;
         private iTextSharp.text.Document document;
         readonly static string path = @"C:\Users\ASUS\Desktop\VarelaRound-Regular.ttf";
         //readonly static string path = @"D:\autocar_path\VarelaRound-Regular.ttf";
         readonly iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         //iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(@"D:\autocar_path\VarelaRound-Regular.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-
+        customerClassDb custDb;
         Font tableFont;
-
         public CustomerSignIn()
         {
             InitializeComponent();
@@ -57,12 +37,7 @@ namespace carPro
             tab_PDF.SizeMode = TabSizeMode.Fixed;
             tab_PDF.ItemSize = new Size(0, 1);
             tab_PDF.Appearance = TabAppearance.FlatButtons;
-        }
-        private void CustomerSignIn_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            LogInForm logIn = new();
-            this.Dispose();
-            logIn.ShowDialog();
+            custDb = new();
         }
         private void EmtpyItems()
         {
@@ -75,29 +50,16 @@ namespace carPro
             }
         }
         private void CustomerSignIn_Load(object sender, EventArgs e)
-        { 
-            try
+        {
+            phoneNumber.Text += PhoneNum;
+            string name= custDb.nameCust(PhoneNum);
+            if (name != "")
             {
-                string strFun;
-                strFun = "SELECT `name` FROM `usertable` WHERE `phoneNumber`=" + nameCustumer;
-                connection.Open();
-                MyCommand2 = new MySqlCommand(strFun, connection);
-                MySqlDataAdapter adapter = new(MyCommand2);
-                adapter = new(MyCommand2);
-                DataTable dataTable1 = new();
-                adapter.Fill(dataTable1);
-                phoneNumber.Text += nameCustumer;
-                DataRow row = dataTable1.Rows[0];
-                customerName.Text += row["name"];
-                connection.Close();
+                customerName.Text += name;
+                TabControl1_SelectedIndexChanged(sender, e);
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                CustomerSignIn_FormClosed(null, null);
-                connection.Close();
-            }
-            TabControl1_SelectedIndexChanged(sender, e);
+            else
+                this.Close();
         }
         private void HideItem()
         {
@@ -106,7 +68,6 @@ namespace carPro
             amountSale.Visible = false;
             plus.Visible = false;
             minus.Visible = false;
-
         }
         private void ItemToCustomer_MouseMove(object sender, MouseEventArgs e)
         {
@@ -300,49 +261,23 @@ namespace carPro
         {
             if (forSale.Rows.Count > 0)
             {
-                try
-                {
-                    string strFun = "SELECT COUNT(*) FROM `paytable`;";
-                    MyCommand2 = new(strFun, connection);
-                    connection.Open();
-                    _ = int.TryParse(MyCommand2.ExecuteScalar().ToString(), out int count);
-                    count += 1;
-                    connection.Close();
-                    strFun = "INSERT INTO paytable(`phoneNumber`, `orderId`, `price`, `status`) VALUES" +
-                        "(@phoneNumber,@orderId,@price,@status)";
-                    MyCommand2 = new(strFun, connection);
-                    connection.Open();
-                    MyCommand2.Parameters.AddWithValue("@phoneNumber", nameCustumer);
-                    MyCommand2.Parameters.AddWithValue("@orderId", count);
-                    MyCommand2.Parameters.AddWithValue("@price", sum);
-                    MyCommand2.Parameters.AddWithValue("@status", "בטיפול");
-                    MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.     
-                    connection.Close();
-                    for (int i = 0; i < forSale.Rows.Count; i++)
+                int count = custDb.returnCountCus();
+                if (count > 0)
+                    if (custDb.insertSaleCus(PhoneNum, count, sum))
                     {
-                        strFun = "INSERT `orders`(`phoneNumber`, `parCode`, `orderId`, `amount`, `stauts`, `timeOrder`, `dateOrder`) VALUES" +
-                                        "(@phoneNumber,@parCode,@orderId,@amount,@stauts,@timeOrder,@dateOrder)";
-                        MyCommand2 = new(strFun, connection);
-                        connection.Open();
-                        MyCommand2.Parameters.AddWithValue("@phoneNumber", nameCustumer);
-                        MyCommand2.Parameters.AddWithValue("@parCode", forSale.Rows[i].Cells[2].Value);
-                        MyCommand2.Parameters.AddWithValue("@orderId", count);
-                        MyCommand2.Parameters.AddWithValue("@amount", forSale.Rows[i].Cells[3].Value);
-                        MyCommand2.Parameters.AddWithValue("@stauts", "בטיפול");
-                        MyCommand2.Parameters.AddWithValue("@timeOrder", DateTime.Now.ToLongTimeString());
-                        MyCommand2.Parameters.AddWithValue("@dateOrder", DateTime.Now.ToShortDateString());
-                        MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.     
-                        connection.Close();
+                        for (int i = 0; i < forSale.Rows.Count; i++)
+                        {
+                            if (!custDb.insertItemInSale(PhoneNum, forSale, i, count))
+                            {
+                                this.Close(); return;
+                            }
+                        }
                     }
-
-                    MessageBox.Show("שמרת הזמנה התבצעה בהצלחה ,מספר הזמנה שלכה הוא " + count);
-                    //CustomerSignIn_FormClosed(null, null);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    connection.Close();
-                }
+                    else
+                    { this.Close(); return; }
+                else
+                { this.Close(); return; }
+                MessageBox.Show("שמרת הזמנה התבצעה בהצלחה ,מספר הזמנה שלכה הוא " + count);
             }
             else
             {
@@ -366,36 +301,21 @@ namespace carPro
             if (e.RowIndex >= 0)
             {
                 tabControl1.SelectedIndex = 3;
-                try
+                // Bind the DataTable to the DataGridView
+                dataTable= custDb.returnSale(PhoneNum, dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString());
+                if (dataTable == null)
                 {
-                    string strFun;
-                    strFun = "SELECT * FROM `orders` " +
-                        $"WHERE `phoneNumber`={nameCustumer} AND `orderId`={dataGridView1.Rows[e.RowIndex].Cells[1].Value}";
-                    connection.Open();
-                    MyCommand2 = new MySqlCommand(strFun, connection);
-                    MySqlDataAdapter adapter = new(MyCommand2);
-                    DataTable dataTable = new();
-                    // Fill the DataTable with the query results
-                    adapter.Fill(dataTable);
-                    // Bind the DataTable to the DataGridView
-                    orderDe.DataSource = dataTable;
-                    //the number off the custmer to be used in the logo style
-                    string phoneNumber = orderDe.Columns[0].ToString();
-                    orderDe.Columns[0].Visible = false; //the number of customer  
-                    // we can add the name of the prodact insted of the phone number in this taple?
-                    orderDe.Columns[1].HeaderText = "ברקוד";
-                    orderDe.Columns[2].HeaderText = "מספר הזמנה";
-                    orderDe.Columns[3].HeaderText = "כמות";
-                    orderDe.Columns[4].HeaderText = "סטטוס הזמנה";
-                    orderDe.Columns[5].HeaderText = "שעת הזמנה";
-                    orderDe.Columns[6].HeaderText = "תאריך ושעת הזמנה";
-                    connection.Close();
+                    this.Close(); return;
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    connection.Close();
-                }
+                orderDe.DataSource = dataTable;
+                orderDe.Columns[0].Visible = false; //the number of customer               
+                orderDe.Columns[1].HeaderText = "ברקוד";
+                orderDe.Columns[2].HeaderText = "מספר הזמנה";
+                orderDe.Columns[3].HeaderText = "כמות";
+                orderDe.Columns[4].HeaderText = "סטטוס הזמנה";
+                orderDe.Columns[5].HeaderText = "שעת הזמנה";
+                orderDe.Columns[6].HeaderText = "תאריך ושעת הזמנה";
+
             }
         }
         private void SearchItem_TextChanged(object sender, EventArgs e)
@@ -407,105 +327,62 @@ namespace carPro
             }
             else
             {
-                try
-                {
-                    string strFun = "SELECT * FROM `items`ORDER BY BINARY `typeCar` ASC;";
-                    connection.Open();
-                    MyCommand2 = new MySqlCommand(strFun, connection);
-                    MySqlDataAdapter adapter = new(MyCommand2);
-                    DataTable dataTable1 = new();
-                    // Fill the DataTable with the query results
-                    adapter.Fill(dataTable1);
-                    dataTable = dataTable1;
+                    dataTable =custDb.returnItem();
+                    if(dataTable==null)
+                    {
+                        this.Close(); return;
+                    }
                     // Bind the DataTable to the DataGridView
                     itemToCustomer.DataSource = dataTable;
-                    EmtpyItems();
-                    connection.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    CustomerSignIn_FormClosed(null, null);
-                    connection.Close();
-                }
+                    EmtpyItems();         
             }
             itemToCustomer.Refresh();
         }
         private void TabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        { 
+        {
             for (int i = 0; i < tab_PDF.TabCount;)
                 tab_PDF.TabPages.Remove(tab_PDF.TabPages[0]);
             if (tabControl1.SelectedIndex == 0)
-                try
+            {
+                dataTable = custDb.returnItem();
+                if (dataTable == null)
                 {
-                    MySqlDataAdapter adapter = new(MyCommand2);
-                    string strFun = "SELECT * FROM `items` WHERE `available`=\"פעיל\"   ORDER BY BINARY `typeCar` ASC";
-                    connection.Open();
-                    MyCommand2 = new MySqlCommand(strFun, connection);
-                    adapter = new(MyCommand2);
-                    dataTable = new();
-                    // Fill the DataTable with the query results
-                    adapter.Fill(dataTable);
-                    // Bind the DataTable to the DataGridView
-                    itemToCustomer.DataSource = dataTable;
-                    itemToCustomer.Columns[0].HeaderText = "שם מוצר";
-                    itemToCustomer.Columns[1].HeaderText = "סוג רכב";
-                    itemToCustomer.Columns[2].Visible = false;
-                    itemToCustomer.Columns[3].HeaderText = "ברקוד";
-                    itemToCustomer.Columns[4].HeaderText = "מחיר ליחידה";
-                    itemToCustomer.Columns[5].Visible = false;
-                    itemToCustomer.Columns[6].Visible = false;
-                    itemToCustomer.Columns[7].HeaderText = "כמות";
-                    itemToCustomer.Columns[8].Visible = false;// "הערה";
-                    itemToCustomer.Columns[9].Visible = false;// available;
-                    EmtpyItems();
-                    connection.Close();
+                    this.Close(); return;
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    CustomerSignIn_FormClosed(null, null);
-                    connection.Close();
-                }
+                // Bind the DataTable to the DataGridView
+                itemToCustomer.DataSource = dataTable;
+                itemToCustomer.Columns[0].HeaderText = "שם מוצר";
+                itemToCustomer.Columns[1].HeaderText = "סוג רכב";
+                itemToCustomer.Columns[2].Visible = false;
+                itemToCustomer.Columns[3].HeaderText = "ברקוד";
+                itemToCustomer.Columns[4].HeaderText = "מחיר ליחידה";
+                itemToCustomer.Columns[5].Visible = false;
+                itemToCustomer.Columns[6].Visible = false;
+                itemToCustomer.Columns[7].HeaderText = "כמות";
+                itemToCustomer.Columns[8].Visible = false;// "הערה";
+                itemToCustomer.Columns[9].Visible = false;// available;
+                EmtpyItems();
+            }
             else if (tabControl1.SelectedIndex == 2)
             {
-                try
+                tab_PDF.TabPages.Add(tabPage4);
+                dataTable = custDb.returnAllSaleForCus(PhoneNum);
+                if (dataTable == null)
                 {
-                    tab_PDF.TabPages.Add(tabPage4);
-                    string strFun;
-
-                    strFun = "SELECT * FROM `payTable` WHERE `phoneNumber` = " + nameCustumer;
-                    connection.Open();
-                    MyCommand2 = new MySqlCommand(strFun, connection);
-
-                    MySqlDataAdapter adapter1 = new(MyCommand2);
-                    DataTable dataTable = new();
-
-                    // Fill the DataTable with the query results
-                    adapter1.Fill(dataTable);
-
-                    // Bind the DataTable to the DataGridView
-                    dataGridView1.DataSource = dataTable;
-                    dataGridView1.Columns[0].Visible = false;
-                    dataGridView1.Columns[0].HeaderText = "מספר טלפון";
-                    dataGridView1.Columns[1].HeaderText = "מספר הזמנה";
-                    dataGridView1.Columns[2].HeaderText = "מחיר תשלום";
-                    dataGridView1.Columns[3].HeaderText = "מצב הזמנה";
-                    connection.Close();
+                    this.Close(); return;
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    connection.Close();
-                }
+                // Bind the DataTable to the DataGridView
+                dataGridView1.DataSource = dataTable;
+                dataGridView1.Columns[0].Visible = false;
+                dataGridView1.Columns[0].HeaderText = "מספר טלפון";
+                dataGridView1.Columns[1].HeaderText = "מספר הזמנה";
+                dataGridView1.Columns[2].HeaderText = "מחיר תשלום";
+                dataGridView1.Columns[3].HeaderText = "מצב הזמנה";
             }
             else if (tabControl1.SelectedIndex == 3)
             {
                 tab_PDF.TabPages.Add(tabPage5);
-
             }
-
-
         }
         private void PDF_Button_order_Click(object sender, EventArgs e)
         {
