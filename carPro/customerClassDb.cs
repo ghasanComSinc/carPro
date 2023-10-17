@@ -41,7 +41,7 @@ namespace carPro
                 {
                     MessageBox.Show("נסה שוב בעיה בתקשורת");
                     connection.Close();
-                    return ""; ;
+                    return ""; 
                 }
                 return row["name"].ToString();
             }

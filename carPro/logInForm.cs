@@ -16,65 +16,54 @@ namespace carPro
         readonly MySqlConnection connection = new("server=localhost;user=root;database=carshop;password=");
         MySqlCommand command;
         MySqlDataReader mdr;
+        logInFormDb logInDb;
         public LogInForm()
         {
             InitializeComponent();
+            logInDb=new logInFormDb();
             tabControl1.SizeMode = TabSizeMode.Fixed;
             tabControl1.ItemSize = new Size(0, 1);
             tabControl1.Appearance = TabAppearance.FlatButtons;
         }
         private void Button1_Click(object sender, EventArgs e)
         {
-            try
+            mdr = logInDb.logIn(userName.Text, password.Text);
+            if (mdr.Read())
             {
-                connection.Open();
-                string selectQuery = "SELECT * FROM userTable WHERE phoneNumber = '" + userName.Text + "' AND password = '" + password.Text + "' AND available = '" + "פעיל" + "';";
-                command = new MySqlCommand(selectQuery, connection);
-                mdr = command.ExecuteReader();
-                if (mdr.Read())
+                string statusAc = new(mdr[3].ToString());
+                if (statusAc.Equals("מנהל"))
                 {
-                    string statusAc = new(mdr[3].ToString());
-                    string name = new(mdr[2].ToString());
-                    if (statusAc.Equals("מנהל"))
+                    Manger mangerform = new()
                     {
-                        Manger mangerform = new()
-                        {
-                            phone_number = userName.Text
-                        };
-                        this.Hide();
-                        mangerform.ShowDialog();
-                    }
-                    else if (statusAc.Equals("עובד"))
+                        phone_number = userName.Text
+                    };
+                    this.Hide();
+                    mangerform.ShowDialog();
+                }
+                else if (statusAc.Equals("עובד"))
+                {
+                    Employee emp = new()
                     {
-                        Employee emp = new()
-                        {
-                            employName = userName.Text
-                        };
-                        this.Hide();
-                        emp.ShowDialog();
-                    }
-                    else
-                    {
-                        CustomerSignIn customerS = new()
-                        {
-                            PhoneNum = userName.Text
-                        };
-                        this.Hide();
-                        customerS.ShowDialog();
-                    }
-                    this.Show();
+                        employName = userName.Text
+                    };
+                    this.Hide();
+                    emp.ShowDialog();
                 }
                 else
                 {
-
-                    MessageBox.Show("משתמש לא קיים");
+                    CustomerSignIn customerS = new()
+                    {
+                        PhoneNum = userName.Text
+                    };
+                    this.Hide();
+                    customerS.ShowDialog();
                 }
-                connection.Close();
+                this.Show();
             }
-            catch
+            else
             {
-                MessageBox.Show("אין רשת");
-                connection.Close();
+
+                MessageBox.Show("משתמש לא קיים");
             }
         }
         private bool CheckNumberPhone()
@@ -101,44 +90,24 @@ namespace carPro
             {
                 if (CheckNumberPhone())
                 {
-                    try
+                    if(logInDb.signUp(phoneCustomer.Text, passSin.Text, nameCustomer.Text) ==false)
                     {
-                        string strFun;
-
-                        strFun = "INSERT INTO `UserTable`(`phoneNumber`, `password`, `name`, `status`, `start_date`, `last_date`, `available`)" +
-                                                 "VALUES (@phoneN,@pass,@nameCust,@staut,@startD,@lastD,@avi)";
-                        command = new MySqlCommand(strFun, connection);
-                        connection.Open();
-                        command.Parameters.AddWithValue("@phoneN", phoneCustomer.Text);
-                        command.Parameters.AddWithValue("@pass", passSin.Text);
-                        command.Parameters.AddWithValue("@nameCust", nameCustomer.Text);
-                        command.Parameters.AddWithValue("@staut", "לקוח");
-                        command.Parameters.AddWithValue("@startD", DateTime.Now);
-                        command.Parameters.AddWithValue("@lastD", "");
-                        command.Parameters.AddWithValue("@avi", "פעיל");
-                        command.ExecuteNonQuery();
-                        connection.Close();
-                        MessageBox.Show("הרשמה הצליחה");
-                        CustomerSignIn customerForm = new()
-                        {
-                            PhoneNum = phoneCustomer.Text,
-
-                        };
-                        this.Hide();
-                        customerForm.ShowDialog();
-                        customerForm = null;
-                        this.Show();
+                        LogInWorker_Click(sender,e);
+                        return;
                     }
-                    catch
+                    MessageBox.Show("הרשמה הצליחה");
+                    CustomerSignIn customerForm = new()
                     {
-                        MessageBox.Show("משתמש קיים");
-                        connection.Close();
-                    }
+                        PhoneNum = phoneCustomer.Text,
 
+                    };
+                    this.Hide();
+                    customerForm.ShowDialog();
+                    this.Show();
                 }
                 else
                 {
-                    MessageBox.Show("מספר טלפון מכיל רק מספרים עם אורך של 9 ");
+                    MessageBox.Show("מספר טלפון מכיל רק מספרים עם אורך של 10 ");
                 }
             }
         }
@@ -184,7 +153,5 @@ namespace carPro
             if (e.KeyChar == (char)Keys.Enter)
                 Button2_Click(sender, e);
         }
-
-
     }
 }
