@@ -106,7 +106,7 @@ namespace carPro
             }
             pay.Text = "לתשלום :\r\n" + sum;
         }
-        private void fillDetItem(int index)
+        private void FillDetItem(int index)
         {
             try
             {
@@ -163,7 +163,7 @@ namespace carPro
                 tabControl1.TabPages.Add(tabPage2);
                 label2.Visible = true;
                 panel1.Visible = false;
-                fillDetItem(e.RowIndex);
+                FillDetItem(e.RowIndex);
             }
         }
         private void Label2_Click(object sender, EventArgs e)
@@ -314,7 +314,7 @@ namespace carPro
             ////////////////////////////////////////////
             try
             {
-                fillDetItem(0);
+                FillDetItem(0);
                 string strFun1 = "UPDATE `paytable` SET `price`=@price WHERE `phoneNumber`=@id AND `orderId`=@orderId";
                 connection.Open();
                 command = new MySqlCommand(strFun1, connection);
@@ -339,10 +339,10 @@ namespace carPro
         {
             CustomerSignIn cust = new()
             {
-                PhoneNum = employName
+                PhoneNum = employName,
+                Location = new System.Drawing.Point(this.Location.X, this.Location.Y),
+                Size = this.Size
             };
-            cust.Location = new System.Drawing.Point(this.Location.X, this.Location.Y);
-            cust.Size = this.Size;
             this.Hide();   
             cust.ShowDialog();
             this.Show();
@@ -361,7 +361,7 @@ namespace carPro
                 RunDirection = iTextSharp.text.pdf.PdfWriter.RUN_DIRECTION_RTL
             };
         }
-        private void fillFileDe(DataGridView data)
+        private void FillFileDe(DataGridView data)
         {
             for (int j = 0; j < data.ColumnCount; j++)
             {
@@ -394,12 +394,14 @@ namespace carPro
                 doc.Add(img);
                 /*put image*/
                 /*creat title in pdf*/
-                Font font = new Font(BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED), 12);
-                Paragraph title = new Paragraph("הזמנות", font);
-                PdfPCell cell = new PdfPCell(title);
-                cell.Border = 0; // Remove cell borders if needed
-                cell.RunDirection = PdfWriter.RUN_DIRECTION_RTL;
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                Font font = new(BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED), 12);
+                Paragraph title = new("הזמנות", font);
+                PdfPCell cell = new(title)
+                {
+                    Border = 0, // Remove cell borders if needed
+                    RunDirection = PdfWriter.RUN_DIRECTION_RTL,
+                    HorizontalAlignment = Element.ALIGN_CENTER
+                };
                 saveTablePdf = new PdfPTable(1);
                 saveTablePdf.AddCell(cell);
                 doc.Add(saveTablePdf);
@@ -411,7 +413,7 @@ namespace carPro
                     widthOfTable[i] = 20f;
                 }
                 saveTablePdf.SetWidths(widthOfTable);
-                fillFileDe(orders);
+                FillFileDe(orders);
                 doc.Add(saveTablePdf);
                 doc.Close();
                 MessageBox.Show("הפעולה הסתימה בהצלחה");
@@ -427,12 +429,14 @@ namespace carPro
                 iTextSharp.text.pdf.PdfWriter.GetInstance(doc, new FileStream(saveFileFromEmploye.FileName, FileMode.Create));
                 doc.Open();
                 /*creat title in pdf*/
-                Font font = new Font(BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED), 12);
-                Paragraph title = new Paragraph("פרטי הזמנה ", font);
-                PdfPCell cell = new PdfPCell(title);
-                cell.Border = 0; // Remove cell borders if needed
-                cell.RunDirection = PdfWriter.RUN_DIRECTION_RTL;
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                Font font = new(BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED), 12);
+                Paragraph title = new("פרטי הזמנה ", font);
+                PdfPCell cell = new(title)
+                {
+                    Border = 0, // Remove cell borders if needed
+                    RunDirection = PdfWriter.RUN_DIRECTION_RTL,
+                    HorizontalAlignment = Element.ALIGN_CENTER
+                };
                 saveTablePdf = new PdfPTable(1);
                 saveTablePdf.AddCell(cell);
                 doc.Add(saveTablePdf);
@@ -455,7 +459,7 @@ namespace carPro
                     HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER,
                     RunDirection = iTextSharp.text.pdf.PdfWriter.RUN_DIRECTION_RTL
                 };
-                fillFileDe(itemsInOrder);
+                FillFileDe(itemsInOrder);
                 doc.Add(saveTablePdf);
                 doc.Close();
                 MessageBox.Show("הפעולה הסתימה בהצלחה");

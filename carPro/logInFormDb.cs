@@ -9,16 +9,16 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace carPro
 {
-    internal class logInFormDb
+    internal class LogInFormDb : IDisposable
     {
         readonly MySqlConnection connection ;
         MySqlCommand command;
-        public logInFormDb() 
+        public LogInFormDb() 
         {
             connection = new("server=localhost;user=root;database=carshop;password=");
             // connection = new("server=sql12.freesqldatabase.com;user=sql12650296;database=sql12650296;password=QadX7ERzXj");
         }
-        public MySqlDataReader logIn(string userName, string pass)
+        public string LogIn(string userName, string pass)
         {
             lock (connection)
             {
@@ -27,8 +27,12 @@ namespace carPro
                     connection.Open();
                     string selectQuery = "SELECT * FROM userTable WHERE phoneNumber = '" + userName + "' AND password = '" + pass + "' AND available = '" + "פעיל" + "';";
                     command = new MySqlCommand(selectQuery, connection);
+                    MySqlDataReader ms = command.ExecuteReader();
+                    if (ms.Read() == false)
+                        MessageBox.Show("משתמש לא קיים");
+                    string status = ms[3].ToString();
                     connection.Close();
-                    return command.ExecuteReader();
+                    return status;
                 }
                 catch
                 {
@@ -40,7 +44,7 @@ namespace carPro
 
 
         }
-        public bool signUp(string phone,string pass,string name)
+        public bool SignUp(string phone, string pass, string name)
         {
             lock (connection)
             {
@@ -69,6 +73,11 @@ namespace carPro
                     return false;
                 }
             }
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
 }

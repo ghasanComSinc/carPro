@@ -704,10 +704,10 @@ namespace carPro
         {
             CustomerSignIn cust = new()
             {
-                PhoneNum = phone_number
+                PhoneNum = phone_number,
+                Location = new System.Drawing.Point(this.Location.X, this.Location.Y),
+                Size = this.Size
             };
-            cust.Location = new System.Drawing.Point(this.Location.X, this.Location.Y);
-            cust.Size = this.Size;
             this.Hide();
             cust.ShowDialog();
             this.Show();
@@ -835,19 +835,21 @@ namespace carPro
                 iTextSharp.text.pdf.PdfWriter.GetInstance(doc, new FileStream(saveFileFromManger.FileName, FileMode.Create));
                 doc.Open();
                 /*put image*/
-                iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("D:\\autopatr\\images.jpeg");
-                // iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("C:\\Users\\ASUS\\source\\repos\\carPro\\carPro\\plus.png");
+                //iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("D:\\autopatr\\images.jpeg");
+                 iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("C:\\Users\\ASUS\\source\\repos\\carPro\\carPro\\plus.png");
                 img.ScaleToFit(200f, 200f); // Adjust the width and height as needed
                 img.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
                 doc.Add(img);
                 /*put image*/
                 /*creat title in pdf*/
-                Font font = new Font(BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED), 12);
-                Paragraph title = new Paragraph(titleStr, font);
-                PdfPCell cell = new PdfPCell(title);
-                cell.Border = 0; // Remove cell borders if needed
-                cell.RunDirection = PdfWriter.RUN_DIRECTION_RTL;
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                Font font = new(BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED), 12);
+                Paragraph title = new(titleStr, font);
+                PdfPCell cell = new(title)
+                {
+                    Border = 0, // Remove cell borders if needed
+                    RunDirection = PdfWriter.RUN_DIRECTION_RTL,
+                    HorizontalAlignment = Element.ALIGN_CENTER
+                };
                 saveTablePdf = new PdfPTable(1);
                 saveTablePdf.AddCell(cell);
                 doc.Add(saveTablePdf);
@@ -939,12 +941,14 @@ namespace carPro
                 iTextSharp.text.pdf.PdfWriter.GetInstance(doc, new FileStream(saveFileFromManger.FileName, FileMode.Create));
                 doc.Open();
                 /*creat title in pdf*/
-                Font font = new Font(BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED), 12);
-                Paragraph title = new Paragraph("פרטי הזמנה ", font);
-                PdfPCell cell = new PdfPCell(title);
-                cell.Border = 0; // Remove cell borders if needed
-                cell.RunDirection = PdfWriter.RUN_DIRECTION_RTL;
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                Font font = new(BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED), 12);
+                Paragraph title = new("פרטי הזמנה ", font);
+                PdfPCell cell = new(title)
+                {
+                    Border = 0, // Remove cell borders if needed
+                    RunDirection = PdfWriter.RUN_DIRECTION_RTL,
+                    HorizontalAlignment = Element.ALIGN_CENTER
+                };
                 saveTablePdf = new PdfPTable(1);
                 saveTablePdf.AddCell(cell);
                 doc.Add(saveTablePdf);

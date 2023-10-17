@@ -9,17 +9,17 @@ using System.Windows.Forms;
 
 namespace carPro
 {
-    internal class customerClassDb
+    internal class CustomerClassDb : IDisposable
     {
         readonly MySqlConnection connection;
         MySqlCommand MyCommand2;
-        DataTable dataTable;
-        public customerClassDb()
+
+        public CustomerClassDb()
         {
             connection = new("server=localhost;user=root;database=carshop;password=");
             // connection = new("server=sql12.freesqldatabase.com;user=sql12650296;database=sql12650296;password=QadX7ERzXj");
         }
-        public string nameCust(string PhoneCustumer)
+        public string NameCust(string PhoneCustumer)
         {
             lock (connection)
             {
@@ -46,7 +46,7 @@ namespace carPro
                 return row["name"].ToString();
             }
         }
-        public int returnCountCus()
+        public int ReturnCountCus()
         {
             lock (connection)
             {
@@ -67,7 +67,7 @@ namespace carPro
                 }
             }
         }
-        public bool insertSaleCus(string nameCustumer, int count, float sum)
+        public bool InsertSaleCus(string nameCustumer, int count, float sum)
         {
             lock (connection)
             {
@@ -93,7 +93,7 @@ namespace carPro
                 }
             }
         }
-        public bool insertItemInSale(string nameCustumer, DataGridView data, int i, int count)
+        public bool InsertItemInSale(string nameCustumer, DataGridView data, int i, int count)
         {
             lock (connection)
             {
@@ -122,7 +122,7 @@ namespace carPro
                 }
             }
         }
-        public DataTable returnSale(string nameCustumer, string orderId)
+        public DataTable ReturnSale(string nameCustumer, string orderId)
         {
             lock (connection)
             {
@@ -148,7 +148,7 @@ namespace carPro
                 }
             }
         }
-        public DataTable returnItem()
+        public DataTable ReturnItem()
         {
             lock (connection)
             {
@@ -172,7 +172,8 @@ namespace carPro
                 }
             }
         }
-        public DataTable returnAllSaleForCus(string nameCustumer) {
+        public DataTable ReturnAllSaleForCus(string nameCustumer)
+        {
             lock (connection)
             {
                 try
@@ -194,6 +195,11 @@ namespace carPro
                     return null;
                 }
             }
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -12,59 +12,49 @@ namespace carPro
 {
     public partial class LogInForm : System.Windows.Forms.Form
     {
-        // readonly MySqlConnection connection = new("server=sql12.freesqldatabase.com;user=sql12650296;database=sql12650296;password=QadX7ERzXj");
-        readonly MySqlConnection connection = new("server=localhost;user=root;database=carshop;password=");
-        MySqlCommand command;
-        MySqlDataReader mdr;
-        logInFormDb logInDb;
+
+        readonly LogInFormDb logInDb;
         public LogInForm()
         {
             InitializeComponent();
-            logInDb=new logInFormDb();
+            logInDb = new LogInFormDb();
             tabControl1.SizeMode = TabSizeMode.Fixed;
             tabControl1.ItemSize = new Size(0, 1);
             tabControl1.Appearance = TabAppearance.FlatButtons;
         }
         private void Button1_Click(object sender, EventArgs e)
         {
-            mdr = logInDb.logIn(userName.Text, password.Text);
-            if (mdr.Read())
+            string statusAc= logInDb.LogIn(userName.Text, password.Text);
+            if (statusAc == "")
+                return;
+            if (statusAc.Equals("מנהל"))
             {
-                string statusAc = new(mdr[3].ToString());
-                if (statusAc.Equals("מנהל"))
+                Manger mangerform = new()
                 {
-                    Manger mangerform = new()
-                    {
-                        phone_number = userName.Text
-                    };
-                    this.Hide();
-                    mangerform.ShowDialog();
-                }
-                else if (statusAc.Equals("עובד"))
+                    phone_number = userName.Text
+                };
+                this.Hide();
+                mangerform.ShowDialog();
+            }
+            else if (statusAc.Equals("עובד"))
+            {
+                Employee emp = new()
                 {
-                    Employee emp = new()
-                    {
-                        employName = userName.Text
-                    };
-                    this.Hide();
-                    emp.ShowDialog();
-                }
-                else
-                {
-                    CustomerSignIn customerS = new()
-                    {
-                        PhoneNum = userName.Text
-                    };
-                    this.Hide();
-                    customerS.ShowDialog();
-                }
-                this.Show();
+                    employName = userName.Text
+                };
+                this.Hide();
+                emp.ShowDialog();
             }
             else
             {
-
-                MessageBox.Show("משתמש לא קיים");
+                CustomerSignIn customerS = new()
+                {
+                    PhoneNum = userName.Text
+                };
+                this.Hide();
+                customerS.ShowDialog();
             }
+            this.Show();
         }
         private bool CheckNumberPhone()
         {
@@ -90,9 +80,9 @@ namespace carPro
             {
                 if (CheckNumberPhone())
                 {
-                    if(logInDb.signUp(phoneCustomer.Text, passSin.Text, nameCustomer.Text) ==false)
+                    if (logInDb.SignUp(phoneCustomer.Text, passSin.Text, nameCustomer.Text) == false)
                     {
-                        LogInWorker_Click(sender,e);
+                        LogInWorker_Click(sender, e);
                         return;
                     }
                     MessageBox.Show("הרשמה הצליחה");
@@ -117,10 +107,6 @@ namespace carPro
                 password.PasswordChar = '\0';
             else
                 password.PasswordChar = '*';
-        }
-        private void LogInForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            System.Windows.Forms.Application.ExitThread();
         }
         private void LogInForm_Load(object sender, EventArgs e)
         {

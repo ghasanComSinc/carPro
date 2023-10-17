@@ -21,7 +21,7 @@ namespace carPro
         //readonly static string path = @"D:\autocar_path\VarelaRound-Regular.ttf";
         readonly iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         //iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(@"D:\autocar_path\VarelaRound-Regular.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-        customerClassDb custDb;
+        readonly CustomerClassDb custDb;
         Font tableFont;
         public CustomerSignIn()
         {
@@ -52,7 +52,7 @@ namespace carPro
         private void CustomerSignIn_Load(object sender, EventArgs e)
         {
             phoneNumber.Text += PhoneNum;
-            string name= custDb.nameCust(PhoneNum);
+            string name= custDb.NameCust(PhoneNum);
             if (name != "")
             {
                 customerName.Text += name;
@@ -261,13 +261,13 @@ namespace carPro
         {
             if (forSale.Rows.Count > 0)
             {
-                int count = custDb.returnCountCus();
+                int count = custDb.ReturnCountCus();
                 if (count > 0)
-                    if (custDb.insertSaleCus(PhoneNum, count, sum))
+                    if (custDb.InsertSaleCus(PhoneNum, count, sum))
                     {
                         for (int i = 0; i < forSale.Rows.Count; i++)
                         {
-                            if (!custDb.insertItemInSale(PhoneNum, forSale, i, count))
+                            if (!custDb.InsertItemInSale(PhoneNum, forSale, i, count))
                             {
                                 this.Close(); return;
                             }
@@ -302,7 +302,7 @@ namespace carPro
             {
                 tabControl1.SelectedIndex = 3;
                 // Bind the DataTable to the DataGridView
-                dataTable= custDb.returnSale(PhoneNum, dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString());
+                dataTable= custDb.ReturnSale(PhoneNum, dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString());
                 if (dataTable == null)
                 {
                     this.Close(); return;
@@ -327,7 +327,7 @@ namespace carPro
             }
             else
             {
-                    dataTable =custDb.returnItem();
+                    dataTable =custDb.ReturnItem();
                     if(dataTable==null)
                     {
                         this.Close(); return;
@@ -344,7 +344,7 @@ namespace carPro
                 tab_PDF.TabPages.Remove(tab_PDF.TabPages[0]);
             if (tabControl1.SelectedIndex == 0)
             {
-                dataTable = custDb.returnItem();
+                dataTable = custDb.ReturnItem();
                 if (dataTable == null)
                 {
                     this.Close(); return;
@@ -366,7 +366,7 @@ namespace carPro
             else if (tabControl1.SelectedIndex == 2)
             {
                 tab_PDF.TabPages.Add(tabPage4);
-                dataTable = custDb.returnAllSaleForCus(PhoneNum);
+                dataTable = custDb.ReturnAllSaleForCus(PhoneNum);
                 if (dataTable == null)
                 {
                     this.Close(); return;
@@ -417,12 +417,14 @@ namespace carPro
                 document.Add(img);
                 /*put image*/
                 /*creat title in pdf*/
-                Font font = new Font(BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED), 12);
-                Paragraph title = new Paragraph(titleStr, font);
-                PdfPCell cell = new PdfPCell(title);
-                cell.Border = 0; // Remove cell borders if needed
-                cell.RunDirection = PdfWriter.RUN_DIRECTION_RTL;
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                Font font = new(BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED), 12);
+                Paragraph title = new(titleStr, font);
+                PdfPCell cell = new(title)
+                {
+                    Border = 0, // Remove cell borders if needed
+                    RunDirection = PdfWriter.RUN_DIRECTION_RTL,
+                    HorizontalAlignment = Element.ALIGN_CENTER
+                };
                 saveTablePdf = new PdfPTable(1);
                 saveTablePdf.AddCell(cell);
                 document.Add(saveTablePdf);
