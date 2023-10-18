@@ -419,45 +419,19 @@ namespace carPro
                 img.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
                 document.Add(img);
                 /*put image*/
+
                 /*add the number off the customer*/
                 string line1 = "לקוח: ";
                 line1 += name;
-                Font font = new(BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED), 12);
-                Paragraph title = new(line1, font);
-                PdfPCell cell = new(title)
-                {
-                    Border = 0, // Remove cell borders if needed
-                    RunDirection = PdfWriter.RUN_DIRECTION_RTL,
-                    HorizontalAlignment = Element.ALIGN_LEFT
-                };
-                saveTablePdf = new PdfPTable(1);
-                saveTablePdf.AddCell(cell);
-                document.Add(saveTablePdf);
+                Add_Line_To_PDFTable_RightSide(line1);
+
+                /*add phone number*/
                 line1 = "מספר טלפון: ";
                 line1 += data.Rows[0].Cells[0].Value.ToString();
-
-                title = new(line1, font);
-                cell = new(title)
-                {
-                    Border = 0, // Remove cell borders if needed
-                    RunDirection = PdfWriter.RUN_DIRECTION_RTL,
-                    HorizontalAlignment = Element.ALIGN_LEFT
-                };
-                saveTablePdf = new PdfPTable(1);
-                saveTablePdf.AddCell(cell);
-                document.Add(saveTablePdf);
+                Add_Line_To_PDFTable_RightSide(line1);
 
                 /*creat title in pdf*/
-                title = new(titleStr, font);
-                cell = new(title)
-                {
-                    Border = 0, // Remove cell borders if needed
-                    RunDirection = PdfWriter.RUN_DIRECTION_RTL,
-                    HorizontalAlignment = Element.ALIGN_CENTER
-                };
-                saveTablePdf = new PdfPTable(1);
-                saveTablePdf.AddCell(cell);
-                document.Add(saveTablePdf);
+                Add_Line_To_PDFTable_CENTER(titleStr);
 
                 /*creat title in pdf*/
                 if (fileNum == 0)
@@ -525,7 +499,34 @@ namespace carPro
                 MessageBox.Show("הפעולה הסתימה בהצלחה");
             }
         }
-
+        private void Add_Line_To_PDFTable_RightSide(string line)
+        {
+            Font font = new(BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED), 12);
+            Paragraph title = new(line, font);
+            PdfPCell cell = new(title)
+            {
+                Border = 0, // Remove cell borders if needed
+                RunDirection = PdfWriter.RUN_DIRECTION_RTL,
+                HorizontalAlignment = Element.ALIGN_LEFT
+            };
+            saveTablePdf = new PdfPTable(1);
+            saveTablePdf.AddCell(cell);
+            document.Add(saveTablePdf);
+        }
+        private void Add_Line_To_PDFTable_CENTER(string line)
+        {
+            Font font = new(BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED), 12);
+            Paragraph title = new(line, font);
+            PdfPCell cell = new(title)
+            {
+                Border = 0, // Remove cell borders if needed
+                RunDirection = PdfWriter.RUN_DIRECTION_RTL,
+                HorizontalAlignment = Element.ALIGN_CENTER
+            };
+            saveTablePdf = new PdfPTable(1);
+            saveTablePdf.AddCell(cell);
+            document.Add(saveTablePdf);
+        }
         private void PDF_Button_all_orders_Click(object sender, EventArgs e)
         {
 
