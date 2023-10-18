@@ -19,10 +19,8 @@ namespace carPro
         int rowIndex;
         private PdfPTable saveTablePdf;
         private iTextSharp.text.Document document;
-        //readonly static string path = @"C:\Users\ASUS\Desktop\VarelaRound-Regular.ttf";
-        readonly static string path = @"D:\autocar_path\VarelaRound-Regular.ttf";
+        readonly static string path = @"VarelaRound-Regular.ttf";
         readonly iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-        //iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(@"D:\autocar_path\VarelaRound-Regular.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         readonly CustomerClassDb custDb;
         Font tableFont;
         public CustomerSignIn()

@@ -22,7 +22,7 @@ namespace carPro
         private string oldPar, oldId;
         private PdfPTable saveTablePdf;
         private iTextSharp.text.Document doc;
-        readonly static string path = @"C:\Users\ASUS\Desktop\VarelaRound-Regular.ttf";
+        readonly static string path = @"VarelaRound-Regular.ttf";
         readonly iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         Font tableFont;
         readonly MangerDb mangerDb;
