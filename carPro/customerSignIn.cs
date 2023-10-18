@@ -1,4 +1,5 @@
-﻿using iTextSharp.text;
+﻿using iText.Layout.Borders;
+using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.Data;
 using System.Text.RegularExpressions;
@@ -302,7 +303,8 @@ namespace carPro
             {
                 tabControl1.SelectedIndex = 3;
                 // Bind the DataTable to the DataGridView
-                dataTable= custDb.ReturnSale(PhoneNum, dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString());
+                dataTable= custDb.ReturnSale("SELECT * FROM `orders` " +
+                        $"WHERE `phoneNumber`={PhoneNum} AND `orderId`={dataGridView1.Rows[e.RowIndex].Cells[1].Value}");
                 if (dataTable == null)
                 {
                     this.Close(); return;
@@ -366,7 +368,7 @@ namespace carPro
             else if (tabControl1.SelectedIndex == 2)
             {
                 tab_PDF.TabPages.Add(tabPage4);
-                dataTable = custDb.ReturnAllSaleForCus(PhoneNum);
+                dataTable = custDb.ReturnAllSaleForCus("SELECT * FROM `payTable` WHERE `phoneNumber` = " +PhoneNum);
                 if (dataTable == null)
                 {
                     this.Close(); return;

@@ -13,7 +13,6 @@ namespace carPro
     {
         readonly MySqlConnection connection;
         MySqlCommand MyCommand2;
-
         public CustomerClassDb()
         {
             connection = new("server=localhost;user=root;database=carshop;password=");
@@ -122,15 +121,12 @@ namespace carPro
                 }
             }
         }
-        public DataTable ReturnSale(string nameCustumer, string orderId)
+        public DataTable ReturnSale(string strFun)
         {
             lock (connection)
             {
                 try
                 {
-
-                    string strFun = "SELECT * FROM `orders` " +
-                        $"WHERE `phoneNumber`={nameCustumer} AND `orderId`={orderId}";
                     connection.Open();
                     MyCommand2 = new MySqlCommand(strFun, connection);
                     MySqlDataAdapter adapter = new(MyCommand2);
@@ -172,13 +168,12 @@ namespace carPro
                 }
             }
         }
-        public DataTable ReturnAllSaleForCus(string nameCustumer)
+        public DataTable ReturnAllSaleForCus(string strFun)
         {
             lock (connection)
             {
                 try
                 {
-                    string   strFun = "SELECT * FROM `payTable` WHERE `phoneNumber` = " + nameCustumer;
                     connection.Open();
                     MyCommand2 = new MySqlCommand(strFun, connection);
                     MySqlDataAdapter adapter1 = new(MyCommand2);
@@ -188,7 +183,7 @@ namespace carPro
                     connection.Close();
                     return dataTable;
                 }
-                catch (Exception ex)
+                catch
                 {
                     MessageBox.Show("נסה שוב בעיה בתקשורת");
                     connection.Close();

@@ -25,7 +25,7 @@ namespace carPro
         private void Button1_Click(object sender, EventArgs e)
         {
             string statusAc= logInDb.LogIn(userName.Text, password.Text);
-            if (statusAc == "")
+            if (statusAc ==null)
                 return;
             if (statusAc.Equals("ордм"))
             {
