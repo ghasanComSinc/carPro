@@ -877,7 +877,6 @@
             Name = "Manger";
             Text = "ממשק מנהל";
             WindowState = FormWindowState.Maximized;
-            FormClosing += Manger_FormClosing;
             Load += Manger_Load;
             tab.ResumeLayout(false);
             addItem.ResumeLayout(false);
