@@ -14,7 +14,7 @@ namespace carPro
     public partial class Manger : Form
     {
         public string phone_number;
-        readonly MySqlConnection con ;
+        readonly MySqlConnection con;
         MySqlCommand MyCommand2;
         DataTable dataTable;
         bool flagImg;
@@ -23,10 +23,10 @@ namespace carPro
         private PdfPTable saveTablePdf;
         private iTextSharp.text.Document doc;
         readonly static string path = @"C:\Users\ASUS\Desktop\VarelaRound-Regular.ttf";
-        //readonly iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-        iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(@"D:\autocar_path\VarelaRound-Regular.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        readonly iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        //iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(@"D:\autocar_path\VarelaRound-Regular.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         Font tableFont;
-        readonly MangerDb mangerDb;  
+        readonly MangerDb mangerDb;
         public Manger()
         {
             InitializeComponent();
@@ -92,7 +92,8 @@ namespace carPro
             if (tab.SelectedIndex == 0)
             {
                 ExPDF.TabPages.Add(ItmesPDF);
-                items.DataSource = mangerDb.ReturnAllTable("SELECT * FROM `items`");
+                dataTable = mangerDb.ReturnAllTable("SELECT * FROM `items`");
+                items.DataSource = dataTable;
                 items.Columns[0].HeaderText = "שם מוצר";
                 items.Columns[1].HeaderText = "סוג רכב";
                 items.Columns[2].HeaderText = "מקום בחנות";
@@ -110,7 +111,8 @@ namespace carPro
             {
                 ExPDF.TabPages.Add(ExpUserPDF);
                 // Bind the DataTable to the DataGridView
-                users.DataSource = mangerDb.ReturnAllTable("SELECT * FROM `UserTable`"); ;
+                dataTable = mangerDb.ReturnAllTable("SELECT * FROM `UserTable`");
+                users.DataSource = dataTable;
                 users.Columns[0].HeaderText = "מספר טלפון";
                 users.Columns[1].HeaderText = "סיסמה";
                 users.Columns[2].HeaderText = "שם";
@@ -131,7 +133,7 @@ namespace carPro
                 orders.Columns[3].HeaderText = "מצב של הזמנה";
 
             }
-        }    
+        }
         private void Manger_Load(object sender, EventArgs e)
         {
             TabControl1_SelectedIndexChanged(sender, e);
@@ -186,7 +188,7 @@ namespace carPro
             }
             else
             {
-                if(mangerDb.UpdateUser(userNa, password,uName, stat,oldId)==false)
+                if (mangerDb.UpdateUser(userNa, password, uName, stat, oldId) == false)
                 { this.Close(); return; }
                 phone_number = userNa;
             }
@@ -229,9 +231,6 @@ namespace carPro
             TabControl1_SelectedIndexChanged(sender, e);
             Button1_Click_1(sender, e);
         }
-        /// <summary>
-        /// /
-        /// </summary>
         private void SearchItems()
         {
             DataView dataView = dataTable.DefaultView;
@@ -317,52 +316,24 @@ namespace carPro
                 {
                     MessageBox.Show("תמונה ריקה");
                 }
-                /* 
-                 * else if (comn == "")
-                 {
-                     MessageBox.Show("פרטים של מוצר ריק");
-                 }
-                */
-                //all the if's end's here
                 else
                 {
-                    try
-                    {
-                        picPath.Image.Save(ms, picPath.Image.RawFormat);
-                        byte[] img = ms.ToArray();
-                        string strFun = "INSERT INTO `items`(`nameItmes`, `typeCar`, `placeInShop`, `parCode`, `salePrice`, `payPrice`, `image`, `amount`, `comment`,`available`) VALUES " +
-                                        "(@nameIt,@typeC,@placeSho,@parCod,@salePri,@payPrice,@image,@amount,@com,@avai)";
-                        MyCommand2 = new MySqlCommand(strFun, con);
-                        con.Open();
-                        MyCommand2.Parameters.AddWithValue("@nameIt", nameIt);
-                        MyCommand2.Parameters.AddWithValue("@typeC", carType);
-                        MyCommand2.Parameters.AddWithValue("@placeSho", placeInSh);
-                        MyCommand2.Parameters.AddWithValue("@parCod", parC);
-                        MyCommand2.Parameters.AddWithValue("@salePri", salePrice);
-                        MyCommand2.Parameters.AddWithValue("@payPrice", payPrice);
-                        MyCommand2.Parameters.AddWithValue("@image", img);
-                        MyCommand2.Parameters.AddWithValue("@amount", amou);
-                        MyCommand2.Parameters.AddWithValue("@com", comn);
-                        MyCommand2.Parameters.AddWithValue("@avai", "פעיל");
-                        MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.
-                        MessageBox.Show("הוספת מוצר הצליחה");
-                        con.Close();
-                        nameItem.Text = "";
-                        typeCar.Text = "";
-                        placeInShop.Text = "";
-                        parCode.Text = "";
-                        price.Text = "";
-                        paySale.Text = "";
-                        Amount.Text = "";
-                        picPath.Controls.Clear();
-                        comnet.Text = "";
 
-                    }
-                    catch (Exception ex)
+                    picPath.Image.Save(ms, picPath.Image.RawFormat);
+                    byte[] img = ms.ToArray();
+                    if (mangerDb.insertItem(nameIt, carType, placeInSh, parC, salePrice, payPrice, img, amou, comn) == false)
                     {
-                        MessageBox.Show(ex.Message);
-                        con.Close();
+                        this.Close(); return;
                     }
+                    nameItem.Text = "";
+                    typeCar.Text = "";
+                    placeInShop.Text = "";
+                    parCode.Text = "";
+                    price.Text = "";
+                    paySale.Text = "";
+                    Amount.Text = "";
+                    picPath.Controls.Clear();
+                    comnet.Text = "";
                 }
                 TabControl1_SelectedIndexChanged(sender, EventArgs.Empty);
             }
@@ -499,7 +470,7 @@ namespace carPro
             {
                 priceFlagSale = true;
             }
-            if (float.TryParse(price.Text, out float payPrice))
+            if (float.TryParse(paySale.Text, out float payPrice))
             {
                 if (payPrice <= 0 || paySale.Text == "")
                 {
@@ -554,34 +525,8 @@ namespace carPro
             //all the if's end's here
             else
             {
-                try
-                {
-                    string strFun;
-                    if (flagImg)
-                        strFun = "UPDATE `items`,`orders` SET `orders`.`parCode`=@parCod,`nameItmes`=@nameIt,`typeCar`= @typeC,`placeInShop`= @placeSho,`items`.`parCode`= @parCod,`salePrice`=@salePri,`payPrice`=@payPrice,`image`= @images,`items`.`amount`= @amounts,`comment`= @com WHERE `orders`.`parCode`= @oldPa AND `items`.`parCode`= @oldPa";
-                    else
-                        strFun = "UPDATE `items`,`orders` SET `orders`.`parCode`=@parCod,`nameItmes`=@nameIt,`typeCar`= @typeC,`placeInShop`= @placeSho,`items`.`parCode`= @parCod,`salePrice`=@salePri,`payPrice`=@payPrice,`items`.`amount`= @amounts,`comment`= @com WHERE `orders`.`parCode`= @oldPa AND  `items`.`parCode`= @oldPa";
-                    MyCommand2 = new MySqlCommand(strFun, con);
-                    con.Open();
-                    MyCommand2.Parameters.AddWithValue("@nameIt", nameIt);
-                    MyCommand2.Parameters.AddWithValue("@typeC", carType);
-                    MyCommand2.Parameters.AddWithValue("@placeSho", placeInSh);
-                    MyCommand2.Parameters.AddWithValue("@parCod", parC);
-                    MyCommand2.Parameters.AddWithValue("@salePri", salePrice);
-                    MyCommand2.Parameters.AddWithValue("@payPrice", payPrice);
-                    if (flagImg)
-                        MyCommand2.Parameters.AddWithValue("@images", img);
-                    MyCommand2.Parameters.AddWithValue("@amounts", amou);
-                    MyCommand2.Parameters.AddWithValue("@com", comn);
-                    MyCommand2.Parameters.AddWithValue("@oldPa", oldPar);
-                    MyCommand2.ExecuteNonQuery();
-                    con.Close();
-                }
-                catch
-                {
-                    MessageBox.Show("מוצר קיים");
-                    con.Close();
-                }
+                if (mangerDb.updateItem(flagImg, nameIt, carType, placeInSh, parC, salePrice, payPrice, img, amou, comn, oldPar) == false)
+                { this.Close(); return; }
                 TabControl1_SelectedIndexChanged(sender, EventArgs.Empty);
                 ClearItmesDetla();
             }
@@ -635,71 +580,43 @@ namespace carPro
             {
                 strFun = "SELECT * FROM `paytable` WHERE `status`=\"בוטלה\"";
             }
-            try
+            dataTable = mangerDb.returnSaleWithSta(strFun);
+            if (dataTable == null)
             {
-                MyCommand2 = new MySqlCommand(strFun, con);
-                con.Open();
-                MySqlDataAdapter adapter = new(MyCommand2);
-                dataTable = new();
-                // Fill the DataTable with the query results
-                adapter.Fill(dataTable);
-                // Bind the DataTable to the DataGridView
-                orders.DataSource = dataTable;
-                orders.Columns[0].HeaderText = "מספר טלפון";
-                orders.Columns[1].HeaderText = "מזה הזמנה";
-                orders.Columns[2].HeaderText = "מחיר";
-                orders.Columns[3].HeaderText = "מצב";
-                con.Close();
+                this.Close(); return;
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                con.Close();
-            }
+            orders.DataSource = dataTable;
+            orders.Columns[0].HeaderText = "מספר טלפון";
+            orders.Columns[1].HeaderText = "מזה הזמנה";
+            orders.Columns[2].HeaderText = "מחיר";
+            orders.Columns[3].HeaderText = "מצב";
         }
         private void Orders_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             tab.TabPages.Add(ordersD);
             tab.SelectedIndex = 3;
-            string strFun = "SELECT * FROM `orders` join `items` ON `orders`.`parCode` = `items`.`parCode`" +
-                        $"WHERE `phoneNumber`={orders.Rows[e.RowIndex].Cells[0].Value} AND `orderId`='{orders.Rows[e.RowIndex].Cells[1].Value}'";
-            try
-            {
-                MyCommand2 = new MySqlCommand(strFun, con);
-                con.Open();
-                MySqlDataAdapter adapter = new(MyCommand2);
-                dataTable = new();
-                // Fill the DataTable with the query results
-                adapter.Fill(dataTable);
-                // Bind the DataTable to the DataGridView
-                orderD.DataSource = dataTable;
-                orderD.Columns[0].HeaderText = "מספר טלפון";
-                orderD.Columns[0].Visible = false;
-                orderD.Columns[1].HeaderText = "פר";
-                orderD.Columns[2].HeaderText = "מזה הזמנה";
-                orderD.Columns[2].Visible = false;
-                orderD.Columns[3].HeaderText = "כמות רצויה";
-                orderD.Columns[4].HeaderText = "מצב של מוצר";//status
-                orderD.Columns[5].HeaderText = "שעת קניה";
-                orderD.Columns[6].HeaderText = "תאריך קניה";
-                orderD.Columns[7].HeaderText = "שם מוצר";
-                orderD.Columns[8].HeaderText = "סוג רכב";
-                orderD.Columns[9].HeaderText = "מיקום בחנות";
-                orderD.Columns[10].Visible = false;//parcode
-                orderD.Columns[11].HeaderText = "מחיר";
-                orderD.Columns[12].Visible = false;//paypri
-                orderD.Columns[13].Visible = false;//pic
-                orderD.Columns[14].Visible = false;// "קמות בחנות";
-                orderD.Columns[15].HeaderText = "הערה על מוצר";
-                orderD.Columns[16].Visible = false;// "מצב של מוצר";
-                con.Close();
-                ExPDF.TabPages.Add(ordersDe);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                con.Close();
-            }
+            dataTable = mangerDb.returnItemSale(orders.Rows[e.RowIndex].Cells[0].Value.ToString(), orders.Rows[e.RowIndex].Cells[1].Value.ToString());
+            orderD.DataSource = dataTable;
+            orderD.Columns[0].HeaderText = "מספר טלפון";
+            orderD.Columns[0].Visible = false;
+            orderD.Columns[1].HeaderText = "פר";
+            orderD.Columns[2].HeaderText = "מזה הזמנה";
+            orderD.Columns[2].Visible = false;
+            orderD.Columns[3].HeaderText = "כמות רצויה";
+            orderD.Columns[4].HeaderText = "מצב של מוצר";//status
+            orderD.Columns[5].HeaderText = "שעת קניה";
+            orderD.Columns[6].HeaderText = "תאריך קניה";
+            orderD.Columns[7].HeaderText = "שם מוצר";
+            orderD.Columns[8].HeaderText = "סוג רכב";
+            orderD.Columns[9].HeaderText = "מיקום בחנות";
+            orderD.Columns[10].Visible = false;//parcode
+            orderD.Columns[11].HeaderText = "מחיר";
+            orderD.Columns[12].Visible = false;//paypri
+            orderD.Columns[13].Visible = false;//pic
+            orderD.Columns[14].Visible = false;// "קמות בחנות";
+            orderD.Columns[15].HeaderText = "הערה על מוצר";
+            orderD.Columns[16].Visible = false;// "מצב של מוצר";
+            ExPDF.TabPages.Add(ordersDe);
         }
         private void SaveTableFont(int count)
         {
@@ -882,31 +799,11 @@ namespace carPro
         }
         private void DeleteItems_Click(object sender, EventArgs e)
         {
-            try
-            {
-                string strFun = "UPDATE  `items` SET `available`= @av WHERE `parCode`= @parCod";
-                con.Open();
-                MyCommand2 = new MySqlCommand(strFun, con);
-                if (items.Rows[index].Cells[9].Value.ToString() == "פעיל")
-                {
-                    MyCommand2.Parameters.AddWithValue("@av", "לא פעיל");
-                }
-                else
-                {
-                    MyCommand2.Parameters.AddWithValue("@av", "פעיל");
-                }
-                MyCommand2.Parameters.AddWithValue("@parCod", items.Rows[index].Cells[3].Value.ToString());
-                MyCommand2.ExecuteNonQuery();
-                con.Close();
-                TabControl1_SelectedIndexChanged(sender, e);
-                Button1_Click_1(sender, e);
-                ClearItmesDetla();
-            }
-            catch (Exception ex)
-            {
-                con.Close();
-                MessageBox.Show(ex.Message);
-            }
+            if (mangerDb.delItems(items.Rows[index].Cells[9].Value.ToString(), items.Rows[index].Cells[3].Value.ToString()) == false)
+            { this.Close(); return; }
+            TabControl1_SelectedIndexChanged(sender, e);
+            Button1_Click_1(sender, e);
+            ClearItmesDetla();
         }
     }
 }
