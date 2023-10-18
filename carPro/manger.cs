@@ -14,7 +14,7 @@ namespace carPro
     public partial class Manger : Form
     {
         public string phone_number;
-        readonly MySqlConnection con = new("server=localhost;user=root;database=carshop;password=");
+        readonly MySqlConnection con ;
         MySqlCommand MyCommand2;
         DataTable dataTable;
         bool flagImg;
@@ -26,18 +26,14 @@ namespace carPro
         //readonly iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(@"D:\autocar_path\VarelaRound-Regular.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         Font tableFont;
+        readonly MangerDb mangerDb;  
         public Manger()
         {
             InitializeComponent();
             ExPDF.SizeMode = TabSizeMode.Fixed;
             ExPDF.ItemSize = new Size(0, 1);
             ExPDF.Appearance = TabAppearance.FlatButtons;
-        }
-        private void Manger_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            LogInForm logIn = new();
-            this.Dispose();
-            logIn.ShowDialog();
+            mangerDb = new();
         }
         private void CheckUser()
         {
@@ -76,29 +72,9 @@ namespace carPro
                 }
                 else
                 {
-                    try
+                    if (mangerDb.InsertUser(uName, phone, password, stat) == false)
                     {
-                        string strFun;
-
-                        strFun = "INSERT INTO `usertable`(`phoneNumber`, `password`, `name`, `status`, `start_date`, `last_date`, `available`) VALUES " +
-                                                        "(@phone,@password,@name,@status,@start_date,@last_date,@available)";
-                        MyCommand2 = new MySqlCommand(strFun, con);
-                        con.Open();
-                        MyCommand2.Parameters.AddWithValue("@phone", phone);
-                        MyCommand2.Parameters.AddWithValue("@password", password);
-                        MyCommand2.Parameters.AddWithValue("@name", uName);
-                        MyCommand2.Parameters.AddWithValue("@status", stat);
-                        MyCommand2.Parameters.AddWithValue("@start_date", DateTime.Now);
-                        MyCommand2.Parameters.AddWithValue("@last_date", "");
-                        MyCommand2.Parameters.AddWithValue("@available", "פעיל");
-                        MyCommand2.ExecuteNonQuery();
-                        con.Close();
-                        MessageBox.Show("הוספת משתמשם הצליחה");
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                        con.Close();
+                        this.Close(); return;
                     }
                     TabControl1_SelectedIndexChanged(sender, EventArgs.Empty);
                 }
@@ -115,96 +91,47 @@ namespace carPro
             statusOrder.Visible = false;
             if (tab.SelectedIndex == 0)
             {
-                try
-                {
-                    ExPDF.TabPages.Add(ItmesPDF);
-                    strFun = "SELECT * FROM `items`";
-                    MyCommand2 = new MySqlCommand(strFun, con);
-                    con.Open();
-                    MySqlDataAdapter adapter = new(MyCommand2);
-                    dataTable = new();
-                    // Fill the DataTable with the query results
-                    adapter.Fill(dataTable);
-                    // Bind the DataTable to the DataGridView
-                    items.DataSource = dataTable;
-                    items.Columns[0].HeaderText = "שם מוצר";
-                    items.Columns[1].HeaderText = "סוג רכב";
-                    items.Columns[2].HeaderText = "מקום בחנות";
-                    items.Columns[3].HeaderText = "פר";
-                    items.Columns[4].HeaderText = "מחיר";
-                    items.Columns[5].HeaderText = "מחיר קניה";
-                    items.Columns[6].HeaderText = "תמונה";
-                    items.Columns[5].Visible = false;//payPrice
-                    items.Columns[6].Visible = false;//image
-                    items.Columns[7].HeaderText = "קמות בחנות";
-                    items.Columns[8].HeaderText = "הערה";
-                    items.Columns[9].HeaderText = "זמין";
-                    con.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    con.Close();
-                }
+                ExPDF.TabPages.Add(ItmesPDF);
+                items.DataSource = mangerDb.ReturnAllTable("SELECT * FROM `items`");
+                items.Columns[0].HeaderText = "שם מוצר";
+                items.Columns[1].HeaderText = "סוג רכב";
+                items.Columns[2].HeaderText = "מקום בחנות";
+                items.Columns[3].HeaderText = "פר";
+                items.Columns[4].HeaderText = "מחיר";
+                items.Columns[5].HeaderText = "מחיר קניה";
+                items.Columns[6].HeaderText = "תמונה";
+                items.Columns[5].Visible = false;//payPrice
+                items.Columns[6].Visible = false;//image
+                items.Columns[7].HeaderText = "קמות בחנות";
+                items.Columns[8].HeaderText = "הערה";
+                items.Columns[9].HeaderText = "זמין";
             }
             else if (tab.SelectedIndex == 1)
             {
-                try
-                {
-                    ExPDF.TabPages.Add(ExpUserPDF);
-                    strFun = "SELECT * FROM `UserTable`";
-                    MyCommand2 = new MySqlCommand(strFun, con);
-                    con.Open();
-                    MySqlDataAdapter adapter = new(MyCommand2);
-                    dataTable = new();
-                    // Fill the DataTable with the query results
-                    adapter.Fill(dataTable);
-                    // Bind the DataTable to the DataGridView
-                    users.DataSource = dataTable;
-                    users.Columns[0].HeaderText = "מספר טלפון";
-                    users.Columns[1].HeaderText = "סיסמה";
-                    users.Columns[2].HeaderText = "שם";
-                    users.Columns[3].HeaderText = "תפקיד";
-                    users.Columns[4].HeaderText = "תאריך התחלה";
-                    users.Columns[5].HeaderText = "תאריך סיום";
-                    users.Columns[6].HeaderText = "משתמש פעיל ";
-                    con.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    con.Close();
-                }
+                ExPDF.TabPages.Add(ExpUserPDF);
+                // Bind the DataTable to the DataGridView
+                users.DataSource = mangerDb.ReturnAllTable("SELECT * FROM `UserTable`"); ;
+                users.Columns[0].HeaderText = "מספר טלפון";
+                users.Columns[1].HeaderText = "סיסמה";
+                users.Columns[2].HeaderText = "שם";
+                users.Columns[3].HeaderText = "תפקיד";
+                users.Columns[4].HeaderText = "תאריך התחלה";
+                users.Columns[5].HeaderText = "תאריך סיום";
+                users.Columns[6].HeaderText = "משתמש פעיל ";
             }
             else if (tab.SelectedIndex == 2)
             {
                 ExPDF.TabPages.Add(ordersPDF);
                 statusOrder.Visible = true;
                 statusOrder.SelectedIndex = 0;
-                try
-                {
-                    strFun = "SELECT * FROM `paytable`";
-                    MyCommand2 = new MySqlCommand(strFun, con);
-                    con.Open();
-                    MySqlDataAdapter adapter = new(MyCommand2);
-                    dataTable = new();
-                    // Fill the DataTable with the query results
-                    adapter.Fill(dataTable);
-                    // Bind the DataTable to the DataGridView
-                    orders.DataSource = dataTable;
-                    orders.Columns[0].HeaderText = "מספר טלפון";
-                    orders.Columns[1].HeaderText = "מזה הזמנה";
-                    orders.Columns[2].HeaderText = "מחיר";
-                    orders.Columns[3].HeaderText = "מצב של הזמנה";
-                    con.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    con.Close();
-                }
+                orders.DataSource = mangerDb.ReturnAllTable("SELECT * FROM `paytable`");
+                orders.Columns[0].HeaderText = "מספר טלפון";
+                orders.Columns[1].HeaderText = "מזה הזמנה";
+                orders.Columns[2].HeaderText = "מחיר";
+                orders.Columns[3].HeaderText = "מצב של הזמנה";
+
             }
-        }
+        }    
         private void Manger_Load(object sender, EventArgs e)
         {
             TabControl1_SelectedIndexChanged(sender, e);
@@ -237,52 +164,31 @@ namespace carPro
         }
         private void UpdateU_Click(object sender, EventArgs e)
         {
-            try
+            string uName = name.Text;
+            string userNa = userName.Text;
+            string password = pass.Text;
+            string stat = status.Text;
+            if (uName == "")
             {
-                string uName = name.Text;
-                string userNa = userName.Text;
-                string password = pass.Text;
-                string stat = status.Text;
-                if (uName == "")
-                {
-                    MessageBox.Show("שם עובד ריק");
-                }
-                else if (userNa == "")
-                {
-                    MessageBox.Show("מספר טלפון ריק");
-                }
-                else if (password == "")
-                {
-                    MessageBox.Show("סיסמה ריק");
-                }
-                else if (stat == "")
-                {
-                    MessageBox.Show("תפקיד ריק");
-                }
-                else
-                {
-                    string strFun = "UPDATE `usertable`,`paytable`,`orders` SET" +
-                                    "`usertable`.`phoneNumber`=@oldphone,`orders`.`phoneNumber`=@oldphone," +
-                                    "`paytable`.`phoneNumber`=@oldphone,`password`=@pass,`name`=@name" +
-                                    ",`usertable`.`status`=@status" +
-                                    " WHERE `usertable`.`phoneNumber`=@phone AND" +
-                                    "`orders`.`phoneNumber`=@phone AND `paytable`.`phoneNumber`=@phone";
-                    con.Open();
-                    MyCommand2 = new MySqlCommand(strFun, con);
-                    MyCommand2.Parameters.AddWithValue("@oldphone", userNa);
-                    MyCommand2.Parameters.AddWithValue("@pass", password);
-                    MyCommand2.Parameters.AddWithValue("@name", uName);
-                    MyCommand2.Parameters.AddWithValue("@status", stat);
-                    MyCommand2.Parameters.AddWithValue("@phone", oldId);
-                    MyCommand2.ExecuteNonQuery();
-                    con.Close();
-                    phone_number = userNa;
-                }
+                MessageBox.Show("שם עובד ריק");
             }
-            catch (Exception ex)
+            else if (userNa == "")
             {
-                MessageBox.Show(ex.Message);
-                con.Close();
+                MessageBox.Show("מספר טלפון ריק");
+            }
+            else if (password == "")
+            {
+                MessageBox.Show("סיסמה ריק");
+            }
+            else if (stat == "")
+            {
+                MessageBox.Show("תפקיד ריק");
+            }
+            else
+            {
+                if(mangerDb.UpdateUser(userNa, password,uName, stat,oldId)==false)
+                { this.Close(); return; }
+                phone_number = userNa;
             }
             TabControl1_SelectedIndexChanged(sender, e);
         }
@@ -300,48 +206,32 @@ namespace carPro
         }
         private void DeletU_Click(object sender, EventArgs e)
         {
-            try
+            string userNa = userName.Text;
+            string stat = status.Text;
+            string strFun;
+            if (stat == "מנהל" && users.Rows[index].Cells[6].Value.ToString() == "פעיל")
             {
-                string userNa = userName.Text;
-                string stat = status.Text;
-                string strFun;
-                if (stat == "מנהל" && users.Rows[index].Cells[6].Value.ToString() == "פעיל")
+                int count = mangerDb.mangerCount(stat);
+                if (count < 0)
                 {
-                    strFun = "SELECT COUNT(*) FROM `usertable` WHERE `status`=@manger AND `available`=@act";
-                    con.Open();
-                    MyCommand2 = new MySqlCommand(strFun, con);
-                    MyCommand2.Parameters.AddWithValue("@manger", stat);
-                    MyCommand2.Parameters.AddWithValue("@act", "פעיל");
-                    int count = Convert.ToInt32(MyCommand2.ExecuteScalar());
-                    con.Close();
-                    if (count == 1)
-                    {
-                        MessageBox.Show("קיים רק מנהיל יחד אי אפשר למחוק"); return;
-                    }
-                }
-
-                strFun = "UPDATE `usertable` SET `last_date`= @last,`available`= @av WHERE `phoneNumber`= @phone";
-                con.Open();
-                MyCommand2 = new MySqlCommand(strFun, con);
-                if (users.Rows[index].Cells[6].Value.ToString() == "פעיל")
-                {
-                    MyCommand2.Parameters.AddWithValue("@last", DateTime.Now);
-                    MyCommand2.Parameters.AddWithValue("@av", "לא פעיל");
+                    this.Close(); return;
                 }
                 else
+                if (count == 1)
                 {
-                    MyCommand2.Parameters.AddWithValue("@last", "");
-                    MyCommand2.Parameters.AddWithValue("@av", "פעיל");
+                    MessageBox.Show("קיים רק מנהיל יחד אי אפשר למחוק"); return;
                 }
-                MyCommand2.Parameters.AddWithValue("@phone", userNa);
-                MyCommand2.ExecuteNonQuery();
-                con.Close();
-                TabControl1_SelectedIndexChanged(sender, e);
-                Button1_Click_1(sender, e);
             }
-            catch
-            { }
+            if (mangerDb.deletUser(users.Rows[index].Cells[6].Value.ToString(), userNa) == false)
+            {
+                this.Close(); return;
+            }
+            TabControl1_SelectedIndexChanged(sender, e);
+            Button1_Click_1(sender, e);
         }
+        /// <summary>
+        /// /
+        /// </summary>
         private void SearchItems()
         {
             DataView dataView = dataTable.DefaultView;
