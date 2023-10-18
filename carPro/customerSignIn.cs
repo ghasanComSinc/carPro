@@ -13,6 +13,7 @@ namespace carPro
         DataTable dataTable;
         float sum = 0;
         public string PhoneNum;
+        string name;
         int amount = 0;
         string parcod;
         int rowIndex;
@@ -53,7 +54,7 @@ namespace carPro
         private void CustomerSignIn_Load(object sender, EventArgs e)
         {
             phoneNumber.Text += PhoneNum;
-            string name= custDb.NameCust(PhoneNum);
+            name = custDb.NameCust(PhoneNum);
             if (name != "")
             {
                 customerName.Text += name;
@@ -303,7 +304,7 @@ namespace carPro
             {
                 tabControl1.SelectedIndex = 3;
                 // Bind the DataTable to the DataGridView
-                dataTable= custDb.ReturnSale("SELECT * FROM `orders` " +
+                dataTable = custDb.ReturnSale("SELECT * FROM `orders` " +
                         $"WHERE `phoneNumber`={PhoneNum} AND `orderId`={dataGridView1.Rows[e.RowIndex].Cells[1].Value}");
                 if (dataTable == null)
                 {
@@ -329,14 +330,14 @@ namespace carPro
             }
             else
             {
-                    dataTable =custDb.ReturnItem();
-                    if(dataTable==null)
-                    {
-                        this.Close(); return;
-                    }
-                    // Bind the DataTable to the DataGridView
-                    itemToCustomer.DataSource = dataTable;
-                    EmtpyItems();         
+                dataTable = custDb.ReturnItem();
+                if (dataTable == null)
+                {
+                    this.Close(); return;
+                }
+                // Bind the DataTable to the DataGridView
+                itemToCustomer.DataSource = dataTable;
+                EmtpyItems();
             }
             itemToCustomer.Refresh();
         }
@@ -368,7 +369,7 @@ namespace carPro
             else if (tabControl1.SelectedIndex == 2)
             {
                 tab_PDF.TabPages.Add(tabPage4);
-                dataTable = custDb.ReturnAllSaleForCus("SELECT * FROM `payTable` WHERE `phoneNumber` = " +PhoneNum);
+                dataTable = custDb.ReturnAllSaleForCus("SELECT * FROM `payTable` WHERE `phoneNumber` = " + PhoneNum);
                 if (dataTable == null)
                 {
                     this.Close(); return;
@@ -418,18 +419,20 @@ namespace carPro
                 img.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
                 document.Add(img);
                 /*put image*/
+
+                /*add the number off the customer*/
+                string line1 = "לקוח: ";
+                line1 += name;
+                Add_Line_To_PDFTable_RightSide(line1);
+
+                /*add phone number*/
+                line1 = "מספר טלפון: ";
+                line1 += data.Rows[0].Cells[0].Value.ToString();
+                Add_Line_To_PDFTable_RightSide(line1);
+
                 /*creat title in pdf*/
-                Font font = new(BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED), 12);
-                Paragraph title = new(titleStr, font);
-                PdfPCell cell = new(title)
-                {
-                    Border = 0, // Remove cell borders if needed
-                    RunDirection = PdfWriter.RUN_DIRECTION_RTL,
-                    HorizontalAlignment = Element.ALIGN_CENTER
-                };
-                saveTablePdf = new PdfPTable(1);
-                saveTablePdf.AddCell(cell);
-                document.Add(saveTablePdf);
+                Add_Line_To_PDFTable_CENTER(titleStr);
+
                 /*creat title in pdf*/
                 if (fileNum == 0)
                     SaveTableFont(3);
@@ -495,6 +498,38 @@ namespace carPro
                 document.Close();
                 MessageBox.Show("הפעולה הסתימה בהצלחה");
             }
+        }
+        private void Add_Line_To_PDFTable_RightSide(string line)
+        {
+            Font font = new(BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED), 12);
+            Paragraph title = new(line, font);
+            PdfPCell cell = new(title)
+            {
+                Border = 0, // Remove cell borders if needed
+                RunDirection = PdfWriter.RUN_DIRECTION_RTL,
+                HorizontalAlignment = Element.ALIGN_LEFT
+            };
+            saveTablePdf = new PdfPTable(1);
+            saveTablePdf.AddCell(cell);
+            document.Add(saveTablePdf);
+        }
+        private void Add_Line_To_PDFTable_CENTER(string line)
+        {
+            Font font = new(BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED), 12);
+            Paragraph title = new(line, font);
+            PdfPCell cell = new(title)
+            {
+                Border = 0, // Remove cell borders if needed
+                RunDirection = PdfWriter.RUN_DIRECTION_RTL,
+                HorizontalAlignment = Element.ALIGN_CENTER
+            };
+            saveTablePdf = new PdfPTable(1);
+            saveTablePdf.AddCell(cell);
+            document.Add(saveTablePdf);
+        }
+        private void PDF_Button_all_orders_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
