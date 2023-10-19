@@ -338,9 +338,8 @@
             lableTime.AutoSize = true;
             lableTime.Location = new Point(86, 27);
             lableTime.Name = "lableTime";
-            lableTime.Size = new Size(59, 25);
+            lableTime.Size = new Size(0, 25);
             lableTime.TabIndex = 52;
-            lableTime.Text = "label2";
             lableTime.TextAlign = ContentAlignment.TopCenter;
             // 
             // saleItem
@@ -530,9 +529,8 @@
             labelDate.AutoSize = true;
             labelDate.Location = new Point(81, 56);
             labelDate.Name = "labelDate";
-            labelDate.Size = new Size(59, 25);
+            labelDate.Size = new Size(0, 25);
             labelDate.TabIndex = 51;
-            labelDate.Text = "label2";
             labelDate.TextAlign = ContentAlignment.TopCenter;
             // 
             // CustomerSignIn

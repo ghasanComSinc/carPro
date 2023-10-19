@@ -335,7 +335,7 @@ namespace carPro
                 orderDe.Columns[15].HeaderText = "הערה על מוצר";
                 orderDe.Columns[15].Visible = false;
                 orderDe.Columns[16].Visible = false;// "מצב של מוצר";
-                
+
 
                 lableTime.Text = orderDe.Rows[0].Cells[5].Value.ToString();
                 lableTime.Visible = true;
@@ -408,8 +408,11 @@ namespace carPro
             }
             else if (tabControl1.SelectedIndex == 3)
             {
+                lableTime.Visible = true;
+                labelDate.Visible = true;
                 tab_PDF.TabPages.Add(tabPage5);
             }
+
         }
         private void PDF_Button_order_Click(object sender, EventArgs e)
         {
@@ -459,14 +462,19 @@ namespace carPro
 
                 /*creat title in pdf*/
                 if (fileNum == 0)
-                    SaveTableFont(3);
+                    SaveTableFont(4);
                 else
                     SaveTableFont(6);
                 float[] widthOfTable = new float[saveTablePdf.NumberOfColumns];
                 for (int i = 0; i < widthOfTable.Length; i++)
                 {
                     if (fileNum == 0)
-                        widthOfTable[i] = 20f;
+                    {
+                        if (i == 3)
+                            widthOfTable[i] = 5f;
+                        else
+                            widthOfTable[i] = 20f;
+                    }
                     else
                     {
                         if (i != 3)
@@ -478,8 +486,13 @@ namespace carPro
                 saveTablePdf.SetWidths(widthOfTable);
                 if (fileNum == 0)
                 {
-                    for (int i = 1; i < data.ColumnCount; i++)
-                        saveTablePdf.AddCell(new Phrase(data.Columns[i].HeaderText, tableFont));
+                    for (int i = 0; i < data.ColumnCount; i++)
+                    {
+                        if (i == 0)
+                            saveTablePdf.AddCell(new Phrase("#"));
+                        else
+                            saveTablePdf.AddCell(new Phrase(data.Columns[i].HeaderText, tableFont));
+                    }
                 }
                 else
                 {
@@ -493,8 +506,11 @@ namespace carPro
                 {
                     if (fileNum == 0)
                     {
-                        for (int j = 1; j < data.ColumnCount; j++)
-                            saveTablePdf.AddCell(new Phrase(data.Rows[i].Cells[j].Value.ToString(), tableFont));
+                        for (int j = 0; j < data.ColumnCount; j++)
+                            if (j == 0)
+                                saveTablePdf.AddCell(new Phrase((i + 1).ToString()));
+                            else
+                                saveTablePdf.AddCell(new Phrase(data.Rows[i].Cells[j].Value.ToString(), tableFont));
                     }
                     else
                     {
