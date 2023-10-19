@@ -301,22 +301,46 @@ namespace carPro
             if (e.RowIndex >= 0)
             {
                 tabControl1.SelectedIndex = 3;
+                labelDate.Text = "";
+                lableTime.Text = "";
                 // Bind the DataTable to the DataGridView
-                dataTable = custDb.ReturnSale("SELECT * FROM `orders` " +
-                        $"WHERE `phoneNumber`={PhoneNum} AND `orderId`={dataGridView1.Rows[e.RowIndex].Cells[1].Value}");
+                MangerDb joinTable = new MangerDb();
+                dataTable = joinTable.returnItemSale(PhoneNum, dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString());
+
                 if (dataTable == null)
                 {
                     this.Close(); return;
                 }
                 orderDe.DataSource = dataTable;
-                orderDe.Columns[0].Visible = false; //the number of customer               
-                orderDe.Columns[1].HeaderText = "ברקוד";
-                orderDe.Columns[2].HeaderText = "מספר הזמנה";
-                orderDe.Columns[3].HeaderText = "כמות";
-                orderDe.Columns[4].HeaderText = "סטטוס הזמנה";
-                orderDe.Columns[5].HeaderText = "שעת הזמנה";
-                orderDe.Columns[6].HeaderText = "תאריך ושעת הזמנה";
+                orderDe.Columns[0].HeaderText = "מספר טלפון";
+                orderDe.Columns[0].Visible = false;
+                orderDe.Columns[1].HeaderText = "פר";
+                orderDe.Columns[2].HeaderText = "מזה הזמנה";
+                orderDe.Columns[2].Visible = false;
+                orderDe.Columns[3].HeaderText = "כמות רצויה";
+                orderDe.Columns[4].HeaderText = "מצב של מוצר";//status
+                orderDe.Columns[5].HeaderText = "שעת קניה";
+                orderDe.Columns[5].Visible = false;
+                orderDe.Columns[6].HeaderText = "תאריך קניה";
+                orderDe.Columns[6].Visible = false;
+                orderDe.Columns[7].HeaderText = "שם מוצר";
+                orderDe.Columns[8].HeaderText = "סוג רכב";
+                orderDe.Columns[9].HeaderText = "מיקום בחנות";
+                orderDe.Columns[9].Visible = false;
+                orderDe.Columns[10].Visible = false;//parcode
+                orderDe.Columns[11].HeaderText = "מחיר";
+                orderDe.Columns[12].Visible = false;//paypri
+                orderDe.Columns[13].Visible = false;//pic
+                orderDe.Columns[14].Visible = false;// "קמות בחנות";
+                orderDe.Columns[15].HeaderText = "הערה על מוצר";
+                orderDe.Columns[15].Visible = false;
+                orderDe.Columns[16].Visible = false;// "מצב של מוצר";
+                
 
+                lableTime.Text = orderDe.Rows[0].Cells[5].Value.ToString();
+                lableTime.Visible = true;
+                labelDate.Text = orderDe.Rows[0].Cells[6].Value.ToString();
+                labelDate.Visible = true;
             }
         }
         private void SearchItem_TextChanged(object sender, EventArgs e)
@@ -343,6 +367,8 @@ namespace carPro
         {
             for (int i = 0; i < tab_PDF.TabCount;)
                 tab_PDF.TabPages.Remove(tab_PDF.TabPages[0]);
+            lableTime.Visible = false;
+            labelDate.Visible = false;
             if (tabControl1.SelectedIndex == 0)
             {
                 dataTable = custDb.ReturnItem();
@@ -435,7 +461,7 @@ namespace carPro
                 if (fileNum == 0)
                     SaveTableFont(3);
                 else
-                    SaveTableFont(5);
+                    SaveTableFont(6);
                 float[] widthOfTable = new float[saveTablePdf.NumberOfColumns];
                 for (int i = 0; i < widthOfTable.Length; i++)
                 {

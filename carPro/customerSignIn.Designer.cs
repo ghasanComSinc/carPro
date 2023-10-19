@@ -48,6 +48,7 @@
             itmesDe = new TabPage();
             orderDe = new DataGridView();
             panel1 = new Panel();
+            lableTime = new Label();
             saleItem = new Label();
             minus = new PictureBox();
             sale = new Button();
@@ -65,6 +66,7 @@
             tabPage5 = new TabPage();
             PDF_Button_all_orders = new Button();
             saveFileforCustumr = new SaveFileDialog();
+            labelDate = new Label();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)itemToCustomer).BeginInit();
@@ -320,6 +322,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(lableTime);
             panel1.Controls.Add(saleItem);
             panel1.Controls.Add(minus);
             panel1.Controls.Add(sale);
@@ -329,6 +332,16 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(421, 65);
             panel1.TabIndex = 16;
+            // 
+            // lableTime
+            // 
+            lableTime.AutoSize = true;
+            lableTime.Location = new Point(86, 27);
+            lableTime.Name = "lableTime";
+            lableTime.Size = new Size(59, 25);
+            lableTime.TabIndex = 52;
+            lableTime.Text = "label2";
+            lableTime.TextAlign = ContentAlignment.TopCenter;
             // 
             // saleItem
             // 
@@ -512,11 +525,22 @@
             PDF_Button_all_orders.UseVisualStyleBackColor = true;
             PDF_Button_all_orders.Click += PDF_Button_all_orders_Click;
             // 
+            // labelDate
+            // 
+            labelDate.AutoSize = true;
+            labelDate.Location = new Point(81, 56);
+            labelDate.Name = "labelDate";
+            labelDate.Size = new Size(59, 25);
+            labelDate.TabIndex = 51;
+            labelDate.Text = "label2";
+            labelDate.TextAlign = ContentAlignment.TopCenter;
+            // 
             // CustomerSignIn
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1177, 578);
+            Controls.Add(labelDate);
             Controls.Add(tab_PDF);
             Controls.Add(label1);
             Controls.Add(searchItem);
@@ -589,5 +613,7 @@
         private Button PDF_Button_order;
         private Button PDF_Button_all_orders;
         private SaveFileDialog saveFileforCustumr;
+        private Label labelDate;
+        private Label lableTime;
     }
 }
