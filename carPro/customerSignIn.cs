@@ -418,6 +418,10 @@ namespace carPro
         {
             SavePdfFile(dataGridView1, "דוח חזמנות", 0);
         }
+        private void PDF_Button_all_orders_Click(object sender, EventArgs e)
+        {
+            SavePdfFile(orderDe, "מספר מזהה של הזמנה: "+orderDe.Rows[0].Cells[2].Value.ToString(), 1);
+        }
         private void SaveTableFont(int count)
         {
             tableFont = new Font(tableFont1, 12)
@@ -460,11 +464,10 @@ namespace carPro
                 /*creat title in pdf*/
                 Add_Line_To_PDFTable_CENTER(titleStr);
 
-                /*creat title in pdf*/
                 if (fileNum == 0)
                     SaveTableFont(4);
                 else
-                    SaveTableFont(6);
+                    SaveTableFont(7);
                 float[] widthOfTable = new float[saveTablePdf.NumberOfColumns];
                 for (int i = 0; i < widthOfTable.Length; i++)
                 {
@@ -477,10 +480,10 @@ namespace carPro
                     }
                     else
                     {
-                        if (i != 3)
-                            widthOfTable[i] = 20f;
+                        if (i == 6)
+                            widthOfTable[i] = 5f;
                         else
-                            widthOfTable[i] = 90f;
+                            widthOfTable[i] = 20f;
                     }
                 }
                 saveTablePdf.SetWidths(widthOfTable);
@@ -496,11 +499,13 @@ namespace carPro
                 }
                 else
                 {
-                    saveTablePdf.AddCell(new Phrase(data.Columns[0].HeaderText, tableFont));
+                    saveTablePdf.AddCell(new Phrase("#"));
                     saveTablePdf.AddCell(new Phrase(data.Columns[1].HeaderText, tableFont));
-                    saveTablePdf.AddCell(new Phrase(data.Columns[3].HeaderText, tableFont));
-                    saveTablePdf.AddCell(new Phrase(data.Columns[5].HeaderText, tableFont));
-                    saveTablePdf.AddCell(new Phrase(data.Columns[7].HeaderText, tableFont));
+                    saveTablePdf.AddCell(new Phrase("כמות", tableFont));
+                    saveTablePdf.AddCell(new Phrase("סטאטוס", tableFont));
+                    saveTablePdf.AddCell(new Phrase("חלק", tableFont));
+                    saveTablePdf.AddCell(new Phrase(data.Columns[8].HeaderText, tableFont));
+                    saveTablePdf.AddCell(new Phrase(data.Columns[11].HeaderText, tableFont));
                 }
                 for (int i = 0; i < data.Rows.Count; i++)
                 {
@@ -514,29 +519,34 @@ namespace carPro
                     }
                     else
                     {
-                        if (data.Rows[i].Cells[9].Value.ToString() == "פעיל")
+                        if (data.Rows[i].Cells[7].Value.ToString() == "0")
+                            tableFont = new Font(tableFont1, 12)
+                            {
+                                Color = BaseColor.RED
+                            };
+                        else
+                            tableFont = new Font(tableFont1, 12)
+                            {
+                                Color = BaseColor.BLACK
+                            };
+                        saveTablePdf.AddCell(new Phrase((i + 1).ToString()));
+                        saveTablePdf.AddCell(new Phrase(data.Rows[i].Cells[1].Value.ToString(), tableFont));
+                        saveTablePdf.AddCell(new Phrase(data.Rows[i].Cells[3].Value.ToString(), tableFont));
+                        saveTablePdf.AddCell(new Phrase(data.Rows[i].Cells[4].Value.ToString(), tableFont));
+                        saveTablePdf.AddCell(new Phrase(data.Rows[i].Cells[7].Value.ToString(), tableFont));
+                        string partName = data.Rows[i].Cells[8].Value.ToString();
+                        if (partName.Length > 20)
                         {
-                            if (data.Rows[i].Cells[7].Value.ToString() == "0")
-                                tableFont = new Font(tableFont1, 12)
-                                {
-                                    Color = BaseColor.RED
-                                };
-                            else
-                                tableFont = new Font(tableFont1, 12)
-                                {
-                                    Color = BaseColor.BLACK
-                                };
-                            saveTablePdf.AddCell(new Phrase(data.Rows[i].Cells[0].Value.ToString(), tableFont));
-                            saveTablePdf.AddCell(new Phrase(data.Rows[i].Cells[1].Value.ToString(), tableFont));
-                            saveTablePdf.AddCell(new Phrase(data.Rows[i].Cells[3].Value.ToString(), tableFont));
-                            saveTablePdf.AddCell(new Phrase(data.Rows[i].Cells[5].Value.ToString(), tableFont));
-                            saveTablePdf.AddCell(new Phrase(data.Rows[i].Cells[7].Value.ToString(), tableFont));
+                            partName = partName.Substring(0, 20);
                         }
+                        saveTablePdf.AddCell(new Phrase(partName, tableFont));
+                        saveTablePdf.AddCell(new Phrase(data.Rows[i].Cells[11].Value.ToString(), tableFont));
+                        
                     }
                 }
                 document.Add(saveTablePdf);
                 document.Close();
-                MessageBox.Show("הפעולה הסתימה בהצלחה");
+                //MessageBox.Show("הפעולה הסתימה בהצלחה");
             }
         }
         private void Add_Line_To_PDFTable_RightSide(string line)
@@ -566,10 +576,6 @@ namespace carPro
             saveTablePdf = new PdfPTable(1);
             saveTablePdf.AddCell(cell);
             document.Add(saveTablePdf);
-        }
-        private void PDF_Button_all_orders_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
