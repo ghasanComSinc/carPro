@@ -481,12 +481,14 @@ namespace carPro
                     }
                     else
                     {
-                        if (i == 5)
-                            widthOfTable[i] = 12;
+                        if (i == 0 ||i == 1 ||i == 4)
+                            widthOfTable[i] = 22f;
+                        else if (i == 5)
+                            widthOfTable[i] = 12f;
                         else if (i == 7)
-                            widthOfTable[i] = 5f;
+                            widthOfTable[i] = 8f;// # line number
                         else
-                            widthOfTable[i] = 20f;
+                            widthOfTable[i] = 30f;
                     }
                 }
                 saveTablePdf.SetWidths(widthOfTable);
@@ -539,9 +541,9 @@ namespace carPro
                         saveTablePdf.AddCell(new Phrase(data.Rows[i].Cells[4].Value.ToString(), tableFont));
                         saveTablePdf.AddCell(new Phrase(data.Rows[i].Cells[7].Value.ToString(), tableFont));
                         string partName = data.Rows[i].Cells[8].Value.ToString();
-                        if (partName.Length > 20)
+                        if (partName.Length > 27)
                         {
-                            partName = partName.Substring(0, 20);
+                            partName = partName.Substring(0, 27);
                         }
                         saveTablePdf.AddCell(new Phrase(partName, tableFont));
                         saveTablePdf.AddCell(new Phrase(data.Rows[i].Cells[11].Value.ToString(), tableFont));
