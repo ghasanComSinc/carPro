@@ -569,7 +569,7 @@ namespace carPro
             }
             else if (statusOrder.SelectedIndex == 1)
             {
-                strFun = "SELECT * FROM `paytable` WHERE `status`=\"בוצעה בהצלחה\"";
+                strFun = "SELECT * FROM `paytable` WHERE `status`=\"בוצע בהצלחה\"";
             }
             else if (statusOrder.SelectedIndex == 2)
             {

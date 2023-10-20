@@ -171,7 +171,7 @@ namespace carPro
             {
                 if (float.Parse(itemsInOrder.Rows[i].Cells[14].Value.ToString()) >= float.Parse(itemsInOrder.Rows[i].Cells[3].Value.ToString()))
                 {
-                    if (employesDb.UpdateItmes(itemsInOrder, i) == false || employesDb.UpdateOrder(itemsInOrder, i, "בוצעה בהצלחה") == false)
+                    if (employesDb.UpdateItmes(itemsInOrder, i) == false || employesDb.UpdateOrder(itemsInOrder, i, "בוצע בהצלחה") == false)
                     {
                         this.Close(); return false;
                     }
