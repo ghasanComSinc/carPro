@@ -51,7 +51,7 @@ namespace carPro
         }
         private void CustomerSignIn_Load(object sender, EventArgs e)
         {
-            phoneNumber.Text += PhoneNum;
+           phoneNumber.Text += PhoneNum;
             name = custDb.NameCust(PhoneNum);
             if (name != "")
             {
@@ -441,6 +441,7 @@ namespace carPro
             if (saveFileforCustumr.ShowDialog() == DialogResult.OK)
             {
                 document = new iTextSharp.text.Document();
+                document.SetMargins(0f, 0f, 10f, 10f);
                 iTextSharp.text.pdf.PdfWriter.GetInstance(document, new FileStream(saveFileforCustumr.FileName, FileMode.Create));
                 document.Open();
                 /*put image*/
@@ -467,7 +468,7 @@ namespace carPro
                 if (fileNum == 0)
                     SaveTableFont(4);
                 else
-                    SaveTableFont(7);
+                    SaveTableFont(8);
                 float[] widthOfTable = new float[saveTablePdf.NumberOfColumns];
                 for (int i = 0; i < widthOfTable.Length; i++)
                 {
@@ -480,7 +481,9 @@ namespace carPro
                     }
                     else
                     {
-                        if (i == 6)
+                        if (i == 5)
+                            widthOfTable[i] = 12;
+                        else if (i == 7)
                             widthOfTable[i] = 5f;
                         else
                             widthOfTable[i] = 20f;
@@ -506,6 +509,7 @@ namespace carPro
                     saveTablePdf.AddCell(new Phrase("חלק", tableFont));
                     saveTablePdf.AddCell(new Phrase(data.Columns[8].HeaderText, tableFont));
                     saveTablePdf.AddCell(new Phrase(data.Columns[11].HeaderText, tableFont));
+                    saveTablePdf.AddCell(new Phrase("ס\"כ מחיר", tableFont));
                 }
                 for (int i = 0; i < data.Rows.Count; i++)
                 {
@@ -541,7 +545,8 @@ namespace carPro
                         }
                         saveTablePdf.AddCell(new Phrase(partName, tableFont));
                         saveTablePdf.AddCell(new Phrase(data.Rows[i].Cells[11].Value.ToString(), tableFont));
-                        
+                        int amuntXprice = int.Parse(data.Rows[i].Cells[3].Value.ToString()) * int.Parse(data.Rows[i].Cells[11].Value.ToString());
+                        saveTablePdf.AddCell(new Phrase(amuntXprice.ToString(), tableFont));
                     }
                 }
                 document.Add(saveTablePdf);
