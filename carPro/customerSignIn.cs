@@ -441,7 +441,7 @@ namespace carPro
             if (saveFileforCustumr.ShowDialog() == DialogResult.OK)
             {
                 document = new iTextSharp.text.Document();
-                document.SetMargins(0f, 0f, 10f, 10f);
+                document.SetMargins(0, 0, 10f, 10f);
                 iTextSharp.text.pdf.PdfWriter.GetInstance(document, new FileStream(saveFileforCustumr.FileName, FileMode.Create));
                 document.Open();
                 /*put image*/
@@ -477,7 +477,7 @@ namespace carPro
                         if (i == 3)
                             widthOfTable[i] = 5f;
                         else
-                            widthOfTable[i] = 20f;
+                            widthOfTable[i] = 30f;
                     }
                     else
                     {
