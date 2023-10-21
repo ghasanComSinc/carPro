@@ -1,17 +1,9 @@
-﻿using iText.Layout.Borders;
-using iTextSharp.text.pdf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Image = System.Drawing.Image;
+﻿using iTextSharp.text.pdf;
 using iTextSharp.text;
-using iTextSharp.text.pdf;
 using Font = iTextSharp.text.Font;
 namespace carPro
 {
-    internal class employePdf
+    internal class EmployePdf
     {
         /*pdfFile*/
         private PdfPTable saveTablePdf;
@@ -19,7 +11,7 @@ namespace carPro
         readonly static string path = @"VarelaRound-Regular.ttf";
         readonly iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         Font tableFont;
-        public employePdf()
+        public EmployePdf()
         {
         }
         private void FillFileDe(DataGridView data)
@@ -50,7 +42,7 @@ namespace carPro
                 RunDirection = iTextSharp.text.pdf.PdfWriter.RUN_DIRECTION_RTL
             };
         }
-        public void addPdfSale(string filePath ,DataGridView orders)
+        public void AddPdfSale(string filePath ,DataGridView orders)
         {
             doc = new iTextSharp.text.Document();
             iTextSharp.text.pdf.PdfWriter.GetInstance(doc, new FileStream(filePath, FileMode.Create));
@@ -87,7 +79,7 @@ namespace carPro
             doc.Close();
             MessageBox.Show("הפעולה הסתימה בהצלחה");
         }
-        public void addPdfItemInSale(string filePath, DataGridView itemsInOrder)
+        public void AddPdfItemInSale(string filePath, DataGridView itemsInOrder)
         {
             doc = new iTextSharp.text.Document();
             iTextSharp.text.pdf.PdfWriter.GetInstance(doc, new FileStream(filePath, FileMode.Create));

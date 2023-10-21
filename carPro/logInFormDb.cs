@@ -1,11 +1,4 @@
 ﻿using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace carPro
 {
@@ -29,7 +22,10 @@ namespace carPro
                     command = new MySqlCommand(selectQuery, connection);
                     MySqlDataReader ms = command.ExecuteReader();
                     if (ms.Read() == false)
+                    {
                         MessageBox.Show("משתמש לא קיים");
+                        return"";
+                    }
                     string status = ms[3].ToString();
                     connection.Close();
                     return status;

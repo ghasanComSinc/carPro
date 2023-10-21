@@ -1,13 +1,5 @@
-﻿using MySql.Data.MySqlClient;
-using System.Data;
+﻿using System.Data;
 using Image = System.Drawing.Image;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using Font = iTextSharp.text.Font;
-using System.Windows.Forms;
-using iText.Kernel.Geom;
-using iText.IO.Image;
-using Point = System.Drawing.Point;
 
 namespace carPro
 {
@@ -18,11 +10,6 @@ namespace carPro
         bool flagImg;
         int index;
         private string oldPar, oldId;
-        private PdfPTable saveTablePdf;
-        private iTextSharp.text.Document doc;
-        readonly static string path = @"VarelaRound-Regular.ttf";
-        readonly iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-        Font tableFont;
         readonly MangerDb mangerDb;
         public Manger()
         {
@@ -207,10 +194,9 @@ namespace carPro
         {
             string userNa = userName.Text;
             string stat = status.Text;
-            string strFun;
             if (stat == "מנהל" && users.Rows[index].Cells[6].Value.ToString() == "פעיל")
             {
-                int count = mangerDb.mangerCount(stat);
+                int count = mangerDb.MangerCount(stat);
                 if (count < 0)
                 {
                     this.Close(); return;
@@ -221,7 +207,7 @@ namespace carPro
                     MessageBox.Show("קיים רק מנהיל יחד אי אפשר למחוק"); return;
                 }
             }
-            if (mangerDb.deletUser(users.Rows[index].Cells[6].Value.ToString(), userNa) == false)
+            if (mangerDb.DeletUser(users.Rows[index].Cells[6].Value.ToString(), userNa) == false)
             {
                 this.Close(); return;
             }
@@ -318,7 +304,7 @@ namespace carPro
 
                     picPath.Image.Save(ms, picPath.Image.RawFormat);
                     byte[] img = ms.ToArray();
-                    if (mangerDb.insertItem(nameIt, carType, placeInSh, parC, salePrice, payPrice, img, amou, comn) == false)
+                    if (mangerDb.InsertItem(nameIt, carType, placeInSh, parC, salePrice, payPrice, img, amou, comn) == false)
                     {
                         this.Close(); return;
                     }
@@ -522,7 +508,7 @@ namespace carPro
             //all the if's end's here
             else
             {
-                if (mangerDb.updateItem(flagImg, nameIt, carType, placeInSh, parC, salePrice, payPrice, img, amou, comn, oldPar) == false)
+                if (mangerDb.UpdateItem(flagImg, nameIt, carType, placeInSh, parC, salePrice, payPrice, img, amou, comn, oldPar) == false)
                 { this.Close(); return; }
                 TabControl1_SelectedIndexChanged(sender, EventArgs.Empty);
                 ClearItmesDetla();
@@ -577,7 +563,7 @@ namespace carPro
             {
                 strFun = "SELECT * FROM `paytable` WHERE `status`=\"בוטלה\"";
             }
-            dataTable = mangerDb.returnSaleWithSta(strFun);
+            dataTable = mangerDb.ReturnSaleWithSta(strFun);
             if (dataTable == null)
             {
                 this.Close(); return;
@@ -592,7 +578,7 @@ namespace carPro
         {
             tab.TabPages.Add(ordersD);
             tab.SelectedIndex = 3;
-            dataTable = mangerDb.returnItemSale(orders.Rows[e.RowIndex].Cells[0].Value.ToString(), orders.Rows[e.RowIndex].Cells[1].Value.ToString());
+            dataTable = mangerDb.ReturnItemSale(orders.Rows[e.RowIndex].Cells[0].Value.ToString(), orders.Rows[e.RowIndex].Cells[1].Value.ToString());
             orderD.DataSource = dataTable;
             orderD.Columns[0].HeaderText = "מספר טלפון";
             orderD.Columns[0].Visible = false;
@@ -623,8 +609,8 @@ namespace carPro
             saveFileFromManger.Filter = "PDF Files|*.pdf";
             if (saveFileFromManger.ShowDialog() == DialogResult.OK)
             {
-                mangerPdf mangerPd = new();
-                mangerPd.addFilePdf(saveFileFromManger.FileName, titleStr, fileNum, data);
+                MangerPdf mangerPd = new();
+                mangerPd.AddFilePdf(saveFileFromManger.FileName, titleStr, fileNum, data);
             }
         }
         private void Button3_Click(object sender, EventArgs e)
@@ -645,13 +631,13 @@ namespace carPro
             saveFileFromManger.Filter = "PDF Files|*.pdf";
             if (saveFileFromManger.ShowDialog() == DialogResult.OK)
             {
-                mangerPdf mangerPd = new();
-                mangerPd.addPdfDeOr(saveFileFromManger.FileName, orderD);
+                MangerPdf mangerPd = new();
+                mangerPd.AddPdfDeOr(saveFileFromManger.FileName, orderD);
             }
         }
         private void DeleteItems_Click(object sender, EventArgs e)
         {
-            if (mangerDb.delItems(items.Rows[index].Cells[9].Value.ToString(), items.Rows[index].Cells[3].Value.ToString()) == false)
+            if (mangerDb.DelItems(items.Rows[index].Cells[9].Value.ToString(), items.Rows[index].Cells[3].Value.ToString()) == false)
             { this.Close(); return; }
             TabControl1_SelectedIndexChanged(sender, e);
             Button1_Click_1(sender, e);

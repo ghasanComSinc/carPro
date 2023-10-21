@@ -1,22 +1,11 @@
-﻿using iText.Layout.Borders;
-using Microsoft.VisualBasic;
-using Microsoft.VisualBasic.ApplicationServices;
-using MySql.Data.MySqlClient;
-using Org.BouncyCastle.Utilities.Collections;
-using System;
-using System.Collections.Generic;
+﻿using MySql.Data.MySqlClient;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace carPro
 {
     internal class MangerDb
     {
-         MySqlConnection connection;
+        readonly MySqlConnection connection;
         MySqlCommand MyCommand2;
         DataTable dataTable;
         public MangerDb() 
@@ -107,7 +96,7 @@ namespace carPro
                 }
             }
         }
-        public int mangerCount(string stat)
+        public int MangerCount(string stat)
         {
             lock (connection)
             {
@@ -131,7 +120,7 @@ namespace carPro
             }
 
         }
-        public bool deletUser(string stat,string userNa)
+        public bool DeletUser(string stat,string userNa)
         {
             lock(connection)
             {
@@ -164,7 +153,7 @@ namespace carPro
 
             }
         }
-        public bool insertItem(string nameIt,string carType,string placeInSh,string parC, float salePrice,float payPrice, byte[] img,int amou ,string comn)
+        public bool InsertItem(string nameIt,string carType,string placeInSh,string parC, float salePrice,float payPrice, byte[] img,int amou ,string comn)
         {
             lock (connection)
             {
@@ -197,7 +186,7 @@ namespace carPro
                 }
             }
         }
-        public bool updateItem(bool flagImg,string nameIt, string carType, string placeInSh, string parC, float salePrice, float payPrice, byte[] img, int amou, string comn,string oldPar)
+        public bool UpdateItem(bool flagImg,string nameIt, string carType, string placeInSh, string parC, float salePrice, float payPrice, byte[] img, int amou, string comn,string oldPar)
         {
             lock (connection)
             {
@@ -233,7 +222,7 @@ namespace carPro
                 }
             }
         }
-        public DataTable returnSaleWithSta(string strFun)
+        public DataTable ReturnSaleWithSta(string strFun)
         {
             lock (connection)
             {
@@ -257,7 +246,7 @@ namespace carPro
                 }
             }
         }
-        public DataTable returnItemSale(string phoneNum, string orderId)
+        public DataTable ReturnItemSale(string phoneNum, string orderId)
         {
             lock (connection) {
                 string strFun = "SELECT * FROM `orders` join `items` ON `orders`.`parCode` = `items`.`parCode`" +
@@ -281,7 +270,7 @@ namespace carPro
                 }
             } 
         }
-        public bool delItems(string stat,string par)
+        public bool DelItems(string stat,string par)
         {
             lock (connection)
             {

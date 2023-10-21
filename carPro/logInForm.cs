@@ -1,13 +1,3 @@
-using MySql.Data.MySqlClient;
-using System.Net.Mail;
-using System.Data;
-using System.Windows.Forms;
-using static System.ComponentModel.Design.ObjectSelectorEditor;
-using static System.Net.Mime.MediaTypeNames;
-using Application = System.Windows.Forms.Application;
-using Microsoft.VisualBasic.ApplicationServices;
-using System.Drawing;
-
 namespace carPro
 {
     public partial class LogInForm : System.Windows.Forms.Form
@@ -45,6 +35,10 @@ namespace carPro
                 this.Hide();
                 emp.ShowDialog();
             }
+            else if(statusAc.Equals(""))
+            {
+                return;
+            }
             else
             {
                 CustomerSignIn customerS = new()
@@ -54,6 +48,8 @@ namespace carPro
                 this.Hide();
                 customerS.ShowDialog();
             }
+
+
             this.Show();
         }
         private bool CheckNumberPhone()

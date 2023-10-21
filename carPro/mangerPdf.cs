@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Image = System.Drawing.Image;
-using iTextSharp.text;
+﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Font = iTextSharp.text.Font;
 namespace carPro
 {
-    internal class mangerPdf
+    internal class MangerPdf
     {
         private PdfPTable saveTablePdf;
         private iTextSharp.text.Document doc;
@@ -17,7 +11,7 @@ namespace carPro
         readonly iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         Font tableFont;
 
-        public mangerPdf()
+        public MangerPdf()
         {
         }
         private void SaveTableFont(int count)
@@ -32,7 +26,7 @@ namespace carPro
                 RunDirection = iTextSharp.text.pdf.PdfWriter.RUN_DIRECTION_RTL
             };
         }
-        public void addFilePdf(string path1,string titleStr,int fileNum,DataGridView data)
+        public void AddFilePdf(string path1,string titleStr,int fileNum,DataGridView data)
         {
             doc = new iTextSharp.text.Document();
             iTextSharp.text.pdf.PdfWriter.GetInstance(doc, new FileStream(path1, FileMode.Create));
@@ -121,7 +115,7 @@ namespace carPro
             doc.Close();
             MessageBox.Show("הפעולה הסתימה בהצלחה");
         }
-        public void addPdfDeOr(string path1,DataGridView orderD)
+        public void AddPdfDeOr(string path1,DataGridView orderD)
         {
             doc = new iTextSharp.text.Document();
             iTextSharp.text.pdf.PdfWriter.GetInstance(doc, new FileStream(path1, FileMode.Create));

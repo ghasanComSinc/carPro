@@ -3,14 +3,14 @@ using iTextSharp.text.pdf;
 using Font = iTextSharp.text.Font;
 namespace carPro
 {
-    internal class pdfCustomer
+    internal class PdfCustomer
     {
         private PdfPTable saveTablePdf;
         private iTextSharp.text.Document document;
         readonly static string path = @"VarelaRound-Regular.ttf";
         readonly iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         Font tableFont;
-        public pdfCustomer()
+        public PdfCustomer()
         {
         }
         public void Add_Line_To_PDFTable_CENTER(string line)
@@ -158,7 +158,7 @@ namespace carPro
                     string partName = data.Rows[i].Cells[8].Value.ToString();
                     if (partName.Length > 27)
                     {
-                        partName = partName.Substring(0, 27);
+                        partName = partName[..27];
                     }
                     saveTablePdf.AddCell(new Phrase(partName, tableFont));
                     saveTablePdf.AddCell(new Phrase(data.Rows[i].Cells[11].Value.ToString(), tableFont));

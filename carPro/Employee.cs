@@ -1,11 +1,5 @@
-﻿using MySql.Data.MySqlClient;
-using System.Data;
-using System.Text.RegularExpressions;
+﻿using System.Data;
 using Image = System.Drawing.Image;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using Font = iTextSharp.text.Font;
-using System.Windows.Forms;
 
 namespace carPro
 {
@@ -13,12 +7,6 @@ namespace carPro
     {
         public string employName;//phone
         DataTable dataTable;
-        /*pdfFile*/
-        private PdfPTable saveTablePdf;
-        private iTextSharp.text.Document doc;
-        readonly static string path = @"VarelaRound-Regular.ttf";
-        readonly iTextSharp.text.pdf.BaseFont tableFont1 = iTextSharp.text.pdf.BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-        Font tableFont;
         readonly CustomerClassDb customerFun;
         readonly EmployesDb employesDb;
         public Employee()
@@ -243,8 +231,8 @@ namespace carPro
             saveFileFromEmploye.Filter = "PDF Files|*.pdf";
             if (saveFileFromEmploye.ShowDialog() == DialogResult.OK)
             {
-                employePdf emPdf = new();
-                emPdf.addPdfSale(saveFileFromEmploye.FileName, orders);
+                EmployePdf emPdf = new();
+                emPdf.AddPdfSale(saveFileFromEmploye.FileName, orders);
             }
         }
         private void PDF_Button_all_orders_Click(object sender, EventArgs e)
@@ -253,8 +241,8 @@ namespace carPro
             saveFileFromEmploye.Filter = "PDF Files|*.pdf";
             if (saveFileFromEmploye.ShowDialog() == DialogResult.OK)
             {
-                employePdf emPdf = new();
-                emPdf.addPdfItemInSale(saveFileFromEmploye.FileName, itemsInOrder);
+                EmployePdf emPdf = new();
+                emPdf.AddPdfItemInSale(saveFileFromEmploye.FileName, itemsInOrder);
             }
         }
     }

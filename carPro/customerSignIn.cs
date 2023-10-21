@@ -1,9 +1,5 @@
-﻿using iText.Layout.Borders;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using System.Data;
+﻿using System.Data;
 using System.Text.RegularExpressions;
-using Font = iTextSharp.text.Font;
 using Image = System.Drawing.Image;
 
 namespace carPro
@@ -299,8 +295,8 @@ namespace carPro
                 labelDate.Text = "";
                 lableTime.Text = "";
                 // Bind the DataTable to the DataGridView
-                MangerDb joinTable = new MangerDb();
-                dataTable = joinTable.returnItemSale(PhoneNum, dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString());
+                MangerDb joinTable = new();
+                dataTable = joinTable.ReturnItemSale(PhoneNum, dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString());
 
                 if (dataTable == null)
                 {
@@ -415,7 +411,7 @@ namespace carPro
             saveFileforCustumr.Filter = "PDF Files|*.pdf";
             if (saveFileforCustumr.ShowDialog() == DialogResult.OK)
             {
-                pdfCustomer pdfC = new();
+                PdfCustomer pdfC = new();
                 pdfC.SavePdfFile(saveFileforCustumr.FileName,name, dataGridView1, "דוח חזמנות", 0);
 
             }
@@ -426,7 +422,7 @@ namespace carPro
             saveFileforCustumr.Filter = "PDF Files|*.pdf";
             if (saveFileforCustumr.ShowDialog() == DialogResult.OK)
             {
-                pdfCustomer pdfC = new();
+                PdfCustomer pdfC = new();
                 pdfC.SavePdfFile(saveFileforCustumr.FileName, name, orderDe, "מספר מזהה של הזמנה: " + orderDe.Rows[0].Cells[2].Value.ToString(), 1);
             }
         }
