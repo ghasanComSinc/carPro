@@ -529,6 +529,7 @@ namespace carPro
             this.Hide();
             cust.ShowDialog();
             this.Show();
+            phone_number = cust.PhoneNum;
             Manger_Load(sender, e);
         }
         private void SinEm_Click(object sender, EventArgs e)
@@ -542,6 +543,7 @@ namespace carPro
 
             employee.ShowDialog();
             this.Show();
+            phone_number = employee.employName;
             Manger_Load(sender, e);
         }
         private void StatusOrder_SelectedItemChanged(object sender, EventArgs e)

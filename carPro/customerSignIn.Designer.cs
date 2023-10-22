@@ -67,6 +67,7 @@
             PDF_Button_all_orders = new Button();
             saveFileforCustumr = new SaveFileDialog();
             labelDate = new Label();
+            updateU = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)itemToCustomer).BeginInit();
@@ -94,12 +95,12 @@
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Controls.Add(tabPage3);
             tabControl1.Controls.Add(itmesDe);
-            tabControl1.Location = new Point(-7, 85);
+            tabControl1.Location = new Point(-9, 117);
             tabControl1.Name = "tabControl1";
             tabControl1.RightToLeft = RightToLeft.Yes;
             tabControl1.RightToLeftLayout = true;
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1184, 491);
+            tabControl1.Size = new Size(1186, 459);
             tabControl1.TabIndex = 17;
             tabControl1.SelectedIndexChanged += TabControl1_SelectedIndexChanged;
             tabControl1.MouseClick += TabControl1_MouseClick;
@@ -112,7 +113,7 @@
             tabPage1.Location = new Point(4, 34);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(1176, 453);
+            tabPage1.Size = new Size(1178, 421);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "מוצרים בחנות";
             tabPage1.UseVisualStyleBackColor = true;
@@ -124,7 +125,7 @@
             itemsCom.Location = new Point(115, 289);
             itemsCom.Name = "itemsCom";
             itemsCom.RightToLeft = RightToLeft.No;
-            itemsCom.Size = new Size(15, 20);
+            itemsCom.Size = new Size(20, 25);
             itemsCom.TabIndex = 20;
             itemsCom.Text = "s";
             itemsCom.Visible = false;
@@ -154,7 +155,7 @@
             itemToCustomer.RightToLeft = RightToLeft.Yes;
             itemToCustomer.RowHeadersWidth = 62;
             itemToCustomer.RowTemplate.Height = 33;
-            itemToCustomer.Size = new Size(898, 441);
+            itemToCustomer.Size = new Size(900, 409);
             itemToCustomer.TabIndex = 0;
             itemToCustomer.CellClick += ItemToCustomer_CellClick;
             itemToCustomer.CellContentClick += ItemToCustomer_CellContentClick;
@@ -178,7 +179,7 @@
             tabPage2.Location = new Point(4, 34);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(1176, 453);
+            tabPage2.Size = new Size(1178, 421);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "הזמנה";
             tabPage2.UseVisualStyleBackColor = true;
@@ -237,7 +238,7 @@
             forSale.RightToLeft = RightToLeft.Yes;
             forSale.RowHeadersWidth = 62;
             forSale.RowTemplate.Height = 33;
-            forSale.Size = new Size(887, 441);
+            forSale.Size = new Size(887, 409);
             forSale.TabIndex = 1;
             forSale.CellClick += ForSale_CellClick;
             forSale.CellContentClick += ForSale_CellContentClick;
@@ -249,7 +250,7 @@
             tabPage3.Location = new Point(4, 34);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(3);
-            tabPage3.Size = new Size(1176, 453);
+            tabPage3.Size = new Size(1178, 421);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "דף הזמנות";
             tabPage3.UseVisualStyleBackColor = true;
@@ -277,7 +278,7 @@
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersWidth = 62;
             dataGridView1.RowTemplate.Height = 33;
-            dataGridView1.Size = new Size(1163, 441);
+            dataGridView1.Size = new Size(1163, 409);
             dataGridView1.TabIndex = 1;
             dataGridView1.CellClick += DataGridView1_CellClick;
             dataGridView1.CellContentClick += DataGridView1_CellContentClick;
@@ -288,7 +289,7 @@
             itmesDe.Location = new Point(4, 34);
             itmesDe.Name = "itmesDe";
             itmesDe.Padding = new Padding(3);
-            itmesDe.Size = new Size(1176, 453);
+            itmesDe.Size = new Size(1178, 421);
             itmesDe.TabIndex = 3;
             itmesDe.Text = "פרוט הזמנה";
             itmesDe.UseVisualStyleBackColor = true;
@@ -317,7 +318,7 @@
             orderDe.RightToLeft = RightToLeft.Yes;
             orderDe.RowHeadersWidth = 62;
             orderDe.RowTemplate.Height = 33;
-            orderDe.Size = new Size(1164, 441);
+            orderDe.Size = new Size(1164, 409);
             orderDe.TabIndex = 2;
             // 
             // panel1
@@ -330,7 +331,7 @@
             panel1.Controls.Add(amountSale);
             panel1.Location = new Point(4, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(421, 65);
+            panel1.Size = new Size(421, 61);
             panel1.TabIndex = 16;
             // 
             // lableTime
@@ -356,7 +357,7 @@
             // 
             minus.Anchor = AnchorStyles.None;
             minus.Image = (Image)resources.GetObject("minus.Image");
-            minus.Location = new Point(151, 20);
+            minus.Location = new Point(151, 18);
             minus.Name = "minus";
             minus.Size = new Size(27, 26);
             minus.SizeMode = PictureBoxSizeMode.Zoom;
@@ -368,7 +369,7 @@
             // sale
             // 
             sale.Anchor = AnchorStyles.None;
-            sale.Location = new Point(18, 15);
+            sale.Location = new Point(18, 13);
             sale.Name = "sale";
             sale.Size = new Size(94, 40);
             sale.TabIndex = 23;
@@ -381,7 +382,7 @@
             // 
             plus.Anchor = AnchorStyles.None;
             plus.Image = (Image)resources.GetObject("plus.Image");
-            plus.Location = new Point(118, 20);
+            plus.Location = new Point(118, 18);
             plus.Name = "plus";
             plus.Size = new Size(27, 26);
             plus.SizeMode = PictureBoxSizeMode.Zoom;
@@ -393,7 +394,7 @@
             // amountSale
             // 
             amountSale.Anchor = AnchorStyles.None;
-            amountSale.Location = new Point(184, 15);
+            amountSale.Location = new Point(184, 13);
             amountSale.Name = "amountSale";
             amountSale.Size = new Size(91, 31);
             amountSale.TabIndex = 22;
@@ -408,7 +409,7 @@
             label3.Location = new Point(942, 4);
             label3.Name = "label3";
             label3.RightToLeft = RightToLeft.Yes;
-            label3.Size = new Size(179, 20);
+            label3.Size = new Size(217, 25);
             label3.TabIndex = 18;
             label3.Text = "ברוכים הבאים לחנות שלנו\r\n";
             // 
@@ -433,7 +434,7 @@
             phoneNumber.Location = new Point(1041, 34);
             phoneNumber.Name = "phoneNumber";
             phoneNumber.RightToLeft = RightToLeft.Yes;
-            phoneNumber.Size = new Size(98, 20);
+            phoneNumber.Size = new Size(118, 25);
             phoneNumber.TabIndex = 21;
             phoneNumber.Text = "מספר טלפון :";
             // 
@@ -445,7 +446,7 @@
             customerName.Location = new Point(1072, 59);
             customerName.Name = "customerName";
             customerName.RightToLeft = RightToLeft.Yes;
-            customerName.Size = new Size(72, 20);
+            customerName.Size = new Size(87, 25);
             customerName.TabIndex = 22;
             customerName.Text = "שם לקוח:";
             // 
@@ -466,7 +467,7 @@
             label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label1.Location = new Point(830, 4);
             label1.Name = "label1";
-            label1.Size = new Size(89, 20);
+            label1.Size = new Size(106, 25);
             label1.TabIndex = 27;
             label1.Text = "חיפוש מוצר";
             // 
@@ -533,11 +534,22 @@
             labelDate.TabIndex = 51;
             labelDate.TextAlign = ContentAlignment.TopCenter;
             // 
+            // updateU
+            // 
+            updateU.Location = new Point(278, 71);
+            updateU.Name = "updateU";
+            updateU.Size = new Size(151, 40);
+            updateU.TabIndex = 53;
+            updateU.Text = "עדכון משתמש";
+            updateU.UseVisualStyleBackColor = true;
+            updateU.Click += updateU_Click;
+            // 
             // CustomerSignIn
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1177, 578);
+            Controls.Add(updateU);
             Controls.Add(labelDate);
             Controls.Add(tab_PDF);
             Controls.Add(label1);
@@ -613,5 +625,6 @@
         private SaveFileDialog saveFileforCustumr;
         private Label labelDate;
         private Label lableTime;
+        private Button updateU;
     }
 }

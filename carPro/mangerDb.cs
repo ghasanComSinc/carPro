@@ -39,7 +39,7 @@ namespace carPro
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("נסה שוב בעיה בתקשורת");
                     connection.Close();
                     return false;
                 }
@@ -62,7 +62,7 @@ namespace carPro
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("נסה שוב בעיה בתקשורת");
                     connection.Close();
                     return null;
                 }
@@ -86,11 +86,12 @@ namespace carPro
                     MyCommand2.Parameters.AddWithValue("@old", oldId);
                     MyCommand2.ExecuteNonQuery();
                     connection.Close();
+                    MessageBox.Show("עדכון משתמש הצליח");
                     return true;
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("נסה שוב בעיה בתקשורת");
                     connection.Close();
                     return false;
                 }
@@ -113,7 +114,7 @@ namespace carPro
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("נסה שוב בעיה בתקשורת");
                     connection.Close();
                     return -1;
                 }
@@ -146,7 +147,7 @@ namespace carPro
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("נסה שוב בעיה בתקשורת");
                     connection.Close();
                     return false;
                 }
@@ -180,7 +181,7 @@ namespace carPro
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("נסה שוב בעיה בתקשורת");
                     connection.Close();
                     return false;
                 }
@@ -240,7 +241,7 @@ namespace carPro
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("נסה שוב בעיה בתקשורת");
                     connection.Close();
                     return null;
                 }
@@ -264,7 +265,7 @@ namespace carPro
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("נסה שוב בעיה בתקשורת");
                     connection.Close();
                     return null;
                 }
@@ -295,7 +296,7 @@ namespace carPro
                 catch (Exception ex)
                 {
                     connection.Close();
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("נסה שוב בעיה בתקשורת");
                     return false;
                 }
             }

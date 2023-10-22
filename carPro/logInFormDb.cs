@@ -2,7 +2,7 @@
 
 namespace carPro
 {
-    internal class LogInFormDb : IDisposable
+    internal class LogInFormDb 
     {
         readonly MySqlConnection connection ;
         MySqlCommand command;
@@ -71,9 +71,6 @@ namespace carPro
             }
         }
 
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
+      
     }
 }

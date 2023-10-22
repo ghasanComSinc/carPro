@@ -217,9 +217,12 @@ namespace carPro
             CustomerSignIn cust = new()
             {
                 PhoneNum = employName,
+                Size=this.Size,
+                Location=this.Location
             };
             this.Hide();   
             cust.ShowDialog();
+            employName = cust.PhoneNum;
             this.Show();
             Employee_Load(sender, e);
         }

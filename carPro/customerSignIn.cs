@@ -12,7 +12,7 @@ namespace carPro
         string name;
         int amount = 0;
         string parcod;
-        int rowIndex;      
+        int rowIndex;
         readonly CustomerClassDb custDb;
         public CustomerSignIn()
         {
@@ -42,11 +42,11 @@ namespace carPro
         }
         private void CustomerSignIn_Load(object sender, EventArgs e)
         {
-           phoneNumber.Text += PhoneNum;
+            phoneNumber.Text = "מספר טלפון :" + PhoneNum;
             name = custDb.NameCust(PhoneNum);
             if (name != "")
             {
-                customerName.Text += name;
+                customerName.Text = "שם לקוח:" + name;
                 TabControl1_SelectedIndexChanged(sender, e);
             }
             else
@@ -412,7 +412,7 @@ namespace carPro
             if (saveFileforCustumr.ShowDialog() == DialogResult.OK)
             {
                 PdfCustomer pdfC = new();
-                pdfC.SavePdfFile(saveFileforCustumr.FileName,name, dataGridView1, "דוח חזמנות", 0);
+                pdfC.SavePdfFile(saveFileforCustumr.FileName, name, dataGridView1, "דוח חזמנות", 0);
 
             }
         }
@@ -427,5 +427,15 @@ namespace carPro
             }
         }
 
+        private void updateU_Click(object sender, EventArgs e)
+        {
+            updateUser update = new();
+            update.phoneNumber = PhoneNum;
+            this.Hide();
+            update.ShowDialog();
+            PhoneNum = update.phoneNumber;
+            this.Show();
+            this.CustomerSignIn_Load(sender, e);
+        }
     }
 }

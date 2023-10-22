@@ -32,7 +32,7 @@ namespace carPro
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("נסה שוב בעיה בתקשורת");
                     connection.Close();
                     return false;
                 }
@@ -58,7 +58,7 @@ namespace carPro
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("נסה שוב בעיה בתקשורת");
                     connection.Close();
                     return false;
                 }
@@ -82,7 +82,7 @@ namespace carPro
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("נסה שוב בעיה בתקשורת");
                     connection.Close();
                     return false;
                 }
@@ -108,7 +108,7 @@ namespace carPro
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("נסה שוב בעיה בתקשורת");
                     connection.Close();
                     return false;
                 }
@@ -130,7 +130,7 @@ namespace carPro
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("נסה שוב בעיה בתקשורת");
                 connection.Close();
                 return false;
             }
