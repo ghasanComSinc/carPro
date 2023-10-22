@@ -74,8 +74,8 @@
             // tabPage1
             // 
             tabPage1.BackColor = Color.Transparent;
-            tabPage1.BackgroundImage = Properties.Resources.logo_autopart;
-            tabPage1.BackgroundImageLayout = ImageLayout.Zoom;
+            tabPage1.BackgroundImage = (Image)resources.GetObject("tabPage1.BackgroundImage");
+            tabPage1.BackgroundImageLayout = ImageLayout.Stretch;
             tabPage1.Controls.Add(panel1);
             tabPage1.Location = new Point(4, 34);
             tabPage1.Name = "tabPage1";
@@ -158,7 +158,7 @@
             label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label2.Location = new Point(382, 68);
             label2.Name = "label2";
-            label2.Size = new Size(67, 25);
+            label2.Size = new Size(56, 20);
             label2.TabIndex = 16;
             label2.Text = "סיסמה";
             // 
@@ -169,7 +169,7 @@
             label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label1.Location = new Point(339, 15);
             label1.Name = "label1";
-            label1.Size = new Size(112, 25);
+            label1.Size = new Size(91, 20);
             label1.TabIndex = 15;
             label1.Text = "שם משתמש";
             // 
@@ -241,7 +241,7 @@
             label5.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label5.Location = new Point(507, 162);
             label5.Name = "label5";
-            label5.Size = new Size(84, 25);
+            label5.Size = new Size(70, 20);
             label5.TabIndex = 18;
             label5.Text = "שם לקוח";
             // 
@@ -252,7 +252,7 @@
             label6.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label6.Location = new Point(524, 221);
             label6.Name = "label6";
-            label6.Size = new Size(67, 25);
+            label6.Size = new Size(56, 20);
             label6.TabIndex = 14;
             label6.Text = "סיסמה";
             // 
@@ -264,7 +264,7 @@
             label4.Location = new Point(275, 57);
             label4.Name = "label4";
             label4.RightToLeft = RightToLeft.Yes;
-            label4.Size = new Size(258, 25);
+            label4.Size = new Size(216, 20);
             label4.TabIndex = 17;
             label4.Text = " ברוכים הבאים למערכת שלנו .";
             // 
@@ -283,7 +283,7 @@
             label3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label3.Location = new Point(480, 107);
             label3.Name = "label3";
-            label3.Size = new Size(111, 25);
+            label3.Size = new Size(93, 20);
             label3.TabIndex = 15;
             label3.Text = "מספר טלפון";
             // 

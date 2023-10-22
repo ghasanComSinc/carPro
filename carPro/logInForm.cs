@@ -14,8 +14,8 @@ namespace carPro
         }
         private void Button1_Click(object sender, EventArgs e)
         {
-            string statusAc= logInDb.LogIn(userName.Text, password.Text);
-            if (statusAc ==null)
+            string statusAc = logInDb.LogIn(userName.Text, password.Text);
+            if (statusAc == null)
                 return;
             if (statusAc.Equals("ордм"))
             {
@@ -35,7 +35,7 @@ namespace carPro
                 this.Hide();
                 emp.ShowDialog();
             }
-            else if(statusAc.Equals(""))
+            else if (statusAc.Equals(""))
             {
                 return;
             }
