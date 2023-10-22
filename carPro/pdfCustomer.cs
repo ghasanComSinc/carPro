@@ -1,5 +1,6 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
+using Microsoft.VisualBasic.ApplicationServices;
 using Font = iTextSharp.text.Font;
 namespace carPro
 {
@@ -60,9 +61,9 @@ namespace carPro
             iTextSharp.text.pdf.PdfWriter.GetInstance(document, new FileStream(path, FileMode.Create));
             document.Open();
             /*put image*/
-            //iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("D:\\autopatr\\images.jpeg");
-            iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("C:\\Users\\ASUS\\source\\repos\\carPro\\carPro\\plus.png");
-            img.ScaleToFit(200f, 200f); // Adjust the width and height as needed
+            iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("C:/Users/ehsan/source/repos/ghasanComSinc/carPro/carPro/123.png");
+            //iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("C:\\Users\\ASUS\\source\\repos\\carPro\\carPro\\plus.png");
+            img.ScaleToFit(600f, 100f); // Adjust the width and height as needed
             img.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
             document.Add(img);
             /*put image*/
