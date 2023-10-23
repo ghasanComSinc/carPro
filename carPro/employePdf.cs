@@ -50,8 +50,8 @@ namespace carPro
             /*put image*/
             //iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("D:\\autopatr\\images.jpeg");
             iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("C:\\Users\\ASUS\\Desktop\\123.jpg");
-            img.ScaleToFit(200f, 200f); // Adjust the width and height as needed
-            img.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
+            img.ScaleToFit(600f, 100f); // Adjust the width and height as needed
+            img.Alignment = iTextSharp.text.Image.ALIGN_LEFT;
             doc.Add(img);
             /*put image*/
             /*creat title in pdf*/
@@ -84,6 +84,26 @@ namespace carPro
             doc = new iTextSharp.text.Document();
             iTextSharp.text.pdf.PdfWriter.GetInstance(doc, new FileStream(filePath, FileMode.Create));
             doc.Open();
+            /*put image*/
+            //iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("D:\\autopatr\\images.jpeg");
+            iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("C:\\Users\\ASUS\\Desktop\\123.jpg");
+            img.ScaleToFit(600f, 100f); // Adjust the width and height as needed
+            img.Alignment = iTextSharp.text.Image.ALIGN_LEFT;
+            doc.Add(img);
+            /*put image*/
+            tableFont = new Font(tableFont1, 12)
+            {
+                Color = BaseColor.BLACK
+            };
+            saveTablePdf = new PdfPTable(1)
+            {
+                HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT,
+                DefaultCell = { BorderWidth = 0 },
+                RunDirection = iTextSharp.text.pdf.PdfWriter.RUN_DIRECTION_RTL
+            };
+            saveTablePdf.AddCell(new Phrase(itemsInOrder.Columns[0].HeaderText + ":" + itemsInOrder.Rows[0].Cells[0].Value.ToString(), tableFont));
+            saveTablePdf.AddCell(new Phrase(itemsInOrder.Columns[2].HeaderText + ":" + itemsInOrder.Rows[0].Cells[2].Value.ToString(), tableFont));
+            doc.Add(saveTablePdf);
             /*creat title in pdf*/
             Font font = new(BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED), 12);
             Paragraph title = new("פרטי הזמנה ", font);
@@ -97,35 +117,27 @@ namespace carPro
             saveTablePdf.AddCell(cell);
             doc.Add(saveTablePdf);
             /*creat title in pdf*/
-            tableFont = new Font(tableFont1, 12)
-            {
-                Color = BaseColor.BLACK
-            };
-            saveTablePdf = new PdfPTable(1)
-            {
-                HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER,
-                DefaultCell = { BorderWidth = 0 },
-                RunDirection = iTextSharp.text.pdf.PdfWriter.RUN_DIRECTION_RTL
-            };
-            saveTablePdf.AddCell(new Phrase(itemsInOrder.Columns[0].HeaderText + ":" + itemsInOrder.Rows[0].Cells[0].Value.ToString(), tableFont));
-            saveTablePdf.AddCell(new Phrase(itemsInOrder.Columns[2].HeaderText + ":" + itemsInOrder.Rows[0].Cells[2].Value.ToString(), tableFont));
-            doc.Add(saveTablePdf);
             saveTablePdf = new iTextSharp.text.pdf.PdfPTable(9)
             {
-                HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER,
+                HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT,
                 RunDirection = iTextSharp.text.pdf.PdfWriter.RUN_DIRECTION_RTL
             };
             float[] widthOfTable = new float[saveTablePdf.NumberOfColumns];
             for (int i = 0; i < widthOfTable.Length; i++)
             {
                 if (i == 5 || i == 6)
+                    widthOfTable[i] = 70f;
+                else if (i == 3 || i == 0)
+                    widthOfTable[i] = 80f;
+                else if (i == 7||i==2||i==4)
                     widthOfTable[i] = 40f;
-                else if (i == 3||i==0)
-                    widthOfTable[i] = 60f;
                 else
-                    widthOfTable[i] = 30f;
+                    widthOfTable[i] = 60f;
             }
-            saveTablePdf.SetWidths(widthOfTable);
+            saveTablePdf.SetTotalWidth(widthOfTable);
+            saveTablePdf.LockedWidth = true;
+
+
             FillFileDe(itemsInOrder);
             doc.Add(saveTablePdf);
             doc.Close();

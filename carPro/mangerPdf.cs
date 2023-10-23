@@ -34,8 +34,8 @@ namespace carPro
             /*put image*/
             //iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("D:\\autopatr\\images.jpeg");
             iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("C:\\Users\\ASUS\\Desktop\\123.jpg");
-            img.ScaleToFit(200f, 200f); // Adjust the width and height as needed
-            img.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
+            img.ScaleToFit(600f,100f); // Adjust the width and height as needed
+            img.Alignment = iTextSharp.text.Image.ALIGN_LEFT;
             doc.Add(img);
             /*put image*/
             /*creat title in pdf*/
