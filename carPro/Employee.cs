@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using iText.Layout.Borders;
+using System.Data;
 using Image = System.Drawing.Image;
 
 namespace carPro
@@ -15,11 +16,13 @@ namespace carPro
             tab_PDF.SizeMode = TabSizeMode.Fixed;
             tab_PDF.ItemSize = new Size(0, 1);
             tab_PDF.Appearance = TabAppearance.FlatButtons;
-            customerFun= new();
+            customerFun = new();
             employesDb = new();
         }
         private void Employee_Load(object sender, EventArgs e)
         {
+            orderI.Visible = false;
+            phoneNum.Visible = false;
             employeName.Text = "ברוך הבאה עובד יקר ";
             tabControl1.TabPages.Remove(tabPage2);
             tab_PDF.SelectedIndex = 0;
@@ -80,7 +83,7 @@ namespace carPro
             dataTable = customerFun.ReturnSale("SELECT * FROM `orders` join `items` ON `orders`.`parCode` = `items`.`parCode`" +
                 $"WHERE `phoneNumber`={orders.Rows[index].Cells[0].Value} AND `orderId`='{orders.Rows[index].Cells[1].Value}'");
             // Fill the DataTable with the query results
-            if(dataTable==null)
+            if (dataTable == null)
             {
                 this.Close(); return;
             }
@@ -179,9 +182,9 @@ namespace carPro
         {
             bool flag;
             if (UpdateItems() == false)
-                flag=employesDb.UpdatePayTable("UPDATE `paytable` SET `status`= 'בוטלה' WHERE `phoneNumber`=@id AND `orderId`=@orderId",itemsInOrder);
+                flag = employesDb.UpdatePayTable("UPDATE `paytable` SET `status`= 'בוטלה' WHERE `phoneNumber`=@id AND `orderId`=@orderId", itemsInOrder);
             else
-                flag=employesDb.UpdatePayTable("UPDATE `paytable` SET `status`= 'בוצעה בהצלחה' WHERE `phoneNumber`=@id AND `orderId`=@orderId", itemsInOrder);
+                flag = employesDb.UpdatePayTable("UPDATE `paytable` SET `status`= 'בוצעה בהצלחה' WHERE `phoneNumber`=@id AND `orderId`=@orderId", itemsInOrder);
             if (flag)
             {
                 Employee_Load(sender, e);
@@ -189,7 +192,7 @@ namespace carPro
             }
             else
             {
-                this.Close();return;
+                this.Close(); return;
             }
         }
         private void Button2_Click(object sender, EventArgs e)
@@ -217,17 +220,17 @@ namespace carPro
             CustomerSignIn cust = new()
             {
                 PhoneNum = employName,
-                Size=this.Size,
-                Location=this.Location
+                Size = this.Size,
+                Location = this.Location
             };
-            this.Hide();   
+            this.Hide();
             cust.ShowDialog();
             employName = cust.PhoneNum;
             this.Show();
+            tabControl1.TabPages.Add(allOrder);
+
             Employee_Load(sender, e);
         }
-       
-      
         private void PDF_Button_order_Click(object sender, EventArgs e)
         {
             saveFileFromEmploye.FileName = string.Empty;

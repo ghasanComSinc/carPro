@@ -500,7 +500,7 @@
             PDF_Button_order.Name = "PDF_Button_order";
             PDF_Button_order.Size = new Size(117, 34);
             PDF_Button_order.TabIndex = 0;
-            PDF_Button_order.Text = "דוח חזמנות";
+            PDF_Button_order.Text = "דוח הזמנות";
             PDF_Button_order.UseVisualStyleBackColor = true;
             PDF_Button_order.Click += PDF_Button_order_Click;
             // 

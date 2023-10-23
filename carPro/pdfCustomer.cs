@@ -61,8 +61,8 @@ namespace carPro
             iTextSharp.text.pdf.PdfWriter.GetInstance(document, new FileStream(path, FileMode.Create));
             document.Open();
             /*put image*/
-            iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("C:/Users/ehsan/source/repos/ghasanComSinc/carPro/carPro/123.png");
-            //iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("C:\\Users\\ASUS\\source\\repos\\carPro\\carPro\\plus.png");
+            //iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("C:/Users/ehsan/source/repos/ghasanComSinc/carPro/carPro/123.png");
+            iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("C:\\Users\\ASUS\\Desktop\\123.jpg");
             img.ScaleToFit(600f, 100f); // Adjust the width and height as needed
             img.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
             document.Add(img);
