@@ -1,3 +1,6 @@
+using System.Security.Cryptography;
+using System.Text;
+
 namespace carPro
 {
     public partial class LogInForm : System.Windows.Forms.Form
@@ -14,7 +17,8 @@ namespace carPro
         }
         private void Button1_Click(object sender, EventArgs e)
         {
-            string statusAc = logInDb.LogIn(userName.Text, password.Text);
+            string pass = encPass.EncryptString(password.Text);
+            string statusAc = logInDb.LogIn(userName.Text, pass);
             if (statusAc == null)
                 return;
             if (statusAc.Equals("ордм"))
@@ -76,7 +80,8 @@ namespace carPro
             {
                 if (CheckNumberPhone())
                 {
-                    if (logInDb.SignUp(phoneCustomer.Text, passSin.Text, nameCustomer.Text) == false)
+                    string pass = encPass.EncryptString(passSin.Text);
+                    if (logInDb.SignUp(phoneCustomer.Text, pass, nameCustomer.Text) == false)
                     {
                         LogInWorker_Click(sender, e);
                         return;

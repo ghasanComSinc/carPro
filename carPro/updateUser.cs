@@ -21,7 +21,7 @@ namespace carPro
         private string stat;
         private void updateU_Click(object sender, EventArgs e)
         {
-           if(mangerD.UpdateUser(userName.Text.ToString(), pass.Text.ToString(), name.Text.ToString(),stat, phoneNumber)==true)
+           if(mangerD.UpdateUser(userName.Text.ToString(), encPass.EncryptString(pass.Text.ToString()), name.Text.ToString(),stat, phoneNumber)==true)
             phoneNumber= userName.Text;
             
         }
@@ -36,8 +36,8 @@ namespace carPro
                 return;
             }
             name.Text = row.Rows[0].Table.Rows[0].Table.Rows[0][2].ToString();
-            userName.Text = row.Rows[0].Table.Rows[0].Table.Rows[0][0].ToString();
-            pass.Text = row.Rows[0].Table.Rows[0].Table.Rows[0][1].ToString();
+            userName.Text = row.Rows[0].Table.Rows[0].Table.Rows[0][0].ToString();        
+            pass.Text = encPass.DecryptString(row.Rows[0].Table.Rows[0].Table.Rows[0][1].ToString());
             stat = row.Rows[0].Table.Rows[0].Table.Rows[0][3].ToString();
         }
     }

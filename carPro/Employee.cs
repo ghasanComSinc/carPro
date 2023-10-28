@@ -227,6 +227,8 @@ namespace carPro
             cust.ShowDialog();
             employName = cust.PhoneNum;
             this.Show();
+            for (int i = 0; i < tabControl1.RowCount;)
+                tabControl1.TabPages.RemoveAt(i);
             tabControl1.TabPages.Add(allOrder);
 
             Employee_Load(sender, e);

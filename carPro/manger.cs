@@ -56,6 +56,7 @@ namespace carPro
                 }
                 else
                 {
+                    password = encPass.EncryptString(password);
                     if (mangerDb.InsertUser(uName, phone, password, stat) == false)
                     {
                         this.Close(); return;
@@ -99,6 +100,7 @@ namespace carPro
                 users.DataSource = dataTable;
                 users.Columns[0].HeaderText = "מספר טלפון";
                 users.Columns[1].HeaderText = "סיסמה";
+                users.Columns[1].Visible = false;
                 users.Columns[2].HeaderText = "שם";
                 users.Columns[3].HeaderText = "תפקיד";
                 users.Columns[4].HeaderText = "תאריך התחלה";
@@ -131,7 +133,7 @@ namespace carPro
                 deletU.Visible = true;
                 addU.Visible = false;
                 name.Text = users.Rows[e.RowIndex].Cells[2].Value.ToString();
-                pass.Text = users.Rows[e.RowIndex].Cells[1].Value.ToString();
+                
                 userName.Text = users.Rows[e.RowIndex].Cells[0].Value.ToString();
                 oldId = userName.Text;
                 status.Text = users.Rows[e.RowIndex].Cells[3].Value.ToString();
@@ -172,6 +174,7 @@ namespace carPro
             }
             else
             {
+                password = encPass.EncryptString(password);
                 if (mangerDb.UpdateUser(userNa, password, uName, stat, oldId) == false)
                 { this.Close(); return; }
                 phone_number = userNa;
