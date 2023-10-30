@@ -120,6 +120,13 @@ namespace carPro
             doc = new iTextSharp.text.Document();
             iTextSharp.text.pdf.PdfWriter.GetInstance(doc, new FileStream(path1, FileMode.Create));
             doc.Open();
+            /*put image*/
+            //iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("D:\\autopatr\\images.jpeg");
+            iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("C:\\Users\\ASUS\\Desktop\\123.jpg");
+            img.ScaleToFit(600f, 100f); // Adjust the width and height as needed
+            img.Alignment = iTextSharp.text.Image.ALIGN_LEFT;
+            doc.Add(img);
+            /*put image*/
             /*creat title in pdf*/
             Font font = new(BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED), 12);
             Paragraph title = new("פרטי הזמנה ", font);
