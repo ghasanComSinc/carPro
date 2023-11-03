@@ -113,7 +113,7 @@
             rePa.Size = new Size(128, 25);
             rePa.TabIndex = 21;
             rePa.Text = "שכחתי סיסמה";
-            rePa.Click += label7_Click;
+            rePa.Click += Label7_Click;
             // 
             // signOut
             // 
@@ -218,7 +218,7 @@
             mail.Name = "mail";
             mail.RightToLeft = RightToLeft.No;
             mail.Size = new Size(215, 31);
-            mail.TabIndex = 19;
+            mail.TabIndex = 4;
             mail.TextAlign = HorizontalAlignment.Right;
             // 
             // label7

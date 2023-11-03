@@ -62,7 +62,7 @@ namespace carPro
                 else
                 {
                     password = encPass.EncryptString(password);
-                    if (mangerDb.InsertUser(uName, phone, password, stat,Umail) == false)
+                    if (mangerDb.InsertUser(uName, phone, password, stat, Umail) == false)
                     {
                         this.Close(); return;
                     }
@@ -77,7 +77,6 @@ namespace carPro
                 ExPDF.TabPages.Remove(ExPDF.TabPages[0]);
             if (tab.TabPages.Count == 4 && tab.SelectedIndex != 3)
                 tab.TabPages.Remove(tab.TabPages[3]);
-            string strFun;
             statusOrder.Visible = false;
             if (tab.SelectedIndex == 0)
             {
@@ -148,7 +147,7 @@ namespace carPro
             if (e.RowIndex >= 0)
             {
                 pass.Visible = false;
-                label3.Visible= false;
+                label3.Visible = false;
                 updateU.Visible = true;
                 deletU.Visible = true;
                 addU.Visible = false;
@@ -175,7 +174,7 @@ namespace carPro
             string uName = name.Text;
             string userNa = userName.Text;
             string stat = status.Text;
-            string uMail=mail.Text;
+            string uMail = mail.Text;
             if (uName == "")
             {
                 MessageBox.Show("שם עובד ריק");
@@ -188,18 +187,18 @@ namespace carPro
             {
                 MessageBox.Show("תפקיד ריק");
             }
-            else if(uMail=="")
+            else if (uMail == "")
             {
                 MessageBox.Show("מייל ריק");
             }
             else
             {
-                if (mangerDb.UpdateUser(userNa, uName, stat, oldId,uMail) == false)
+                if (mangerDb.UpdateUser(userNa, uName, stat, oldId, uMail) == false)
                 { this.Close(); return; }
                 phone_number = userNa;
             }
             TabControl1_SelectedIndexChanged(sender, e);
-            name.Text="";
+            name.Text = "";
             userName.Text = "";
             pass.Text = "";
             status.Text = "";

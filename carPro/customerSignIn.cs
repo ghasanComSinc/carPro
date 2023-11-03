@@ -427,10 +427,12 @@ namespace carPro
             }
         }
 
-        private void updateU_Click(object sender, EventArgs e)
+        private void UpdateU_Click(object sender, EventArgs e)
         {
-            updateUser update = new();
-            update.phoneNumber = PhoneNum;
+            updateUser update = new()
+            {
+                phoneNumber = PhoneNum
+            };
             this.Hide();
             update.ShowDialog();
             PhoneNum = update.phoneNumber;

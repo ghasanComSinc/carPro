@@ -103,7 +103,7 @@
             updateU.TabIndex = 12;
             updateU.Text = "עדכון משתמש";
             updateU.UseVisualStyleBackColor = true;
-            updateU.Click += updateU_Click;
+            updateU.Click += UpdateU_Click;
             // 
             // mail
             // 
@@ -140,7 +140,7 @@
             Controls.Add(label1);
             Name = "updateUser";
             Text = "עדכון משתמש";
-            Load += updateUser_Load;
+            Load += UpdateUser_Load;
             ResumeLayout(false);
             PerformLayout();
         }

@@ -33,7 +33,7 @@ namespace carPro
             string number = userName.Text;
             string mail = email.Text;
             LogInFormDb sendCo = new();
-            if (sendCo.sendCode(number, mail) == true)
+            if (sendCo.SendCode(number, mail) == true)
             {
                 var email = new MimeMessage();
 
@@ -83,7 +83,7 @@ namespace carPro
             if (pass == reNewPass.Text)
             {
                 LogInFormDb changepass = new();
-                changepass.updatePass(phoneNum, pass);
+                changepass.UpdatePass(phoneNum, pass);
             }
             else
                 MessageBox.Show("קוד שגוי");

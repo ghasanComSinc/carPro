@@ -72,7 +72,7 @@ namespace carPro
                 }
             }
         }
-        public bool sendCode(string phone ,string mail)
+        public bool SendCode(string phone ,string mail)
         {
             lock (connection)
             {
@@ -85,10 +85,9 @@ namespace carPro
                     command.Parameters.AddWithValue("@mail",mail);
                     int count = Convert.ToInt32(command.ExecuteScalar());
                     connection.Close();
-                    return count==0 ? false:true;
+                    return count!=0;
                 }
-                catch (Exception ex)
-                {
+                catch {
                     MessageBox.Show("נסה שוב בעיה בתקשורת");
                     connection.Close();
                     return false;
@@ -96,7 +95,7 @@ namespace carPro
 
             }
         }
-        public bool updatePass(string phone, string pass)
+        public bool UpdatePass(string phone, string pass)
         {
             lock (connection)
             {
@@ -112,7 +111,7 @@ namespace carPro
                     MessageBox.Show("עדכון משתמש הצליח");
                     return true;
                 }
-                catch (Exception ex)
+                catch 
                 {
                     MessageBox.Show("נסה שוב בעיה בתקשורת");
                     connection.Close();

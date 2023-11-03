@@ -7,7 +7,7 @@ namespace carPro
     {
         readonly MySqlConnection connection;
         MySqlCommand MyCommand2;
-        MySqlDataAdapter adapter;
+        
         public EmployesDb() 
         {
             connection = new("server=localhost;user=root;database=carshop;password=");
@@ -30,7 +30,7 @@ namespace carPro
                     connection.Close();
                     return true;
                 }
-                catch (Exception ex)
+                catch
                 {
                     MessageBox.Show("נסה שוב בעיה בתקשורת");
                     connection.Close();
@@ -47,7 +47,7 @@ namespace carPro
                     string strFun = "UPDATE `orders` SET `stauts`=@statusIt WHERE `phoneNumber`=@idCustm AND `orderId`=@id AND `parCode`=@par";
                     connection.Open();
                     MyCommand2 = new MySqlCommand(strFun, connection);
-                    adapter = new(MyCommand2);
+                    MySqlDataAdapter adapter = new(MyCommand2);
                     MyCommand2.Parameters.AddWithValue("@statusIt", status);
                     MyCommand2.Parameters.AddWithValue("@idCustm", itemsInOrder.Rows[i].Cells[0].Value.ToString());
                     MyCommand2.Parameters.AddWithValue("@id", itemsInOrder.Rows[i].Cells[2].Value.ToString());
@@ -56,8 +56,7 @@ namespace carPro
                     connection.Close();
                     return true;
                 }
-                catch (Exception ex)
-                {
+                catch {
                     MessageBox.Show("נסה שוב בעיה בתקשורת");
                     connection.Close();
                     return false;
@@ -80,8 +79,7 @@ namespace carPro
                     MessageBox.Show("הזמנה בוצעתה בהצלחה");
                     return true;
                 }
-                catch (Exception ex)
-                {
+                catch {
                     MessageBox.Show("נסה שוב בעיה בתקשורת");
                     connection.Close();
                     return false;
@@ -106,8 +104,7 @@ namespace carPro
                     MessageBox.Show("עדכון מוצר התבציע בהצלחה");
                     return true;
                 }
-                catch (Exception ex)
-                {
+                catch {
                     MessageBox.Show("נסה שוב בעיה בתקשורת");
                     connection.Close();
                     return false;
@@ -128,8 +125,7 @@ namespace carPro
                 connection.Close();
                 return true;
             }
-            catch (Exception ex)
-            {
+            catch {
                 MessageBox.Show("נסה שוב בעיה בתקשורת");
                 connection.Close();
                 return false;

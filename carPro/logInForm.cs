@@ -147,7 +147,7 @@ namespace carPro
                 Button2_Click(sender, e);
         }
 
-        void label7_Click(object sender, EventArgs e)
+        void Label7_Click(object sender, EventArgs e)
         {
             this.Hide();
             rePass rePass = new();

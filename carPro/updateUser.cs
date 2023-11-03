@@ -17,15 +17,15 @@ namespace carPro
             InitializeComponent();
         }
         public string phoneNumber;
-        private MangerDb mangerD = new();
+        private readonly MangerDb mangerD = new();
         private string stat;
-        private void updateU_Click(object sender, EventArgs e)
+        private void UpdateU_Click(object sender, EventArgs e)
         {
             CustomerClassDb db = new();
             if (db.UpdateUser(userName.Text.ToString(), encPass.EncryptString(pass.Text), name.Text.ToString(), stat, phoneNumber, mail.Text) == true)
                 phoneNumber = userName.Text;
         }
-        private void updateUser_Load(object sender, EventArgs e)
+        private void UpdateUser_Load(object sender, EventArgs e)
         {
 
             DataTable row = mangerD.ReturnAllTable("SELECT * FROM `usertable` WHERE `phoneNumber`=" + phoneNumber);

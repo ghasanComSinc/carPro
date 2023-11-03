@@ -542,7 +542,7 @@
             updateU.TabIndex = 53;
             updateU.Text = "עדכון משתמש";
             updateU.UseVisualStyleBackColor = true;
-            updateU.Click += updateU_Click;
+            updateU.Click += UpdateU_Click;
             // 
             // CustomerSignIn
             // 

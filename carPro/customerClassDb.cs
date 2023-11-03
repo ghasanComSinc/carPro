@@ -208,7 +208,7 @@ namespace carPro
                     MessageBox.Show("עדכון משתמש הצליח");
                     return true;
                 }
-                catch (Exception ex)
+                catch 
                 {
                     MessageBox.Show("נסה שוב בעיה בתקשורת");
                     connection.Close();

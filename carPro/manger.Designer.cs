@@ -64,6 +64,8 @@
             typeCar = new TextBox();
             addUser = new TabPage();
             panel1 = new Panel();
+            mail = new TextBox();
+            label14 = new Label();
             status = new DomainUpDown();
             deletU = new Button();
             button1 = new Button();
@@ -94,8 +96,6 @@
             PDFUser = new Button();
             ordersDe = new TabPage();
             ExPDFDeOr = new Button();
-            mail = new TextBox();
-            label14 = new Label();
             tab.SuspendLayout();
             addItem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)items).BeginInit();
@@ -490,6 +490,24 @@
             panel1.Size = new Size(1361, 175);
             panel1.TabIndex = 5;
             // 
+            // mail
+            // 
+            mail.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            mail.Location = new Point(1029, 131);
+            mail.Name = "mail";
+            mail.Size = new Size(242, 31);
+            mail.TabIndex = 4;
+            // 
+            // label14
+            // 
+            label14.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label14.AutoSize = true;
+            label14.Location = new Point(1311, 134);
+            label14.Name = "label14";
+            label14.Size = new Size(44, 25);
+            label14.TabIndex = 202;
+            label14.Text = "מייל";
+            // 
             // status
             // 
             status.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -867,24 +885,6 @@
             ExPDFDeOr.Text = "הוצאת דוח של פרוט הזמנה";
             ExPDFDeOr.UseVisualStyleBackColor = true;
             ExPDFDeOr.Click += ExPDFDeOr_Click;
-            // 
-            // mail
-            // 
-            mail.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            mail.Location = new Point(1029, 131);
-            mail.Name = "mail";
-            mail.Size = new Size(242, 31);
-            mail.TabIndex = 201;
-            // 
-            // label14
-            // 
-            label14.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label14.AutoSize = true;
-            label14.Location = new Point(1311, 134);
-            label14.Name = "label14";
-            label14.Size = new Size(44, 25);
-            label14.TabIndex = 202;
-            label14.Text = "מייל";
             // 
             // Manger
             // 
