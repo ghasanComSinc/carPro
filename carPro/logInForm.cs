@@ -1,3 +1,5 @@
+using MailKit.Net.Smtp;
+using MimeKit;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -76,12 +78,16 @@ namespace carPro
             {
                 MessageBox.Show("צריך להוסיף סיסמה");
             }
+            else if (mail.Text == "")
+            {
+                MessageBox.Show("צריך להוסיף מייל");
+            }
             else
             {
                 if (CheckNumberPhone())
                 {
                     string pass = encPass.EncryptString(passSin.Text);
-                    if (logInDb.SignUp(phoneCustomer.Text, pass, nameCustomer.Text) == false)
+                    if (logInDb.SignUp(phoneCustomer.Text, pass, nameCustomer.Text, mail.Text) == false)
                     {
                         LogInWorker_Click(sender, e);
                         return;
@@ -139,6 +145,14 @@ namespace carPro
         {
             if (e.KeyChar == (char)Keys.Enter)
                 Button2_Click(sender, e);
+        }
+
+        void label7_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            rePass rePass = new();
+            rePass.ShowDialog();
+            this.Show();
         }
     }
 }

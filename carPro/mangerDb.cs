@@ -13,7 +13,7 @@ namespace carPro
             connection = new("server=localhost;user=root;database=carshop;password=");
             // connection = new("server=sql12.freesqldatabase.com;user=sql12650296;database=sql12650296;password=QadX7ERzXj");
         }
-        public bool InsertUser(string phone,string password,string uName,string stat)
+        public bool InsertUser(string phone,string password,string uName,string stat,string mail)
         {
             lock(connection)
             {
@@ -21,8 +21,8 @@ namespace carPro
                 {
                     string strFun;
 
-                    strFun = "INSERT INTO `usertable`(`phoneNumber`, `password`, `name`, `status`, `start_date`, `last_date`, `available`) VALUES " +
-                                                    "(@phone,@password,@name,@status,@start_date,@last_date,@available)";
+                    strFun = "INSERT INTO `usertable`(`phoneNumber`, `password`, `name`, `status`, `start_date`, `last_date`, `available`,`mail`) VALUES " +
+                                                    "(@phone,@password,@name,@status,@start_date,@last_date,@available,@mail)";
                     MyCommand2 = new MySqlCommand(strFun, connection);
                     connection.Open();
                     MyCommand2.Parameters.AddWithValue("@phone", phone);
@@ -32,6 +32,7 @@ namespace carPro
                     MyCommand2.Parameters.AddWithValue("@start_date", DateTime.Now);
                     MyCommand2.Parameters.AddWithValue("@last_date", "");
                     MyCommand2.Parameters.AddWithValue("@available", "פעיל");
+                    MyCommand2.Parameters.AddWithValue("@mail", mail);
                     MyCommand2.ExecuteNonQuery();
                     connection.Close();
                     MessageBox.Show("הוספת משתמשם הצליחה");
@@ -39,7 +40,7 @@ namespace carPro
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("נסה שוב בעיה בתקשורת");
+                    MessageBox.Show("משתמש קיים");
                     connection.Close();
                     return false;
                 }
@@ -68,21 +69,21 @@ namespace carPro
                 }
             }
         }
-        public bool UpdateUser(string userNa, string password, string uName, string stat, string oldId)
+        public bool UpdateUser(string userNa, string uName, string stat, string oldId,string maill)
         {
             lock(connection)
             {
                 try
                 {
-                    string strFun ="UPDATE usertable SET phoneNumber = @phone, password = @pass, name = @name, status = @status WHERE phoneNumber = @old; " +
+                    string strFun ="UPDATE usertable SET phoneNumber = @phone, name = @name, status = @status,mail=@mail WHERE phoneNumber = @old; " +
                                  "UPDATE orders SET phoneNumber=@phone WHERE phoneNumber=@old;" +
                                  "UPDATE paytable SET phoneNumber=@phone WHERE phoneNumber=@old;";
                     connection.Open();
                     MyCommand2 = new MySqlCommand(strFun, connection);
                     MyCommand2.Parameters.AddWithValue("@phone", userNa);
-                    MyCommand2.Parameters.AddWithValue("@pass", password);
                     MyCommand2.Parameters.AddWithValue("@name", uName);
                     MyCommand2.Parameters.AddWithValue("@status", stat);
+                    MyCommand2.Parameters.AddWithValue("@mail", maill);
                     MyCommand2.Parameters.AddWithValue("@old", oldId);
                     MyCommand2.ExecuteNonQuery();
                     connection.Close();

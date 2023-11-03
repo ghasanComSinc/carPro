@@ -35,6 +35,8 @@
             name = new TextBox();
             label1 = new Label();
             updateU = new Button();
+            mail = new TextBox();
+            label4 = new Label();
             SuspendLayout();
             // 
             // pass
@@ -95,7 +97,7 @@
             // updateU
             // 
             updateU.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            updateU.Location = new Point(341, 248);
+            updateU.Location = new Point(338, 277);
             updateU.Name = "updateU";
             updateU.Size = new Size(133, 35);
             updateU.TabIndex = 12;
@@ -103,11 +105,32 @@
             updateU.UseVisualStyleBackColor = true;
             updateU.Click += updateU_Click;
             // 
+            // mail
+            // 
+            mail.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            mail.Location = new Point(494, 223);
+            mail.Name = "mail";
+            mail.Size = new Size(211, 31);
+            mail.TabIndex = 13;
+            mail.TextAlign = HorizontalAlignment.Right;
+            // 
+            // label4
+            // 
+            label4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label4.AutoSize = true;
+            label4.Location = new Point(711, 229);
+            label4.Name = "label4";
+            label4.Size = new Size(44, 25);
+            label4.TabIndex = 14;
+            label4.Text = "מייל";
+            // 
             // updateUser
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(mail);
+            Controls.Add(label4);
             Controls.Add(updateU);
             Controls.Add(pass);
             Controls.Add(label3);
@@ -131,5 +154,7 @@
         private TextBox name;
         private Label label1;
         private Button updateU;
+        private TextBox mail;
+        private Label label4;
     }
 }

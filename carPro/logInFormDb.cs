@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using MySql.Data.MySqlClient;
 
 namespace carPro
 {
@@ -40,15 +41,15 @@ namespace carPro
 
 
         }
-        public bool SignUp(string phone, string pass, string name)
+        public bool SignUp(string phone, string pass, string name,string mail)
         {
             lock (connection)
             {
                 try
                 {
                     string strFun;
-                    strFun = "INSERT INTO `UserTable`(`phoneNumber`, `password`, `name`, `status`, `start_date`, `last_date`, `available`)" +
-                                             "VALUES (@phoneN,@pass,@nameCust,@staut,@startD,@lastD,@avi)";
+                    strFun = "INSERT INTO `UserTable`(`phoneNumber`, `password`, `name`, `status`, `start_date`, `last_date`, `available`,`mail`)" +
+                                             "VALUES (@phoneN,@pass,@nameCust,@staut,@startD,@lastD,@avi,@mail)";
                     command = new MySqlCommand(strFun, connection);
                     connection.Open();
                     command.Parameters.AddWithValue("@phoneN", phone);
@@ -58,6 +59,7 @@ namespace carPro
                     command.Parameters.AddWithValue("@startD", DateTime.Now);
                     command.Parameters.AddWithValue("@lastD", "");
                     command.Parameters.AddWithValue("@avi", "פעיל");
+                    command.Parameters.AddWithValue("@mail", mail);
                     command.ExecuteNonQuery();
                     connection.Close();
                     return true;
@@ -70,7 +72,53 @@ namespace carPro
                 }
             }
         }
+        public bool sendCode(string phone ,string mail)
+        {
+            lock (connection)
+            {
+                try
+                {
+                    string strFun = "SELECT COUNT(*) FROM `usertable` WHERE `phoneNumber`=@phone AND `mail`=@mail";
+                    connection.Open();
+                    command = new MySqlCommand(strFun, connection);
+                    command.Parameters.AddWithValue("@phone", phone);
+                    command.Parameters.AddWithValue("@mail",mail);
+                    int count = Convert.ToInt32(command.ExecuteScalar());
+                    connection.Close();
+                    return count==0 ? false:true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("נסה שוב בעיה בתקשורת");
+                    connection.Close();
+                    return false;
+                }
 
-      
+            }
+        }
+        public bool updatePass(string phone, string pass)
+        {
+            lock (connection)
+            {
+                try
+                {
+                    string strFun = "UPDATE usertable SET phoneNumber = @phone ,password=@pass WHERE phoneNumber = @phone; ";
+                    connection.Open();
+                    command = new MySqlCommand(strFun, connection);
+                    command.Parameters.AddWithValue("@phone", phone);
+                    command.Parameters.AddWithValue("@pass", encPass.EncryptString(pass));
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                    MessageBox.Show("עדכון משתמש הצליח");
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("נסה שוב בעיה בתקשורת");
+                    connection.Close();
+                    return false;
+                }
+            }
+        }
     }
 }

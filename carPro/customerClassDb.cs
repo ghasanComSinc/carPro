@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using MySql.Data.MySqlClient;
 using System.Data;
 
 namespace carPro
@@ -182,6 +183,36 @@ namespace carPro
                     MessageBox.Show("נסה שוב בעיה בתקשורת");
                     connection.Close();
                     return null;
+                }
+            }
+        }
+        public bool UpdateUser(string userNa, string pass, string name, string stat, string phoneNumber, string mail)
+        {
+            lock (connection)
+            {
+                try
+                {
+                    string strFun = "UPDATE usertable SET phoneNumber = @phone, name = @name, status = @status,mail=@mail,`password`=@pass WHERE phoneNumber = @old; " +
+                                 "UPDATE orders SET phoneNumber=@phone WHERE phoneNumber=@old;" +
+                                 "UPDATE paytable SET phoneNumber=@phone WHERE phoneNumber=@old;";
+                    connection.Open();
+                    MyCommand2 = new MySqlCommand(strFun, connection);
+                    MyCommand2.Parameters.AddWithValue("@phone", userNa);
+                    MyCommand2.Parameters.AddWithValue("@name", name);
+                    MyCommand2.Parameters.AddWithValue("@status", stat);
+                    MyCommand2.Parameters.AddWithValue("@mail", mail);
+                    MyCommand2.Parameters.AddWithValue("@pass", pass);
+                    MyCommand2.Parameters.AddWithValue("@old", phoneNumber);
+                    MyCommand2.ExecuteNonQuery();
+                    connection.Close();
+                    MessageBox.Show("עדכון משתמש הצליח");
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("נסה שוב בעיה בתקשורת");
+                    connection.Close();
+                    return false;
                 }
             }
         }

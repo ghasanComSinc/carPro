@@ -32,6 +32,7 @@
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             panel1 = new Panel();
+            rePa = new Label();
             signOut = new Button();
             pictureBox1 = new PictureBox();
             password = new TextBox();
@@ -40,6 +41,8 @@
             label2 = new Label();
             label1 = new Label();
             tabPage2 = new TabPage();
+            mail = new TextBox();
+            label7 = new Label();
             signInCu = new Button();
             pictureBox2 = new PictureBox();
             nameCustomer = new TextBox();
@@ -87,6 +90,7 @@
             // panel1
             // 
             panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel1.Controls.Add(rePa);
             panel1.Controls.Add(signOut);
             panel1.Controls.Add(pictureBox1);
             panel1.Controls.Add(password);
@@ -98,6 +102,18 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(465, 198);
             panel1.TabIndex = 8;
+            // 
+            // rePa
+            // 
+            rePa.Anchor = AnchorStyles.None;
+            rePa.AutoSize = true;
+            rePa.Font = new Font("Segoe UI Black", 9F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point);
+            rePa.Location = new Point(294, 98);
+            rePa.Name = "rePa";
+            rePa.Size = new Size(128, 25);
+            rePa.TabIndex = 21;
+            rePa.Text = "שכחתי סיסמה";
+            rePa.Click += label7_Click;
             // 
             // signOut
             // 
@@ -158,7 +174,7 @@
             label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label2.Location = new Point(382, 68);
             label2.Name = "label2";
-            label2.Size = new Size(56, 20);
+            label2.Size = new Size(67, 25);
             label2.TabIndex = 16;
             label2.Text = "סיסמה";
             // 
@@ -169,12 +185,14 @@
             label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label1.Location = new Point(339, 15);
             label1.Name = "label1";
-            label1.Size = new Size(91, 20);
+            label1.Size = new Size(112, 25);
             label1.TabIndex = 15;
             label1.Text = "שם משתמש";
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(mail);
+            tabPage2.Controls.Add(label7);
             tabPage2.Controls.Add(signInCu);
             tabPage2.Controls.Add(pictureBox2);
             tabPage2.Controls.Add(nameCustomer);
@@ -193,10 +211,31 @@
             tabPage2.Text = " ";
             tabPage2.UseVisualStyleBackColor = true;
             // 
+            // mail
+            // 
+            mail.Anchor = AnchorStyles.None;
+            mail.Location = new Point(303, 281);
+            mail.Name = "mail";
+            mail.RightToLeft = RightToLeft.No;
+            mail.Size = new Size(215, 31);
+            mail.TabIndex = 19;
+            mail.TextAlign = HorizontalAlignment.Right;
+            // 
+            // label7
+            // 
+            label7.Anchor = AnchorStyles.None;
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label7.Location = new Point(547, 287);
+            label7.Name = "label7";
+            label7.Size = new Size(44, 25);
+            label7.TabIndex = 20;
+            label7.Text = "מייל";
+            // 
             // signInCu
             // 
             signInCu.Anchor = AnchorStyles.None;
-            signInCu.Location = new Point(193, 289);
+            signInCu.Location = new Point(193, 337);
             signInCu.Name = "signInCu";
             signInCu.Size = new Size(132, 40);
             signInCu.TabIndex = 4;
@@ -241,7 +280,7 @@
             label5.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label5.Location = new Point(507, 162);
             label5.Name = "label5";
-            label5.Size = new Size(70, 20);
+            label5.Size = new Size(84, 25);
             label5.TabIndex = 18;
             label5.Text = "שם לקוח";
             // 
@@ -252,7 +291,7 @@
             label6.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label6.Location = new Point(524, 221);
             label6.Name = "label6";
-            label6.Size = new Size(56, 20);
+            label6.Size = new Size(67, 25);
             label6.TabIndex = 14;
             label6.Text = "סיסמה";
             // 
@@ -264,7 +303,7 @@
             label4.Location = new Point(275, 57);
             label4.Name = "label4";
             label4.RightToLeft = RightToLeft.Yes;
-            label4.Size = new Size(216, 20);
+            label4.Size = new Size(258, 25);
             label4.TabIndex = 17;
             label4.Text = " ברוכים הבאים למערכת שלנו .";
             // 
@@ -283,14 +322,14 @@
             label3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             label3.Location = new Point(480, 107);
             label3.Name = "label3";
-            label3.Size = new Size(93, 20);
+            label3.Size = new Size(111, 25);
             label3.TabIndex = 15;
             label3.Text = "מספר טלפון";
             // 
             // backToLogIn
             // 
             backToLogIn.Anchor = AnchorStyles.None;
-            backToLogIn.Location = new Point(442, 289);
+            backToLogIn.Location = new Point(442, 337);
             backToLogIn.Name = "backToLogIn";
             backToLogIn.Size = new Size(149, 40);
             backToLogIn.TabIndex = 5;
@@ -344,5 +383,8 @@
         private Label label2;
         private Label label1;
         private Button signInCu;
+        private Label rePa;
+        private TextBox mail;
+        private Label label7;
     }
 }

@@ -38,6 +38,7 @@ namespace carPro
                 string phone = userName.Text;
                 string password = pass.Text;
                 string stat = status.Text;
+                string Umail = mail.Text;
                 if (uName == "")
                 {
                     MessageBox.Show("שם עובד ריק");
@@ -54,10 +55,14 @@ namespace carPro
                 {
                     MessageBox.Show("תפקיד ריק");
                 }
+                else if (Umail == "")
+                {
+                    MessageBox.Show("מייל ריק");
+                }
                 else
                 {
                     password = encPass.EncryptString(password);
-                    if (mangerDb.InsertUser(uName, phone, password, stat) == false)
+                    if (mangerDb.InsertUser(uName, phone, password, stat,Umail) == false)
                     {
                         this.Close(); return;
                     }
@@ -91,12 +96,15 @@ namespace carPro
                 items.Columns[7].HeaderText = "קמות בחנות";
                 items.Columns[8].HeaderText = "הערה";
                 items.Columns[9].HeaderText = "זמין";
+                ClearItmesDetla();
             }
             else if (tab.SelectedIndex == 1)
             {
                 ExPDF.TabPages.Add(ExpUserPDF);
                 // Bind the DataTable to the DataGridView
                 dataTable = mangerDb.ReturnAllTable("SELECT * FROM `UserTable`");
+                pass.Visible = true;
+                label3.Visible = true;
                 users.DataSource = dataTable;
                 users.Columns[0].HeaderText = "מספר טלפון";
                 users.Columns[1].HeaderText = "סיסמה";
@@ -106,6 +114,16 @@ namespace carPro
                 users.Columns[4].HeaderText = "תאריך התחלה";
                 users.Columns[5].HeaderText = "תאריך סיום";
                 users.Columns[6].HeaderText = "משתמש פעיל ";
+                users.Columns[7].HeaderText = "מייל";
+                updateU.Visible = false;
+                deletU.Visible = false;
+                addU.Visible = true;
+                name.Text = "";
+                pass.Text = "";
+                status.Text = "";
+                userName.Text = "";
+                userName.ReadOnly = false;
+                mail.Text = "";
             }
             else if (tab.SelectedIndex == 2)
             {
@@ -129,11 +147,13 @@ namespace carPro
         {
             if (e.RowIndex >= 0)
             {
+                pass.Visible = false;
+                label3.Visible= false;
                 updateU.Visible = true;
                 deletU.Visible = true;
                 addU.Visible = false;
                 name.Text = users.Rows[e.RowIndex].Cells[2].Value.ToString();
-                
+                mail.Text = users.Rows[e.RowIndex].Cells[7].Value.ToString();
                 userName.Text = users.Rows[e.RowIndex].Cells[0].Value.ToString();
                 oldId = userName.Text;
                 status.Text = users.Rows[e.RowIndex].Cells[3].Value.ToString();
@@ -154,8 +174,8 @@ namespace carPro
         {
             string uName = name.Text;
             string userNa = userName.Text;
-            string password = pass.Text;
             string stat = status.Text;
+            string uMail=mail.Text;
             if (uName == "")
             {
                 MessageBox.Show("שם עובד ריק");
@@ -164,22 +184,29 @@ namespace carPro
             {
                 MessageBox.Show("מספר טלפון ריק");
             }
-            else if (password == "")
-            {
-                MessageBox.Show("סיסמה ריק");
-            }
             else if (stat == "")
             {
                 MessageBox.Show("תפקיד ריק");
             }
+            else if(uMail=="")
+            {
+                MessageBox.Show("מייל ריק");
+            }
             else
             {
-                password = encPass.EncryptString(password);
-                if (mangerDb.UpdateUser(userNa, password, uName, stat, oldId) == false)
+                if (mangerDb.UpdateUser(userNa, uName, stat, oldId,uMail) == false)
                 { this.Close(); return; }
                 phone_number = userNa;
             }
             TabControl1_SelectedIndexChanged(sender, e);
+            name.Text="";
+            userName.Text = "";
+            pass.Text = "";
+            status.Text = "";
+            mail.Text = "";
+            addU.Visible = true;
+            deletU.Visible = false;
+            updateU.Visible = false;
         }
         private void Button1_Click_1(object sender, EventArgs e)
         {
@@ -191,6 +218,7 @@ namespace carPro
             status.Text = "";
             userName.Text = "";
             userName.ReadOnly = false;
+            mail.Text = "";
             TabControl1_SelectedIndexChanged(sender, e);
         }
         private void DeletU_Click(object sender, EventArgs e)
@@ -515,6 +543,7 @@ namespace carPro
                 { this.Close(); return; }
                 TabControl1_SelectedIndexChanged(sender, EventArgs.Empty);
                 ClearItmesDetla();
+                MessageBox.Show("הוספת מוצר הצליחה");
             }
         }
         private void Items_CellClick(object sender, DataGridViewCellEventArgs e)

@@ -94,6 +94,8 @@
             PDFUser = new Button();
             ordersDe = new TabPage();
             ExPDFDeOr = new Button();
+            mail = new TextBox();
+            label14 = new Label();
             tab.SuspendLayout();
             addItem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)items).BeginInit();
@@ -469,6 +471,8 @@
             // panel1
             // 
             panel1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel1.Controls.Add(mail);
+            panel1.Controls.Add(label14);
             panel1.Controls.Add(status);
             panel1.Controls.Add(deletU);
             panel1.Controls.Add(button1);
@@ -864,6 +868,24 @@
             ExPDFDeOr.UseVisualStyleBackColor = true;
             ExPDFDeOr.Click += ExPDFDeOr_Click;
             // 
+            // mail
+            // 
+            mail.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            mail.Location = new Point(1029, 131);
+            mail.Name = "mail";
+            mail.Size = new Size(242, 31);
+            mail.TabIndex = 201;
+            // 
+            // label14
+            // 
+            label14.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label14.AutoSize = true;
+            label14.Location = new Point(1311, 134);
+            label14.Name = "label14";
+            label14.Size = new Size(44, 25);
+            label14.TabIndex = 202;
+            label14.Text = "מייל";
+            // 
             // Manger
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -963,5 +985,7 @@
         private Button PDFUser;
         private TabPage ordersDe;
         private Button deleteItems;
+        private TextBox mail;
+        private Label label14;
     }
 }
