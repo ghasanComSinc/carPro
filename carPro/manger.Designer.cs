@@ -787,9 +787,9 @@
             // 
             pdfItems.Location = new Point(76, 19);
             pdfItems.Name = "pdfItems";
-            pdfItems.Size = new Size(156, 61);
+            pdfItems.Size = new Size(130, 45);
             pdfItems.TabIndex = 200;
-            pdfItems.Text = "הוצאת דוח של ספרת מלי";
+            pdfItems.Text = "דוח ספרת מלי";
             pdfItems.UseVisualStyleBackColor = true;
             pdfItems.Click += Button3_Click;
             // 
@@ -825,9 +825,9 @@
             // 
             ExPDFOr.Location = new Point(90, 43);
             ExPDFOr.Name = "ExPDFOr";
-            ExPDFOr.Size = new Size(113, 61);
+            ExPDFOr.Size = new Size(114, 36);
             ExPDFOr.TabIndex = 201;
-            ExPDFOr.Text = "הוצאת דוח הזמנות";
+            ExPDFOr.Text = "דוח הזמנות";
             ExPDFOr.UseVisualStyleBackColor = true;
             ExPDFOr.Click += ExPDFOr_Click;
             // 
@@ -859,9 +859,9 @@
             // 
             PDFUser.Location = new Point(54, 29);
             PDFUser.Name = "PDFUser";
-            PDFUser.Size = new Size(156, 61);
+            PDFUser.Size = new Size(136, 41);
             PDFUser.TabIndex = 201;
-            PDFUser.Text = "הוצאת דוח של משתמשים";
+            PDFUser.Text = "דוח משתמשים";
             PDFUser.UseVisualStyleBackColor = true;
             PDFUser.Click += PDFUser_Click;
             // 
@@ -880,9 +880,9 @@
             // 
             ExPDFDeOr.Location = new Point(68, 26);
             ExPDFDeOr.Name = "ExPDFDeOr";
-            ExPDFDeOr.Size = new Size(156, 61);
+            ExPDFDeOr.Size = new Size(144, 40);
             ExPDFDeOr.TabIndex = 202;
-            ExPDFDeOr.Text = "הוצאת דוח של פרוט הזמנה";
+            ExPDFDeOr.Text = "דוח פרוט הזמנה";
             ExPDFDeOr.UseVisualStyleBackColor = true;
             ExPDFDeOr.Click += ExPDFDeOr_Click;
             // 
