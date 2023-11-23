@@ -26,7 +26,7 @@ namespace carPro
             employeName.Text = "ברוך הבאה עובד יקר ";
             tabControl1.TabPages.Remove(tabPage2);
             tab_PDF.SelectedIndex = 0;
-            dataTable = customerFun.ReturnAllSaleForCus("SELECT * FROM `paytable` WHERE `status`=\"בטיפול\""); ;
+            dataTable = customerFun.ReturnAllSaleForCus("SELECT * FROM `paytable` WHERE `status`=\"בטיפול\""); 
             // Fill the DataTable with the query results
             if (dataTable == null)
             {
@@ -133,7 +133,8 @@ namespace carPro
             panel1.Visible = true;
             phoneNum.Visible = false;
             orderI.Visible = false;
-            tabControl1.TabPages.Remove(tabPage2);
+            for(int i = 0;i<tabControl1.TabPages.Count;)
+                tabControl1.TabPages.Remove(tabControl1.TabPages[0]);
             tabControl1.TabPages.Add(allOrder);
             Employee_Load(sender, e);
         }
