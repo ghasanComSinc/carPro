@@ -22,13 +22,13 @@ namespace carPro
             tabControl1.ItemSize = new Size(0, 1);
             tabControl1.Appearance = TabAppearance.FlatButtons;
         }
-        private void rePass_Load(object sender, EventArgs e)
+        private void RePass_Load(object sender, EventArgs e)
         {
             for (int i = 0; i < tabControl1.TabCount;)
                 tabControl1.TabPages.RemoveAt(i);
             tabControl1.TabPages.Add(sendRandCode);
         }
-        private void sendCode_Click(object sender, EventArgs e)
+        private void SendCode_Click(object sender, EventArgs e)
         {
             string number = userName.Text;
             string mail = email.Text;
@@ -39,7 +39,7 @@ namespace carPro
                 email.From.Add(new MailboxAddress("porectAutoPart@hotmail.com", "porectAutoPart@hotmail.com"));
                 email.To.Add(new MailboxAddress(mail, mail));
                 email.Subject = "Testing out email sending";
-                Random rnd = new Random();
+                Random rnd = new ();
                 myRandomNo = rnd.Next(10000000, 99999999);
                 email.Body = new TextPart(MimeKit.Text.TextFormat.Plain)
                 {
@@ -62,7 +62,7 @@ namespace carPro
             else
                 MessageBox.Show("משתמש לא קיים");
         }
-        private void checkCode_Click(object sender, EventArgs e)
+        private void CheckCode_Click(object sender, EventArgs e)
         {
             if (myRandomNo.ToString() == randPass.Text.ToString())
             {
@@ -72,7 +72,7 @@ namespace carPro
             else
                 MessageBox.Show("קוד שגוי");
         }
-        private void changePass_Click(object sender, EventArgs e)
+        private void ChangePass_Click(object sender, EventArgs e)
         {
             string phoneNum = userName.Text;
             string pass = newPass.Text;

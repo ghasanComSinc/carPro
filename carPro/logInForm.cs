@@ -19,7 +19,7 @@ namespace carPro
         }
         private void Button1_Click(object sender, EventArgs e)
         {
-            string pass = encPass.EncryptString(password.Text);
+            string pass = EncPass.EncryptString(password.Text);
             string statusAc = logInDb.LogIn(userName.Text, pass);
             if (statusAc == null)
                 return;
@@ -86,7 +86,7 @@ namespace carPro
             {
                 if (CheckNumberPhone())
                 {
-                    string pass = encPass.EncryptString(passSin.Text);
+                    string pass = EncPass.EncryptString(passSin.Text);
                     if (logInDb.SignUp(phoneCustomer.Text, pass, nameCustomer.Text, mail.Text) == false)
                     {
                         LogInWorker_Click(sender, e);

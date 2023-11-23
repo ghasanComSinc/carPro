@@ -105,7 +105,7 @@ namespace carPro
                     connection.Open();
                     command = new MySqlCommand(strFun, connection);
                     command.Parameters.AddWithValue("@phone", phone);
-                    command.Parameters.AddWithValue("@pass", encPass.EncryptString(pass));
+                    command.Parameters.AddWithValue("@pass", EncPass.EncryptString(pass));
                     command.ExecuteNonQuery();
                     connection.Close();
                     MessageBox.Show("עדכון משתמש הצליח");

@@ -429,7 +429,7 @@ namespace carPro
 
         private void UpdateU_Click(object sender, EventArgs e)
         {
-            updateUser update = new()
+            UpdateUser update = new()
             {
                 phoneNumber = PhoneNum
             };

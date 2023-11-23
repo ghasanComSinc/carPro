@@ -1,8 +1,5 @@
-﻿using Microsoft.VisualBasic.ApplicationServices;
-using MySql.Data.MySqlClient;
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using System.Data;
-using System.Diagnostics;
 using Image = System.Drawing.Image;
 
 namespace carPro
@@ -65,7 +62,7 @@ namespace carPro
                 }
                 else
                 {
-                    password = encPass.EncryptString(password);
+                    password = EncPass.EncryptString(password);
                     if (mangerDb.InsertUser(uName, phone, password, stat, Umail) == false)
                     {
                         this.Close(); return;
@@ -680,18 +677,18 @@ namespace carPro
             Button1_Click_1(sender, e);
             ClearItmesDetla();
         }
-        private void backUp_Click(object sender, EventArgs e)
+        private void BackUp_Click(object sender, EventArgs e)
         {
             string constring = "server=localhost;user=root;database=carshop;password=";
             saveFileFromManger.FileName = string.Empty;
             saveFileFromManger.Filter = "SQL files (*.sql)|*.sql";
             if (saveFileFromManger.ShowDialog() == DialogResult.OK)
             {
-                using (MySqlConnection conn = new MySqlConnection(constring))
+                using (MySqlConnection conn = new (constring))
                 {
-                    using (MySqlCommand cmd = new MySqlCommand())
+                    using (MySqlCommand cmd = new ())
                     {
-                        using (MySqlBackup mb = new MySqlBackup(cmd))
+                        using (MySqlBackup mb = new (cmd))
                         {
                             cmd.Connection = conn;
                             conn.Open();
@@ -709,11 +706,11 @@ namespace carPro
             openFileFromManger.FileName = string.Empty;
             openFileFromManger.Filter = "SQL files (*.sql)|*.sql";
             if (openFileFromManger.ShowDialog() == DialogResult.OK)
-                using (MySqlConnection conn = new MySqlConnection(constring))
+                using (MySqlConnection conn = new (constring))
                 {
-                    using (MySqlCommand cmd = new MySqlCommand())
+                    using (MySqlCommand cmd = new ())
                     {
-                        using (MySqlBackup mb = new MySqlBackup(cmd))
+                        using (MySqlBackup mb = new (cmd))
                         {
                             cmd.Connection = conn;
                             conn.Open();

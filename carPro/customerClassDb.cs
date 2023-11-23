@@ -17,7 +17,7 @@ namespace carPro
         {
             lock (connection)
             {
-                DataRow row = null;
+                DataRow? row = null;
                 try
                 {
                     string strFun;

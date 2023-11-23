@@ -897,7 +897,7 @@
             backUp.TabIndex = 199;
             backUp.Text = "גיבוי";
             backUp.UseVisualStyleBackColor = true;
-            backUp.Click += backUp_Click;
+            backUp.Click += BackUp_Click;
             // 
             // RestoreDataBase
             // 

@@ -1,6 +1,6 @@
 ﻿namespace carPro
 {
-    partial class updateUser
+    partial class UpdateUser
     {
         /// <summary>
         /// Required designer variable.

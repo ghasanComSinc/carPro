@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace carPro
 {
-    public partial class updateUser : Form
+    public partial class UpdateUser : Form
     {
-        public updateUser()
+        public UpdateUser()
         {
             InitializeComponent();
         }
@@ -22,7 +22,7 @@ namespace carPro
         private void UpdateU_Click(object sender, EventArgs e)
         {
             CustomerClassDb db = new();
-            if (db.UpdateUser(userName.Text.ToString(), encPass.EncryptString(pass.Text), name.Text.ToString(), stat, phoneNumber, mail.Text) == true)
+            if (db.UpdateUser(userName.Text.ToString(), EncPass.EncryptString(pass.Text), name.Text.ToString(), stat, phoneNumber, mail.Text) == true)
                 phoneNumber = userName.Text;
         }
         private void UpdateUser_Load(object sender, EventArgs e)
@@ -36,7 +36,7 @@ namespace carPro
             }
             name.Text = row.Rows[0].Table.Rows[0].Table.Rows[0][2].ToString();
             userName.Text = row.Rows[0].Table.Rows[0].Table.Rows[0][0].ToString();
-            pass.Text = encPass.DecryptString(row.Rows[0].Table.Rows[0].Table.Rows[0][1].ToString());
+            pass.Text = EncPass.DecryptString(row.Rows[0].Table.Rows[0].Table.Rows[0][1].ToString());
             stat = row.Rows[0].Table.Rows[0].Table.Rows[0][3].ToString();
             mail.Text = row.Rows[0].Table.Rows[0].Table.Rows[0][7].ToString();
         }

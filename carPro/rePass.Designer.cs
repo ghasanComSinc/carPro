@@ -107,7 +107,7 @@
             checkCode.Text = "בדיקת קוד אימות";
             checkCode.UseVisualStyleBackColor = true;
             checkCode.Visible = false;
-            checkCode.Click += checkCode_Click;
+            checkCode.Click += CheckCode_Click;
             // 
             // randPass
             // 
@@ -139,7 +139,7 @@
             sendCode.TabIndex = 4;
             sendCode.Text = "שלחת קוד אימות";
             sendCode.UseVisualStyleBackColor = true;
-            sendCode.Click += sendCode_Click;
+            sendCode.Click += SendCode_Click;
             // 
             // email
             // 
@@ -236,7 +236,7 @@
             changePass.TabIndex = 4;
             changePass.Text = "עדכון סיסמה";
             changePass.UseVisualStyleBackColor = true;
-            changePass.Click += changePass_Click;
+            changePass.Click += ChangePass_Click;
             // 
             // hideReNewPass
             // 
@@ -277,7 +277,7 @@
             Controls.Add(tabControl1);
             Name = "rePass";
             Text = "שכחתי סיסמה";
-            Load += rePass_Load;
+            Load += RePass_Load;
             tabControl1.ResumeLayout(false);
             sendRandCode.ResumeLayout(false);
             panel1.ResumeLayout(false);

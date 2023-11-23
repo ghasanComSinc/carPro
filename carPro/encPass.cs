@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace carPro
 {
-    internal class encPass
+    internal class EncPass
     {
-        private static string key = "b14ca5898a4e4133bbce2ea2315a1916";
+        private static readonly string key = "b14ca5898a4e4133bbce2ea2315a1916";
         public static string EncryptString(string plainText)
         {
             byte[] iv = new byte[16];
@@ -22,11 +22,11 @@ namespace carPro
 
                 ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
 
-                using (MemoryStream memoryStream = new MemoryStream())
+                using (MemoryStream memoryStream = new())
                 {
-                    using (CryptoStream cryptoStream = new CryptoStream((Stream)memoryStream, encryptor, CryptoStreamMode.Write))
+                    using (CryptoStream cryptoStream = new ((Stream)memoryStream, encryptor, CryptoStreamMode.Write))
                     {
-                        using (StreamWriter streamWriter = new StreamWriter((Stream)cryptoStream))
+                        using (StreamWriter streamWriter = new ((Stream)cryptoStream))
                         {
                             streamWriter.Write(plainText);
                         }
@@ -49,11 +49,11 @@ namespace carPro
                 aes.IV = iv;
                 ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
 
-                using (MemoryStream memoryStream = new MemoryStream(buffer))
+                using (MemoryStream memoryStream = new (buffer))
                 {
-                    using (CryptoStream cryptoStream = new CryptoStream((Stream)memoryStream, decryptor, CryptoStreamMode.Read))
+                    using (CryptoStream cryptoStream = new((Stream)memoryStream, decryptor, CryptoStreamMode.Read))
                     {
-                        using (StreamReader streamReader = new StreamReader((Stream)cryptoStream))
+                        using (StreamReader streamReader = new ((Stream)cryptoStream))
                         {
                             return streamReader.ReadToEnd();
                         }
