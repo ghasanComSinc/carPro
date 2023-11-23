@@ -36,10 +36,8 @@ namespace carPro
             if (sendCo.SendCode(number, mail) == true)
             {
                 var email = new MimeMessage();
-
                 email.From.Add(new MailboxAddress("porectAutoPart@hotmail.com", "porectAutoPart@hotmail.com"));
                 email.To.Add(new MailboxAddress(mail, mail));
-
                 email.Subject = "Testing out email sending";
                 Random rnd = new Random();
                 myRandomNo = rnd.Next(10000000, 99999999);
@@ -51,10 +49,8 @@ namespace carPro
                 using (var smtp = new SmtpClient())
                 {
                     smtp.Connect("smtp-mail.outlook.com", 587, false);
-
                     // Note: only needed if the SMTP server requires authentication
                     smtp.Authenticate("porectAutoPart@hotmail.com", "autoPart123*");
-
                     smtp.Send(email);
                     smtp.Disconnect(true);
                 }

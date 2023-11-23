@@ -1,4 +1,8 @@
-﻿using System.Data;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using MySql.Data.MySqlClient;
+using MySql.Data.MySqlClient;
+using System.Data;
+using System.Diagnostics;
 using Image = System.Drawing.Image;
 
 namespace carPro
@@ -676,5 +680,50 @@ namespace carPro
             Button1_Click_1(sender, e);
             ClearItmesDetla();
         }
+        private void backUp_Click(object sender, EventArgs e)
+        {
+            string constring = "server=localhost;user=root;database=carshop;password=";
+            saveFileFromManger.FileName = string.Empty;
+            saveFileFromManger.Filter = "SQL files (*.sql)|*.sql";
+            if (saveFileFromManger.ShowDialog() == DialogResult.OK)
+            {
+                using (MySqlConnection conn = new MySqlConnection(constring))
+                {
+                    using (MySqlCommand cmd = new MySqlCommand())
+                    {
+                        using (MySqlBackup mb = new MySqlBackup(cmd))
+                        {
+                            cmd.Connection = conn;
+                            conn.Open();
+                            mb.ExportToFile(saveFileFromManger.FileName);
+                            conn.Close();
+                        }
+                    }
+                }
+                MessageBox.Show("הוצאת גיבוי הצליחה");
+            }
+        }
+        private void RestoreDataBase_Click(object sender, EventArgs e)
+        {
+            string constring = "server=localhost;user=root;database=carshop;password=";
+            openFileFromManger.FileName = string.Empty;
+            openFileFromManger.Filter = "SQL files (*.sql)|*.sql";
+            if (openFileFromManger.ShowDialog() == DialogResult.OK)
+                using (MySqlConnection conn = new MySqlConnection(constring))
+                {
+                    using (MySqlCommand cmd = new MySqlCommand())
+                    {
+                        using (MySqlBackup mb = new MySqlBackup(cmd))
+                        {
+                            cmd.Connection = conn;
+                            conn.Open();
+                            mb.ImportFromFile(openFileFromManger.FileName);
+                            conn.Close();
+                        }
+                    }
+                    MessageBox.Show("החזרת גיבוי הצליחה");
+                    TabControl1_SelectedIndexChanged(sender, e);
+                }
+        }  
     }
 }
