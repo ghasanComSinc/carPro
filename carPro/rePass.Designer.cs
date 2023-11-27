@@ -133,7 +133,7 @@
             // sendCode
             // 
             sendCode.Anchor = AnchorStyles.None;
-            sendCode.Location = new Point(403, 122);
+            sendCode.Location = new Point(403, 124);
             sendCode.Name = "sendCode";
             sendCode.Size = new Size(159, 40);
             sendCode.TabIndex = 4;

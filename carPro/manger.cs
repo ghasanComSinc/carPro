@@ -610,6 +610,8 @@ namespace carPro
         }
         private void Orders_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0)
+                return;
             tab.TabPages.Add(ordersD);
             tab.SelectedIndex = 3;
             dataTable = mangerDb.ReturnItemSale(orders.Rows[e.RowIndex].Cells[0].Value.ToString(), orders.Rows[e.RowIndex].Cells[1].Value.ToString());

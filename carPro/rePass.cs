@@ -39,7 +39,7 @@ namespace carPro
                 email.From.Add(new MailboxAddress("porectAutoPart@hotmail.com", "porectAutoPart@hotmail.com"));
                 email.To.Add(new MailboxAddress(mail, mail));
                 email.Subject = "Testing out email sending";
-                Random rnd = new ();
+                Random rnd = new();
                 myRandomNo = rnd.Next(10000000, 99999999);
                 email.Body = new TextPart(MimeKit.Text.TextFormat.Plain)
                 {
