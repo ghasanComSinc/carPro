@@ -9,8 +9,24 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MySql.Data" Version="8.1.0" />
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="itext7" Version="8.0.1" />
+    <PackageReference Include="iTextSharp" Version="5.5.13.3" />
+    <PackageReference Include="MailKit" Version="4.2.0" />
+    <PackageReference Include="MySql.Data" Version="8.2.0" />
     <PackageReference Include="NuGet.Frameworks" Version="6.7.0" />
+
+    <PackageReference Include="Select.HtmlToPdf" Version="23.1.0" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="MySqlBackup">
+      <HintPath>..\..\..\..\Desktop\mysqlbackup.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
