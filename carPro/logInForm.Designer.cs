@@ -113,7 +113,7 @@
             rePa.Size = new Size(128, 25);
             rePa.TabIndex = 21;
             rePa.Text = "שכחתי סיסמה";
-            rePa.Click += Label7_Click;
+            rePa.Click += RePa_Click;
             // 
             // signOut
             // 
@@ -165,7 +165,7 @@
             signIn.TabIndex = 3;
             signIn.Text = "כניסה";
             signIn.UseVisualStyleBackColor = true;
-            signIn.Click += Button1_Click;
+            signIn.Click += SignIn_Click;
             // 
             // label2
             // 
@@ -241,7 +241,7 @@
             signInCu.TabIndex = 4;
             signInCu.Text = "הרשמה";
             signInCu.UseVisualStyleBackColor = true;
-            signInCu.Click += Button2_Click;
+            signInCu.Click += SignInCu_Click;
             // 
             // pictureBox2
             // 
