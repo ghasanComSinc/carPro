@@ -100,7 +100,7 @@
             tabControl1.RightToLeft = RightToLeft.Yes;
             tabControl1.RightToLeftLayout = true;
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1186, 459);
+            tabControl1.Size = new Size(1191, 468);
             tabControl1.TabIndex = 17;
             tabControl1.SelectedIndexChanged += TabControl1_SelectedIndexChanged;
             tabControl1.MouseClick += TabControl1_MouseClick;
@@ -113,7 +113,7 @@
             tabPage1.Location = new Point(4, 34);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(1178, 421);
+            tabPage1.Size = new Size(1183, 430);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "מוצרים בחנות";
             tabPage1.UseVisualStyleBackColor = true;
@@ -155,7 +155,7 @@
             itemToCustomer.RightToLeft = RightToLeft.Yes;
             itemToCustomer.RowHeadersWidth = 62;
             itemToCustomer.RowTemplate.Height = 33;
-            itemToCustomer.Size = new Size(900, 409);
+            itemToCustomer.Size = new Size(905, 418);
             itemToCustomer.TabIndex = 0;
             itemToCustomer.CellClick += ItemToCustomer_CellClick;
             itemToCustomer.CellContentClick += ItemToCustomer_CellContentClick;
@@ -406,7 +406,7 @@
             label3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label3.Location = new Point(942, 4);
+            label3.Location = new Point(947, 4);
             label3.Name = "label3";
             label3.RightToLeft = RightToLeft.Yes;
             label3.Size = new Size(217, 25);
@@ -421,7 +421,7 @@
             logoPic.InitialImage = null;
             logoPic.Location = new Point(431, -5);
             logoPic.Name = "logoPic";
-            logoPic.Size = new Size(360, 82);
+            logoPic.Size = new Size(365, 82);
             logoPic.SizeMode = PictureBoxSizeMode.Zoom;
             logoPic.TabIndex = 19;
             logoPic.TabStop = false;
@@ -431,7 +431,7 @@
             phoneNumber.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             phoneNumber.AutoSize = true;
             phoneNumber.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            phoneNumber.Location = new Point(1041, 34);
+            phoneNumber.Location = new Point(1046, 34);
             phoneNumber.Name = "phoneNumber";
             phoneNumber.RightToLeft = RightToLeft.Yes;
             phoneNumber.Size = new Size(118, 25);
@@ -443,7 +443,7 @@
             customerName.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             customerName.AutoSize = true;
             customerName.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            customerName.Location = new Point(1072, 59);
+            customerName.Location = new Point(1077, 59);
             customerName.Name = "customerName";
             customerName.RightToLeft = RightToLeft.Yes;
             customerName.Size = new Size(87, 25);
@@ -453,7 +453,7 @@
             // searchItem
             // 
             searchItem.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            searchItem.Location = new Point(795, 31);
+            searchItem.Location = new Point(800, 31);
             searchItem.Name = "searchItem";
             searchItem.RightToLeft = RightToLeft.Yes;
             searchItem.Size = new Size(141, 31);
@@ -465,7 +465,7 @@
             label1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(830, 4);
+            label1.Location = new Point(835, 4);
             label1.Name = "label1";
             label1.Size = new Size(106, 25);
             label1.TabIndex = 27;
@@ -548,7 +548,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1177, 578);
+            ClientSize = new Size(1182, 587);
             Controls.Add(updateU);
             Controls.Add(labelDate);
             Controls.Add(tab_PDF);
