@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Data;
 
 namespace carPro
 {
@@ -19,12 +11,22 @@ namespace carPro
         public string phoneNumber;
         private readonly MangerDb mangerD = new();
         private string stat;
+        /// <summary>
+        /// Handles the 'Click' event of the 'UpdateU' button, updating user information in the database.
+        /// </summary>
+        /// <param name="sender">The sender of the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void UpdateU_Click(object sender, EventArgs e)
         {
             CustomerClassDb db = new();
             if (db.UpdateUser(userName.Text.ToString(), EncPass.EncryptString(pass.Text), name.Text.ToString(), stat, phoneNumber, mail.Text) == true)
                 phoneNumber = userName.Text;
         }
+        /// <summary>
+        /// Handles the 'Load' event of the 'UpdateUser' form, populating the form with user information from the database.
+        /// </summary>
+        /// <param name="sender">The sender of the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void UpdateUser_Load(object sender, EventArgs e)
         {
 

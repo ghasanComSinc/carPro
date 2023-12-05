@@ -14,6 +14,10 @@ namespace carPro
         public PdfCustomer()
         {
         }
+        /// <summary>
+        /// Adds a centered line of text to a PDF table cell.
+        /// </summary>
+        /// <param name="line">The text to be added.</param>
         public void Add_Line_To_PDFTable_CENTER(string line)
         {
             Font font = new(BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED), 12);
@@ -28,6 +32,10 @@ namespace carPro
             saveTablePdf.AddCell(cell);
             document.Add(saveTablePdf);
         }
+        /// <summary>
+        /// Adds a right-aligned line of text to a PDF table cell.
+        /// </summary>
+        /// <param name="line">The text to be added.</param>
         public void Add_Line_To_PDFTable_RightSide(string line)
         {
             Font font = new(BaseFont.CreateFont(path, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED), 12);
@@ -42,6 +50,10 @@ namespace carPro
             saveTablePdf.AddCell(cell);
             document.Add(saveTablePdf);
         }
+        /// <summary>
+        /// Initializes the font and table settings for saving a PDF file.
+        /// </summary>
+        /// <param name="count">The number of columns in the PDF table.</param>
         public void SaveTableFont(int count)
         {
             tableFont = new Font(tableFont1, 12)
@@ -54,6 +66,14 @@ namespace carPro
                 RunDirection = iTextSharp.text.pdf.PdfWriter.RUN_DIRECTION_RTL
             };
         }
+        /// <summary>
+        /// Generates and saves a PDF file containing customer details, order information, and item details from a DataGridView.
+        /// </summary>
+        /// <param name="path">The path to save the PDF file.</param>
+        /// <param name="name">The customer's name.</param>
+        /// <param name="data">DataGridView containing order information.</param>
+        /// <param name="titleStr">Title for the PDF document.</param>
+        /// <param name="fileNum">Indicates the type of file to generate (0 for order, 1 for item).</param>
         public void SavePdfFile(string path, string name, DataGridView data, string titleStr, int fileNum)
         { 
             document = new iTextSharp.text.Document();

@@ -1,20 +1,14 @@
 ﻿using MailKit.Net.Smtp;
 using MimeKit;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace carPro
 {
     public partial class rePass : Form
     {
         int myRandomNo;
+        /// <summary>
+        /// Initializes the 'rePass' form, configuring the appearance of the tab control.
+        /// </summary>
         public rePass()
         {
             InitializeComponent();
@@ -22,12 +16,22 @@ namespace carPro
             tabControl1.ItemSize = new Size(0, 1);
             tabControl1.Appearance = TabAppearance.FlatButtons;
         }
+        /// <summary>
+        /// Handles the 'Load' event of the 'rePass' form, preparing the form by removing all tabs except 'sendRandCode'.
+        /// </summary>
+        /// <param name="sender">The sender of the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void RePass_Load(object sender, EventArgs e)
         {
             for (int i = 0; i < tabControl1.TabCount;)
                 tabControl1.TabPages.RemoveAt(i);
             tabControl1.TabPages.Add(sendRandCode);
         }
+        /// <summary>
+        /// Handles the 'Click' event of the 'SendCode' button, sending a verification code to the specified user's email.
+        /// </summary>
+        /// <param name="sender">The sender of the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void SendCode_Click(object sender, EventArgs e)
         {
             string number = userName.Text;
@@ -62,6 +66,12 @@ namespace carPro
             else
                 MessageBox.Show("משתמש לא קיים");
         }
+        /// <summary>
+        /// Handles the 'Click' event of the 'CheckCode' button, 
+        /// verifying the entered code and updating the form accordingly.
+        /// </summary>
+        /// <param name="sender">The sender of the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void CheckCode_Click(object sender, EventArgs e)
         {
             if (myRandomNo.ToString() == randPass.Text.ToString())
@@ -72,6 +82,11 @@ namespace carPro
             else
                 MessageBox.Show("קוד שגוי");
         }
+        /// <summary>
+        /// Handles the 'Click' event of the 'ChangePass' button, updating the user's password if the new passwords match.
+        /// </summary>
+        /// <param name="sender">The sender of the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void ChangePass_Click(object sender, EventArgs e)
         {
             string phoneNum = userName.Text;
