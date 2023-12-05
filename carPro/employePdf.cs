@@ -14,6 +14,10 @@ namespace carPro
         public EmployePdf()
         {
         }
+        /// <summary>
+        /// Fills the PdfPTable with header and cell data from the provided DataGridView.
+        /// </summary>
+        /// <param name="data">The DataGridView containing the data to be added to the PDF table.</param>
         private void FillFileDe(DataGridView data)
         {
             for (int j = 0; j < data.ColumnCount; j++)
@@ -30,6 +34,10 @@ namespace carPro
                 }
             }
         }
+        /// <summary>
+        /// Sets up the font and PdfPTable for the PDF document based on the specified column count.
+        /// </summary>
+        /// <param name="count">The number of columns in the PdfPTable.</param>
         private void SaveTableFont(int count)
         {
             tableFont = new Font(tableFont1, 12)
@@ -42,6 +50,11 @@ namespace carPro
                 RunDirection = iTextSharp.text.pdf.PdfWriter.RUN_DIRECTION_RTL
             };
         }
+        /// <summary>
+        /// Generates a PDF document containing details of all orders and saves it to the specified file path.
+        /// </summary>
+        /// <param name="filePath">The path where the PDF file will be saved.</param>
+        /// <param name="orders">The DataGridView containing the order details.</param>
         public void AddPdfSale(string filePath ,DataGridView orders)
         {
             doc = new iTextSharp.text.Document();
@@ -79,6 +92,11 @@ namespace carPro
             doc.Close();
             MessageBox.Show("הפעולה הסתימה בהצלחה");
         }
+        /// <summary>
+        /// Generates a PDF document containing details of items in a specific order and saves it to the specified file path.
+        /// </summary>
+        /// <param name="filePath">The path where the PDF file will be saved.</param>
+        /// <param name="itemsInOrder">The DataGridView containing the details of items in a specific order.</param>
         public void AddPdfItemInSale(string filePath, DataGridView itemsInOrder)
         {
             doc = new iTextSharp.text.Document();

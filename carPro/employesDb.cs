@@ -13,6 +13,12 @@ namespace carPro
             connection = new("server=localhost;user=root;database=carshop;password=");
             // connection = new("server=sql12.freesqldatabase.com;user=sql12650296;database=sql12650296;password=QadX7ERzXj");
         }
+        /// <summary>
+        /// Updates the amount of items in the 'items' table based on the provided DataGridView and index.
+        /// </summary>
+        /// <param name="itemsInOrder">The DataGridView containing the items details.</param>
+        /// <param name="i">The index of the item in the DataGridView.</param>
+        /// <returns>True if the update is successful, otherwise false.</returns>
         public bool UpdateItmes(DataGridView itemsInOrder, int i)
         {
             lock (connection)
@@ -38,6 +44,13 @@ namespace carPro
                 }
             }
         }
+        /// <summary>
+        /// Updates the status of an order in the 'orders' table based on the provided DataGridView, index, and status.
+        /// </summary>
+        /// <param name="itemsInOrder">The DataGridView containing the order details.</param>
+        /// <param name="i">The index of the order in the DataGridView.</param>
+        /// <param name="status">The new status for the order.</param>
+        /// <returns>True if the update is successful, otherwise false.</returns>
         public bool UpdateOrder(DataGridView itemsInOrder, int i,string status)
         {
             lock(connection)
@@ -63,6 +76,12 @@ namespace carPro
                 }
             }
         }
+        /// <summary>
+        /// Updates the 'status' column in the 'paytable' table based on the provided query and DataGridView.
+        /// </summary>
+        /// <param name="strFun">The SQL query to update the 'status' column in the 'paytable' table.</param>
+        /// <param name="itemsInOrder">The DataGridView containing the details for updating the 'paytable' table.</param>
+        /// <returns>True if the update is successful, otherwise false.</returns>
         public bool UpdatePayTable(string strFun, DataGridView itemsInOrder)
         {
             lock (connection)
@@ -86,6 +105,12 @@ namespace carPro
                 }
             }
         }
+        /// <summary>
+        /// Updates the 'amount' column in the 'orders' table based on the provided DataGridView and index.
+        /// </summary>
+        /// <param name="itemsInOrder">The DataGridView containing the details for updating the 'orders' table.</param>
+        /// <param name="i">The index of the item in the DataGridView.</param>
+        /// <returns>True if the update is successful, otherwise false.</returns>
         public bool UpdateItemsAmountInOr(DataGridView itemsInOrder,int i)
         {
             lock (connection) 
@@ -111,6 +136,12 @@ namespace carPro
                 }
             }
         }
+        /// <summary>
+        /// Updates the 'price' column in the 'paytable' table based on the provided DataGridView and pay value.
+        /// </summary>
+        /// <param name="itemsInOrder">The DataGridView containing the details for updating the 'paytable' table.</param>
+        /// <param name="pay">The total payment value.</param>
+        /// <returns>True if the update is successful, otherwise false.</returns>
         public bool UpdatePaytablePrice(DataGridView itemsInOrder,string pay)
         {
             try

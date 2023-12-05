@@ -1,5 +1,4 @@
-﻿using iText.Layout.Borders;
-using System.Data;
+﻿using System.Data;
 using Image = System.Drawing.Image;
 
 namespace carPro
@@ -10,6 +9,10 @@ namespace carPro
         DataTable dataTable;
         readonly CustomerClassDb customerFun;
         readonly EmployesDb employesDb;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Employee"/> class.
+        /// Represents the functionality and interface for an employee managing orders.
+        /// </summary>
         public Employee()
         {
             InitializeComponent();
@@ -19,6 +22,12 @@ namespace carPro
             customerFun = new();
             employesDb = new();
         }
+        /// <summary>
+        /// Handles the loading event of the Employee form.
+        /// Configures the initial state and loads data for the employee view.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void Employee_Load(object sender, EventArgs e)
         {
             orderI.Visible = false;
@@ -39,6 +48,12 @@ namespace carPro
             orders.Columns[2].HeaderText = "מצב";
             orders.Columns[3].Visible = false;
         }
+        /// <summary>
+        /// Handles the TextChanged event of the searchOr TextBox.
+        /// Filters orders based on the provided search criteria.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void SearchOr_TextChanged(object sender, EventArgs e)
         {
             DataView dataView = dataTable.DefaultView;
@@ -57,6 +72,10 @@ namespace carPro
             }
             orders.Refresh();
         }
+        /// <summary>
+        /// Calculates and updates the total amount to be paid for the items in the current order.
+        /// Applies background color coding based on item availability.
+        /// </summary>
         private void ToPay()
         {
             float sum = 0;
@@ -78,6 +97,10 @@ namespace carPro
             }
             pay.Text = "לתשלום :\r\n" + sum;
         }
+        /// <summary>
+        /// Fills the itemsInOrder DataGridView with details of the selected order.
+        /// </summary>
+        /// <param name="index">The index of the selected order in the orders DataGridView.</param>
         private void FillDetItem(int index)
         {
             dataTable = customerFun.ReturnSale("SELECT * FROM `orders` join `items` ON `orders`.`parCode` = `items`.`parCode`" +
@@ -115,6 +138,12 @@ namespace carPro
             phoneNum.Text = "מספר טלפון של לקוח " + " " + itemsInOrder.Rows[0].Cells[0].Value.ToString();
             orderI.Text = "מזה הזמנה" + " " + itemsInOrder.Rows[0].Cells[2].Value.ToString();
         }
+        /// <summary>
+        /// Handles the CellContentClick event of the Orders DataGridView.
+        /// Navigates to the detailed view of the selected order.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void Orders_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -127,6 +156,12 @@ namespace carPro
                 FillDetItem(e.RowIndex);
             }
         }
+        /// <summary>
+        /// Handles the Click event of the Label2 label.
+        /// Navigates back to the main view displaying all orders.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void Label2_Click(object sender, EventArgs e)
         {
             label2.Visible = false;
@@ -138,6 +173,12 @@ namespace carPro
             tabControl1.TabPages.Add(allOrder);
             Employee_Load(sender, e);
         }
+        /// <summary>
+        /// Handles the MouseMove event of the ItemsInOrder DataGridView.
+        /// Displays the image of the selected item when hovering over its cell.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void ItemsInOrder_MouseMove(object sender, MouseEventArgs e)
         {
             DataGridView.HitTestInfo hitTestInfo = itemsInOrder.HitTest(e.X, e.Y);
@@ -157,6 +198,10 @@ namespace carPro
                 picItems.Image = null;
             }
         }
+        /// <summary>
+        /// Updates the status of items in the order based on quantity and availability.
+        /// </summary>
+        /// <returns>True if the update is successful, false otherwise.</returns>
         private bool UpdateItems()
         {
             bool flag = false;
@@ -179,6 +224,12 @@ namespace carPro
             }
             return flag;
         }
+        /// <summary>
+        /// Handles the Click event of the PayBu button.
+        /// Updates the status of items and paytable based on the order's completion status.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void PayBu_Click(object sender, EventArgs e)
         {
             bool flag;
@@ -196,6 +247,12 @@ namespace carPro
                 this.Close(); return;
             }
         }
+        /// <summary>
+        /// Handles the Click event of the Button2 button.
+        /// Updates the quantity of items in the order and refreshes the order details view.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void Button2_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < itemsInOrder.Rows.Count; i++)
@@ -212,10 +269,22 @@ namespace carPro
 
             button2.Visible = false;
         }
+        /// <summary>
+        /// Handles the Click event of the SinC button.
+        /// Initiates the customer sign-in process and updates the employee view accordingly.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void Orders_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             //Orders_CellContentClick(sender, e);
         }
+        /// <summary>
+        /// Handles the Click event of the SinC button.
+        /// Initiates the customer sign-in process and updates the employee view accordingly.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void SinC_Click(object sender, EventArgs e)
         {
             CustomerSignIn cust = new()
@@ -234,6 +303,12 @@ namespace carPro
 
             Employee_Load(sender, e);
         }
+        /// <summary>
+        /// Handles the Click event of the PDF_Button_order button.
+        /// Saves a PDF file containing the details of all orders displayed in the DataGridView.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void PDF_Button_order_Click(object sender, EventArgs e)
         {
             saveFileFromEmploye.FileName = string.Empty;
@@ -244,6 +319,12 @@ namespace carPro
                 emPdf.AddPdfSale(saveFileFromEmploye.FileName, orders);
             }
         }
+        /// <summary>
+        /// Handles the Click event of the PDF_Button_all_orders button.
+        /// Saves a PDF file containing the details of all items in the order displayed in the DataGridView.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void PDF_Button_all_orders_Click(object sender, EventArgs e)
         {
             saveFileFromEmploye.FileName = string.Empty;

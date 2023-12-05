@@ -10,6 +10,11 @@ namespace carPro
     internal class EncPass
     {
         private static readonly string key = "b14ca5898a4e4133bbce2ea2315a1916";
+        /// <summary>
+        /// Encrypts a plain text string using the AES encryption algorithm.
+        /// </summary>
+        /// <param name="plainText">The plain text to be encrypted.</param>
+        /// <returns>The encrypted string in Base64 format.</returns>
         public static string EncryptString(string plainText)
         {
             byte[] iv = new byte[16];
@@ -38,6 +43,11 @@ namespace carPro
 
             return Convert.ToBase64String(array);
         }
+        /// <summary>
+        /// Decrypts an encrypted string using the AES decryption algorithm.
+        /// </summary>
+        /// <param name="cipherText">The encrypted string in Base64 format.</param>
+        /// <returns>The decrypted plain text.</returns>
         public static string DecryptString(string cipherText)
         {
             byte[] iv = new byte[16];
