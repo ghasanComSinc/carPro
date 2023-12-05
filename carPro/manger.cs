@@ -12,6 +12,11 @@ namespace carPro
         int index;
         private string oldPar, oldId;
         readonly MangerDb mangerDb;
+        /// <summary>
+        /// Constructor for the Manager form.
+        /// Initializes the components, sets up the appearance of the TabControl, 
+        /// and creates an instance of the Manager Database.
+        /// </summary>
         public Manger()
         {
             InitializeComponent();
@@ -20,12 +25,22 @@ namespace carPro
             ExPDF.Appearance = TabAppearance.FlatButtons;
             mangerDb = new();
         }
+        /// <summary>
+        /// Checks if a user with the provided phone number already exists in the database.
+        /// Filters the DataView based on the provided phone number and refreshes the DataGridView.
+        /// </summary>
         private void CheckUser()
         {
             DataView dataView = dataTable.DefaultView;
             dataView.RowFilter = $"phoneNumber = '{userName.Text}'";
             users.Refresh();
         }
+        /// <summary>
+        /// Handles the click event for the "Add User" button.
+        /// Checks if the user already exists, and if not, adds a new user with the provided information.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void AddU_Click(object sender, EventArgs e)
         {
             CheckUser();
@@ -71,6 +86,12 @@ namespace carPro
                 }
             }
         }
+        /// <summary>
+        /// Handles the event when the selected index of the TabControl changes.
+        /// Configures the appearance of the TabControl, updates the content based on the selected tab, and performs related actions.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void TabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             deleteItems.Visible = false;
@@ -138,11 +159,23 @@ namespace carPro
 
             }
         }
+        /// <summary>
+        /// Handles the form load event.
+        /// Initializes the appearance and content of the Manager form.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void Manger_Load(object sender, EventArgs e)
         {
             TabControl1_SelectedIndexChanged(sender, e);
             ExPDF.TabPages.Remove(ordersPDF);
         }
+        /// <summary>
+        /// Handles the cell content click event for the Users DataGridView.
+        /// Retrieves information about the selected user for further actions.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void Users_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -166,10 +199,22 @@ namespace carPro
                 index = e.RowIndex;
             }
         }
+        /// <summary>
+        /// Handles the cell click event for the Users DataGridView.
+        /// Calls the Users_CellContentClick method for further actions.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void Users_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             Users_CellContentClick(sender, e);
         }
+        /// <summary>
+        /// Handles the click event for the "Update User" button.
+        /// Updates the information of the selected user in the database.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void UpdateU_Click(object sender, EventArgs e)
         {
             string uName = name.Text;
@@ -208,6 +253,12 @@ namespace carPro
             deletU.Visible = false;
             updateU.Visible = false;
         }
+        /// <summary>
+        /// Handles the click event for the "Cancel" button.
+        /// Resets the form to its initial state, hiding update and delete buttons and showing the add button.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void Button1_Click_1(object sender, EventArgs e)
         {
             updateU.Visible = false;
@@ -221,6 +272,12 @@ namespace carPro
             mail.Text = "";
             TabControl1_SelectedIndexChanged(sender, e);
         }
+        /// <summary>
+        /// Handles the click event for the "Delete User" button.
+        /// Deletes the selected user from the database and updates the view.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void DeletU_Click(object sender, EventArgs e)
         {
             string userNa = userName.Text;
@@ -245,12 +302,21 @@ namespace carPro
             TabControl1_SelectedIndexChanged(sender, e);
             Button1_Click_1(sender, e);
         }
+        /// <summary>
+        /// Searches for items in the database based on the provided product code and filters the DataGridView accordingly.
+        /// </summary>
         private void SearchItems()
         {
             DataView dataView = dataTable.DefaultView;
             dataView.RowFilter = $"parCode = '{parCode.Text}'"; ;
             items.Refresh();
         }
+        /// <summary>
+        /// Handles the click event for the "Add Item" button.
+        /// Validates user input, adds a new item to the database, and updates the view.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void Add_item_Click(object sender, EventArgs e)
         {
             SearchItems();
@@ -352,6 +418,12 @@ namespace carPro
                 TabControl1_SelectedIndexChanged(sender, EventArgs.Empty);
             }
         }
+        /// <summary>
+        /// Handles the click event for the "Browse" button to select an image for the new item.
+        /// Opens a file dialog to choose an image file and displays the selected image.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void PicPath_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new()
@@ -364,6 +436,12 @@ namespace carPro
                 flagImg = true;
             }
         }
+        /// <summary>
+        /// Handles the TextChanged event for the search box.
+        /// Filters items in the DataGridView based on the selected search criteria.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void Search_box_TextChanged(object sender, EventArgs e)
         {
             DataView dataView = dataTable.DefaultView;
@@ -378,6 +456,12 @@ namespace carPro
             }
             items.Refresh();
         }
+        /// <summary>
+        /// Handles the MouseMove event for the items DataGridView.
+        /// Displays the image of the selected item when the mouse hovers over it.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void Items_MouseMove(object sender, MouseEventArgs e)
         {
             DataGridView.HitTestInfo hitTestInfo = items.HitTest(e.X, e.Y);
@@ -399,6 +483,12 @@ namespace carPro
                 pictureBox1.Image = null;
             }
         }
+        /// <summary>
+        /// Handles the CellContentClick event for the items DataGridView.
+        /// Displays details of the selected item and enables update and delete buttons.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void Items_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -426,6 +516,9 @@ namespace carPro
                 index = e.RowIndex;
             }
         }
+        /// <summary>
+        /// Clears the details of the items, resets the form to its initial state, and hides the update button.
+        /// </summary>
         private void ClearItmesDetla()
         {
             nameItem.Text = "";
@@ -441,6 +534,12 @@ namespace carPro
             comnet.Text = "";
             parCode.ReadOnly = false;
         }
+        /// <summary>
+        /// Handles the click event for the "Update Items" button.
+        /// Validates user input, updates the selected item in the database, and refreshes the view.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void UpdateItems_Click(object sender, EventArgs e)
         {
             bool priceFlagSale;
@@ -546,10 +645,22 @@ namespace carPro
                 MessageBox.Show("הוספת מוצר הצליחה");
             }
         }
+        /// <summary>
+        /// Handles the CellClick event for the items DataGridView.
+        /// Calls the corresponding CellContentClick method to display details of the selected item.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void Items_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             Items_CellContentClick(sender, e);
         }
+        /// <summary>
+        /// Handles the Click event for the "Customer Sign In" button.
+        /// Opens the CustomerSignIn form, hides the current form, and updates the phone number.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void SinC_Click(object sender, EventArgs e)
         {
             CustomerSignIn cust = new()
@@ -564,6 +675,12 @@ namespace carPro
             phone_number = cust.PhoneNum;
             Manger_Load(sender, e);
         }
+        /// <summary>
+        /// Handles the Click event for the "Employee Sign In" button.
+        /// Opens the Employee form, hides the current form, and updates the employee name.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void SinEm_Click(object sender, EventArgs e)
         {
             Employee employee = new()
@@ -578,6 +695,12 @@ namespace carPro
             phone_number = employee.employName;
             Manger_Load(sender, e);
         }
+        /// <summary>
+        /// Handles the SelectedItemChanged event for the StatusOrder ComboBox.
+        /// Updates the displayed orders based on the selected status.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void StatusOrder_SelectedItemChanged(object sender, EventArgs e)
         {
             string strFun;
@@ -608,6 +731,12 @@ namespace carPro
             orders.Columns[2].HeaderText = "מחיר";
             orders.Columns[3].HeaderText = "מצב";
         }
+        /// <summary>
+        /// Handles the CellContentClick event for the Orders DataGridView.
+        /// Displays detailed information about the selected order and switches to the orders details tab.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void Orders_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0)
@@ -639,6 +768,12 @@ namespace carPro
         }
         //1=ספרת מלי
         //0=משתמשים,הזמנות
+        /// <summary>
+        /// Saves a DataGridView as a PDF file using the MangerPdf class.
+        /// </summary>
+        /// <param name="data">DataGridView to be saved.</param>
+        /// <param name="titleStr">Title for the PDF file.</param>
+        /// <param name="fileNum">File number for naming purposes.</param>
         private void SavePdfFile(DataGridView data, string titleStr, int fileNum)
         {
             saveFileFromManger.FileName = string.Empty;
@@ -649,18 +784,42 @@ namespace carPro
                 mangerPd.AddFilePdf(saveFileFromManger.FileName, titleStr, fileNum, data);
             }
         }
+        /// <summary>
+        /// Handles the Click event for the "Export PDF" button associated with the items DataGridView.
+        /// Calls the SavePdfFile method to save the items DataGridView as a PDF report.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void Button3_Click(object sender, EventArgs e)
         {
             SavePdfFile(items, "דוח ספרת מלי ", 1);
         }
+        /// <summary>
+        /// Handles the Click event for the "Export PDF" button associated with the order details DataGridView.
+        /// Calls the MangerPdf class to export the order details as a PDF file.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void ExPDFOr_Click(object sender, EventArgs e)
         {
             SavePdfFile(orders, "דוח של הזמנות", 0);
         }
+        /// <summary>
+        /// Handles the Click event for the "Export PDF" button associated with the users DataGridView.
+        /// Calls the SavePdfFile method to save the users DataGridView as a PDF report.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void PDFUser_Click(object sender, EventArgs e)
         {
             SavePdfFile(users, "דוח של משתמשים", 0);
         }
+        /// <summary>
+        /// Handles the Click event for the "Export PDF" button associated with the order details DataGridView.
+        /// Calls the MangerPdf class to export the order details as a PDF file.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void ExPDFDeOr_Click(object sender, EventArgs e)
         {
             saveFileFromManger.FileName = string.Empty;
@@ -671,6 +830,12 @@ namespace carPro
                 mangerPd.AddPdfDeOr(saveFileFromManger.FileName, orderD);
             }
         }
+        /// <summary>
+        /// Handles the Click event for the "Delete Items" button.
+        /// Deletes the selected item and updates the UI accordingly.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void DeleteItems_Click(object sender, EventArgs e)
         {
             if (mangerDb.DelItems(items.Rows[index].Cells[9].Value.ToString(), items.Rows[index].Cells[3].Value.ToString()) == false)
@@ -679,6 +844,12 @@ namespace carPro
             Button1_Click_1(sender, e);
             ClearItmesDetla();
         }
+        /// <summary>
+        /// Handles the Click event for the "Backup Database" button.
+        /// Creates a backup of the MySQL database and saves it as an SQL file.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void BackUp_Click(object sender, EventArgs e)
         {
             string constring = "server=localhost;user=root;database=carshop;password=";
@@ -702,6 +873,12 @@ namespace carPro
                 MessageBox.Show("הוצאת גיבוי הצליחה");
             }
         }
+        /// <summary>
+        /// Handles the Click event for the "Restore Database" button.
+        /// Restores the MySQL database from a previously created backup SQL file.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void RestoreDataBase_Click(object sender, EventArgs e)
         {
             string constring = "server=localhost;user=root;database=carshop;password=";

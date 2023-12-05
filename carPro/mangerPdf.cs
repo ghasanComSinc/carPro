@@ -14,6 +14,10 @@ namespace carPro
         public MangerPdf()
         {
         }
+        /// <summary>
+        /// Initializes the font and table for saving PDF with the specified column count.
+        /// </summary>
+        /// <param name="count">Number of columns in the PDF table.</param>
         private void SaveTableFont(int count)
         {
             tableFont = new Font(tableFont1, 12)
@@ -26,6 +30,13 @@ namespace carPro
                 RunDirection = iTextSharp.text.pdf.PdfWriter.RUN_DIRECTION_RTL
             };
         }
+        /// <summary>
+        /// Adds data from a DataGridView to a PDF file with the specified title and file number.
+        /// </summary>
+        /// <param name="path1">Path to save the PDF file.</param>
+        /// <param name="titleStr">Title of the PDF document.</param>
+        /// <param name="fileNum">File number to determine the structure of the PDF.</param>
+        /// <param name="data">DataGridView containing the data to be added to the PDF.</param>
         public void AddFilePdf(string path1,string titleStr,int fileNum,DataGridView data)
         {
             doc = new iTextSharp.text.Document();
@@ -115,6 +126,11 @@ namespace carPro
             doc.Close();
             MessageBox.Show("הפעולה הסתימה בהצלחה");
         }
+        /// <summary>
+        /// Adds detailed order information from a DataGridView to a PDF file.
+        /// </summary>
+        /// <param name="path1">Path to save the PDF file.</param>
+        /// <param name="orderD">DataGridView containing detailed order information.</param>
         public void AddPdfDeOr(string path1,DataGridView orderD)
         {
             doc = new iTextSharp.text.Document();

@@ -12,6 +12,12 @@ namespace carPro
             connection = new("server=localhost;user=root;database=carshop;password=");
             // connection = new("server=sql12.freesqldatabase.com;user=sql12650296;database=sql12650296;password=QadX7ERzXj");
         }
+        /// <summary>
+        /// Validates user credentials and retrieves the user's status upon successful login.
+        /// </summary>
+        /// <param name="userName">The phone number of the user attempting to log in.</param>
+        /// <param name="pass">The password entered by the user.</param>
+        /// <returns>The status of the user if the login is successful; otherwise, an empty string.</returns>
         public string LogIn(string userName, string pass)
         {
             lock (connection)
@@ -41,6 +47,14 @@ namespace carPro
 
 
         }
+        /// <summary>
+        /// Registers a new user with the provided information.
+        /// </summary>
+        /// <param name="phone">The phone number of the new user.</param>
+        /// <param name="pass">The password chosen by the new user.</param>
+        /// <param name="name">The name of the new user.</param>
+        /// <param name="mail">The email address of the new user.</param>
+        /// <returns>True if the registration is successful; otherwise, false.</returns>
         public bool SignUp(string phone, string pass, string name,string mail)
         {
             lock (connection)
@@ -72,6 +86,12 @@ namespace carPro
                 }
             }
         }
+        /// <summary>
+        /// Sends a verification code to the provided email associated with the given phone number.
+        /// </summary>
+        /// <param name="phone">The phone number of the user.</param>
+        /// <param name="mail">The email address to receive the verification code.</param>
+        /// <returns>True if the verification code can be sent; otherwise, false.</returns>
         public bool SendCode(string phone ,string mail)
         {
             lock (connection)
@@ -95,6 +115,12 @@ namespace carPro
 
             }
         }
+        /// <summary>
+        /// Updates the password for the user with the provided phone number.
+        /// </summary>
+        /// <param name="phone">The phone number of the user.</param>
+        /// <param name="pass">The new password to be set for the user.</param>
+        /// <returns>True if the password is successfully updated; otherwise, false.</returns>
         public bool UpdatePass(string phone, string pass)
         {
             lock (connection)
