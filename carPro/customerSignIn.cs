@@ -14,6 +14,9 @@ namespace carPro
         string parcod;
         int rowIndex;
         readonly CustomerClassDb custDb;
+        /// <summary>
+        /// Initializes the CustomerSignIn form and sets up the DataGridView for displaying sale information.
+        /// </summary>
         public CustomerSignIn()
         {
             InitializeComponent();
@@ -30,6 +33,9 @@ namespace carPro
             tab_PDF.Appearance = TabAppearance.FlatButtons;
             custDb = new();
         }
+        /// <summary>
+        /// Highlights rows in the 'itemToCustomer' DataGridView where the quantity is zero by setting their background color to red.
+        /// </summary>
         private void EmtpyItems()
         {
             for (int i = 0; i < itemToCustomer.Rows.Count; i++)
@@ -40,6 +46,12 @@ namespace carPro
                 }
             }
         }
+        /// <summary>
+        /// Event handler for the 'Load' event of the CustomerSignIn form.
+        /// Initializes and populates the form with customer information based on the provided phone number.
+        /// </summary>
+        /// <param name="sender">The object that triggered the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void CustomerSignIn_Load(object sender, EventArgs e)
         {
             phoneNumber.Text = "מספר טלפון :" + PhoneNum;
@@ -52,6 +64,9 @@ namespace carPro
             else
                 this.Close();
         }
+        /// <summary>
+        /// Hides specific controls related to sale items on the form.
+        /// </summary>
         private void HideItem()
         {
             saleItem.Visible = false;
@@ -60,6 +75,12 @@ namespace carPro
             plus.Visible = false;
             minus.Visible = false;
         }
+        /// <summary>
+        /// Event handler for the 'MouseMove' event of the 'ItemToCustomer' DataGridView.
+        /// Displays additional information, including an image and comments, for the hovered item.
+        /// </summary>
+        /// <param name="sender">The object that triggered the event.</param>
+        /// <param name="e">The MouseEventArgs containing information about the mouse event.</param>
         private void ItemToCustomer_MouseMove(object sender, MouseEventArgs e)
         {
             DataGridView.HitTestInfo hitTestInfo = itemToCustomer.HitTest(e.X, e.Y);
@@ -86,6 +107,12 @@ namespace carPro
                 itemsCom.Visible = false;
             }
         }
+        /// <summary>
+        /// Event handler for the 'CellContentClick' event of the 'ItemToCustomer' DataGridView.
+        /// Displays sale-related controls and information when a cell is clicked.
+        /// </summary>
+        /// <param name="sender">The object that triggered the event.</param>
+        /// <param name="e">The DataGridViewCellEventArgs containing information about the cell click event.</param>
         private void ItemToCustomer_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -106,16 +133,34 @@ namespace carPro
                 HideItem();
             }
         }
+        /// <summary>
+        /// Event handler for the 'Click' event of the 'plus' button.
+        /// Increments the sale quantity if the input is valid.
+        /// </summary>
+        /// <param name="sender">The object that triggered the event.</param>
+        /// <param name="e">The EventArgs containing information about the event.</param>
         private void Plus_Click(object sender, EventArgs e)
         {
             if (amountSale.Text != "" && Regex.IsMatch(amountSale.Text, @"^\d+$") && amount >= int.Parse(amountSale.Text))
                 amountSale.Text = (int.Parse(amountSale.Text) + 1) + "";
         }
+        /// <summary>
+        /// Event handler for the 'Click' event of the 'minus' button.
+        /// Decrements the sale quantity if the input is valid.
+        /// </summary>
+        /// <param name="sender">The object that triggered the event.</param>
+        /// <param name="e">The EventArgs containing information about the event.</param>
         private void Minus_Click(object sender, EventArgs e)
         {
             if (amountSale.Text != "" && Regex.IsMatch(amountSale.Text, @"^\d+$") && int.Parse(amountSale.Text) > 0)
                 amountSale.Text = (int.Parse(amountSale.Text) - 1) + "";
         }
+        /// <summary>
+        /// Event handler for the 'TextChanged' event of the 'amountSale' TextBox.
+        /// Validates and handles changes to the sale quantity input.
+        /// </summary>
+        /// <param name="sender">The object that triggered the event.</param>
+        /// <param name="e">The EventArgs containing information about the event.</param>
         private void AmountSale_TextChanged(object sender, EventArgs e)
         {
             if (amountSale.Text != "" && Regex.IsMatch(amountSale.Text, @"^\d+$") && int.Parse(amountSale.Text) > amount)
@@ -128,6 +173,12 @@ namespace carPro
                 amountSale.Text = "0";
             }
         }
+        /// <summary>
+        /// Checks for duplicate items with the same barcode in the 'forSale' DataGridView.
+        /// </summary>
+        /// <returns>
+        /// The index of the duplicate item in the 'forSale' DataGridView if found; otherwise, returns -1.
+        /// </returns>
         private int ChechDoplicatItems()
         {
             for (int i = 0; i < forSale.Rows.Count; i++)
@@ -139,6 +190,11 @@ namespace carPro
             }
             return -1;
         }
+        /// <summary>
+        /// Handles the click event of the 'Sale' button, adding or updating items in the 'forSale' DataGridView.
+        /// </summary>
+        /// <param name="sender">The sender object.</param>
+        /// <param name="e">The event arguments.</param>
         private void Sale_Click(object sender, EventArgs e)
         {
             int rowOld = ChechDoplicatItems();
@@ -204,10 +260,20 @@ namespace carPro
             }
 
         }
+        /// <summary>
+        /// Handles the mouse click event of the 'TabControl1', hiding additional item details.
+        /// </summary>
+        /// <param name="sender">The sender object.</param>
+        /// <param name="e">The event arguments.</param>
         private void TabControl1_MouseClick(object sender, MouseEventArgs e)
         {
             HideItem();
         }
+        /// <summary>
+        /// Handles the mouse move event of the 'ForSale' DataGridView, displaying additional item details.
+        /// </summary>
+        /// <param name="sender">The sender object.</param>
+        /// <param name="e">The event arguments.</param>
         private void ForSale_MouseMove(object sender, MouseEventArgs e)
         {
             DataGridView.HitTestInfo hitTestInfo = forSale.HitTest(e.X, e.Y);
@@ -228,6 +294,11 @@ namespace carPro
                 saleItmesIm.Image = null;
             }
         }
+        /// <summary>
+        /// Handles the cell content click event of the 'ForSale' DataGridView, displaying item details for selection.
+        /// </summary>
+        /// <param name="sender">The sender object.</param>
+        /// <param name="e">The event arguments.</param>
         private void ForSale_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -248,6 +319,11 @@ namespace carPro
                 HideItem();
             }
         }
+        /// <summary>
+        /// Handles the click event of the 'SaveSale' button, saving the current sale to the database.
+        /// </summary>
+        /// <param name="sender">The sender object.</param>
+        /// <param name="e">The event arguments.</param>
         private void SaveSale_Click(object sender, EventArgs e)
         {
             if (forSale.Rows.Count > 0)
@@ -275,18 +351,40 @@ namespace carPro
                 MessageBox.Show("הזמנה ריקה");
             }
         }
+        /// <summary>
+        /// Handles the cell click event of the 'ItemToCustomer' DataGridView,
+        /// triggering the 'ItemToCustomer_CellContentClick' function.
+        /// </summary>
+        /// <param name="sender">The sender object.</param>
+        /// <param name="e">The event arguments.</param>
         private void ItemToCustomer_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             ItemToCustomer_CellContentClick(sender, e);
         }
+        /// <summary>
+        /// Handles the cell click event of the 'ForSale' DataGridView, triggering the 'ForSale_CellContentClick' function.
+        /// </summary>
+        /// <param name="sender">The sender object.</param>
+        /// <param name="e">The event arguments.</param>
         private void ForSale_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             ForSale_CellContentClick(sender, e);
         }
+        /// <summary>
+        /// Handles the cell click event of the 'DataGridView1', triggering the 'DataGridView1_CellContentClick' function.
+        /// </summary>
+        /// <param name="sender">The sender object.</param>
+        /// <param name="e">The event arguments.</param>
         private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView1_CellContentClick(sender, e);
         }
+        /// <summary>
+        /// Handles the cell content click event of the 'DataGridView1', 
+        /// displaying order details in the 'orderDe' DataGridView.
+        /// </summary>
+        /// <param name="sender">The sender object.</param>
+        /// <param name="e">The event arguments.</param>
         private void DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -334,6 +432,11 @@ namespace carPro
                 labelDate.Visible = true;
             }
         }
+        /// <summary>
+        /// Handles the text changed event of the 'SearchItem' TextBox, filtering items based on the entered text.
+        /// </summary>
+        /// <param name="sender">The sender object.</param>
+        /// <param name="e">The event arguments.</param>
         private void SearchItem_TextChanged(object sender, EventArgs e)
         {
             DataView dataView = dataTable.DefaultView;
@@ -343,7 +446,7 @@ namespace carPro
             }
             else
             {
-                dataTable = custDb.ReturnItem();
+                dataTable = custDb.ReturnSale(" SELECT * FROM `items` WHERE `available`=\"פעיל\"   ORDER BY BINARY `typeCar` ASC;");
                 if (dataTable == null)
                 {
                     this.Close(); return;
@@ -354,6 +457,12 @@ namespace carPro
             }
             itemToCustomer.Refresh();
         }
+        /// <summary>
+        /// Handles the event when the selected index of 'tabControl1' changes.
+        /// Performs different actions based on the selected tab.
+        /// </summary>
+        /// <param name="sender">The sender object.</param>
+        /// <param name="e">The event arguments.</param>
         private void TabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             for (int i = 0; i < tab_PDF.TabCount;)
@@ -362,7 +471,7 @@ namespace carPro
             labelDate.Visible = false;
             if (tabControl1.SelectedIndex == 0)
             {
-                dataTable = custDb.ReturnItem();
+                dataTable = custDb.ReturnSale(" SELECT * FROM `items` WHERE `available`=\"פעיל\"   ORDER BY BINARY `typeCar` ASC;");
                 if (dataTable == null)
                 {
                     this.Close(); return;
@@ -384,7 +493,7 @@ namespace carPro
             else if (tabControl1.SelectedIndex == 2)
             {
                 tab_PDF.TabPages.Add(tabPage4);
-                dataTable = custDb.ReturnAllSaleForCus("SELECT * FROM `payTable` WHERE `phoneNumber` = " + PhoneNum);
+                dataTable = custDb.ReturnSale("SELECT * FROM `payTable` WHERE `phoneNumber` = " + PhoneNum);
                 if (dataTable == null)
                 {
                     this.Close(); return;
@@ -405,6 +514,11 @@ namespace carPro
             }
 
         }
+        /// <summary>
+        /// Handles the click event of the 'PDF_Button_order' button, allowing the user to save a PDF file of their order.
+        /// </summary>
+        /// <param name="sender">The sender object.</param>
+        /// <param name="e">The event arguments.</param>
         private void PDF_Button_order_Click(object sender, EventArgs e)
         {
             saveFileforCustumr.FileName = string.Empty;
@@ -416,6 +530,12 @@ namespace carPro
 
             }
         }
+        /// <summary>
+        /// Handles the click event of the 'PDF_Button_all_orders' button, 
+        /// allowing the user to save a PDF file of all their orders.
+        /// </summary>
+        /// <param name="sender">The sender object.</param>
+        /// <param name="e">The event arguments.</param>
         private void PDF_Button_all_orders_Click(object sender, EventArgs e)
         {
             saveFileforCustumr.FileName = string.Empty;
@@ -426,7 +546,11 @@ namespace carPro
                 pdfC.SavePdfFile(saveFileforCustumr.FileName, name, orderDe, "מספר מזהה של הזמנה: " + orderDe.Rows[0].Cells[2].Value.ToString(), 1);
             }
         }
-
+        /// <summary>
+        /// Handles the click event of the 'UpdateU' button, allowing the user to update their profile information.
+        /// </summary>
+        /// <param name="sender">The sender object.</param>
+        /// <param name="e">The event arguments.</param>
         private void UpdateU_Click(object sender, EventArgs e)
         {
             UpdateUser update = new()

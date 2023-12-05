@@ -26,7 +26,7 @@ namespace carPro
             employeName.Text = "ברוך הבאה עובד יקר ";
             tabControl1.TabPages.Remove(tabPage2);
             tab_PDF.SelectedIndex = 0;
-            dataTable = customerFun.ReturnAllSaleForCus("SELECT * FROM `paytable` WHERE `status`=\"בטיפול\""); 
+            dataTable = customerFun.ReturnSale("SELECT * FROM `paytable` WHERE `status`=\"בטיפול\""); 
             // Fill the DataTable with the query results
             if (dataTable == null)
             {

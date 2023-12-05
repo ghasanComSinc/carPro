@@ -155,7 +155,7 @@
             itemToCustomer.RightToLeft = RightToLeft.Yes;
             itemToCustomer.RowHeadersWidth = 62;
             itemToCustomer.RowTemplate.Height = 33;
-            itemToCustomer.Size = new Size(905, 418);
+            itemToCustomer.Size = new Size(897, 408);
             itemToCustomer.TabIndex = 0;
             itemToCustomer.CellClick += ItemToCustomer_CellClick;
             itemToCustomer.CellContentClick += ItemToCustomer_CellContentClick;
@@ -179,7 +179,7 @@
             tabPage2.Location = new Point(4, 34);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(1178, 421);
+            tabPage2.Size = new Size(1183, 430);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "הזמנה";
             tabPage2.UseVisualStyleBackColor = true;
@@ -250,7 +250,7 @@
             tabPage3.Location = new Point(4, 34);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(3);
-            tabPage3.Size = new Size(1178, 421);
+            tabPage3.Size = new Size(1183, 430);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "דף הזמנות";
             tabPage3.UseVisualStyleBackColor = true;
@@ -289,7 +289,7 @@
             itmesDe.Location = new Point(4, 34);
             itmesDe.Name = "itmesDe";
             itmesDe.Padding = new Padding(3);
-            itmesDe.Size = new Size(1178, 421);
+            itmesDe.Size = new Size(1183, 430);
             itmesDe.TabIndex = 3;
             itmesDe.Text = "פרוט הזמנה";
             itmesDe.UseVisualStyleBackColor = true;
